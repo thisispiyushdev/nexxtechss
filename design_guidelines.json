@@ -1,0 +1,117 @@
+{
+  "theme": "light",
+  "archetype": "4",
+  "archetype_name": "Swiss & High-Contrast",
+  "design_philosophy": "Clean, minimal, professional UI with authoritative high-contrast typography and vibrant yellow-green primary accents. Avoid default SaaS aesthetics. Use soft shadows, generous spacing, and crystal glassmorphism for floating elements. Mobile-first responsive with smooth hover animations.",
+  "colors": {
+    "background": "#FFFFFF",
+    "surface": "#F9FAFB",
+    "surface_glass": "rgba(255, 255, 255, 0.8)",
+    "primary": "#84CC16",
+    "primary_hover": "#65A30D",
+    "primary_foreground": "#000000",
+    "secondary": "#0A0A0A",
+    "secondary_foreground": "#FFFFFF",
+    "accent": "#F4FCE3",
+    "text_main": "#111827",
+    "text_muted": "#4B5563",
+    "border": "#E5E7EB",
+    "error": "#EF4444",
+    "success": "#22C55E"
+  },
+  "typography": {
+    "heading_font": "Cabinet Grotesk, sans-serif",
+    "body_font": "Inter, sans-serif",
+    "rules": {
+      "h1": "text-5xl md:text-6xl+ tracking-tighter font-black text-text_main",
+      "h2": "text-4xl md:text-5xl tracking-tight font-bold text-text_main",
+      "h3": "text-2xl md:text-3xl font-semibold text-text_main",
+      "h4": "text-lg md:text-xl font-medium text-text_main",
+      "body": "text-base text-text_muted leading-relaxed",
+      "label": "text-xs tracking-[0.2em] uppercase font-bold text-text_muted"
+    }
+  },
+  "layout_spacing": {
+    "section_padding": "py-24 md:py-32",
+    "container": "max-w-7xl mx-auto px-6 md:px-12",
+    "gap_standard": "gap-8 md:gap-12"
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-primary_foreground rounded-full px-8 py-4 font-semibold hover:bg-primary_hover transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0",
+      "secondary": "bg-secondary text-secondary_foreground rounded-full px-8 py-4 font-semibold hover:bg-black transition-all duration-300"
+    },
+    "cards": {
+      "base": "bg-white border border-border rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300",
+      "glass": "backdrop-blur-xl bg-surface_glass border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.04)] rounded-2xl"
+    },
+    "inputs": {
+      "base": "w-full rounded-xl border border-border bg-white px-4 py-3 text-text_main focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+    }
+  },
+  "media": {
+    "logo_url": "https://customer-assets.emergentagent.com/job_ab4221a1-3608-4b7f-b0aa-0404360cb0fa/artifacts/ubbdtkvw_logo%202.png",
+    "hero_image": "https://images.unsplash.com/photo-1759884248009-92c5e957708e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwyfHxzdHVkZW50JTIwY29kaW5nJTIwbGFwdG9wfGVufDB8fHx8MTc3NjQwNTI1Mnww&ixlib=rb-4.1.0&q=85",
+    "projects": [
+      {
+        "url": "https://images.unsplash.com/photo-1529429612779-c8e40ef2f36d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHw0fHxzdHVkZW50JTIwY29kaW5nJTIwbGFwdG9wfGVufDB8fHx8MTc3NjQwNTI1Mnww&ixlib=rb-4.1.0&q=85",
+        "alt": "C++ code on screen"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1753613648137-602c669cbe07?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50JTIwY29kaW5nJTIwbGFwdG9wfGVufDB8fHx8MTc3NjQwNTI1Mnww&ixlib=rb-4.1.0&q=85",
+        "alt": "Data analysis dashboard"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1652696290920-ee4c836c711e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxwcm9ncmFtbWluZyUyMGxhcHRvcHxlbnwwfHx8fDE3NzY0MDUyNjV8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Programming setup"
+      }
+    ],
+    "testimonials": [
+      "https://images.unsplash.com/photo-1762522927402-f390672558d8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdCUyMHNtaWxpbmd8ZW58MHx8fHwxNzc2NDA1MjcyfDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1651684215020-f7a5b6610f23?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdCUyMHNtaWxpbmd8ZW58MHx8fHwxNzc2NDA1MjcyfDA&ixlib=rb-4.1.0&q=85",
+      "https://images.pexels.com/photos/12311567/pexels-photo-12311567.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    ]
+  },
+  "sections": {
+    "header": {
+      "design": "Sticky navigation header. Use crystal glassmorphism (`backdrop-blur-xl bg-white/80 border-b border-black/5`). Include a very thin top bar for email/phone with black background and white text. Main nav contains Logo, Links (Home, Courses, Training, Placement, Blog, Career Guidance, Contact) and a solid Enquire Now CTA.",
+      "behavior": "Sticky on scroll with z-50. Nav links have primary color on hover."
+    },
+    "hero": {
+      "design": "High impact storytelling. Left side: Massive text 'Build Your Future in Tech with Industry-Focused Courses'. Use the primary green for 'Tech' or highlight it. Right side: Floating bento-style arrangement of the hero_image and small stats cards (e.g. '100% Placement').",
+      "elements": "Primary CTA 'Explore Courses', Secondary CTA 'Download Syllabus' (outline style)."
+    },
+    "courses_grid": {
+      "design": "Grid layout for 10 courses. Use standard bento grid rules. Each card contains a lucide-react icon (size 32, primary color), course title (H4), short description, and an arrow link.",
+      "courses_list": ["Full Stack Web Dev", "Data Science & AI", "Cloud Computing", "UI/UX Design", "Cybersecurity", "Mobile App Dev", "Digital Marketing", "Software Testing", "DevOps Engineering", "Blockchain Dev"]
+    },
+    "popular_courses": {
+      "design": "Horizontal scroll or 4-column grid of 8 cards. Each card must feature a badge for Level (e.g. 'Beginner', 'Advanced') and Duration (e.g. '6 Months'). Use soft shadows and hover lift.",
+      "courses_list": ["MERN Stack Masterclass", "Python for AI", "AWS Cloud Architect", "React Native Pro", "Ethical Hacking", "Figma UI Master", "Data Analytics Bootcamp", "Java Spring Boot"]
+    },
+    "why_choose_us": {
+      "design": "5 features with icons. Minimalist, clean approach. Center-aligned section heading. Grid of 5 items, one large spanning two columns (Tetris bento mode). Icons should have a soft primary-color background circle (`bg-accent text-primary`).",
+      "features": ["Expert Industry Faculty", "Hands-on Live Projects", "100% Placement Assistance", "Flexible Batch Timings", "Modern AI-Driven Curriculum"]
+    },
+    "student_projects": {
+      "design": "Gallery showcasing student work. Use the `projects` media URLs in a masonry or 3-col grid layout. On hover, show project title overlay (`bg-secondary/80 text-white`)."
+    },
+    "placement_success": {
+      "design": "Testimonials slider or grid using the `testimonials` media URLs. Use soft bordered cards. Include a bold quote, student name, and a mock company name (e.g., 'Placed at Microsoft')."
+    },
+    "enquiry_form": {
+      "design": "Cardless or soft-rounded card layout. Form on left, contact info/map on right. Use customized Shadcn Form components. Primary colored submit button."
+    },
+    "footer": {
+      "design": "Dark footer (`bg-secondary text-white`) for maximum contrast ending. Contains address, contact, social links, and quick links. Large logo or 'NEXXTECHS' text watermark."
+    },
+    "floating_action": {
+      "design": "Fixed WhatsApp/Call button at bottom-right. Circular, primary green background, white icon. Include a subtle pulse animation (`animate-pulse` or custom ping)."
+    }
+  },
+  "technical_rules": {
+    "icons": "Use lucide-react for all icons (Phone, Mail, MapPin, CheckCircle, Monitor, Code, etc).",
+    "animations": "Framer motion for scroll reveals. Standard CSS transitions for hover states.",
+    "testing": "All interactive elements (links, buttons, form inputs) must have a `data-testid` attribute (e.g., `data-testid='hero-cta'`)."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "nexxtech",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Root package for running frontend and backend simultaneously",
+  "scripts": {
+    "postinstall": "npm --prefix frontend install --legacy-peer-deps",
+    "start": "npx -y concurrently \"npm --prefix frontend start\" \"npm --prefix backend run dev\"",
+    "dev": "npm start",
+    "build": "npm --prefix frontend run build && node -e \"const fs=require('fs'); if(fs.existsSync('frontend/build')) { if(fs.existsSync('dist')) fs.rmSync('dist', {recursive:true, force:true}); fs.renameSync('frontend/build', 'dist'); }\""
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.103.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.4.1",
+    "helmet": "^8.1.0",
+    "hpp": "^0.2.3",
+    "zod": "^4.3.6"
+  }
+}

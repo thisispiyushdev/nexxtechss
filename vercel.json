@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://www.nexxtechs.com/$1",
+      "statusCode": 301,
+      "has": [
+        {
+          "type": "host",
+          "value": "nexxtechs.com"
+        }
+      ]
+    }
+  ],
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "build" }
+    },
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "src": "^/api/(.*)", "dest": "/api/index.js" },
+    { "src": "^/(?!frontend/|api/)(.*)", "dest": "/frontend/$1", "continue": true },
+    { "handle": "filesystem" },
+    { "src": "^/.*", "dest": "/frontend/index_fallback.html" },
+    { "handle": "filesystem" }
+  ]
+}
