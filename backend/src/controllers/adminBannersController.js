@@ -5,9 +5,12 @@ import db from "../config/db.js";
 // @access  Private (Core Admin)
 export const getBanners = async (req, res) => {
   try {
-    const { rows: data } = await db.query(
-      "SELECT * FROM promotional_banners ORDER BY created_at DESC"
-    );
+    const { data, error } = await db
+      .from('promotional_banners')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
 
     res.status(200).json({ success: true, count: data.length, data });
   } catch (error) {
@@ -28,11 +31,12 @@ export const createBanner = async (req, res) => {
       return res.status(400).json({ success: false, message: "Title and text are required" });
     }
 
-    const { rows: data } = await db.query(
-      `INSERT INTO promotional_banners (title, text, link_url, link_text, bg_color, text_color, start_date, end_date, is_active)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
-      [title, text, link_url, link_text, bg_color, text_color, start_date, end_date, is_active]
-    );
+    const { data, error } = await db
+      .from('promotional_banners')
+      .insert([{ title, text, link_url, link_text, bg_color, text_color, start_date, end_date, is_active }])
+      .select();
+
+    if (error) throw error;
 
     res.status(201).json({ success: true, data: data[0] });
   } catch (error) {
@@ -49,12 +53,13 @@ export const updateBanner = async (req, res) => {
     const { id } = req.params;
     const { title, text, link_url, link_text, bg_color, text_color, start_date, end_date, is_active } = req.body;
 
-    const { rows: data } = await db.query(
-      `UPDATE promotional_banners 
-       SET title = $1, text = $2, link_url = $3, link_text = $4, bg_color = $5, text_color = $6, start_date = $7, end_date = $8, is_active = $9, updated_at = NOW()
-       WHERE id = $10 RETURNING *`,
-      [title, text, link_url, link_text, bg_color, text_color, start_date, end_date, is_active, id]
-    );
+    const { data, error } = await db
+      .from('promotional_banners')
+      .update({ title, text, link_url, link_text, bg_color, text_color, start_date, end_date, is_active, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select();
+
+    if (error) throw error;
 
     if (data.length === 0) {
       return res.status(404).json({ success: false, message: "Banner not found" });
@@ -74,10 +79,13 @@ export const deleteBanner = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { rows: data } = await db.query(
-      "DELETE FROM promotional_banners WHERE id = $1 RETURNING *",
-      [id]
-    );
+    const { data, error } = await db
+      .from('promotional_banners')
+      .delete()
+      .eq('id', id)
+      .select();
+
+    if (error) throw error;
 
     if (data.length === 0) {
       return res.status(404).json({ success: false, message: "Banner not found" });

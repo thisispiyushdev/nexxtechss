@@ -8,9 +8,8 @@ import db from "../config/db.js";
 // --- Reviews ---
 export const getPublicReviews = async (req, res, next) => {
   try {
-    const { rows: data } = await db.query(
-      "SELECT * FROM reviews WHERE is_active = true ORDER BY sort_order ASC"
-    );
+    const { data, error } = await db.from('reviews').select('*').eq('is_active', true).order('sort_order', { ascending: true });
+    if (error) throw error;
 
     res.status(200).json(data);
   } catch (err) {
@@ -21,9 +20,8 @@ export const getPublicReviews = async (req, res, next) => {
 // --- Placement Stats ---
 export const getPublicStats = async (req, res, next) => {
   try {
-    const { rows: data } = await db.query(
-      "SELECT * FROM placement_stats ORDER BY sort_order ASC"
-    );
+    const { data, error } = await db.from('placement_stats').select('*').order('sort_order', { ascending: true });
+    if (error) throw error;
 
     res.status(200).json(data);
   } catch (err) {
@@ -34,9 +32,8 @@ export const getPublicStats = async (req, res, next) => {
 // --- Blogs ---
 export const getPublicBlogs = async (req, res, next) => {
   try {
-    const { rows: data } = await db.query(
-      "SELECT id, title, excerpt, author, date, category, read_time, image, created_at FROM blogs WHERE is_active = true ORDER BY created_at DESC"
-    );
+    const { data, error } = await db.from('blogs').select('id, title, excerpt, author, date, category, read_time, image, created_at').eq('is_active', true).order('created_at', { ascending: false });
+    if (error) throw error;
 
     res.status(200).json(data);
   } catch (err) {
@@ -48,12 +45,10 @@ export const getPublicBlogById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const { rows: data } = await db.query(
-      "SELECT * FROM blogs WHERE id = $1 AND is_active = true LIMIT 1",
-      [id]
-    );
+    const { data, error } = await db.from('blogs').select('*').eq('id', id).eq('is_active', true).limit(1);
+    if (error) throw error;
 
-    if (data.length === 0) {
+    if (!data || data.length === 0) {
       return res.status(404).json({ error: "Blog post not found." });
     }
     
@@ -66,9 +61,8 @@ export const getPublicBlogById = async (req, res, next) => {
 // --- Courses ---
 export const getPublicCourses = async (req, res, next) => {
   try {
-    const { rows: data } = await db.query(
-      "SELECT * FROM courses WHERE is_active = true ORDER BY sort_order ASC"
-    );
+    const { data, error } = await db.from('courses').select('*').eq('is_active', true).order('sort_order', { ascending: true });
+    if (error) throw error;
 
     res.status(200).json(data);
   } catch (err) {
@@ -80,12 +74,10 @@ export const getPublicCourseBySlug = async (req, res, next) => {
   try {
     const { slug } = req.params;
 
-    const { rows: data } = await db.query(
-      "SELECT * FROM courses WHERE slug = $1 AND is_active = true LIMIT 1",
-      [slug]
-    );
+    const { data, error } = await db.from('courses').select('*').eq('slug', slug).eq('is_active', true).limit(1);
+    if (error) throw error;
 
-    if (data.length === 0) {
+    if (!data || data.length === 0) {
       return res.status(404).json({ error: "Course not found." });
     }
     
@@ -98,16 +90,19 @@ export const getPublicCourseBySlug = async (req, res, next) => {
 // --- Promotional Banners ---
 export const getActiveBanner = async (req, res, next) => {
   try {
-    const { rows: data } = await db.query(
-      `SELECT * FROM promotional_banners 
-       WHERE is_active = true 
-       AND (start_date IS NULL OR start_date <= NOW()) 
-       AND (end_date IS NULL OR end_date >= NOW()) 
-       ORDER BY created_at DESC LIMIT 1`
-    );
+    const { data, error } = await db
+      .from('promotional_banners')
+      .select('*')
+      .eq('is_active', true)
+      .or('start_date.is.null,start_date.lte.now()')
+      .or('end_date.is.null,end_date.gte.now()')
+      .order('created_at', { ascending: false })
+      .limit(1);
+
+    if (error) throw error;
 
     // Return the first active banner or null if none exist
-    res.status(200).json(data.length > 0 ? data[0] : null);
+    res.status(200).json(data && data.length > 0 ? data[0] : null);
   } catch (err) {
     next(err);
   }

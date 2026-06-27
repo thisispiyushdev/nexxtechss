@@ -9,16 +9,16 @@ export const getAllLeads = async (req, res, next) => {
   try {
     // Fetch from all three tables in parallel
     const [enquiriesRes, brochureRes, roadmapRes] = await Promise.all([
-      db.query("SELECT * FROM enquiries ORDER BY created_at DESC").catch(e => ({ error: e, rows: [] })),
-      db.query("SELECT * FROM brochure_leads ORDER BY created_at DESC").catch(e => ({ error: e, rows: [] })),
-      db.query("SELECT * FROM roadmap_leads ORDER BY created_at DESC").catch(e => ({ error: e, rows: [] })),
+      db.from("enquiries").select("*").order("created_at", { ascending: false }),
+      db.from("brochure_leads").select("*").order("created_at", { ascending: false }),
+      db.from("roadmap_leads").select("*").order("created_at", { ascending: false }),
     ]);
 
     const leads = [];
 
     // Merge enquiries
-    if (!enquiriesRes.error && enquiriesRes.rows) {
-      enquiriesRes.rows.forEach((item) => {
+    if (!enquiriesRes.error && enquiriesRes.data) {
+      enquiriesRes.data.forEach((item) => {
         leads.push({
           ...item,
           source: "Enquiry",
@@ -30,8 +30,8 @@ export const getAllLeads = async (req, res, next) => {
     }
 
     // Merge brochure leads
-    if (!brochureRes.error && brochureRes.rows) {
-      brochureRes.rows.forEach((item) => {
+    if (!brochureRes.error && brochureRes.data) {
+      brochureRes.data.forEach((item) => {
         leads.push({
           ...item,
           source: "Brochure Download",
@@ -42,8 +42,8 @@ export const getAllLeads = async (req, res, next) => {
     }
 
     // Merge roadmap leads
-    if (!roadmapRes.error && roadmapRes.rows) {
-      roadmapRes.rows.forEach((item) => {
+    if (!roadmapRes.error && roadmapRes.data) {
+      roadmapRes.data.forEach((item) => {
         leads.push({
           ...item,
           source: "Roadmap Enquiry",
@@ -87,10 +87,11 @@ export const deleteLead = async (req, res, next) => {
       return res.status(400).json({ error: "Invalid table name." });
     }
 
-    const { rowCount } = await db.query(`DELETE FROM ${table} WHERE id = $1`, [id]);
+    const { error } = await db.from(table).delete().eq('id', id);
 
-    if (rowCount === 0) {
-      return res.status(404).json({ error: "Lead not found." });
+    if (error) {
+      console.error(`Delete lead error (${req.params.table}):`, error);
+      return res.status(500).json({ error: "Failed to delete lead." });
     }
 
     res.status(200).json({ message: "Lead deleted successfully." });

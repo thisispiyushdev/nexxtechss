@@ -35,9 +35,12 @@ const courseSchema = z.object({
 
 export const getCourses = async (req, res, next) => {
   try {
-    const { rows: data } = await db.query(
-      "SELECT * FROM courses ORDER BY sort_order ASC"
-    );
+    const { data, error } = await db
+      .from('courses')
+      .select('*')
+      .order('sort_order', { ascending: true });
+
+    if (error) throw error;
 
     res.status(200).json(data);
   } catch (err) {
@@ -49,25 +52,31 @@ export const createCourse = async (req, res, next) => {
   try {
     const validated = courseSchema.parse(req.body);
 
-    const { rows: data } = await db.query(
-      `INSERT INTO courses (slug, title, tagline, image, duration, level, overview, is_popular, is_trending, is_active, batch_timings, highlights, trending_tools, modules, brochure_url, sort_order, updated_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, NOW()) RETURNING *`,
-      [
-        validated.slug, validated.title, validated.tagline, validated.image,
-        validated.duration, validated.level, validated.overview, validated.is_popular,
-        validated.is_trending, validated.is_active, JSON.stringify(validated.batch_timings),
-        JSON.stringify(validated.highlights), JSON.stringify(validated.trending_tools),
-        JSON.stringify(validated.modules), validated.brochure_url, validated.sort_order
-      ]
-    );
+    const { data, error } = await db
+      .from('courses')
+      .insert([{
+        slug: validated.slug, title: validated.title, tagline: validated.tagline, 
+        image: validated.image, duration: validated.duration, level: validated.level, 
+        overview: validated.overview, is_popular: validated.is_popular,
+        is_trending: validated.is_trending, is_active: validated.is_active, 
+        batch_timings: validated.batch_timings, highlights: validated.highlights, 
+        trending_tools: validated.trending_tools, modules: validated.modules, 
+        brochure_url: validated.brochure_url, sort_order: validated.sort_order, 
+        updated_at: new Date().toISOString()
+      }])
+      .select();
+
+    if (error) {
+      if (error.code === "23505" || error.code === "23503") {
+        return res.status(409).json({ error: "A course with this slug already exists." });
+      }
+      throw error;
+    }
 
     res.status(201).json({ message: "Course created successfully.", data });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ errors: err.errors });
-    }
-    if (err.code === "23505") {
-      return res.status(409).json({ error: "A course with this slug already exists." });
     }
     next(err);
   }
@@ -78,30 +87,19 @@ export const updateCourse = async (req, res, next) => {
     const { slug } = req.params;
     const validated = courseSchema.partial().parse(req.body);
 
-    const fields = [];
-    const values = [];
-    let queryIndex = 1;
-
-    for (const key of Object.keys(validated)) {
-      fields.push(`${key} = $${queryIndex}`);
-      let val = validated[key];
-      // Array/Object data must be stringified for PostgreSQL JSONB columns typically
-      if (Array.isArray(val) || typeof val === 'object') {
-        val = JSON.stringify(val);
-      }
-      values.push(val);
-      queryIndex++;
-    }
-
-    if (fields.length === 0) {
+    if (Object.keys(validated).length === 0) {
       return res.status(400).json({ error: "No fields to update." });
     }
 
-    fields.push(`updated_at = NOW()`);
-    values.push(slug);
+    validated.updated_at = new Date().toISOString();
 
-    const query = `UPDATE courses SET ${fields.join(", ")} WHERE slug = $${queryIndex} RETURNING *`;
-    const { rows: data } = await db.query(query, values);
+    const { data, error } = await db
+      .from('courses')
+      .update(validated)
+      .eq('slug', slug)
+      .select();
+
+    if (error) throw error;
 
     if (!data || data.length === 0) {
       return res.status(404).json({ error: "Course not found." });
@@ -119,9 +117,15 @@ export const deleteCourse = async (req, res, next) => {
   try {
     const { slug } = req.params;
 
-    const { rowCount } = await db.query("DELETE FROM courses WHERE slug = $1", [slug]);
+    const { data, error } = await db
+      .from('courses')
+      .delete()
+      .eq('slug', slug)
+      .select();
 
-    if (rowCount === 0) {
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
       return res.status(404).json({ error: "Course not found." });
     }
     res.status(200).json({ message: "Course deleted successfully." });

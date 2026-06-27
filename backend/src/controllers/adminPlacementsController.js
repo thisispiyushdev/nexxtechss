@@ -25,7 +25,8 @@ const reviewSchema = z.object({
 
 export const getReviews = async (req, res, next) => {
   try {
-    const { rows: data } = await db.query("SELECT * FROM reviews ORDER BY sort_order ASC");
+    const { data, error } = await db.from('reviews').select('*').order('sort_order', { ascending: true });
+    if (error) throw error;
     res.status(200).json(data);
   } catch (err) {
     next(err);
@@ -36,11 +37,16 @@ export const createReview = async (req, res, next) => {
   try {
     const validated = reviewSchema.parse(req.body);
 
-    const { rows: data } = await db.query(
-      `INSERT INTO reviews (name, role, company, image, text, is_active, sort_order)
-       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-      [validated.name, validated.role, validated.company, validated.image, validated.text, validated.is_active, validated.sort_order]
-    );
+    const { data, error } = await db
+      .from('reviews')
+      .insert([{
+        name: validated.name, role: validated.role, company: validated.company,
+        image: validated.image, text: validated.text, is_active: validated.is_active,
+        sort_order: validated.sort_order
+      }])
+      .select();
+
+    if (error) throw error;
 
     res.status(201).json({ message: "Review created successfully.", data });
   } catch (err) {
@@ -57,24 +63,17 @@ export const updateReview = async (req, res, next) => {
     const { id } = req.params;
     const validated = reviewSchema.partial().parse(req.body);
 
-    const fields = [];
-    const values = [];
-    let queryIndex = 1;
-
-    for (const key of Object.keys(validated)) {
-      fields.push(`${key} = $${queryIndex}`);
-      values.push(validated[key]);
-      queryIndex++;
-    }
-
-    if (fields.length === 0) {
+    if (Object.keys(validated).length === 0) {
       return res.status(400).json({ error: "No fields to update." });
     }
 
-    values.push(id);
-    const query = `UPDATE reviews SET ${fields.join(", ")} WHERE id = $${queryIndex} RETURNING *`;
-    
-    const { rows: data } = await db.query(query, values);
+    const { data, error } = await db
+      .from('reviews')
+      .update(validated)
+      .eq('id', id)
+      .select();
+
+    if (error) throw error;
 
     if (!data || data.length === 0) {
       return res.status(404).json({ error: "Review not found." });
@@ -93,9 +92,11 @@ export const deleteReview = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const { rowCount } = await db.query("DELETE FROM reviews WHERE id = $1", [id]);
+    const { data, error } = await db.from('reviews').delete().eq('id', id).select();
 
-    if (rowCount === 0) {
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
       return res.status(404).json({ error: "Review not found." });
     }
     res.status(200).json({ message: "Review deleted successfully." });
@@ -117,7 +118,8 @@ const statSchema = z.object({
 
 export const getStats = async (req, res, next) => {
   try {
-    const { rows: data } = await db.query("SELECT * FROM placement_stats ORDER BY sort_order ASC");
+    const { data, error } = await db.from('placement_stats').select('*').order('sort_order', { ascending: true });
+    if (error) throw error;
     res.status(200).json(data);
   } catch (err) {
     next(err);
@@ -128,11 +130,15 @@ export const createStat = async (req, res, next) => {
   try {
     const validated = statSchema.parse(req.body);
 
-    const { rows: data } = await db.query(
-      `INSERT INTO placement_stats (label, value, suffix, icon, sort_order)
-       VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-      [validated.label, validated.value, validated.suffix, validated.icon, validated.sort_order]
-    );
+    const { data, error } = await db
+      .from('placement_stats')
+      .insert([{
+        label: validated.label, value: validated.value, suffix: validated.suffix,
+        icon: validated.icon, sort_order: validated.sort_order
+      }])
+      .select();
+
+    if (error) throw error;
 
     res.status(201).json({ message: "Stat created successfully.", data });
   } catch (err) {
@@ -148,24 +154,17 @@ export const updateStat = async (req, res, next) => {
     const { id } = req.params;
     const validated = statSchema.partial().parse(req.body);
 
-    const fields = [];
-    const values = [];
-    let queryIndex = 1;
-
-    for (const key of Object.keys(validated)) {
-      fields.push(`${key} = $${queryIndex}`);
-      values.push(validated[key]);
-      queryIndex++;
-    }
-
-    if (fields.length === 0) {
+    if (Object.keys(validated).length === 0) {
       return res.status(400).json({ error: "No fields to update." });
     }
 
-    values.push(id);
-    const query = `UPDATE placement_stats SET ${fields.join(", ")} WHERE id = $${queryIndex} RETURNING *`;
-    
-    const { rows: data } = await db.query(query, values);
+    const { data, error } = await db
+      .from('placement_stats')
+      .update(validated)
+      .eq('id', id)
+      .select();
+
+    if (error) throw error;
 
     if (!data || data.length === 0) {
       return res.status(404).json({ error: "Stat not found." });
@@ -183,9 +182,11 @@ export const deleteStat = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const { rowCount } = await db.query("DELETE FROM placement_stats WHERE id = $1", [id]);
+    const { data, error } = await db.from('placement_stats').delete().eq('id', id).select();
 
-    if (rowCount === 0) {
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
       return res.status(404).json({ error: "Stat not found." });
     }
     res.status(200).json({ message: "Stat deleted successfully." });

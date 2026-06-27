@@ -7,10 +7,8 @@ import db from "../config/db.js";
  */
 export const getAdminUsers = async (req, res) => {
   try {
-    const { rows: data } = await db.query(
-      "SELECT id, username, role, display_name, is_active, created_at FROM admins ORDER BY created_at ASC"
-    );
-
+    const { data, error } = await db.from('admins').select('id, username, role, display_name, is_active, created_at').order('created_at', { ascending: true });
+    if (error) throw error;
     res.json(data || []);
   } catch (err) {
     console.error("Error fetching admin users:", err);
@@ -45,10 +43,13 @@ export const createAdminUser = async (req, res) => {
     }
 
     // Check if username already exists in DB
-    const { rows: existingRows } = await db.query(
-      "SELECT id FROM admins WHERE username = $1 LIMIT 1",
-      [username]
-    );
+    const { data: existingRows, error: existingError } = await db
+      .from('admins')
+      .select('id')
+      .eq('username', username)
+      .limit(1);
+
+    if (existingError) throw existingError;
 
     if (existingRows.length > 0) {
       return res.status(409).json({ error: "Username already exists." });
@@ -56,11 +57,14 @@ export const createAdminUser = async (req, res) => {
 
     const password_hash = await bcrypt.hash(password, 12);
 
-    const { rows: data } = await db.query(
-      `INSERT INTO admins (username, password_hash, role, display_name, is_active)
-       VALUES ($1, $2, $3, $4, $5) RETURNING id, username, role, display_name, is_active, created_at`,
-      [username, password_hash, role, display_name || username, true]
-    );
+    const { data, error } = await db
+      .from('admins')
+      .insert([{
+        username, password_hash, role, display_name: display_name || username, is_active: true
+      }])
+      .select('id, username, role, display_name, is_active, created_at');
+
+    if (error) throw error;
 
     res.status(201).json(data[0]);
   } catch (err) {
@@ -105,31 +109,29 @@ export const updateAdminUser = async (req, res) => {
       if (updates.username === process.env.ADMIN_USERNAME) {
         return res.status(409).json({ error: "This username is reserved." });
       }
-      const { rows: existingRows } = await db.query(
-        "SELECT id FROM admins WHERE username = $1 AND id != $2 LIMIT 1",
-        [updates.username, id]
-      );
+      const { data: existingRows, error: existingError } = await db
+        .from('admins')
+        .select('id')
+        .eq('username', updates.username)
+        .neq('id', id)
+        .limit(1);
+        
+      if (existingError) throw existingError;
+
       if (existingRows.length > 0) {
         return res.status(409).json({ error: "Username already exists." });
       }
     }
 
-    const fields = [];
-    const values = [];
-    let queryIndex = 1;
-
-    for (const key of Object.keys(updates)) {
-      fields.push(`${key} = $${queryIndex}`);
-      values.push(updates[key]);
-      queryIndex++;
-    }
-
-    values.push(id);
-    const query = `UPDATE admins SET ${fields.join(", ")} WHERE id = $${queryIndex} RETURNING id, username, role, display_name, is_active, created_at`;
+    const { data, error } = await db
+      .from('admins')
+      .update(updates)
+      .eq('id', id)
+      .select('id, username, role, display_name, is_active, created_at');
     
-    const { rows: data } = await db.query(query, values);
+    if (error) throw error;
 
-    if (data.length === 0) return res.status(404).json({ error: "Admin user not found." });
+    if (!data || data.length === 0) return res.status(404).json({ error: "Admin user not found." });
     res.json(data[0]);
   } catch (err) {
     console.error("Error updating admin user:", err);
@@ -150,9 +152,11 @@ export const deleteAdminUser = async (req, res) => {
       return res.status(403).json({ error: "You cannot delete your own account." });
     }
 
-    const { rowCount } = await db.query("DELETE FROM admins WHERE id = $1", [id]);
+    const { data, error } = await db.from('admins').delete().eq('id', id).select();
 
-    if (rowCount === 0) {
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
        return res.status(404).json({ error: "Admin user not found." });
     }
     res.json({ message: "Admin user deleted." });

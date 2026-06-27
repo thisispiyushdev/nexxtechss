@@ -11,18 +11,21 @@ export const createEnquiry = async (req, res, next) => {
   try {
     const validatedData = enquirySchema.parse(req.body);
 
-    const { rows: data } = await db.query(
-      `INSERT INTO enquiries (name, phone, course_interested)
-       VALUES ($1, $2, $3) RETURNING *`,
-      [validatedData.name, validatedData.phone, validatedData.course_interested]
-    );
+    const { data, error } = await db
+      .from('enquiries')
+      .insert([{
+        name: validatedData.name, phone: validatedData.phone, course_interested: validatedData.course_interested
+      }])
+      .select();
+
+    if (error) throw error;
 
     res.status(201).json({ message: "Enquiry stored successfully", data });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ errors: err.errors });
     }
-    console.error("Postgres insert error (Enquiry):", err);
+    console.error("Supabase insert error (Enquiry):", err);
     res.status(500).json({ 
       error: "Failed to store enquiry in database.",
       details: err.message,
@@ -33,7 +36,9 @@ export const createEnquiry = async (req, res, next) => {
 
 export const getEnquiries = async (req, res, next) => {
   try {
-    const { rows: data } = await db.query("SELECT * FROM enquiries ORDER BY created_at DESC");
+    const { data, error } = await db.from('enquiries').select('*').order('created_at', { ascending: false });
+
+    if (error) throw error;
 
     res.status(200).json(data);
   } catch (err) {

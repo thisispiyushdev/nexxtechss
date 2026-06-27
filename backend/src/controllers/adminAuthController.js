@@ -58,11 +58,15 @@ export const adminLogin = async (req, res) => {
     }
 
     // ---- 2. Check database admins ----
-    const { rows } = await db.query(
-      "SELECT * FROM admins WHERE username = $1 AND is_active = true",
-      [username]
-    );
-    const dbAdmin = rows[0];
+    const { data: rows, error } = await db
+      .from('admins')
+      .select('*')
+      .eq('username', username)
+      .eq('is_active', true);
+      
+    if (error) throw error;
+    
+    const dbAdmin = rows && rows.length > 0 ? rows[0] : null;
 
     if (!dbAdmin) {
       return res.status(401).json({ error: "Invalid credentials." });

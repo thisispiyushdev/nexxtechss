@@ -30,9 +30,12 @@ const blogSchema = z.object({
 
 export const getBlogs = async (req, res, next) => {
   try {
-    const { rows: data } = await db.query(
-      "SELECT * FROM blogs ORDER BY created_at DESC"
-    );
+    const { data, error } = await db
+      .from('blogs')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
 
     res.status(200).json(data);
   } catch (err) {
@@ -44,23 +47,27 @@ export const createBlog = async (req, res, next) => {
   try {
     const validated = blogSchema.parse(req.body);
 
-    const { rows: data } = await db.query(
-      `INSERT INTO blogs (id, title, excerpt, author, date, category, read_time, image, content, is_active, updated_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, NOW()) RETURNING *`,
-      [
-        validated.id, validated.title, validated.excerpt, validated.author, 
-        validated.date, validated.category, validated.read_time, 
-        validated.image, validated.content, validated.is_active
-      ]
-    );
+    const { data, error } = await db
+      .from('blogs')
+      .insert([{
+        id: validated.id, title: validated.title, excerpt: validated.excerpt, 
+        author: validated.author, date: validated.date, category: validated.category, 
+        read_time: validated.read_time, image: validated.image, content: validated.content, 
+        is_active: validated.is_active, updated_at: new Date().toISOString()
+      }])
+      .select();
+
+    if (error) {
+      if (error.code === "23505" || error.code === "23503") {
+        return res.status(409).json({ error: "A blog with this ID already exists." });
+      }
+      throw error;
+    }
 
     res.status(201).json({ message: "Blog created successfully.", data });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ errors: err.errors });
-    }
-    if (err.code === "23505") {
-      return res.status(409).json({ error: "A blog with this ID already exists." });
     }
     next(err);
   }
@@ -71,26 +78,19 @@ export const updateBlog = async (req, res, next) => {
     const { id } = req.params;
     const validated = blogSchema.partial().parse(req.body);
 
-    // Dynamic update query building
-    const fields = [];
-    const values = [];
-    let queryIndex = 1;
-
-    for (const key of Object.keys(validated)) {
-      fields.push(`${key} = $${queryIndex}`);
-      values.push(validated[key]);
-      queryIndex++;
-    }
-
-    if (fields.length === 0) {
+    if (Object.keys(validated).length === 0) {
       return res.status(400).json({ error: "No fields to update." });
     }
 
-    fields.push(`updated_at = NOW()`);
-    values.push(id);
+    validated.updated_at = new Date().toISOString();
 
-    const query = `UPDATE blogs SET ${fields.join(", ")} WHERE id = $${queryIndex} RETURNING *`;
-    const { rows: data } = await db.query(query, values);
+    const { data, error } = await db
+      .from('blogs')
+      .update(validated)
+      .eq('id', id)
+      .select();
+
+    if (error) throw error;
 
     if (!data || data.length === 0) {
       return res.status(404).json({ error: "Blog not found." });
@@ -108,9 +108,15 @@ export const deleteBlog = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const { rowCount } = await db.query("DELETE FROM blogs WHERE id = $1", [id]);
+    const { data, error } = await db
+      .from('blogs')
+      .delete()
+      .eq('id', id)
+      .select();
 
-    if (rowCount === 0) {
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
       return res.status(404).json({ error: "Blog not found." });
     }
     res.status(200).json({ message: "Blog deleted successfully." });

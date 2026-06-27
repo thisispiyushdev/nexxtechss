@@ -13,31 +13,41 @@ export const createRoadmapLead = async (req, res, next) => {
 
     let queryResult;
     try {
-      queryResult = await db.query(
-        `INSERT INTO roadmap_leads (name, phone, course_interested)
-         VALUES ($1, $2, $3) RETURNING *`,
-        [validatedData.name, validatedData.phone, validatedData.course_interested]
-      );
-    } catch (err) {
-      // If the roadmap_leads table does not exist (PostgreSQL error code 42P01), fallback to enquiries table
-      if (err.code === '42P01') {
-        console.warn("Table 'roadmap_leads' missing. Falling back to 'enquiries' table.");
-        queryResult = await db.query(
-          `INSERT INTO enquiries (name, phone, course_interested)
-           VALUES ($1, $2, $3) RETURNING *`,
-          [validatedData.name, validatedData.phone, `[ROADMAP] ${validatedData.course_interested}`]
-        );
+      const { data, error } = await db
+        .from('roadmap_leads')
+        .insert([{
+          name: validatedData.name, phone: validatedData.phone, course_interested: validatedData.course_interested
+        }])
+        .select();
+
+      if (error) {
+        if (error.code === '42P01') {
+          console.warn("Table 'roadmap_leads' missing. Falling back to 'enquiries' table.");
+          const { data: fallbackData, error: fallbackError } = await db
+            .from('enquiries')
+            .insert([{
+              name: validatedData.name, phone: validatedData.phone, course_interested: `[ROADMAP] ${validatedData.course_interested}`
+            }])
+            .select();
+          
+          if (fallbackError) throw fallbackError;
+          queryResult = fallbackData;
+        } else {
+          throw error;
+        }
       } else {
-        throw err;
+        queryResult = data;
       }
+    } catch (err) {
+      throw err;
     }
 
-    res.status(201).json({ message: "Roadmap lead stored successfully", data: queryResult.rows });
+    res.status(201).json({ message: "Roadmap lead stored successfully", data: queryResult });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ errors: err.errors });
     }
-    console.error("Postgres insert error (Roadmap Lead):", err);
+    console.error("Supabase insert error (Roadmap Lead):", err);
     res.status(500).json({ 
       error: "Failed to store roadmap lead in database.",
       details: err.message,

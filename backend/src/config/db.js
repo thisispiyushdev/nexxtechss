@@ -1,23 +1,19 @@
-import pg from 'pg';
+import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const { Pool } = pg;
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
-
-pool.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err);
-  process.exit(-1);
-});
-
-if (process.env.DATABASE_URL) {
-  console.log('✅ PostgreSQL connected');
-} else {
-  console.error('❌ CRITICAL: DATABASE_URL is missing from Environment Variables!');
+if (!supabaseUrl || !supabaseKey) {
+  console.error('❌ CRITICAL: SUPABASE_URL or SUPABASE_KEY is missing from Environment Variables!');
 }
 
-export default pool;
+const supabase = createClient(supabaseUrl || '', supabaseKey || '');
+
+if (supabaseUrl) {
+  console.log('✅ Supabase client initialized');
+}
+
+export default supabase;
