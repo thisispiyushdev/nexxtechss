@@ -188,7 +188,14 @@ export default function BlogPost() {
 
               {/* Featured Image */}
               <div className="rounded-[32px] overflow-hidden mb-12 border border-gray-100 dark:border-white/5 shadow-2xl shadow-[#84CC16]/5">
-                <ResponsiveImage src={blog.image} alt={`${blog.title} - NexxTechs IT Training Blog`} className="w-full h-auto object-cover max-h-[300px] md:max-h-[500px]" />
+                <ResponsiveImage 
+                  src={blog.image} 
+                  alt={`${blog.title} - NexxTechs IT Training Blog`} 
+                  className="w-full h-auto object-cover max-h-[300px] md:max-h-[500px]" 
+                  width={1200}
+                  height={630}
+                  priority={true}
+                />
               </div>
 
               {/* Table of Contents */}

@@ -111,7 +111,7 @@ export default function BlogPage() {
             </div>
           ) : filteredBlogs.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full min-w-0">
-              {filteredBlogs.map((blog) => (
+              {filteredBlogs.map((blog, i) => (
                 <Link 
                   key={blog.id} 
                   to={`/blog/${blog.id}/`}
@@ -123,7 +123,11 @@ export default function BlogPage() {
                       src={blog.image} 
                       alt={`${blog.title} - NexxTechs IT Training Blog Delhi`} 
                       className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700"
-                      loading="lazy"
+                      loading={i < 4 ? "eager" : "lazy"}
+                      fetchPriority={i < 4 ? "high" : "auto"}
+                      width="800"
+                      height="450"
+                      decoding="async"
                     />
                     {/* Author on Image */}
                     <div className="absolute bottom-4 left-4 flex items-center gap-2">

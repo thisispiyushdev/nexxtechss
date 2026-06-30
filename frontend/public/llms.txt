@@ -1,0 +1,18 @@
+# NexxTechs IT Training
+
+> Best IT Training Institute in Vikaspuri, Delhi. We provide job-oriented courses on DevOps, AI, Data Science, Cyber Security, and more.
+
+## Pages
+
+- [Home](/)
+- [Courses](/courses/)
+- [Blog](/blog/)
+- [Placement](/placement/)
+- [Roadmap](/roadmap/)
+- [Contact](/contact/)
+
+## Contact Info
+
+- Email: info@nexxtechs.com
+- Phone: +91 92171 79762
+- Address: B-54 Krishna Park, Vikaspuri, New Delhi
