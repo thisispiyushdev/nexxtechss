@@ -47,17 +47,19 @@ export default function VideoTestimonials() {
                     className="absolute top-0 left-0 w-full h-full cursor-pointer flex items-end justify-center pb-8 lg:pb-12 overflow-hidden"
                     onClick={() => handlePlay(video.id)}
                   >
-                    {/* Thumbnail Image */}
+                    <div className="absolute inset-0 bg-black/10 transition-colors duration-300">
                     <img
-                      src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
-                      onError={(e) => { e.target.src = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`; }}
+                      src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
                       alt={video.title}
-                      className="absolute top-0 left-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500 group-hover:scale-105"
+                      loading="lazy"
+                      className="absolute top-0 left-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                      onError={(e) => { e.target.src = `https://img.youtube.com/vi/${video.id}/mqdefault.jpg`; }}
                     />
-                    
-                    {/* Custom Play Button at the bottom */}
-                    <div className="relative z-10 w-12 h-12 lg:w-16 lg:h-16 bg-[#84CC16] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(132,204,22,0.4)] group-hover:scale-110 group-hover:bg-[#65A30D] transition-all duration-300">
-                      <Play className="w-5 h-5 lg:w-6 lg:h-6 text-white ml-1" fill="currentColor" />
+                    <div className="absolute inset-0 flex items-end justify-center pb-8 lg:pb-12 pointer-events-none">
+                      <div className="relative z-10 w-12 h-12 lg:w-16 lg:h-16 bg-[#84CC16] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(132,204,22,0.4)] group-hover:scale-110 group-hover:bg-[#65A30D] transition-all duration-300">
+                        <Play className="w-5 h-5 lg:w-6 lg:h-6 text-white ml-1" fill="currentColor" />
+                      </div>
+                    </div>
                     </div>
                   </div>
                 ) : (

@@ -4,8 +4,8 @@ import { Menu, X, Sun, Moon, ChevronDown, ChevronRight, Mail, Phone, MapPin } fr
 import { Button } from "../components/ui/button";
 import { useTheme } from "../context/ThemeContext";
 
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/bmqusq6t_black.png";
-const LOGO_DARK_URL = "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.png";
+const LOGO_URL = "/assets/logo_black.webp";
+const LOGO_DARK_URL = "/assets/logo_white_small.webp";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },

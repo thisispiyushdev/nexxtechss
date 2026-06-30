@@ -92,7 +92,7 @@ Serverless Engineering: Designing application logic using AWS Lambda or Azure Fu
 
 Strategic Evaluation
 Anand's deep systems approach makes his training ideal for infrastructure engineers moving into big data operations or heavy high-performance computing (HPC) fields.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Bhavesh Goswami",
@@ -113,7 +113,7 @@ Identity Federation: Syncing local Active Directory systems with cloud-native IA
 
 Strategic Evaluation
 Alok is a top-tier mentor for technical leads and system managers tasked with executing actual cloud migrations for old, established organizations without breaking existing business lines.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       },
       {
         name: "Gaurav Kumar",
@@ -134,7 +134,7 @@ Cloud Auditing & Event Logs: Building automated compliance pipelines using tools
 
 Strategic Evaluation
 Shweta's course provides critical upskilling for security analysts and engineers who need to ensure cloud infrastructure meets rigorous regulatory standards.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Vikas Sharma",
@@ -155,7 +155,7 @@ Spot Instance Strategies: Designing fault-tolerant application pools that use lo
 
 Strategic Evaluation
 Rohan’s FinOps frameworks are highly valuable for senior architects and engineering leads who manage large budgets and need to keep infrastructure lean.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       }
     ],
     faqs: [
@@ -245,7 +245,7 @@ Secure Variable Vaults: Encrypting passwords, system credentials, and API access
 
 Strategic Evaluation
 Umesh provides excellent, deep-dive instruction for system administrators looking to transition into modern automated configuration roles.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Santhosh Kumar",
@@ -266,7 +266,7 @@ Storage Plane Engineering: Debugging persistent volume claims, managing storage 
 
 Strategic Evaluation
 Hari’s deep systems course is built for experienced technical professionals who need to diagnose and resolve complex, low-level infrastructure failures in production.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       },
       {
         name: "Mitesh Soni",
@@ -287,7 +287,7 @@ SRE Metric Design: Setting up precise dashboards to track Service Level Indicato
 
 Strategic Evaluation
 Jude’s training provides the perfect operational playbook for senior developers and engineering leads who need to manage large legacy application modernizations cleanly.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Nitin Kumar",
@@ -308,7 +308,7 @@ Global Traffic Management: Configuring global load balancers and anycast routing
 
 Strategic Evaluation
 Rajesh’s course is highly recommended for principal engineers and infrastructure managers who want to build and operate massive, high-throughput cloud networks.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       }
     ],
     faqs: [
@@ -392,7 +392,7 @@ Community Management Systems: Building high-engagement brand groups and customer
 
 Strategic Evaluation
 Sorav's methods are invaluable for brand managers and content leads who want to build a highly visible, loyal social media presence without skyrocketing their ad spend.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Karan Shah",
@@ -413,7 +413,7 @@ Monetization Sequences: Transitioning user relationships smoothly from free cont
 
 Strategic Evaluation
 Deepak’s structured approach provides an ideal blueprint for individual creators, consultants, and B2B marketers who rely on building deep trust to make high-value sales.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       },
       {
         name: "Pradeep Chopra",
@@ -434,7 +434,7 @@ Data-Driven Conversion Optimization: Running structured A/B testing on site layo
 
 Strategic Evaluation
 Pradeep's data-driven training is ideal for corporate marketing directors and analytics leads who manage complex web properties and large search portfolios.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Rohit Mehta",
@@ -455,7 +455,7 @@ Retargeting via Video: Running cost-efficient video retargeting ads targeted dir
 
 Strategic Evaluation
 Avi’s video-centric training is excellent for real estate agents, individual consultants, and modern direct-to-consumer brands that want to build authentic personal connections fast.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       }
     ],
     faqs: [
@@ -538,7 +538,7 @@ Malware Analysis Infrastructure: Setting up secure, isolated sandbox environment
 
 Strategic Evaluation
 Sunny's deep investigative focus is excellent for engineers who want to specialize in cyber forensics, corporate compliance tracking, or professional threat hunting.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Ritesh Bhatia",
@@ -559,7 +559,7 @@ Race Condition Exploits: Simulating high-concurrency connection events to bypass
 
 Strategic Evaluation
 Kshitij’s specialized web security course is ideal for application developers and penetration testers who need to defend internet-facing application profiles.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       },
       {
         name: "Sandeep Sengupta",
@@ -580,7 +580,7 @@ Active Threat Remediation: Safely removing persistence vectors used by attackers
 
 Strategic Evaluation
 Falgun provides critical, real-world skills for incident response leaders and senior security analysts who manage corporate cyber defenses.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Manish Tiwari",
@@ -601,7 +601,7 @@ Audit Trail Automation: Setting up immutable logging configurations that automat
 
 Strategic Evaluation
 Rohit’s training is ideal for Chief Information Security Officers (CISOs), risk managers, and platform compliance leads who oversee long-term security strategy.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       }
     ],
     faqs: [
@@ -683,7 +683,7 @@ Developer Handoff Workflows: Exporting precise animation parameters, timing vect
 
 Strategic Evaluation
 Saptarshi’s advanced approach is ideal for working UI/UX designers who want to master interactive prototyping and micro-animations for modern digital products.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Nikhil Pawar",
@@ -704,7 +704,7 @@ Figma Component Systems: Creating advanced, reusable component libraries with au
 
 Strategic Evaluation
 Abhinav’s training is excellent for graphic designers, career changers, and freelancers who want to pivot into high-paying user experience (UX) engineering roles fast.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       },
       {
         name: "Amit Singh",
@@ -725,7 +725,7 @@ Interaction Refinement: Redesigning cluttered interface sections by grouping rel
 
 Strategic Evaluation
 Anudeep’s research-heavy training is perfect for analytical designers who want to specialize in deep user research, usability analysis, and information architecture optimization.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Pooja Verma",
@@ -746,7 +746,7 @@ Asset Code Optimization: Exporting clean, lightweight SVGs and asset formats to 
 
 Strategic Evaluation
 Ranveer provides highly valuable training for visual designers and illustrators looking to build custom vector artwork assets for high-growth tech brands and agencies.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       }
     ],
     faqs: [
@@ -828,7 +828,7 @@ Scale Mindset Development: Training leaders to spot market opportunities early, 
 
 Strategic Evaluation
 Dr. Bindra’s high-energy business training is excellent for entrepreneurs and corporate executives looking to scale their business platforms.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Santosh Nair",
@@ -849,7 +849,7 @@ Resilience Engineering: Mental strategies to help individuals handle workplace s
 
 Strategic Evaluation
 Sonu’s direct approach is ideal for young professionals, field sales teams, and independent creators who need to build ironclad self-discipline to reach their targets.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       },
       {
         name: "Anurag Rishi",
@@ -870,7 +870,7 @@ Clear Objection Handling: Navigating client doubts or pricing pushback smoothly 
 
 Strategic Evaluation
 Madaan’s practical communication training is a gold standard for account executives, sales teams, and customer success managers who rely heavily on deep relationship building to secure large corporate deals.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Deepak Bajaj",
@@ -891,7 +891,7 @@ First Impression Engineering: Developing strong personal branding techniques to 
 
 Strategic Evaluation
 Varun’s highly practical training is the ultimate finishing school for university students and freshers who want to bypass rookie mistakes and instantly present themselves as seasoned corporate professionals.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       }
     ],
     faqs: [
@@ -989,7 +989,7 @@ Data Lakehouse Provisioning: Setting up unified open-source storage layers like 
 
 Strategic Evaluation
 Kshitij’s framework is highly specialized for data platform engineers and infrastructure architects transitioning into heavy Big Data operations and scalable cloud warehouse management.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Krish Naik",
@@ -1010,7 +1010,7 @@ Statistical Sample Modeling: Organizing high-precision sampling strategies and b
 
 Strategic Evaluation
 Dr. Arvinder’s rigorous mathematical curriculum is the benchmark choice for quantitative financial analysts, business econometricians, and risk forecasting leads.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       },
       {
         name: "Nitish Singh",
@@ -1031,7 +1031,7 @@ Visual Dominance Layouts: Formatting corporate reporting interfaces using tracki
 
 Strategic Evaluation
 Meera provides exceptional upskilling for business analysts, operations managers, and corporate consultants who need to build high-performance data visualization environments for large companies.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.webp"
+        image: "/assets/logo_white_small.webp"
       },
       {
         name: "Srivatsan Srinivasan",
@@ -1052,7 +1052,7 @@ MLOps Pipeline Deployments: Automating model tracking, version controlling data 
 
 Strategic Evaluation
 Rohan’s advanced training is highly recommended for tech leads and analytical developers who want to integrate modern machine learning and artificial intelligence capabilities straight into traditional business data pipelines.`,
-        image: "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.webp"
+        image: "/assets/logo_white.webp"
       }
     ],
     faqs: [

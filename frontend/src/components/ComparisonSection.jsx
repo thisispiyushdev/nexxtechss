@@ -1,8 +1,8 @@
 import { CheckCircle2, XCircle, Layers } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/bmqusq6t_black.png";
-const LOGO_DARK_URL = "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.png";
+const LOGO_URL = "/assets/logo_black.webp";
+const LOGO_DARK_URL = "/assets/logo_white_small.webp";
 
 export default function ComparisonSection() {
   const { dark } = useTheme();

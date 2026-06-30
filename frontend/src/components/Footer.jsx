@@ -1,6 +1,6 @@
 import { Phone, Mail, MapPin, ArrowUp, ArrowRight, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { externalLinks } from "../data/externalLinks";const LOGO_URL = "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.png";
+import { externalLinks } from "../data/externalLinks";const LOGO_URL = "/assets/logo_white.webp";
 
 const QUICK_LINKS = [
   { label: "Home", href: "/" },

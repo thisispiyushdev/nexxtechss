@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 const SITE_NAME = "NexxTechs";
 const BASE_URL = "https://www.nexxtechs.com";
-const DEFAULT_OG_IMAGE = "https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.png";
+const DEFAULT_OG_IMAGE = "/assets/logo_white.webp";
 
 /**
  * SEOHead – Reusable component for per-page SEO meta tags.

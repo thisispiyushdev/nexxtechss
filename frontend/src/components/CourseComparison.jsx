@@ -53,7 +53,7 @@ export default function CourseComparison({ courseTitle = "NexxTechs" }) {
                     <div className="absolute inset-0 bg-[#84CC16]/5 pointer-events-none"></div>
                     <div className="h-full flex flex-col items-center justify-center p-8 border-x border-[#84CC16]/20 relative">
                       <div className="absolute top-0 left-0 right-0 h-1 bg-[#84CC16] shadow-[0_0_15px_#84CC16]"></div>
-                      <img src="https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/joiartmj_white.png" alt="Logo" className="h-4 w-auto mb-3 brightness-125" />
+                      <img src="/assets/logo_white_small.webp" alt="Logo" className="h-4 w-auto mb-3 brightness-125" />
                       <span className="text-[#84CC16] text-sm font-black uppercase tracking-tighter truncate max-w-[150px]">
                         {courseTitle}
                       </span>

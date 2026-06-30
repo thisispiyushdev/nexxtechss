@@ -37,7 +37,7 @@ export default function ResponsiveImage({
        lowerSrc.includes("/ngo.png") ||
        lowerSrc.includes("/aura-chat-bot.png"))
     ) {
-      finalSrc = src.replace(/\.png$/i, ".jpeg");
+      finalSrc = src.replace(/\.png$/i, ".webp");
     }
   }
 

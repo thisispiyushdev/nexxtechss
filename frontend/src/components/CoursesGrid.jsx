@@ -23,18 +23,18 @@ const BROCHURES = {
 };
 
 const STATIC_COURSES = [
-  { title: "Data Analytics", slug: "data-analytics", image: "/course-images/da.jpeg", desc: "Turn data into actionable insights", icon: BarChart3, color: "#EDE9FE", category: "Data & AI", isPopular: true },
-  { title: "Data Science", slug: "data-science", image: "/course-images/ds.jpeg", desc: "AI & ML with Python and R", icon: Brain, color: "#FEF2F2", category: "Data & AI", isPopular: true },
-  { title: "Cloud Computing", slug: "cloud-computing", image: "/course-images/ccp.jpeg", desc: "AWS, Azure & GCP mastery", icon: Cloud, color: "#ECFEFF", category: "Cloud & DevOps", isPopular: true },
-  { title: "Cyber Security", slug: "cyber-security", image: "/course-images/cyber.jpeg", desc: "Protect systems from threats", icon: Shield, color: "#FFF7ED", category: "Cloud & DevOps", isPopular: true },
-  { title: "DevOps", slug: "devops", image: "/course-images/Devops.jpeg", desc: "CI/CD, Docker & Kubernetes", icon: GitBranch, color: "#F0FDFA", category: "Cloud & DevOps", isTrending: true },
-  { title: "DSA", slug: "dsa", image: "/course-images/dsa.jpeg", desc: "Crack coding interviews with confidence", icon: Code2, color: "#F5F3FF", category: "Development", isTrending: true },
-  { title: "Python Full Stack", slug: "python-full-stack", image: "/course-images/python.jpeg", desc: "Build powerful apps with Python", icon: FileCode2, color: "#EFF6FF", category: "Development", isTrending: true },
-  { title: "Web Development", slug: "web-development", image: "/course-images/web.jpeg", desc: "Build modern web apps with latest frameworks", icon: Monitor, color: "#EFF6FF", category: "Development", isTrending: true },
-  { title: "UI/UX Design", slug: "ui-ux-design", image: "/course-images/uiuxx.jpeg", desc: "Create stunning user experiences", icon: Palette, color: "#FEF3C7", category: "Design & Marketing" },
-  { title: "Graphic Design", slug: "graphic-design", image: "/course-images/graphicc.jpeg", desc: "Master visual communication & branding", icon: PenTool, color: "#FCE7F3", category: "Design & Marketing" },
-  { title: "Digital Marketing", slug: "digital-marketing", image: "/course-images/dmm.jpeg", desc: "Drive growth with digital strategies", icon: Megaphone, color: "#F0FDF4", category: "Design & Marketing" },
-  { title: "SAP Masterclass", slug: "sap-masterclass", image: "/course-images/sapp.jpeg", desc: "Master SAP FICO, MM & S/4HANA", icon: Building2, color: "#FEF3C7", category: "Enterprise" },
+  { title: "Data Analytics", slug: "data-analytics", image: "/course-images/da.webp", desc: "Turn data into actionable insights", icon: BarChart3, color: "#EDE9FE", category: "Data & AI", isPopular: true },
+  { title: "Data Science", slug: "data-science", image: "/course-images/ds.webp", desc: "AI & ML with Python and R", icon: Brain, color: "#FEF2F2", category: "Data & AI", isPopular: true },
+  { title: "Cloud Computing", slug: "cloud-computing", image: "/course-images/ccp.webp", desc: "AWS, Azure & GCP mastery", icon: Cloud, color: "#ECFEFF", category: "Cloud & DevOps", isPopular: true },
+  { title: "Cyber Security", slug: "cyber-security", image: "/course-images/cyber.webp", desc: "Protect systems from threats", icon: Shield, color: "#FFF7ED", category: "Cloud & DevOps", isPopular: true },
+  { title: "DevOps", slug: "devops", image: "/course-images/Devops.webp", desc: "CI/CD, Docker & Kubernetes", icon: GitBranch, color: "#F0FDFA", category: "Cloud & DevOps", isTrending: true },
+  { title: "DSA", slug: "dsa", image: "/course-images/dsa.webp", desc: "Crack coding interviews with confidence", icon: Code2, color: "#F5F3FF", category: "Development", isTrending: true },
+  { title: "Python Full Stack", slug: "python-full-stack", image: "/course-images/python.webp", desc: "Build powerful apps with Python", icon: FileCode2, color: "#EFF6FF", category: "Development", isTrending: true },
+  { title: "Web Development", slug: "web-development", image: "/course-images/web.webp", desc: "Build modern web apps with latest frameworks", icon: Monitor, color: "#EFF6FF", category: "Development", isTrending: true },
+  { title: "UI/UX Design", slug: "ui-ux-design", image: "/course-images/uiuxx.webp", desc: "Create stunning user experiences", icon: Palette, color: "#FEF3C7", category: "Design & Marketing" },
+  { title: "Graphic Design", slug: "graphic-design", image: "/course-images/graphicc.webp", desc: "Master visual communication & branding", icon: PenTool, color: "#FCE7F3", category: "Design & Marketing" },
+  { title: "Digital Marketing", slug: "digital-marketing", image: "/course-images/dmm.webp", desc: "Drive growth with digital strategies", icon: Megaphone, color: "#F0FDF4", category: "Design & Marketing" },
+  { title: "SAP Masterclass", slug: "sap-masterclass", image: "/course-images/sapp.webp", desc: "Master SAP FICO, MM & S/4HANA", icon: Building2, color: "#FEF3C7", category: "Enterprise" },
 ];
 
 const CATEGORIES = ["All", "Development", "Design & Marketing", "Data & AI", "Cloud & DevOps", "Enterprise"];

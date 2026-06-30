@@ -1,22 +1,36 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": true,
-  "redirects": [
+  "headers": [
+    {
+      "source": "/(.*)\\.(js|css|webp|png|jpg|jpeg|svg|woff2|woff|ttf|ico)$",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
-      "destination": "https://www.nexxtechs.com/$1",
-      "statusCode": 301,
-      "has": [
+      "headers": [
         {
-          "type": "host",
-          "value": "nexxtechs.com"
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
         }
       ]
     }
   ],
-  "routes": [
-    { "src": "^/api/(.*)", "dest": "https://nexxtech-oi8e.vercel.app/api/$1" },
-    { "handle": "filesystem" },
-    { "src": "^/.*", "dest": "/index_fallback.html" }
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
