@@ -157,7 +157,7 @@ export default function EnquiryForm() {
                       value={form.course_interested}
                       onValueChange={(val) => setForm({ ...form, course_interested: val })}
                     >
-                      <SelectTrigger className="rounded-2xl border-gray-200 bg-gray-50 dark:bg-[#1A1A1A] dark:border-transparent dark:text-white px-5 py-4 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all text-base h-auto" data-testid="enquiry-course-select">
+                      <SelectTrigger aria-label="Course Interested" className="rounded-2xl border-gray-200 bg-gray-50 dark:bg-[#1A1A1A] dark:border-transparent dark:text-white px-5 py-4 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all text-base h-auto" data-testid="enquiry-course-select">
                         <SelectValue placeholder="Select a course" />
                       </SelectTrigger>
                       <SelectContent className="dark:bg-[#1A1A1A] dark:border-white/10 rounded-xl">

@@ -11,6 +11,7 @@ export default function GoogleReviewBar() {
           href="https://www.google.com/search?sxsrf=ANbL-n45_yc12spvUksio-wn-LlD5Lc2UA:1777028613417&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOc9SqY_lxlZiIoLowysDBBoBCTT7gvQ1BJALzlXpz5vWCg6gaY3anoS8sBcRAzB9LGxFfyuMETa4wNBODLZdvh06BXOM&q=Nexxtechs+Reviews" 
           target="_blank" 
           rel="noopener noreferrer"
+          aria-label="Review us on Google"
           className="flex-shrink-0 w-12 h-12 bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden flex items-center justify-center border border-gray-200 dark:border-gray-700 hover:border-[#84CC16] transition-colors relative group"
         >
           {/* Replace this div/img with the actual image when provided */}
