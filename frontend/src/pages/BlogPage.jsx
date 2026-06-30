@@ -62,9 +62,9 @@ export default function BlogPage() {
           
           {/* Filters and Search Bar */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 border-b border-gray-100 dark:border-white/5 pb-8">
-            <div className="flex items-center gap-6">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
               <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Blogs:</span>
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 {categories.map((cat) => (
                   <button
                     key={cat}
@@ -84,7 +84,7 @@ export default function BlogPage() {
               </div>
             </div>
 
-            <div className="relative group max-w-md w-full">
+            <div className="relative group w-full md:max-w-md">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-[#84CC16] transition-colors duration-300" size={18} />
               <input
                 type="text"

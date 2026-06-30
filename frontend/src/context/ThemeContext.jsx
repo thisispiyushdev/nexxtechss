@@ -5,7 +5,7 @@ const ThemeContext = createContext();
 export function ThemeProvider({ children }) {
   const [dark, setDark] = useState(() => {
     const saved = localStorage.getItem("nexxtechs-theme");
-    return saved !== "light";
+    return saved === "dark";
   });
 
   useEffect(() => {

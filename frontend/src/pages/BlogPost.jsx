@@ -188,7 +188,7 @@ export default function BlogPost() {
 
               {/* Featured Image */}
               <div className="rounded-[32px] overflow-hidden mb-12 border border-gray-100 dark:border-white/5 shadow-2xl shadow-[#84CC16]/5">
-                <ResponsiveImage src={blog.image} alt={`${blog.title} - NexxTechs IT Training Blog`} className="w-full h-auto object-cover max-h-[500px]" />
+                <ResponsiveImage src={blog.image} alt={`${blog.title} - NexxTechs IT Training Blog`} className="w-full h-auto object-cover max-h-[300px] md:max-h-[500px]" />
               </div>
 
               {/* Table of Contents */}
@@ -234,7 +234,7 @@ export default function BlogPost() {
                 </div>
               ) : (
                 <article 
-                  className={`prose prose-lg max-w-none dark:prose-invert blog-article ${dark ? 'prose-headings:text-white prose-p:text-gray-400 prose-li:text-gray-400' : 'prose-headings:text-gray-900 prose-p:text-gray-600'}`}
+                  className={`prose md:prose-lg max-w-none dark:prose-invert blog-article ${dark ? 'prose-headings:text-white prose-p:text-gray-400 prose-li:text-gray-400' : 'prose-headings:text-gray-900 prose-p:text-gray-600'}`}
                   dangerouslySetInnerHTML={{ __html: blog.content }}
                 />
               )}
