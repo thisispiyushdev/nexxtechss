@@ -94,18 +94,8 @@ export function prefetchHomepageData() {
     cachedFetch(url).catch(() => { /* silently fail, components have fallbacks */ });
   });
 
-  // Prefetch blogs list, then prefetch each individual blog post content to make details page load instantly
-  cachedFetch(`${API}/content/blogs`)
-    .then(blogs => {
-      if (Array.isArray(blogs)) {
-        blogs.forEach(blog => {
-          if (blog && blog.id) {
-            cachedFetch(`${API}/content/blogs/${blog.id}`).catch(() => {});
-          }
-        });
-      }
-    })
-    .catch(() => {});
+  // Prefetch blogs list
+  cachedFetch(`${API}/content/blogs`).catch(() => {});
 }
 
 /**

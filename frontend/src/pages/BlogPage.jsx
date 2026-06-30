@@ -13,7 +13,7 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [blogs, setBlogs] = useState(BLOG_DATA);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     document.title = "Tech Blog | DevOps, AI, Cyber Security Guides | NexxTechs";
