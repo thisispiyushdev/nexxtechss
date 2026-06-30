@@ -171,7 +171,10 @@ export default function HeroSection() {
                     <div><Input type="tel" placeholder="Phone Number" aria-label="Phone Number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]" /></div>
                     <div>
                       <Select value={form.course_interested} onValueChange={(val) => setForm({ ...form, course_interested: val })}>
-                        <SelectTrigger aria-label="Course Interested" className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]"><SelectValue placeholder="Course Interested" /></SelectTrigger>
+                        <SelectTrigger aria-label="Course Interested" title="Course Interested" className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]">
+                          <span className="sr-only">Course Interested</span>
+                          <SelectValue placeholder="Course Interested" />
+                        </SelectTrigger>
                         <SelectContent>{COURSE_OPTIONS.map((c) => (<SelectItem key={c} value={c}>{c}</SelectItem>))}</SelectContent>
                       </Select>
                     </div>

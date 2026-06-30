@@ -64,6 +64,7 @@ const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 const CyberHooks = lazy(() => import("@/pages/CyberHooks"));
 const AdminLogin = lazy(() => import("@/pages/admin/AdminLogin"));
 const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard"));
+const TopTrainersPage = lazy(() => import("@/pages/TopTrainersPage"));
 
 // Basic loading fallback
 const LoadingFallback = () => (
@@ -89,9 +90,11 @@ function TrailingSlashRedirect() {
   
   useEffect(() => {
     if (location.pathname !== '/' && !location.pathname.endsWith('/')) {
+      // Sanitize pathname to prevent double slashes from being evaluated as protocol-relative URLs
+      const safePath = location.pathname.replace(/^\/+/, '/');
       // Use window.history.replaceState to avoid triggering a new React Router navigation cycle
       // which can sometimes cause double-renders if using navigate()
-      window.history.replaceState(null, '', `${location.pathname}/${location.search}${location.hash}`);
+      window.history.replaceState(null, '', `${safePath}/${location.search}${location.hash}`);
     }
   }, [location]);
 
@@ -111,36 +114,38 @@ function HomePage() {
       <Suspense fallback={<div className="h-96" />}>
         <CoursesGrid />
       </Suspense>
-      <Suspense fallback={null}>
-        <CareerTransformation />
-      </Suspense>
-      <Suspense fallback={null}>
-        <VideoTestimonials />
-      </Suspense>
-      <Suspense fallback={null}>
-        <WhyChooseUs />
-      </Suspense>
-      <Suspense fallback={null}>
-        <ComparisonSection />
-      </Suspense>
-      <Suspense fallback={null}>
-        <StudentProjects />
-      </Suspense>
-      <Suspense fallback={null}>
-        <PlacementSuccess />
-      </Suspense>
-      <Suspense fallback={null}>
-        <TrainingPartners />
-      </Suspense>
-      <Suspense fallback={null}>
-        <EnquiryForm />
-      </Suspense>
-      <Suspense fallback={null}>
-        <TextRevealAnimation />
-      </Suspense>
-      <Suspense fallback={null}>
-        <FAQ />
-      </Suspense>
+      <DeferredRender delay={500}>
+        <Suspense fallback={null}>
+          <CareerTransformation />
+        </Suspense>
+        <Suspense fallback={null}>
+          <VideoTestimonials />
+        </Suspense>
+        <Suspense fallback={null}>
+          <WhyChooseUs />
+        </Suspense>
+        <Suspense fallback={null}>
+          <ComparisonSection />
+        </Suspense>
+        <Suspense fallback={null}>
+          <StudentProjects />
+        </Suspense>
+        <Suspense fallback={null}>
+          <PlacementSuccess />
+        </Suspense>
+        <Suspense fallback={null}>
+          <TrainingPartners />
+        </Suspense>
+        <Suspense fallback={null}>
+          <EnquiryForm />
+        </Suspense>
+        <Suspense fallback={null}>
+          <TextRevealAnimation />
+        </Suspense>
+        <Suspense fallback={null}>
+          <FAQ />
+        </Suspense>
+      </DeferredRender>
     </PageTransition>
   );
 }
@@ -211,6 +216,13 @@ function App() {
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                   <Route path="/cyberhooks" element={<CyberHooks />} />
                   <Route path="/course/:slug" element={<CourseDetail />} />
+                  <Route path="/top-5-cloud-computing-trainers-in-india" element={<TopTrainersPage />} />
+                  <Route path="/top-5-devops-trainers-in-india" element={<TopTrainersPage />} />
+                  <Route path="/top-5-digital-marketing-trainers-in-india" element={<TopTrainersPage />} />
+                  <Route path="/top-5-cyber-security-trainers-in-india" element={<TopTrainersPage />} />
+                  <Route path="/top-5-graphic-design-trainers-in-india" element={<TopTrainersPage />} />
+                  <Route path="/top-5-personal-development-trainers-in-india" element={<TopTrainersPage />} />
+                  <Route path="/top-5-data-science-trainers-in-india" element={<TopTrainersPage />} />
                 </Routes>
               </PublicLayout>
             } />

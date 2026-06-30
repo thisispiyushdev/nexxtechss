@@ -12,8 +12,10 @@ export default function GoogleReviewBar() {
           target="_blank" 
           rel="noopener noreferrer"
           aria-label="Review us on Google"
+          title="Review us on Google"
           className="flex-shrink-0 w-12 h-12 bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden flex items-center justify-center border border-gray-200 dark:border-gray-700 hover:border-[#84CC16] transition-colors relative group"
         >
+          <span className="sr-only">Review us on Google</span>
           {/* Replace this div/img with the actual image when provided */}
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <Star className="text-[#84CC16] w-5 h-5 mb-0.5 fill-[#84CC16]" />
