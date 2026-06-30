@@ -60,11 +60,14 @@ export default function AdminDashboard() {
   const fetchData = useCallback(async () => {
     setFetching(true);
     try {
-      const leadsR = await adminApi.get("/leads").catch(() => ({ data: { leads: [] } }));
+      const leadsPromise = adminApi.get("/leads").catch(() => ({ data: { leads: [] } }));
 
       let reviews = [], stats = [], blogs = [], courses = [], users = [], banners = [];
+      let leadsR = { data: { leads: [] } };
+
       if (isCoreAdmin) {
-        const [reviewsR, statsR, blogsR, coursesR, usersR, bannersR] = await Promise.all([
+        const [resolvedLeads, reviewsR, statsR, blogsR, coursesR, usersR, bannersR] = await Promise.all([
+          leadsPromise,
           adminApi.get("/reviews").catch(() => ({ data: [] })),
           adminApi.get("/stats").catch(() => ({ data: [] })),
           adminApi.get("/blogs").catch(() => ({ data: [] })),
@@ -72,6 +75,7 @@ export default function AdminDashboard() {
           adminApi.get("/users").catch(() => ({ data: [] })),
           adminApi.get("/banners").catch(() => ({ data: { data: [] } })),
         ]);
+        leadsR = resolvedLeads;
         reviews = reviewsR.data || [];
         stats = statsR.data || [];
         blogs = blogsR.data || [];
@@ -79,6 +83,8 @@ export default function AdminDashboard() {
         users = usersR.data || [];
         // Note: adminBannersController returns { success: true, data: [...] }
         banners = bannersR.data?.data || bannersR.data || [];
+      } else {
+        leadsR = await leadsPromise;
       }
 
       setData({
@@ -309,7 +315,7 @@ export default function AdminDashboard() {
     if (t) setModal({ ...t, method: "post" });
   }
 
-  function openEditModal(type, item) {
+  async function openEditModal(type, item) {
     const titles = { review: "Edit Review", blog: "Edit Blog", course: "Edit Course", stat: "Edit Stat", user: "Edit Admin", banner: "Edit Banner" };
     // Format dates for input type="datetime-local" if banner
     let editData = { ...item, password: "" };
@@ -317,6 +323,20 @@ export default function AdminDashboard() {
       if (editData.start_date) editData.start_date = new Date(editData.start_date).toISOString().slice(0, 16);
       if (editData.end_date) editData.end_date = new Date(editData.end_date).toISOString().slice(0, 16);
     }
+    
+    if (type === "blog") {
+      setFetching(true);
+      try {
+        const res = await adminApi.get(`/blogs/${item.id}`);
+        editData = { ...editData, ...res.data };
+      } catch (err) {
+        showToast("Failed to fetch full blog data", "error");
+        setFetching(false);
+        return;
+      }
+      setFetching(false);
+    }
+    
     setModal({ title: titles[type], type, data: editData, method: "put", editId: item.id || item.slug });
   }
 }

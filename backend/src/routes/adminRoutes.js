@@ -6,7 +6,7 @@ import {
   getReviews, createReview, updateReview, deleteReview,
   getStats, createStat, updateStat, deleteStat,
 } from "../controllers/adminPlacementsController.js";
-import { getBlogs, createBlog, updateBlog, deleteBlog } from "../controllers/adminBlogsController.js";
+import { getBlogs, getBlogById, createBlog, updateBlog, deleteBlog } from "../controllers/adminBlogsController.js";
 import { getCourses, createCourse, updateCourse, deleteCourse } from "../controllers/adminCoursesController.js";
 import { getAdminUsers, createAdminUser, updateAdminUser, deleteAdminUser } from "../controllers/adminUsersController.js";
 import { getBanners, createBanner, updateBanner, deleteBanner } from "../controllers/adminBannersController.js";
@@ -49,6 +49,7 @@ router.delete("/stats/:id", deleteStat);
 
 // Blogs
 router.get("/blogs", getBlogs);
+router.get("/blogs/:id", getBlogById);
 router.post("/blogs", createBlog);
 router.put("/blogs/:id", updateBlog);
 router.delete("/blogs/:id", deleteBlog);
