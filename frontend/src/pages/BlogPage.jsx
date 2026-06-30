@@ -92,6 +92,7 @@ export default function BlogPage() {
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
+                aria-label="Search blogs"
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className={`w-full pl-12 pr-4 py-3 rounded-xl border transition-all duration-300 outline-none focus:ring-2 focus:ring-[#84CC16]/20 ${
                   dark 
