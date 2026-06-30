@@ -53,13 +53,17 @@ export default function TopTrainersPage() {
                         ({pageData.title.replace("Top 5 Best ", "").replace(" Trainers in India", " Expert")})
                       </span>
                     </h2>
-                    <p className="text-lg font-semibold text-gray-600 dark:text-gray-400">
-                      Location: Nexxtechs, Delhi, India
+                    <p className="text-lg font-semibold text-gray-600 dark:text-gray-400 flex flex-wrap gap-x-4 gap-y-2 mt-2">
+                      <span>Location: Nexxtechs, Delhi, India</span>
+                      {trainer.experience && (
+                        <span className="text-[#84CC16]">| Experience: {trainer.experience}</span>
+                      )}
                     </p>
                   </div>
                 ) : (
                   <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
                     {index + 1}. {trainer.name} ({trainer.location})
+                    {trainer.experience && <span className="text-[#84CC16] ml-2 text-xl">| {trainer.experience}</span>}
                   </h2>
                 )}
                 
@@ -67,7 +71,10 @@ export default function TopTrainersPage() {
                   <img 
                     src={trainer.image} 
                     alt={`${trainer.name} - Top Trainer in ${trainer.location}`} 
-                    className="w-full h-auto rounded-lg shadow-sm mb-6"
+                    className="w-full h-auto rounded-lg shadow-sm mb-6 bg-gray-200 dark:bg-white/5"
+                    fetchPriority="high"
+                    loading="eager"
+                    decoding="sync"
                   />
                  )}
                 

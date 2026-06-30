@@ -22,6 +22,7 @@ const topTrainersData = {
       {
         name: "Aditya Sharma",
         location: "Nexxtechs (Janakpuri, Delhi)",
+        experience: "8+ Years",
         description: `CEO and Founder of Nexxtechs and Best Trainer of DevOps and Cloud.
 
 Core Focus: Production-Scale Multi-Cloud Topology Design, High-Availability Failovers, Cloud Core Networks, Shared Responsibility Models.
@@ -188,6 +189,7 @@ Rohan’s FinOps frameworks are highly valuable for senior architects and engine
       {
         name: "Aditya Sharma",
         location: "Nexxtechs (Janakpuri, Delhi)",
+        experience: "8+ Years",
         description: `CEO and Founder of Nexxtechs and Best Trainer of DevOps and Cloud.
 
 Core Focus: Declarative Infrastructure State Realization, Zero-Human Continuous Delivery, Resilient Cluster Topologies, Telemetry Aggregation.
@@ -340,6 +342,7 @@ Rajesh’s course is highly recommended for principal engineers and infrastructu
       {
         name: "Sagar Sir",
         location: "Delhi",
+        experience: "4+ Years",
         description: `Core Focus: Algorithmic Conversion Engineering, Multi-Layer Attribution Modeling, Programmatic Funnels, Real-Time ROAS Calibration.
 
 Target Metrics: Engineering customer conversion architectures that reliably yield a greater than 4.5x Return on Ad Spend (ROAS) on live ad platforms.
@@ -486,6 +489,7 @@ Avi’s video-centric training is excellent for real estate agents, individual c
       {
         name: "Meghesh Kumar",
         location: "Delhi",
+        experience: "6+ Years",
         description: `Core Focus: Offensive Simulation Frameworks, Vulnerability Hardening, Continuous Telemetry Inspection, Border Defense.
 
 Target Metrics: Identifying system boundary bugs and misconfigurations before malicious actors exploit them, maintaining zero compliance failures.
@@ -631,6 +635,7 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
       {
         name: "Suraj Rewadia",
         location: "Delhi",
+        experience: "5+ Years",
         description: `Core Focus: Visual Hierarchy Math, Spatial Layout Logic, Behavioral Interaction Patterns, Systematic Typographic Scales.
 
 Target Metrics: Designing digital interfaces that measurably reduce user task friction and drop-off rates on complex interactive layouts.
@@ -775,6 +780,7 @@ Ranveer provides highly valuable training for visual designers and illustrators 
       {
         name: "Niti Gupta Mam",
         location: "Delhi",
+        experience: "8+ Years",
         description: `Core Focus: Cognitive Block Elimination, High-Agency Emotional Control, Executive Presence Engineering, Crisis Negotiation.
 
 Target Metrics: Optimizing personal leadership communication profiles to excel in high-pressure executive boardrooms and high-value negotiations.
@@ -919,6 +925,7 @@ Varun’s highly practical training is the ultimate finishing school for univers
       {
         name: "Saba Hussain",
         location: "Delhi",
+        experience: "12+ Years",
         description: `Core Focus: Production-Grade Machine Learning Pipelines, Predictive Statistical Modeling, Deep Feature Engineering, Advanced Cognitive Analytics, Scalable Data Fabrics.
 
 Target Metrics: Minimizing model inference latency under 20ms, optimizing distributed ETL data pipelines to process multi-terabyte log layers efficiently.
