@@ -101,56 +101,62 @@ export default function BlogPage() {
           </div>
 
           {/* Blog Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredBlogs.map((blog) => (
-              <Link 
-                key={blog.id} 
-                to={`/blog/${blog.id}/`}
-                className="group flex flex-col bg-white dark:bg-[#151515] rounded-[24px] overflow-hidden border border-gray-100 dark:border-white/5 hover:border-[#84CC16]/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#84CC16]/10"
-              >
-                {/* Image Area */}
-                <div className="relative h-56 overflow-hidden bg-black">
-                  <img 
-                    src={blog.image} 
-                    alt={`${blog.title} - NexxTechs IT Training Blog Delhi`} 
-                    className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700"
-                    loading="lazy"
-                  />
-                  {/* Author on Image */}
-                  <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-[#84CC16] flex items-center justify-center text-black">
-                      <User size={14} fill="currentColor" />
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full min-w-0">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="animate-pulse bg-gray-100 dark:bg-white/5 rounded-[32px] h-[400px]" />
+              ))}
+            </div>
+          ) : filteredBlogs.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full min-w-0">
+              {filteredBlogs.map((blog) => (
+                <Link 
+                  key={blog.id} 
+                  to={`/blog/${blog.id}/`}
+                  className="group flex flex-col bg-white dark:bg-[#151515] rounded-[24px] overflow-hidden border border-gray-100 dark:border-white/5 hover:border-[#84CC16]/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#84CC16]/10"
+                >
+                  {/* Image Area */}
+                  <div className="relative h-56 overflow-hidden bg-black">
+                    <img 
+                      src={blog.image} 
+                      alt={`${blog.title} - NexxTechs IT Training Blog Delhi`} 
+                      className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700"
+                      loading="lazy"
+                    />
+                    {/* Author on Image */}
+                    <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-[#84CC16] flex items-center justify-center text-black">
+                        <User size={14} fill="currentColor" />
+                      </div>
+                      <span className="text-white text-xs font-bold tracking-wide drop-shadow-md">{blog.author}</span>
                     </div>
-                    <span className="text-white text-xs font-bold tracking-wide drop-shadow-md">{blog.author}</span>
+                    {/* Subtle overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
-                  {/* Subtle overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
 
-                {/* Content Area */}
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-3 leading-tight group-hover:text-[#84CC16] transition-colors duration-300">
-                    {blog.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 line-clamp-3 leading-relaxed flex-grow">
-                    {blog.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between pt-5 border-t border-gray-50 dark:border-white/5">
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
-                      <span>{blog.date}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#84CC16] uppercase tracking-wider">
-                      <Folder size={12} className="fill-[#84CC16]/20" />
-                      <span>{blog.category}</span>
+                  {/* Content Area */}
+                  <div className="p-6 flex flex-col flex-1">
+                    <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-3 leading-tight group-hover:text-[#84CC16] transition-colors duration-300">
+                      {blog.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 line-clamp-3 leading-relaxed flex-grow">
+                      {blog.excerpt}
+                    </p>
+                    
+                    <div className="flex items-center justify-between pt-5 border-t border-gray-50 dark:border-white/5">
+                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                        <span>{blog.date}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#84CC16] uppercase tracking-wider">
+                        <Folder size={12} className="fill-[#84CC16]/20" />
+                        <span>{blog.category}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {filteredBlogs.length === 0 && (
+                </Link>
+              ))}
+            </div>
+          ) : (
             <div className="text-center py-20">
               <div className="w-20 h-20 bg-gray-100 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Search size={32} className="text-gray-300" />

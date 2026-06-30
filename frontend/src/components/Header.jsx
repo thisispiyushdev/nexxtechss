@@ -96,7 +96,7 @@ export default function Header() {
 
       {/* Main Nav */}
       <header
-        className={`sticky top-0 z-[90] transition-all duration-300 ${
+        className={`sticky top-0 z-[90] w-full transition-all duration-300 ${
           scrolled
             ? dark
               ? "bg-[#0f1117]/85 backdrop-blur-xl shadow-md border-b border-white/10"

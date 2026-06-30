@@ -170,19 +170,19 @@ export default function BlogPost() {
           </>
         )}
 
-        <div className="max-w-[1440px] mx-auto px-6 pt-8 md:pt-12">
+        <div className="max-w-[1440px] mx-auto px-6 pt-8 md:pt-12 w-full overflow-hidden box-border">
 
-          <div className="grid lg:grid-cols-12 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 w-full">
             
             {/* Main Content Area */}
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-8 min-w-0 w-full overflow-hidden">
               <div className="flex items-center gap-4 text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">
                 <span className="flex items-center gap-2"><Clock size={16} className="text-[#84CC16]" /> {blog.date}</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-white/10" />
                 <span className="text-gray-500 dark:text-gray-400">by {blog.author}</span>
               </div>
 
-              <h1 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-10 leading-tight tracking-tight">
+              <h1 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-10 leading-tight tracking-tight break-words hyphens-auto w-full">
                 {blog.title}
               </h1>
 
@@ -203,7 +203,7 @@ export default function BlogPost() {
                     </h3>
                     <ol className="space-y-2">
                       {headings.map((heading, i) => (
-                        <li key={i} className="text-sm text-[#4B5563] dark:text-gray-400 hover:text-[#84CC16] transition-colors">
+                        <li key={i} className="text-sm text-[#4B5563] dark:text-gray-400 hover:text-[#84CC16] transition-colors break-words whitespace-normal">
                           <span className="text-[#84CC16] font-bold mr-2">{i + 1}.</span>
                           {heading}
                         </li>
@@ -234,7 +234,7 @@ export default function BlogPost() {
                 </div>
               ) : (
                 <article 
-                  className={`prose md:prose-lg max-w-none dark:prose-invert blog-article ${dark ? 'prose-headings:text-white prose-p:text-gray-400 prose-li:text-gray-400' : 'prose-headings:text-gray-900 prose-p:text-gray-600'}`}
+                  className={`prose md:prose-lg max-w-none w-full break-words overflow-hidden dark:prose-invert blog-article ${dark ? 'prose-headings:text-white prose-p:text-gray-400 prose-li:text-gray-400' : 'prose-headings:text-gray-900 prose-p:text-gray-600'}`}
                   dangerouslySetInnerHTML={{ __html: blog.content }}
                 />
               )}
@@ -306,8 +306,8 @@ export default function BlogPost() {
               </div>
             </div>
 
-            {/* Sidebar */}
-            <aside className="lg:col-span-4 space-y-12">
+            {/* Sidebar (Suggested Courses & Tags) */}
+            <aside className="lg:col-span-4 space-y-12 min-w-0 w-full">
               
               {/* Author Profile */}
               <div className="bg-white dark:bg-[#151515] p-8 rounded-[28px] border border-gray-100 dark:border-white/5 text-center group">
@@ -389,6 +389,9 @@ export default function BlogPost() {
         .blog-article li { margin-bottom: 0.5rem; }
         .blog-article blockquote { border-left: 4px solid #84CC16; padding-left: 1.5rem; font-style: italic; margin: 2rem 0; background: #84CC1610; padding: 1.5rem; border-radius: 0 1rem 1rem 0; }
         .blog-article strong { color: #84CC16; }
+        .blog-article img, .blog-article video, .blog-article iframe { max-width: 100%; height: auto; border-radius: 1rem; }
+        .blog-article pre, .blog-article code { max-width: 100%; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; }
+        .blog-article table { width: 100%; max-width: 100%; overflow-x: auto; display: block; }
       `}} />
     </PageTransition>
   );

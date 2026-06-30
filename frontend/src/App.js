@@ -151,9 +151,9 @@ function PublicLayout({ children }) {
   const isCoursePage = location.pathname.startsWith("/course");
 
   return (
-    <div className="min-h-screen bg-transparent transition-colors duration-300 relative z-0" data-testid="app-root">
+    <div className="min-h-screen bg-transparent transition-colors duration-300 relative z-0 overflow-x-hidden w-full max-w-[100vw]" data-testid="app-root">
       <Header />
-      <main className="relative z-10">
+      <main className="relative z-10 w-full overflow-hidden">
         <Suspense fallback={<LoadingFallback />}>
           {children}
         </Suspense>
