@@ -108,11 +108,13 @@ export default function Header() {
       >
         <div className="max-w-[1440px] mx-auto px-4 md:px-6 xl:px-8 flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0">
+          <Link to="/" aria-label="Home" className="flex items-center gap-2 shrink-0">
             <img 
               src={dark ? LOGO_DARK_URL : LOGO_URL} 
               alt="NexxTechs - Best IT Training Institute" 
               className="h-10 md:h-12 object-contain" 
+              width={160}
+              height={48}
               fetchPriority="high"
               loading="eager"
             />

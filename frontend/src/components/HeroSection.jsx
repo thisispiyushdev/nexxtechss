@@ -115,7 +115,7 @@ export default function HeroSection() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-16 md:py-24 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 xl:gap-16 items-center">
           <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 bg-[#F4FCE3] dark:bg-[#84CC16]/10 text-[#65A30D] dark:text-[#84CC16] px-4 py-2 rounded-full text-sm font-semibold" data-testid="hero-badge">
+            <div className="inline-flex items-center gap-2 bg-[#F4FCE3] dark:bg-[#84CC16]/10 text-[#4D7C0F] dark:text-[#84CC16] px-4 py-2 rounded-full text-sm font-semibold" data-testid="hero-badge">
               <span className="w-2 h-2 bg-[#84CC16] rounded-full animate-pulse" />
               The Future of AI & Tech Education
             </div>
@@ -156,22 +156,22 @@ export default function HeroSection() {
               {submitted && !error ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 rounded-full bg-[#F4FCE3] flex items-center justify-center mx-auto mb-4"><CheckCircle size={32} className="text-[#84CC16]" /></div>
-                  <h3 className="text-2xl font-bold text-[#111827] dark:text-white mb-2">Thank You!</h3>
+                  <h2 className="text-2xl font-bold text-[#111827] dark:text-white mb-2">Thank You!</h2>
                   <p className="text-[#4B5563] dark:text-gray-400">Our team will contact you shortly.</p>
                   <Button onClick={() => setSubmitted(false)} className="mt-6 bg-[#84CC16] text-black rounded-full px-6 hover:bg-[#65A30D]">Submit Another</Button>
                 </div>
               ) : (
                 <>
                   <div className="mb-6">
-                    <h3 className="text-2xl font-bold text-[#111827] dark:text-white mb-2">Quick <span className="text-[#84CC16]">Enquiry</span></h3>
+                    <h2 className="text-2xl font-bold text-[#111827] dark:text-white mb-2">Quick <span className="text-[#84CC16]">Enquiry</span></h2>
                     <p className="text-sm text-[#4B5563] dark:text-gray-400">Tell us what you want to learn, and our tech counselors will guide you.</p>
                   </div>
                   <form onSubmit={handleEnquirySubmit} className="space-y-4">
-                    <div><Input type="text" placeholder="Full Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]" /></div>
-                    <div><Input type="tel" placeholder="Phone Number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]" /></div>
+                    <div><Input type="text" placeholder="Full Name" aria-label="Full Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]" /></div>
+                    <div><Input type="tel" placeholder="Phone Number" aria-label="Phone Number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]" /></div>
                     <div>
                       <Select value={form.course_interested} onValueChange={(val) => setForm({ ...form, course_interested: val })}>
-                        <SelectTrigger className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]"><SelectValue placeholder="Course Interested" /></SelectTrigger>
+                        <SelectTrigger aria-label="Course Interested" className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]"><SelectValue placeholder="Course Interested" /></SelectTrigger>
                         <SelectContent>{COURSE_OPTIONS.map((c) => (<SelectItem key={c} value={c}>{c}</SelectItem>))}</SelectContent>
                       </Select>
                     </div>

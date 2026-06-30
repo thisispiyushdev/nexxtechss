@@ -37,10 +37,12 @@ export default function Footer() {
               src={LOGO_URL} 
               alt="NexxTechs - Best IT Training Institute in Vikaspuri Delhi" 
               className="h-32 md:h-36 mb-4 object-contain" 
+              width={200}
+              height={128}
               loading="lazy"
               fetchPriority="low"
             />
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
+            <p className="text-gray-300 text-sm leading-relaxed mb-6">
               Empowering the next generation of tech professionals with industry-focused training and 100% placement assistance.
             </p>
             {/* Social Icons */}
