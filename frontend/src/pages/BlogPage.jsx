@@ -13,6 +13,7 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [blogs, setBlogs] = useState(BLOG_DATA);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     document.title = "Tech Blog | DevOps, AI, Cyber Security Guides | NexxTechs";
@@ -28,7 +29,8 @@ export default function BlogPage() {
           setBlogs([...data, ...staticOnly]);
         }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setIsLoading(false));
 
     return () => { clearTimeout(timeout); controller.abort(); };
   }, []);
