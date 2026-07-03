@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { API_ROOT } from "../config";
+import { API_ROOT } from "../lib/apiConfig";
 
 const API = API_ROOT;
 
