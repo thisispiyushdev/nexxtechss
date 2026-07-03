@@ -106,10 +106,10 @@ export default function CareerTransformation() {
     <section ref={containerRef} className="py-24 md:py-32 bg-transparent relative overflow-hidden" data-testid="career-transformation">
       <div className="max-w-[1440px] mx-auto px-6 relative z-10 graph-container">
         <div className="text-center mb-20 md:mb-28">
-          <h2 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-black text-[#0A0A0A] dark:text-white mb-4 uppercase tracking-tight">
             Your <span className="text-[#84CC16]">Career Growth</span> Graph
           </h2>
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
             See how you transform from a beginner to an industry-ready professional
           </p>
         </div>
@@ -160,7 +160,7 @@ export default function CareerTransformation() {
             <div className="absolute left-[10%] top-[85%] -translate-x-1/2 -translate-y-1/2 z-30">
               <div className="graph-node w-10 h-10 md:w-14 md:h-14 rounded-full border-4 border-[#050505] bg-[#84CC16] shadow-[0_0_25px_rgba(132,204,22,0.5)] flex items-center justify-center font-bold text-[#050505] text-sm md:text-lg z-20 relative">01</div>
               <div className="graph-content absolute bottom-full mb-3 md:mb-4 text-left md:text-center w-28 sm:w-32 md:w-48" style={{ left: '-15px' }}>
-                <h3 className="text-white font-bold text-xs sm:text-sm md:text-base mb-1 drop-shadow-md">{STEPS[0].title}</h3>
+                <h3 className="text-[#0A0A0A] dark:text-white font-bold text-xs sm:text-sm md:text-base mb-1 drop-shadow-md">{STEPS[0].title}</h3>
                 <p className="text-[#84CC16] font-medium text-[10px] sm:text-xs leading-tight drop-shadow-md">{STEPS[0].desc}</p>
               </div>
             </div>
@@ -169,7 +169,7 @@ export default function CareerTransformation() {
             <div className="absolute left-[35%] top-[60%] -translate-x-1/2 -translate-y-1/2 z-30">
               <div className="graph-node w-10 h-10 md:w-14 md:h-14 rounded-full border-4 border-[#050505] bg-[#84CC16] shadow-[0_0_25px_rgba(132,204,22,0.5)] flex items-center justify-center font-bold text-[#050505] text-sm md:text-lg z-20 relative">02</div>
               <div className="graph-content absolute top-full left-1/2 -translate-x-1/2 mt-3 md:mt-4 text-center w-28 sm:w-32 md:w-48">
-                <h3 className="text-white font-bold text-xs sm:text-sm md:text-base mb-1 drop-shadow-md">{STEPS[1].title}</h3>
+                <h3 className="text-[#0A0A0A] dark:text-white font-bold text-xs sm:text-sm md:text-base mb-1 drop-shadow-md">{STEPS[1].title}</h3>
                 <p className="text-[#84CC16] font-medium text-[10px] sm:text-xs leading-tight drop-shadow-md">{STEPS[1].desc}</p>
               </div>
             </div>
@@ -178,7 +178,7 @@ export default function CareerTransformation() {
             <div className="absolute left-[65%] top-[35%] -translate-x-1/2 -translate-y-1/2 z-30">
               <div className="graph-node w-10 h-10 md:w-14 md:h-14 rounded-full border-4 border-[#050505] bg-[#84CC16] shadow-[0_0_25px_rgba(132,204,22,0.5)] flex items-center justify-center font-bold text-[#050505] text-sm md:text-lg z-20 relative">03</div>
               <div className="graph-content absolute top-full left-1/2 -translate-x-[60%] md:-translate-x-1/2 mt-3 md:mt-4 text-center w-28 sm:w-32 md:w-48">
-                <h3 className="text-white font-bold text-xs sm:text-sm md:text-base mb-1 drop-shadow-md">{STEPS[2].title}</h3>
+                <h3 className="text-[#0A0A0A] dark:text-white font-bold text-xs sm:text-sm md:text-base mb-1 drop-shadow-md">{STEPS[2].title}</h3>
                 <p className="text-[#84CC16] font-medium text-[10px] sm:text-xs leading-tight drop-shadow-md">{STEPS[2].desc}</p>
               </div>
             </div>
@@ -187,7 +187,7 @@ export default function CareerTransformation() {
             <div className="absolute left-[90%] top-[10%] -translate-x-1/2 -translate-y-1/2 z-30">
               <div className="graph-node w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-[#84CC16] bg-white shadow-[0_0_40px_rgba(255,255,255,0.5)] flex items-center justify-center font-bold text-black text-sm md:text-xl z-20 relative">04</div>
               <div className="graph-content absolute top-1/2 -translate-y-1/2 text-right md:text-center w-28 sm:w-32 md:w-48" style={{ right: 'calc(100% + 25px)' }}>
-                <h3 className="text-white font-bold text-sm md:text-lg mb-1 drop-shadow-md">{STEPS[3].title}</h3>
+                <h3 className="text-[#0A0A0A] dark:text-white font-bold text-sm md:text-lg mb-1 drop-shadow-md">{STEPS[3].title}</h3>
                 <p className="text-[#84CC16] font-medium text-[10px] sm:text-xs md:text-sm leading-tight drop-shadow-md">{STEPS[3].desc}</p>
               </div>
             </div>

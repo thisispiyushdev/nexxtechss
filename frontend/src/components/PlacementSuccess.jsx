@@ -21,21 +21,16 @@ const FALLBACK_REVIEWS = [
 ];
 
 const COMPANY_LOGOS = [
-  { name: "Adobe", domain: "adobe.com", url: "https://www.adobe.com" },
-  { name: "Square", domain: "squareup.com", url: "https://squareup.com" },
-  { name: "Spotify", domain: "spotify.com", url: "https://www.spotify.com" },
+  { name: "Netflix", domain: "netflix.com", url: "https://www.netflix.com" },
   { name: "Microsoft", domain: "microsoft.com", url: "https://www.microsoft.com" },
-  { name: "Amazon", domain: "amazon.com", url: "https://www.amazon.com" },
-  { name: "Slack", domain: "slack.com", url: "https://slack.com" },
-  { name: "Mozilla", domain: "mozilla.org", url: "https://www.mozilla.org" },
-  { name: "Salesforce", domain: "salesforce.com", url: "https://www.salesforce.com" },
-  { name: "IBM", domain: "ibm.com", url: "https://www.ibm.com" },
-  { name: "Apple", domain: "apple.com", url: "https://www.apple.com" },
-  { name: "Yahoo", domain: "yahoo.com", url: "https://www.yahoo.com" },
+  { name: "Zomato", domain: "zomato.com", url: "https://www.zomato.com" },
+  { name: "Goldman Sachs", domain: "goldmansachs.com", url: "https://www.goldmansachs.com" },
+  { name: "Flipkart", domain: "flipkart.com", url: "https://www.flipkart.com" },
   { name: "PayPal", domain: "paypal.com", url: "https://www.paypal.com" },
-  { name: "eBay", domain: "ebay.com", url: "https://www.ebay.com" },
+  { name: "Stripe", domain: "stripe.com", url: "https://stripe.com" },
+  { name: "OpenAI", domain: "openai.com", url: "https://openai.com" },
+  { name: "Paytm", domain: "paytm.com", url: "https://paytm.com" },
   { name: "Google", domain: "google.com", url: "https://www.google.com" },
-  { name: "Grammarly", domain: "grammarly.com", url: "https://www.grammarly.com" },
 ];
 
 
@@ -235,13 +230,15 @@ const PlacementSuccess = () => {
         <div className="pt-16 mt-16 border-t border-gray-100 dark:border-white/5 relative">
           <div className="text-center mb-10">
             <h3 className="text-lg md:text-2xl font-black text-[#0A0A0A] dark:text-white tracking-tight uppercase">
-              Our <span className="text-[#84CC16]">Hiring</span> Partners
+              Our <span className="text-[#84CC16]">Placement</span> Partners
             </h3>
-            <p className="text-sm text-[#4B5563] dark:text-gray-400 mt-2">Join the ranks of students working at top tech giants</p>
+            <p className="text-sm md:text-base font-bold text-[#4B5563] dark:text-gray-400 tracking-[0.2em] uppercase mt-4">
+              OUR GRADUATES WORK AT TOP GLOBAL ENGINEERING TEAMS
+            </p>
           </div>
           <div className="relative w-full flex overflow-hidden group py-4">
-            <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#F9FAFB] dark:from-[#0a0c13] to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[#F9FAFB] dark:from-[#0a0c13] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 left-0 bottom-0 w-8 md:w-12 bg-gradient-to-r from-white dark:from-[#0a0c13] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 bottom-0 w-8 md:w-12 bg-gradient-to-l from-white dark:from-[#0a0c13] to-transparent z-10 pointer-events-none"></div>
             <div className="flex w-max animate-scroll">
               {[...COMPANY_LOGOS, ...COMPANY_LOGOS].map((company, i) => (
                 <a
@@ -250,16 +247,16 @@ const PlacementSuccess = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={company.name}
-                  className="flex flex-col items-center justify-center min-w-[140px] md:min-w-[180px] h-20 md:h-24 mx-3 md:mx-4 px-4 md:px-6 bg-white dark:bg-[#1a1d27] border border-gray-100 dark:border-white/5 rounded-2xl hover:border-[#84CC16] dark:hover:border-[#84CC16] shadow-sm hover:shadow-lg transition-all duration-300 group/link"
+                  className="flex flex-row items-center justify-center h-16 md:h-20 mx-8 md:mx-12 px-4 transition-all duration-300 group/link gap-3 relative"
                 >
                   <img
                     src={`https://logo.clearbit.com/${company.domain}?size=128`}
                     alt={`${company.name} logo`}
                     loading="lazy"
                     decoding="async"
-                    width="120"
-                    height="48"
-                    className="h-10 md:h-12 w-auto max-w-[120px] object-contain group-hover/link:scale-110 transition-transform duration-300 drop-shadow-sm"
+                    width="32"
+                    height="32"
+                    className="h-6 md:h-8 w-6 md:w-8 object-contain group-hover/link:scale-110 transition-transform duration-300"
                     onError={(e) => {
                       if (e.target.src.includes('clearbit')) {
                         e.target.src = `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.${company.domain}&size=128`;
@@ -269,9 +266,12 @@ const PlacementSuccess = () => {
                       }
                     }}
                   />
-                  <span className="hidden text-sm md:text-xl font-black text-[#0A0A0A] dark:text-white group-hover/link:text-[#84CC16]">
+                  <span className="text-xl md:text-2xl font-black text-[#0A0A0A] dark:text-white group-hover/link:text-[#84CC16] tracking-tight whitespace-nowrap">
                     {company.name}
                   </span>
+                  
+                  {/* Vertical Separator Line */}
+                  <div className="absolute right-[-2rem] md:right-[-3rem] top-1/2 -translate-y-1/2 w-px h-6 md:h-8 bg-gray-200 dark:bg-white/10 group-last:hidden"></div>
                 </a>
               ))}
             </div>
