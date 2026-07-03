@@ -35,15 +35,22 @@ const COURSE_OPTIONS = [
   "SAP Masterclass",
 ];
 
-export default function EnquiryForm() {
-  const [form, setForm] = useState({ name: "", phone: "", course_interested: "" });
+export default function EnquiryForm({
+  titleText = "Start Your",
+  highlightText = "Journey",
+  addressText = "B-54 Krishna Park, Vikaspuri,<br/>New Delhi - 110018",
+  addressLink = "https://www.google.com/maps/search/B-54+Krishna+Park+Vikaspuri+New+Delhi+110018",
+  defaultBranch = "Nexxtechs Delhi",
+  className = "py-24 md:py-32 bg-transparent"
+}) {
+  const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: defaultBranch });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.phone || !form.course_interested) {
+    if (!form.name || !form.phone || !form.course_interested || !form.branch) {
       setError("Please fill all fields");
       return;
     }
@@ -68,7 +75,7 @@ export default function EnquiryForm() {
       
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
-        setForm({ name: "", phone: "", course_interested: "" });
+        setForm({ name: "", phone: "", course_interested: "", branch: defaultBranch });
       } else {
         throw new Error("Backend storage failed");
       }
@@ -83,7 +90,7 @@ export default function EnquiryForm() {
   return (
     <section
       id="enquiry"
-      className="py-24 md:py-32 bg-transparent"
+      className={className}
       data-testid="enquiry-section"
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
@@ -93,7 +100,7 @@ export default function EnquiryForm() {
             Get In Touch
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight font-extrabold text-[#111827] dark:text-white mb-6">
-            Start Your <span className="text-[#84CC16]">Journey</span>
+            {titleText} <span className="text-[#84CC16]">{highlightText}</span>
           </h2>
           <p className="text-lg md:text-xl text-[#4B5563] dark:text-gray-400 max-w-2xl mx-auto font-medium">
             Fill in your details and our counselor will reach out within 24 hours
@@ -171,6 +178,26 @@ export default function EnquiryForm() {
                     </Select>
                   </div>
 
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#4B5563] dark:text-gray-400 mb-2.5">Institute Branch</label>
+                    <Select
+                      value={form.branch}
+                      onValueChange={(val) => setForm({ ...form, branch: val })}
+                    >
+                      <SelectTrigger aria-label="Institute Branch" title="Institute Branch" className="rounded-2xl border-gray-200 bg-gray-50 dark:bg-[#1A1A1A] dark:border-transparent dark:text-white px-5 py-4 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all text-base h-auto" data-testid="enquiry-branch-select">
+                        <span className="sr-only">Institute Branch</span>
+                        <SelectValue placeholder="Select a branch" />
+                      </SelectTrigger>
+                      <SelectContent className="dark:bg-[#1A1A1A] dark:border-white/10 rounded-xl">
+                        {["Nexxtechs Delhi", "Nexxtechs Noida"].map((branch) => (
+                          <SelectItem key={branch} value={branch} data-testid={`branch-option-${branch.toLowerCase().replace(/[\s/.,]+/g, '-')}`} className="dark:focus:bg-[#84CC16]/20 dark:focus:text-[#84CC16] py-3 rounded-lg cursor-pointer">
+                            {branch}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
                   {error && (
                     <p className="text-red-500 text-sm font-medium bg-red-500/10 p-3 rounded-lg" data-testid="enquiry-error">{error}</p>
                   )}
@@ -230,7 +257,7 @@ export default function EnquiryForm() {
               </a>
 
               <a
-                href="https://www.google.com/maps/search/B-54+Krishna+Park+Vikaspuri+New+Delhi+110018"
+                href={addressLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-5 p-6 bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-[24px] hover:border-[#84CC16]/50 hover:shadow-2xl hover:shadow-[#84CC16]/10 hover:-translate-y-1 transition-all duration-500 cursor-pointer group relative overflow-hidden"
@@ -242,7 +269,7 @@ export default function EnquiryForm() {
                 </div>
                 <div>
                   <div className="font-bold text-[#111827] dark:text-white text-base group-hover:text-[#84CC16] transition-colors tracking-wide">Visit Our Institute</div>
-                  <div className="text-[#4B5563] dark:text-gray-400 text-sm font-medium mt-1 leading-relaxed">B-54 Krishna Park, Vikaspuri,<br/>New Delhi - 110018</div>
+                  <div className="text-[#4B5563] dark:text-gray-400 text-sm font-medium mt-1 leading-relaxed" dangerouslySetInnerHTML={{ __html: addressText }} />
                 </div>
               </a>
             </div>

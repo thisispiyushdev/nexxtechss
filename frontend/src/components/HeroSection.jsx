@@ -35,26 +35,26 @@ export default function HeroSection() {
   const containerRef = useRef(null);
   const statsRef = useRef(null);
   const gsapLoaded = useRef(false);
-  const [form, setForm] = useState({ name: "", phone: "", course_interested: "" });
+  const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: "Nexxtechs Delhi" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
   const handleEnquirySubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.phone || !form.course_interested) { setError("Please fill all fields"); return; }
+    if (!form.name || !form.phone || !form.course_interested || !form.branch) { setError("Please fill all fields"); return; }
     setError(""); setLoading(true);
     try {
       const response = await axios.post(`${API}/enquiry`, form);
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
-        const msg = `New Enquiry Lead (Hero):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}`;
+        const msg = `New Enquiry Lead (Hero):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}`;
         window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
-        setForm({ name: "", phone: "", course_interested: "" });
+        setForm({ name: "", phone: "", course_interested: "", branch: "Nexxtechs Delhi" });
       } else { throw new Error("Backend storage failed"); }
     } catch (err) {
       console.error("Backend error:", err);
-      const msg = `New Enquiry Lead (Hero Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}`;
+      const msg = `New Enquiry Lead (Hero Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}`;
       window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
       setError("Note: Enquiry submitted via WhatsApp only."); setSubmitted(true);
     } finally { setLoading(false); }
@@ -176,6 +176,19 @@ export default function HeroSection() {
                           <SelectValue placeholder="Course Interested" />
                         </SelectTrigger>
                         <SelectContent>{COURSE_OPTIONS.map((c) => (<SelectItem key={c} value={c}>{c}</SelectItem>))}</SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Select value={form.branch} onValueChange={(val) => setForm({ ...form, branch: val })}>
+                        <SelectTrigger aria-label="Institute Branch" title="Institute Branch" className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]">
+                          <span className="sr-only">Institute Branch</span>
+                          <SelectValue placeholder="Select a branch" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {["Nexxtechs Delhi", "Nexxtechs Noida"].map((branch) => (
+                            <SelectItem key={branch} value={branch}>{branch}</SelectItem>
+                          ))}
+                        </SelectContent>
                       </Select>
                     </div>
                     {error && <p className="text-red-500 text-xs font-medium">{error}</p>}

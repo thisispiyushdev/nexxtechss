@@ -32,13 +32,21 @@ export default function AdminDashboard() {
   const [toast, setToast] = useState(null);
   const [modal, setModal] = useState(null);
   const [search, setSearch] = useState("");
+  const [leadCategory, setLeadCategory] = useState("all");
+  const [leadSort, setLeadSort] = useState("newest");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const didFetch = useRef(false);
 
   const isCoreAdmin = role === "core";
 
   const TABS = [
-    { id: "leads", label: "Leads", icon: ClipboardList, desc: "All enquiries" },
+    ...(isCoreAdmin ? [
+      { id: "leads", label: "All Leads", icon: ClipboardList, desc: "All Enquiries" },
+      { id: "delhi_leads", label: "Delhi Leads", icon: ClipboardList, desc: "Delhi Enquiries" },
+      { id: "noida_leads", label: "Noida Leads", icon: ClipboardList, desc: "Noida Enquiries" },
+    ] : [
+      { id: "leads", label: role === "noida_counselor" ? "Noida Leads" : "Delhi Leads", icon: ClipboardList, desc: "Assigned enquiries" }
+    ]),
     ...(isCoreAdmin ? [
       { id: "placements", label: "Placements", icon: Trophy, desc: "Reviews & Stats" },
       { id: "blogs", label: "Blogs", icon: FileText, desc: "Blog posts" },
@@ -47,6 +55,7 @@ export default function AdminDashboard() {
       { id: "team", label: "Team", icon: Users, desc: "Manage admins" },
     ] : []),
   ];
+
 
   useEffect(() => {
     if (!loading && !isAuthenticated) navigate("/admin");
@@ -139,6 +148,42 @@ export default function AdminDashboard() {
     return items.filter(item => keys.some(k => String(item[k] || "").toLowerCase().includes(q)));
   };
 
+  const getProcessedLeads = () => {
+    let result = [...data.leads];
+    
+    if (isCoreAdmin) {
+      if (activeTab === "delhi_leads") {
+        result = result.filter(l => (l.branch || "").toLowerCase().includes("delhi"));
+      } else if (activeTab === "noida_leads") {
+        result = result.filter(l => (l.branch || "").toLowerCase().includes("noida"));
+      }
+    }
+    
+    if (leadCategory !== "all") {
+      result = result.filter(l => {
+        const src = (l.source || "").toLowerCase();
+        if (leadCategory === "enquiry") return src === "enquiry";
+        if (leadCategory === "brochure") return src === "brochure download";
+        if (leadCategory === "contact") return src !== "enquiry" && src !== "brochure download";
+        return true;
+      });
+    }
+
+    if (search) {
+      const q = search.toLowerCase();
+      const keys = ["name", "phone", "email", "course", "source", "branch"];
+      result = result.filter(item => keys.some(k => String(item[k] || "").toLowerCase().includes(q)));
+    }
+
+    result.sort((a, b) => {
+      const dateA = new Date(a.created_at || 0).getTime();
+      const dateB = new Date(b.created_at || 0).getTime();
+      return leadSort === "newest" ? dateB - dateA : dateA - dateB;
+    });
+
+    return result;
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 flex flex-col">
       {/* Top Bar */}
@@ -159,7 +204,7 @@ export default function AdminDashboard() {
         <div className="flex items-center gap-3 md:gap-6">
           <div className="hidden sm:flex flex-col items-end">
             <span className="text-xs font-bold uppercase tracking-wider text-lime-500 bg-lime-500/10 px-2 py-0.5 rounded border border-lime-500/20">
-              {isCoreAdmin ? "Core Admin" : "Counselor"}
+              {isCoreAdmin ? "Core Admin" : (role === "noida_counselor" ? "Noida Counselor" : "Delhi Counselor")}
             </span>
           </div>
           <button 
@@ -182,7 +227,7 @@ export default function AdminDashboard() {
         )}>
           <div className="px-4 mb-6 md:hidden">
              <span className="text-xs font-bold uppercase tracking-wider text-lime-600 bg-lime-50 px-2 py-1 rounded border border-lime-100">
-              {isCoreAdmin ? "Core Admin" : "Counselor"}
+              {isCoreAdmin ? "Core Admin" : (role === "noida_counselor" ? "Noida Counselor" : "Delhi Counselor")}
             </span>
           </div>
           
@@ -222,15 +267,42 @@ export default function AdminDashboard() {
         {/* Main Content */}
         <main className="flex-1 p-4 md:p-8 overflow-auto">
           {/* Toolbar */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-8 items-stretch sm:items-center">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-              <input 
-                className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 outline-none shadow-sm transition-all"
-                placeholder={`Search in ${activeTab}...`} 
-                value={search}
-                onChange={e => setSearch(e.target.value)} 
-              />
+          <div className="flex flex-col lg:flex-row gap-4 mb-8 items-stretch lg:items-center">
+            <div className="flex-1 flex flex-col sm:flex-row gap-3">
+              <div className="relative flex-1 min-w-[200px]">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                <input 
+                  className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 outline-none shadow-sm transition-all"
+                  placeholder={`Search in ${activeTab}...`} 
+                  value={search}
+                  onChange={e => setSearch(e.target.value)} 
+                />
+              </div>
+              
+              {/* Show filters for leads tabs */}
+              {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads") && (
+                <div className="flex flex-wrap sm:flex-nowrap gap-2">
+                  <select 
+                    value={leadCategory} 
+                    onChange={e => setLeadCategory(e.target.value)}
+                    className="flex-1 sm:flex-none px-3 py-3 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 shadow-sm transition-all cursor-pointer"
+                  >
+                    <option value="all">All Categories</option>
+                    <option value="enquiry">Enquiries</option>
+                    <option value="brochure">Brochures</option>
+                    <option value="contact">Contact</option>
+                  </select>
+                  
+                  <select 
+                    value={leadSort} 
+                    onChange={e => setLeadSort(e.target.value)}
+                    className="flex-1 sm:flex-none px-3 py-3 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 shadow-sm transition-all cursor-pointer"
+                  >
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                  </select>
+                </div>
+              )}
             </div>
             
             <div className="flex gap-2">
@@ -243,7 +315,7 @@ export default function AdminDashboard() {
                 <span className="hidden lg:inline">Refresh</span>
               </button>
               
-              {(activeTab !== "leads" && isCoreAdmin) && (
+              {(activeTab !== "leads" && activeTab !== "delhi_leads" && activeTab !== "noida_leads" && isCoreAdmin) && (
                 <button 
                   onClick={() => openCreateModal()}
                   className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-lime-500 text-slate-900 rounded-xl text-sm font-extrabold hover:bg-lime-400 active:scale-95 transition-all shadow-md shadow-lime-500/20"
@@ -257,7 +329,7 @@ export default function AdminDashboard() {
 
           {/* Active View */}
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {activeTab === "leads" && <LeadsTable leads={filtered(data.leads, ["name","phone","email","course","source"])} onDelete={handleDelete} />}
+            {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads") && <LeadsTable leads={getProcessedLeads()} onDelete={handleDelete} isCoreAdmin={isCoreAdmin} />}
             {activeTab === "placements" && isCoreAdmin && <PlacementsTab reviews={filtered(data.reviews, ["name","company","role"])} stats={data.stats} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "blogs" && isCoreAdmin && <BlogsTable blogs={filtered(data.blogs, ["title","category"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "courses" && isCoreAdmin && <CoursesTable courses={filtered(data.courses, ["title","slug"])} onDelete={handleDelete} onEdit={openEditModal} />}
@@ -371,7 +443,7 @@ function Td({ children, className }) {
   );
 }
 
-function LeadsTable({ leads, onDelete }) {
+function LeadsTable({ leads, onDelete, isCoreAdmin }) {
   if (!leads.length) return <EmptyState label="leads" />;
   return (
     <TableContainer>
@@ -380,6 +452,7 @@ function LeadsTable({ leads, onDelete }) {
           <Th>Name</Th>
           <Th>Contact Info</Th>
           <Th>Interest</Th>
+          <Th>Branch</Th>
           <Th>Source</Th>
           <Th>Date</Th>
           <Th></Th>
@@ -401,6 +474,11 @@ function LeadsTable({ leads, onDelete }) {
               </span>
             </Td>
             <Td>
+              <span className="text-xs font-semibold text-slate-500">
+                {l.branch || "—"}
+              </span>
+            </Td>
+            <Td>
               <span className={cn(
                 "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider",
                 l.source === "Enquiry" ? "bg-blue-100 text-blue-700" : 
@@ -413,12 +491,14 @@ function LeadsTable({ leads, onDelete }) {
               {l.created_at ? new Date(l.created_at).toLocaleDateString() : "—"}
             </Td>
             <Td>
-              <button 
-                onClick={() => onDelete(`/leads/${l.source_table}/${l.id}`, "Lead")}
-                className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
-              >
-                <Trash2 size={18} />
-              </button>
+              {isCoreAdmin && (
+                <button 
+                  onClick={() => onDelete(`/leads/${l.source_table}/${l.id}`, "Lead")}
+                  className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                >
+                  <Trash2 size={18} />
+                </button>
+              )}
             </Td>
           </tr>
         ))}
@@ -610,9 +690,11 @@ function TeamTable({ users, onDelete, onEdit }) {
             <Td>
               <span className={cn(
                 "px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-widest",
-                u.role === "core" ? "bg-red-50 text-red-600 border border-red-100" : "bg-blue-50 text-blue-600 border border-blue-100"
+                u.role === "core" ? "bg-red-50 text-red-600 border border-red-100" : 
+                u.role === "noida_counselor" ? "bg-amber-50 text-amber-600 border border-amber-100" :
+                "bg-blue-50 text-blue-600 border border-blue-100"
               )}>
-                {u.role === "core" ? "Core Admin" : "Counselor"}
+                {u.role === "core" ? "Core Admin" : u.role === "noida_counselor" ? "Noida Counselor" : "Delhi Counselor"}
               </span>
             </Td>
             <Td>
@@ -879,7 +961,8 @@ function ModalForm({ modal, onSave }) {
             value={form.role} 
             onChange={e => set("role", e.target.value)}
           >
-            <option value="counselor">👤 Counselor (Leads only)</option>
+            <option value="counselor">👤 Delhi Counselor (Delhi Leads Only)</option>
+            <option value="noida_counselor">🏢 Noida Counselor (Noida Leads Only)</option>
             <option value="core">🔑 Core Admin (Full access)</option>
           </select>
         </div>

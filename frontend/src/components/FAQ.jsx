@@ -49,7 +49,7 @@ const FAQ_DATA = [
   }
 ];
 
-export default function FAQ() {
+export default function FAQ({ faqData = FAQ_DATA }) {
   const [openIndex, setOpenIndex] = useState(null);
   const containerRef = useRef(null);
 
@@ -70,7 +70,7 @@ export default function FAQ() {
         </div>
 
         <div className="space-y-4">
-          {FAQ_DATA.map((faq, i) => (
+          {faqData.map((faq, i) => (
             <div 
               key={i} 
               className={`faq-item border rounded-2xl overflow-hidden transition-all duration-300 ${

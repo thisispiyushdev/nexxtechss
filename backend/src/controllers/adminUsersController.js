@@ -29,8 +29,8 @@ export const createAdminUser = async (req, res) => {
       return res.status(400).json({ error: "Username, password, and role are required." });
     }
 
-    if (!["core", "counselor"].includes(role)) {
-      return res.status(400).json({ error: "Role must be 'core' or 'counselor'." });
+    if (!["core", "counselor", "noida_counselor"].includes(role)) {
+      return res.status(400).json({ error: "Role must be 'core', 'counselor', or 'noida_counselor'." });
     }
 
     if (password.length < 6) {
@@ -86,8 +86,8 @@ export const updateAdminUser = async (req, res) => {
     const updates = {};
     if (username !== undefined) updates.username = username;
     if (role !== undefined) {
-      if (!["core", "counselor"].includes(role)) {
-        return res.status(400).json({ error: "Role must be 'core' or 'counselor'." });
+      if (!["core", "counselor", "noida_counselor"].includes(role)) {
+        return res.status(400).json({ error: "Role must be 'core', 'counselor', or 'noida_counselor'." });
       }
       updates.role = role;
     }

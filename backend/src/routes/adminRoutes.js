@@ -24,10 +24,12 @@ router.get("/verify", verifyToken);
 
 // Leads (both roles — counselor + core)
 router.get("/leads", getAllLeads);
-router.delete("/leads/:table/:id", deleteLead);
 
 // --- Everything below requires CORE admin ---
 router.use(requireCoreAdmin);
+
+// Delete Leads (core only)
+router.delete("/leads/:table/:id", deleteLead);
 
 // Admin User Management (core only)
 router.get("/users", getAdminUsers);

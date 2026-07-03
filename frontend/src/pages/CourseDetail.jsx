@@ -96,7 +96,7 @@ export default function CourseDetail() {
   const [openModule, setOpenModule] = useState(0);
   const [brochureOpen, setBrochureOpen] = useState(false);
   const [demoPopupOpen, setDemoPopupOpen] = useState(false);
-  const [demoForm, setDemoForm] = useState({ name: "", phone: "", course_interested: slug || "" });
+  const [demoForm, setDemoForm] = useState({ name: "", phone: "", course_interested: slug || "", branch: "Nexxtechs Delhi" });
   const [demoLoading, setDemoLoading] = useState(false);
   const [demoSubmitted, setDemoSubmitted] = useState(false);
   const [demoError, setDemoError] = useState("");
@@ -136,7 +136,7 @@ export default function CourseDetail() {
     
     setDemoPopupOpen(false);
     setDemoSubmitted(false);
-    setDemoForm({ name: "", phone: "", course_interested: newStaticCourse?.title || "" });
+    setDemoForm({ name: "", phone: "", course_interested: newStaticCourse?.title || "", branch: "Nexxtechs Delhi" });
     
     const timer = setTimeout(() => {
       setDemoPopupOpen(true);
@@ -165,14 +165,14 @@ export default function CourseDetail() {
       const response = await axios.post(`${API}/enquiry`, demoForm);
       if (response.status === 201 || response.status === 200) {
         setDemoSubmitted(true);
-        const msg = `New Demo Request (Course Page):%0AName: ${encodeURIComponent(demoForm.name)}%0APhone: ${encodeURIComponent(demoForm.phone)}%0ACourse: ${encodeURIComponent(demoForm.course_interested)}`;
+        const msg = `New Demo Request (Course Page):%0AName: ${encodeURIComponent(demoForm.name)}%0APhone: ${encodeURIComponent(demoForm.phone)}%0ACourse: ${encodeURIComponent(demoForm.course_interested)}%0ABranch: ${encodeURIComponent(demoForm.branch)}`;
         window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
       } else {
         throw new Error("Backend storage failed");
       }
     } catch (err) {
       console.error("Backend error:", err);
-      const msg = `New Demo Request (Course Page Backup):%0AName: ${encodeURIComponent(demoForm.name)}%0APhone: ${encodeURIComponent(demoForm.phone)}%0ACourse: ${encodeURIComponent(demoForm.course_interested)}`;
+      const msg = `New Demo Request (Course Page Backup):%0AName: ${encodeURIComponent(demoForm.name)}%0APhone: ${encodeURIComponent(demoForm.phone)}%0ACourse: ${encodeURIComponent(demoForm.course_interested)}%0ABranch: ${encodeURIComponent(demoForm.branch)}`;
       window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
       setDemoError("Note: Enquiry submitted via WhatsApp only.");
       setDemoSubmitted(true);
@@ -329,8 +329,9 @@ export default function CourseDetail() {
               {/* Image & Stats Cards */}
               <div className="flex flex-col gap-6">
                 {course.image && (
-                  <div className="w-full h-64 md:h-80 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-                    <ResponsiveImage src={course.image} alt={`${course.title} Course in Delhi | NexxTechs IT Training Institute Vikaspuri`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                  <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
+                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500 z-10"></div>
+                    <ResponsiveImage src={course.image} alt={`${course.title} Course in Delhi | NexxTechs IT Training Institute Vikaspuri`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   </div>
                 )}
                 <div className="grid grid-cols-2 gap-4">
@@ -654,6 +655,22 @@ export default function CourseDetail() {
                   onChange={(e) => setDemoForm({ ...demoForm, phone: e.target.value })}
                   className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20"
                 />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-2">Branch</label>
+                <Select
+                  value={demoForm.branch}
+                  onValueChange={(value) => setDemoForm({ ...demoForm, branch: value })}
+                >
+                  <SelectTrigger className="w-full rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 h-12">
+                    <SelectValue placeholder="Select Branch" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white dark:bg-[#1a1d27] border-gray-200 dark:border-gray-700">
+                    <SelectItem value="Nexxtechs Delhi">Nexxtechs Delhi</SelectItem>
+                    <SelectItem value="Nexxtechs Noida">Nexxtechs Noida</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               {demoError && <p className="text-red-500 text-xs font-medium mt-1">{demoError}</p>}

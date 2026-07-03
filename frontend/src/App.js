@@ -65,7 +65,7 @@ const CyberHooks = lazy(() => import("@/pages/CyberHooks"));
 const AdminLogin = lazy(() => import("@/pages/admin/AdminLogin"));
 const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard"));
 const TopTrainersPage = lazy(() => import("@/pages/TopTrainersPage"));
-
+const NoidaInstitutePage = lazy(() => import("@/pages/NoidaInstitutePage"));
 // Basic loading fallback
 const LoadingFallback = () => (
   <div className="min-h-screen flex items-center justify-center bg-background">
@@ -223,6 +223,7 @@ function App() {
                   <Route path="/top-5-graphic-design-trainers-in-india" element={<TopTrainersPage />} />
                   <Route path="/top-5-personal-development-trainers-in-india" element={<TopTrainersPage />} />
                   <Route path="/top-5-data-science-trainers-in-india" element={<TopTrainersPage />} />
+                  <Route path="/nexxtechs-noida" element={<NoidaInstitutePage />} />
                 </Routes>
               </PublicLayout>
             } />

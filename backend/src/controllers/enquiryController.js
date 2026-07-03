@@ -4,7 +4,8 @@ import { z } from "zod";
 const enquirySchema = z.object({
   name: z.string().min(1, "Name is required"),
   phone: z.string().min(1, "Phone is required"),
-  course_interested: z.string().min(1, "Course is required")
+  course_interested: z.string().min(1, "Course is required"),
+  branch: z.string().min(1, "Branch is required")
 });
 
 export const createEnquiry = async (req, res, next) => {
@@ -14,7 +15,7 @@ export const createEnquiry = async (req, res, next) => {
     const { data, error } = await db
       .from('enquiries')
       .insert([{
-        name: validatedData.name, phone: validatedData.phone, course_interested: validatedData.course_interested
+        name: validatedData.name, phone: validatedData.phone, course_interested: validatedData.course_interested, branch: validatedData.branch
       }])
       .select();
 

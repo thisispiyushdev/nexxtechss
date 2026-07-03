@@ -152,9 +152,19 @@ export default function Footer() {
                 <Mail size={14} className="mt-0.5 shrink-0" />
                 <span>info@nexxtechs.com</span>
               </a>
-              <div className="flex items-start gap-3 text-gray-400 text-sm" data-testid="footer-address">
+              <div className="flex items-start gap-3 text-gray-400 text-sm" data-testid="footer-address-delhi">
                 <MapPin size={14} className="mt-0.5 shrink-0" />
-                <span>B-54 Krishna Park, Vikaspuri, New Delhi - 110018</span>
+                <div>
+                  <span className="block font-semibold text-white/90">Delhi Branch</span>
+                  <span>B-54 Krishna Park, Vikaspuri, New Delhi - 110018</span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-400 text-sm mt-4" data-testid="footer-address-noida">
+                <MapPin size={14} className="mt-0.5 shrink-0 text-[#84CC16]" />
+                <div>
+                  <span className="block font-semibold text-white/90">Noida Branch</span>
+                  <span>B-136 Upper, Ground floor, B Block, Sector 2, Noida, UP 201301</span>
+                </div>
               </div>
             </address>
           </div>
@@ -198,7 +208,7 @@ export default function Footer() {
             </Link>
           </div>
           <p className="text-gray-400 text-xs text-center md:text-left w-full mt-2">
-            NexxTechs – Best IT Training Institute in Vikaspuri, New Delhi | DevOps, Cloud Computing, Full Stack, Cyber Security, Data Science Courses | 100% Placement Assistance
+            NexxTechs – Best IT Training Institute in Vikaspuri, New Delhi & Sector 2, Noida | DevOps, Cloud Computing, Full Stack, Cyber Security, Data Science Courses | 100% Placement Assistance
           </p>
           <button
             onClick={scrollToTop}

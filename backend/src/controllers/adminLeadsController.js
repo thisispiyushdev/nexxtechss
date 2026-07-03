@@ -7,11 +7,27 @@ import db from "../config/db.js";
  */
 export const getAllLeads = async (req, res, next) => {
   try {
+    let eqQuery = db.from("enquiries").select("*").order("created_at", { ascending: false });
+    let brQuery = db.from("brochure_leads").select("*").order("created_at", { ascending: false });
+    let rdQuery = db.from("roadmap_leads").select("*").order("created_at", { ascending: false });
+
+    if (req.admin && req.admin.role === "noida_counselor") {
+      eqQuery = eqQuery.ilike("branch", "%Noida%");
+      brQuery = brQuery.ilike("branch", "%Noida%");
+      rdQuery = rdQuery.ilike("branch", "%Noida%");
+    }
+    
+    if (req.admin && req.admin.role === "counselor") {
+      eqQuery = eqQuery.ilike("branch", "%Delhi%");
+      brQuery = brQuery.ilike("branch", "%Delhi%");
+      rdQuery = rdQuery.ilike("branch", "%Delhi%");
+    }
+
     // Fetch from all three tables in parallel
     const [enquiriesRes, brochureRes, roadmapRes] = await Promise.all([
-      db.from("enquiries").select("*").order("created_at", { ascending: false }),
-      db.from("brochure_leads").select("*").order("created_at", { ascending: false }),
-      db.from("roadmap_leads").select("*").order("created_at", { ascending: false }),
+      eqQuery,
+      brQuery,
+      rdQuery,
     ]);
 
     const leads = [];

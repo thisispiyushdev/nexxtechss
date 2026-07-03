@@ -203,3 +203,21 @@ DROP POLICY IF EXISTS "Allow public update" ON public.promotional_banners;
 CREATE POLICY "Allow public update" ON public.promotional_banners FOR UPDATE TO public USING (true) WITH CHECK (true);
 DROP POLICY IF EXISTS "Allow public delete" ON public.promotional_banners;
 CREATE POLICY "Allow public delete" ON public.promotional_banners FOR DELETE TO public USING (true);
+
+-- ============================================================
+-- ADMINS TABLE (For role based access)
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS public.admins (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    username TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    role TEXT NOT NULL CHECK (role IN ('core', 'counselor', 'noida_counselor')),
+    display_name TEXT NOT NULL,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE public.admins ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Allow all for admins" ON public.admins;
+CREATE POLICY "Allow all for admins" ON public.admins FOR ALL TO public USING (true) WITH CHECK (true);

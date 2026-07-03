@@ -8,6 +8,11 @@ import BrochureModal from "./BrochureModal";
 import { Button } from "../components/ui/button";
 import { cachedFetch, API } from "@/lib/apiCache";
 import ResponsiveImage from "./ResponsiveImage";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Brochure mapping - add more courses here as brochures are uploaded
 const BROCHURES = {
@@ -39,7 +44,7 @@ const STATIC_COURSES = [
 
 const CATEGORIES = ["All", "Development", "Design & Marketing", "Data & AI", "Cloud & DevOps", "Enterprise"];
 
-export default function CoursesGrid() {
+export default function CoursesGrid({ layout = "grid" }) {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
   const [brochureModal, setBrochureModal] = useState({ open: false, course: "", url: "" });
@@ -75,6 +80,19 @@ export default function CoursesGrid() {
     return () => observer.disconnect();
   }, []);
 
+  useGSAP(() => {
+    gsap.from(".courses-heading-animate", {
+      scrollTrigger: {
+        trigger: ".courses-heading-animate",
+        start: "top 85%",
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out"
+    });
+  }, { scope: sectionRef });
+
   const openBrochure = (courseName) => {
     setBrochureModal({ open: true, course: courseName, url: BROCHURES[courseName] });
   };
@@ -89,7 +107,7 @@ export default function CoursesGrid() {
       >
         <div className="max-w-[1440px] mx-auto px-6 md:px-12">
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 courses-heading-animate">
             <span className="inline-block text-xs tracking-[0.2em] uppercase font-bold text-[#4B5563] dark:text-gray-500 mb-4">
               Our Programs
             </span>
@@ -118,23 +136,94 @@ export default function CoursesGrid() {
             </div>
           </div>
 
-        {/* Course Grid */}
+        {/* Course Cards rendering logic */}
+        {layout === "marquee" ? (
+          <div className="relative overflow-hidden w-full group py-4">
+            <div className="flex gap-4 sm:gap-6 md:gap-8 w-max">
+              {[0, 1].map((groupIndex) => (
+                <div 
+                  key={groupIndex} 
+                  className="flex shrink-0 gap-4 sm:gap-6 md:gap-8 animate-marquee group-hover:[animation-play-state:paused]"
+                  style={{ animationDuration: '80s' }}
+                  aria-hidden={groupIndex === 1}
+                >
+                  {(activeCategory === "All" ? COURSES : COURSES.filter((c) => c.category === activeCategory)).map((course, i) => {
+                    return (
+                      <div
+                        key={`${groupIndex}-${course.title}`}
+                        className="w-[280px] sm:w-[320px] md:w-[380px] shrink-0 group bg-white dark:bg-[#0f1117]/60 dark:backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-[20px] sm:rounded-[24px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_30px_rgba(132,204,22,0.15)] dark:hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
+                        onClick={() => navigate(`/course/${course.slug}/`)}
+                      >
+                        {course.image && (
+                          <div className="relative w-full aspect-video overflow-hidden bg-gray-100 dark:bg-[#050505]">
+                            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500 z-10"></div>
+                            <ResponsiveImage src={course.image} alt={`${course.title} course at NexxTechs`} className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700" priority={i < 3} width={480} height={270} />
+                            
+                            {/* Badges */}
+                            {course.isPopular && (
+                              <div className="absolute top-4 right-4 z-20">
+                                <span className="bg-[#84CC16] text-black text-[10px] font-bold px-3 py-1 rounded-full shadow-lg shadow-[#84CC16]/20 md:animate-pulse">
+                                  POPULAR
+                                </span>
+                              </div>
+                            )}
+                            {course.isTrending && (
+                              <div className="absolute top-4 right-4 z-20">
+                                <span className="bg-[#3B82F6] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg shadow-blue-500/20 md:animate-pulse">
+                                  TRENDING
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        <div className="p-6 flex flex-col flex-1 relative z-10">
+                          <div className="flex flex-col gap-3 mb-4">
+                            <h4 className="font-bold text-[#111827] dark:text-white text-xl group-hover:text-[#84CC16] transition-colors whitespace-normal">
+                              {course.title}
+                            </h4>
+                          </div>
+                          <p className="text-sm text-[#4B5563] dark:text-gray-400 mb-6 flex-1 leading-relaxed whitespace-normal">{course.desc}</p>
+                          <div className="flex items-center gap-3 mt-auto pt-5 border-t border-gray-100 dark:border-white/10">
+                            <Button
+                              onClick={(e) => { e.stopPropagation(); navigate(`/course/${course.slug}/`); }}
+                              variant="outline"
+                              className="flex-1 px-4 text-sm h-11 rounded-xl border-[#84CC16]/40 text-[#111827] dark:text-[#84CC16] font-semibold hover:!bg-[#84CC16] hover:!text-black dark:hover:!text-black hover:border-[#84CC16] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(132,204,22,0.2)] min-w-0"
+                              data-testid={`view-details-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
+                            >
+                              <span className="truncate">View Details</span>
+                              <ArrowRight size={16} className="ml-2 shrink-0 transition-transform group-hover:translate-x-1" />
+                            </Button>
+                            <Button
+                              onClick={(e) => { e.stopPropagation(); openBrochure(course.title); }}
+                              className="h-11 w-11 p-0 shrink-0 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-[#84CC16] transition-all duration-300 border border-transparent dark:hover:border-white/10"
+                              data-testid={`brochure-btn-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
+                              title="Download Syllabus"
+                              aria-label={`Download ${course.title} Syllabus`}
+                            >
+                              <Download size={18} className="shrink-0 group-hover/btn:animate-bounce" />
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {(activeCategory === "All" ? COURSES : COURSES.filter((c) => c.category === activeCategory)).map((course, i) => {
-              const Icon = course.icon;
               return (
                 <div
-                  key={course.title}
-                  className={`group bg-white dark:bg-[#0f1117]/60 dark:backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-[20px] sm:rounded-[24px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_30px_rgba(132,204,22,0.15)] dark:hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col ${
-                    visible ? "animate-float-up" : "opacity-0"
-                  }`}
-                  style={{ animationDelay: `${Math.min(i * 80, 400)}ms` }}
-                  data-testid={`course-card-${course.title.toLowerCase().replace(/\s+/g, '-')}`}
+                  key={`grid-${course.title}`}
+                  className="h-full group bg-white dark:bg-[#0f1117]/60 dark:backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-[20px] sm:rounded-[24px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_30px_rgba(132,204,22,0.15)] dark:hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
                   onClick={() => navigate(`/course/${course.slug}/`)}
                 >
                   {course.image && (
                     <div className="relative w-full aspect-video overflow-hidden bg-gray-100 dark:bg-[#050505]">
-                      <ResponsiveImage src={course.image} alt={`${course.title} course at NexxTechs IT Training Institute Vikaspuri Delhi`} className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700" priority={i < 3} width={480} height={270} />
+                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500 z-10"></div>
+                      <ResponsiveImage src={course.image} alt={`${course.title} course at NexxTechs`} className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700" priority={i < 3} width={480} height={270} />
                       
                       {/* Badges */}
                       {course.isPopular && (
@@ -155,39 +244,37 @@ export default function CoursesGrid() {
                   )}
                   <div className="p-6 flex flex-col flex-1 relative z-10">
                     <div className="flex flex-col gap-3 mb-4">
-
-                      <h4 className="font-bold text-[#111827] dark:text-white text-xl group-hover:text-[#84CC16] transition-colors">
+                      <h4 className="font-bold text-[#111827] dark:text-white text-xl group-hover:text-[#84CC16] transition-colors whitespace-normal">
                         {course.title}
                       </h4>
                     </div>
-                    <p className="text-sm text-[#4B5563] dark:text-gray-400 mb-6 flex-1 leading-relaxed">{course.desc}</p>
+                    <p className="text-sm text-[#4B5563] dark:text-gray-400 mb-6 flex-1 leading-relaxed whitespace-normal">{course.desc}</p>
                     <div className="flex items-center gap-3 mt-auto pt-5 border-t border-gray-100 dark:border-white/10">
-                    <Button
-                      onClick={(e) => { e.stopPropagation(); navigate(`/course/${course.slug}/`); }}
-                      variant="outline"
-                      className="flex-1 px-4 text-sm h-11 rounded-xl border-[#84CC16]/40 text-[#111827] dark:text-[#84CC16] font-semibold hover:!bg-[#84CC16] hover:!text-black dark:hover:!text-black hover:border-[#84CC16] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(132,204,22,0.2)] min-w-0"
-                      data-testid={`view-details-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
-                    >
-                      <span className="truncate">View Details</span>
-                      <ArrowRight size={16} className="ml-2 shrink-0 transition-transform group-hover:translate-x-1" />
-                    </Button>
-                    <Button
-                      onClick={(e) => { e.stopPropagation(); openBrochure(course.title); }}
-                      className="h-11 w-11 p-0 shrink-0 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-[#84CC16] transition-all duration-300 border border-transparent dark:hover:border-white/10"
-                      data-testid={`brochure-btn-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
-                      title="Download Syllabus"
-                      aria-label={`Download ${course.title} Syllabus`}
-                    >
-                      <Download size={18} className="shrink-0 group-hover/btn:animate-bounce" />
-                    </Button>
+                      <Button
+                        onClick={(e) => { e.stopPropagation(); navigate(`/course/${course.slug}/`); }}
+                        variant="outline"
+                        className="flex-1 px-4 text-sm h-11 rounded-xl border-[#84CC16]/40 text-[#111827] dark:text-[#84CC16] font-semibold hover:!bg-[#84CC16] hover:!text-black dark:hover:!text-black hover:border-[#84CC16] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(132,204,22,0.2)] min-w-0"
+                        data-testid={`view-details-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
+                      >
+                        <span className="truncate">View Details</span>
+                        <ArrowRight size={16} className="ml-2 shrink-0 transition-transform group-hover:translate-x-1" />
+                      </Button>
+                      <Button
+                        onClick={(e) => { e.stopPropagation(); openBrochure(course.title); }}
+                        className="h-11 w-11 p-0 shrink-0 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-[#84CC16] transition-all duration-300 border border-transparent dark:hover:border-white/10"
+                        data-testid={`brochure-btn-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
+                        title="Download Syllabus"
+                        aria-label={`Download ${course.title} Syllabus`}
+                      >
+                        <Download size={18} className="shrink-0 group-hover/btn:animate-bounce" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
               );
             })}
           </div>
-
-
+        )}
         </div>
       </section>
 
