@@ -14,7 +14,7 @@ export default function AdityaDevopsTrainerPage() {
         
         <Breadcrumbs items={[{ name: "Best Cloud DevOps Trainer in Delhi", path: "/best-cloud-devops-trainer-in-delhi" }]} />
         
-        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12">
+        <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12">
           {/* Header */}
           <header className="mb-10 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">

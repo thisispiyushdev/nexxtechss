@@ -16,7 +16,8 @@ const topTrainersData = {
         "nexxtechs cloud computing trainer",
         "best aws trainer in delhi ncr",
         "gcp professional cloud architect training",
-        "learn cloud computing step by step"
+        "learn cloud computing step by step",
+        "best cloud devops trainer in delhi"
     ],
     trainers: [
       {
@@ -183,7 +184,8 @@ Rohan’s FinOps frameworks are highly valuable for senior architects and engine
         "nexxtechs devops trainer",
         "best kubernetes trainer in delhi ncr",
         "jenkins ci cd pipeline training",
-        "learn devops step by step"
+        "learn devops step by step",
+        "best cloud devops trainer in delhi"
     ],
     trainers: [
       {

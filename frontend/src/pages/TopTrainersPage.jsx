@@ -131,7 +131,8 @@ export default function TopTrainersPage() {
               {pageData.tags.map((tag, index) => {
                 const t = tag.toLowerCase();
                 let url = "/courses";
-                if (t.includes("top") || t.includes("best trainer") || t.includes("expert") || t.includes("in india")) url = `/${fullSlug}`;
+                if (t === "best cloud devops trainer in delhi") url = "/best-cloud-devops-trainer-in-delhi";
+                else if (t.includes("top") || t.includes("best trainer") || t.includes("expert") || t.includes("in india")) url = `/${fullSlug}`;
                 else if (t.includes("placement") || t.includes("job") || t.includes("salary")) url = "/placement";
                 else if (t.includes("roadmap") || t.includes("career") || t.includes("path")) url = "/roadmap";
                 else if (fullSlug.includes("cloud")) url = "/course/cloud-computing";
