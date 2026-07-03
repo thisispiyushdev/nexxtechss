@@ -130,18 +130,39 @@ export default function EnquiryForm({
           />
         ))
       ) : (
-        <div 
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-100" 
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80")' }} 
-        />
+        <>
+          <div 
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40" 
+            style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80")' }} 
+          />
+          <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
+        </>
       )}
       
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12">
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
-          {/* Left Side: Empty space to push form to the right */}
-          <div className="hidden lg:block"></div>
+          {/* Left Side: Banner Text or Empty Space */}
+          {banners.length > 0 ? (
+            <div className="hidden lg:block"></div>
+          ) : (
+            <div className="space-y-6 md:space-y-8 z-10">
+              <h2 className="text-4xl md:text-5xl lg:text-5xl font-extrabold text-white leading-[1.2] tracking-tight">
+                Level Up Your <span className="text-[#FFD700]">Skills,</span><br/>
+                Invest In Skills For a <span className="text-[#FFD700]">Future-Proof Growth</span>
+              </h2>
+              <div className="space-y-2">
+                <p className="text-xl md:text-2xl text-white font-semibold leading-relaxed tracking-wide">
+                  Unlock Your Potential,
+                </p>
+                <p className="text-xl md:text-2xl text-white font-semibold leading-relaxed tracking-wide">
+                  Shape Your Future with<br/>
+                  Nexxtechs IT Training School.
+                </p>
+              </div>
+            </div>
+          )}
           {/* Form */}
           <div className="bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-[32px] p-8 md:p-12 relative overflow-hidden group shadow-2xl dark:shadow-none flex flex-col justify-center">
             {/* Ambient Background Glow */}
