@@ -940,12 +940,17 @@ function ModalForm({ modal, onSave }) {
         <Field label="Banner Title (Internal reference)" value={form.title} onChange={v => set("title", v)} required />
         <Field label="Banner Text" value={form.text} onChange={v => set("text", v)} required textarea />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <SelectField 
-            label="Target Page" 
-            value={form.target_page || "home"} 
-            onChange={v => set("target_page", v)} 
-            options={[{value:"home", label:"Home Page"}, {value:"noida", label:"Noida Page"}]} 
-          />
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Target Page</label>
+            <select 
+              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-lime-500/20 outline-none transition-all"
+              value={form.target_page || "home"} 
+              onChange={e => set("target_page", e.target.value)}
+            >
+              <option value="home">Home Page</option>
+              <option value="noida">Noida Page</option>
+            </select>
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Field label="Link URL (Optional)" value={form.link_url} onChange={v => set("link_url", v)} />
