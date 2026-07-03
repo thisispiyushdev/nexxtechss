@@ -6,7 +6,7 @@ import db from "../config/db.js";
  * We use simple in-memory caching to improve performance in production.
  */
 
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
+const CACHE_TTL = 0; // Temporarily disabled for immediate updates (was 5 mins)
 const cache = {
   reviews: { data: null, timestamp: 0 },
   stats: { data: null, timestamp: 0 },

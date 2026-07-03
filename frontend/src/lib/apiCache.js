@@ -16,8 +16,8 @@ const cache = new Map();
 // Pending requests (for deduplication)
 const pending = new Map();
 
-// Cache TTL: 5 minutes
-const CACHE_TTL = 5 * 60 * 1000;
+// Cache TTL: 0 (disabled for immediate updates, was 5 minutes)
+const CACHE_TTL = 0;
 
 /**
  * Fetch with caching + deduplication
