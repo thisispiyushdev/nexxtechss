@@ -112,9 +112,9 @@ export default function Header() {
             <img 
               src={dark ? LOGO_DARK_URL : LOGO_URL} 
               alt="NexxTechs - Best IT Training Institute" 
-              className="h-10 md:h-12 object-contain" 
-              width={160}
-              height={48}
+              className="h-12 md:h-16 lg:h-[4.5rem] object-contain transition-all duration-300" 
+              width={240}
+              height={72}
               fetchPriority="high"
               loading="eager"
             />
