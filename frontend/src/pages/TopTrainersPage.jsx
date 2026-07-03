@@ -20,6 +20,8 @@ export default function TopTrainersPage() {
     return <Navigate to="/" replace />;
   }
 
+  const category = pageData.title.replace("Top 5 Best ", "").replace(" Trainers in India", "");
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
@@ -48,9 +50,9 @@ export default function TopTrainersPage() {
                 {index === 0 ? (
                   <div className="mt-8 mb-4">
                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-1 flex items-center flex-wrap gap-2">
-                      1. {trainer.name}
+                      1. Best {category} Trainer {trainer.name}
                       <span className="text-xl sm:text-2xl font-semibold text-[#84CC16]">
-                        ({pageData.title.replace("Top 5 Best ", "").replace(" Trainers in India", " Expert")})
+                        ({category} Expert)
                       </span>
                     </h2>
                     <p className="text-lg font-semibold text-gray-600 dark:text-gray-400 flex flex-wrap gap-x-4 gap-y-2 mt-2">
@@ -62,7 +64,7 @@ export default function TopTrainersPage() {
                   </div>
                 ) : (
                   <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-                    {index + 1}. {trainer.name} ({trainer.location})
+                    {index + 1}. Best {category} Trainer {trainer.name} ({trainer.location})
                     {trainer.experience && <span className="text-[#84CC16] ml-2 text-xl">| {trainer.experience}</span>}
                   </h2>
                 )}
