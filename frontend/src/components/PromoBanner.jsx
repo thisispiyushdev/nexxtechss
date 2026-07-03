@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { cachedFetch, API } from "@/lib/apiCache";
 import { MessageCircle } from "lucide-react";
 
@@ -8,8 +9,12 @@ export default function PromoBanner() {
   const [banner, setBanner] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const location = useLocation();
+  const page = location.pathname === '/nexxtechs-noida' ? 'noida' : 'home';
+
   useEffect(() => {
-    cachedFetch(`${API}/content/banners/active`)
+    setLoading(true);
+    cachedFetch(`${API}/content/banners/active?page=${page}`)
       .then((data) => {
         if (data && data.success !== false) {
           setBanner(data);
@@ -21,7 +26,7 @@ export default function PromoBanner() {
         console.debug("Promo banner blocked or unavailable.");
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [page]);
 
   if (loading || !banner) return null;
 

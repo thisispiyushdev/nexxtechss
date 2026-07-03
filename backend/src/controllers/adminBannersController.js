@@ -24,7 +24,7 @@ export const getBanners = async (req, res) => {
 // @access  Private (Core Admin)
 export const createBanner = async (req, res) => {
   try {
-    const { title, text, link_url, link_text, bg_color, text_color, start_date, end_date, is_active } = req.body;
+    const { title, text, link_url, link_text, target_page, bg_color, text_color, start_date, end_date, is_active } = req.body;
 
     // Validate required fields
     if (!title || !text) {
@@ -33,7 +33,7 @@ export const createBanner = async (req, res) => {
 
     const { data, error } = await db
       .from('promotional_banners')
-      .insert([{ title, text, link_url, link_text, bg_color, text_color, start_date, end_date, is_active }])
+      .insert([{ title, text, link_url, link_text, target_page, bg_color, text_color, start_date, end_date, is_active }])
       .select();
 
     if (error) throw error;
@@ -51,11 +51,11 @@ export const createBanner = async (req, res) => {
 export const updateBanner = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, text, link_url, link_text, bg_color, text_color, start_date, end_date, is_active } = req.body;
+    const { title, text, link_url, link_text, target_page, bg_color, text_color, start_date, end_date, is_active } = req.body;
 
     const { data, error } = await db
       .from('promotional_banners')
-      .update({ title, text, link_url, link_text, bg_color, text_color, start_date, end_date, is_active, updated_at: new Date().toISOString() })
+      .update({ title, text, link_url, link_text, target_page, bg_color, text_color, start_date, end_date, is_active, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select();
 

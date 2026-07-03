@@ -380,7 +380,7 @@ export default function AdminDashboard() {
       placements: { title: "Add Review", type: "review", data: { name: "", role: "", company: "", image: "", text: "", is_active: true, sort_order: 0 } },
       blogs: { title: "Add Blog", type: "blog", data: { id: "", title: "", excerpt: "", author: "NexxTechs", date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }), category: "Our blog", read_time: "5 min read", image: "", content: "", is_active: true } },
       courses: { title: "Add Course", type: "course", data: { slug: "", title: "", tagline: "", image: "", duration: "", level: "", overview: "", is_popular: false, is_trending: false, is_active: true, batch_timings: [], highlights: [], trending_tools: [], modules: [], brochure_url: "", sort_order: 0 } },
-      banners: { title: "Add Banner", type: "banner", data: { title: "", text: "", link_url: "", link_text: "", bg_color: "#84CC16", text_color: "#000000", start_date: "", end_date: "", is_active: true } },
+      banners: { title: "Add Banner", type: "banner", data: { title: "", text: "", link_url: "", link_text: "", target_page: "home", bg_color: "#84CC16", text_color: "#000000", start_date: "", end_date: "", is_active: true } },
       team: { title: "Add Admin", type: "user", data: { username: "", password: "", role: "counselor", display_name: "" } },
     };
     const t = templates[activeTab];
@@ -723,6 +723,7 @@ function BannersTable({ banners, onDelete, onEdit }) {
       <thead>
         <tr>
           <Th>Banner Info</Th>
+          <Th>Target Page</Th>
           <Th>Dates</Th>
           <Th>Status</Th>
           <Th></Th>
@@ -736,6 +737,11 @@ function BannersTable({ banners, onDelete, onEdit }) {
                 <span className="text-slate-900 font-bold max-w-sm truncate">{b.title}</span>
                 <span className="text-xs text-slate-400 mt-1 max-w-sm truncate">{b.text}</span>
               </div>
+            </Td>
+            <Td>
+              <span className={`px-2 py-1 rounded-full text-[10px] font-black uppercase bg-slate-100 text-slate-700`}>
+                {b.target_page || 'home'}
+              </span>
             </Td>
             <Td>
               <div className="flex flex-col gap-1 text-xs text-slate-500">
@@ -930,10 +936,18 @@ function ModalForm({ modal, onSave }) {
     );
 
     if (modal.type === "banner") return (
-      <div className="space-y-5">
+      <div className="space-y-4">
         <Field label="Banner Title (Internal reference)" value={form.title} onChange={v => set("title", v)} required />
         <Field label="Banner Text" value={form.text} onChange={v => set("text", v)} required textarea />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <SelectField 
+            label="Target Page" 
+            value={form.target_page || "home"} 
+            onChange={v => set("target_page", v)} 
+            options={[{value:"home", label:"Home Page"}, {value:"noida", label:"Noida Page"}]} 
+          />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Field label="Link URL (Optional)" value={form.link_url} onChange={v => set("link_url", v)} />
           <Field label="Link Text (e.g., 'Learn More')" value={form.link_text} onChange={v => set("link_text", v)} />
         </div>

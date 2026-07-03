@@ -12,7 +12,7 @@ const cache = {
   stats: { data: null, timestamp: 0 },
   blogs: { data: null, timestamp: 0 },
   courses: { data: null, timestamp: 0 },
-  banner: { data: null, timestamp: 0 },
+  banner: {}, // Object map for different pages
   blogById: new Map(),
   courseBySlug: new Map(),
 };
@@ -140,15 +140,22 @@ export const getPublicCourseBySlug = async (req, res, next) => {
 // --- Promotional Banners ---
 export const getActiveBanner = async (req, res, next) => {
   try {
+    const targetPage = req.query.page || 'home';
     const now = Date.now();
-    if (cache.banner.data !== null && (now - cache.banner.timestamp < CACHE_TTL)) {
-      return res.status(200).json(cache.banner.data);
+    
+    if (!cache.banner[targetPage]) {
+      cache.banner[targetPage] = { data: null, timestamp: 0 };
+    }
+
+    if (cache.banner[targetPage].data !== null && (now - cache.banner[targetPage].timestamp < CACHE_TTL)) {
+      return res.status(200).json(cache.banner[targetPage].data);
     }
 
     const { data, error } = await db
       .from('promotional_banners')
       .select('*')
       .eq('is_active', true)
+      .eq('target_page', targetPage)
       .or('start_date.is.null,start_date.lte.now()')
       .or('end_date.is.null,end_date.gte.now()')
       .order('created_at', { ascending: false })
@@ -157,7 +164,7 @@ export const getActiveBanner = async (req, res, next) => {
     if (error) throw error;
 
     const bannerData = data && data.length > 0 ? data[0] : null;
-    cache.banner = { data: bannerData, timestamp: now };
+    cache.banner[targetPage] = { data: bannerData, timestamp: now };
     
     // Return the first active banner or null if none exist
     res.status(200).json(bannerData);

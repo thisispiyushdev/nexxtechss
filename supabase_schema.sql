@@ -185,6 +185,7 @@ CREATE TABLE IF NOT EXISTS public.promotional_banners (
     text TEXT NOT NULL,
     link_url TEXT DEFAULT '',
     link_text TEXT DEFAULT '',
+    target_page TEXT DEFAULT 'home',
     bg_color TEXT DEFAULT '#84CC16',
     text_color TEXT DEFAULT '#000000',
     start_date TIMESTAMP WITH TIME ZONE,
