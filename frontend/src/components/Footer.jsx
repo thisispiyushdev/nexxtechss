@@ -48,8 +48,8 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="flex gap-3">
               {[
-                { name: "facebook", icon: Facebook, url: "https://www.instagram.com/nexxtechs.institute" },
-                { name: "twitter", icon: Twitter, url: "https://www.instagram.com/nexxtechs.institute" },
+                { name: "facebook", icon: Facebook, url: "https://www.facebook.com/profile.php?id=61574247346379#" },
+                { name: "twitter", icon: Twitter, url: "https://x.com/nexxtechs" },
                 { name: "instagram", icon: Instagram, url: "https://www.instagram.com/nexxtechs.institute" },
                 { name: "linkedin", icon: Linkedin, url: "https://www.linkedin.com/company/nexxtechs-private-limited/" }
               ].map((social) => {
