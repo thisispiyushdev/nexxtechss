@@ -118,7 +118,7 @@ export default function EnquiryForm({
   return (
     <section
       id="enquiry"
-      className="relative py-20 md:py-28 overflow-hidden bg-[#111827]"
+      className="relative py-12 md:py-16 lg:py-0 lg:aspect-video flex items-center overflow-hidden bg-[#111827]"
       data-testid="enquiry-section"
     >
       {/* Background Images with Overlay */}
@@ -140,7 +140,7 @@ export default function EnquiryForm({
         </>
       )}
       
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12">
+      <div className="relative z-10 max-w-[1440px] w-full mx-auto px-6 md:px-12">
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
