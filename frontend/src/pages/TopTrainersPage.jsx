@@ -22,6 +22,26 @@ export default function TopTrainersPage() {
 
   const category = pageData.title.replace("Top 5 Best ", "").replace(" Trainers in India", "");
 
+  const extractCity = (locationStr) => {
+    if (!locationStr) return 'India';
+    const loc = locationStr.toLowerCase();
+    if (loc.includes('delhi') || loc.includes('nexxtechs')) return 'Delhi';
+    if (loc.includes('bangalore') || loc.includes('bengaluru')) return 'Bangalore';
+    if (loc.includes('mumbai')) return 'Mumbai';
+    if (loc.includes('gurgaon') || loc.includes('gurugram')) return 'Gurgaon';
+    if (loc.includes('hyderabad')) return 'Hyderabad';
+    if (loc.includes('pune')) return 'Pune';
+    if (loc.includes('chennai')) return 'Chennai';
+    if (loc.includes('noida')) return 'Noida';
+    
+    const match = locationStr.match(/\((.*?)\)/);
+    if (match) {
+      const parts = match[1].split(',');
+      return parts[parts.length - 1].trim();
+    }
+    return 'India';
+  };
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
@@ -49,7 +69,7 @@ export default function TopTrainersPage() {
               <section key={index} className="prose prose-lg max-w-none dark:prose-invert">
                 <div className="mt-8 mb-4">
                   <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
-                    {index + 1}. {trainer.name} <span className="font-semibold text-gray-700 dark:text-gray-300">(Best {category} Trainer in Delhi)</span>
+                    {index + 1}. {trainer.name} <span className="font-semibold text-gray-700 dark:text-gray-300">(Best {category} Trainer in {extractCity(trainer.location)})</span>
                   </h2>
                   <p className="text-base sm:text-lg font-semibold text-gray-600 dark:text-gray-400 flex flex-wrap gap-x-4 gap-y-2">
                     <span>Location: {trainer.location}</span>
