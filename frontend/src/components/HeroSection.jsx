@@ -194,7 +194,7 @@ export default function HeroSection() {
                     {error && <p className="text-red-500 text-xs font-medium">{error}</p>}
                     {submitted && error && <p className="text-[#84CC16] text-xs font-medium">Request redirected to WhatsApp.</p>}
                     <Button type="submit" disabled={loading} className="w-full bg-[#84CC16] text-black font-bold rounded-xl py-6 mt-2 text-base hover:bg-[#65A30D] transition-all duration-300">
-                      {loading ? "Submitting..." : "Get Free Counseling"} <Send size={16} className="ml-2" />
+                      {loading ? "Submitting..." : "Book Free Demo"} <Send size={16} className="ml-2" />
                     </Button>
                   </form>
                 </>

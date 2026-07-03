@@ -41,7 +41,8 @@ export default function EnquiryForm({
   addressText = "B-54 Krishna Park, Vikaspuri,<br/>New Delhi - 110018",
   addressLink = "https://www.google.com/maps/search/B-54+Krishna+Park+Vikaspuri+New+Delhi+110018",
   defaultBranch = "Nexxtechs Delhi",
-  className = "py-24 md:py-32 bg-transparent"
+  className = "py-24 md:py-32 bg-transparent",
+  buttonText = "Submit Enquiry"
 }) {
   const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: defaultBranch });
   const [loading, setLoading] = useState(false);
@@ -263,7 +264,7 @@ export default function EnquiryForm({
                     className="w-full bg-[#84CC16] text-black font-extrabold rounded-2xl py-7 text-lg hover:bg-[#65A30D] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(132,204,22,0.4)] disabled:opacity-50 mt-4"
                     data-testid="enquiry-submit-btn"
                   >
-                    {loading ? "Submitting..." : "Submit Enquiry"}
+                    {loading ? "Submitting..." : buttonText}
                     <Send size={20} className="ml-3" />
                   </Button>
                 </form>

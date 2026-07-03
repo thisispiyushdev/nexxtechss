@@ -57,6 +57,7 @@ export default function NoidaInstitutePage() {
           addressLink="https://www.google.com/maps/search/B-136+Upper,+Ground+floor,+B+Block,+Sector+2,+Noida,+Uttar+Pradesh+201301" 
           defaultBranch="Nexxtechs Noida"
           className="pt-6 pb-24 md:pt-10 md:pb-32 bg-transparent"
+          buttonText="Book Free Demo"
         />
       </div>
 

@@ -137,7 +137,7 @@ function HomePage() {
           <TrainingPartners />
         </Suspense>
         <Suspense fallback={null}>
-          <EnquiryForm />
+          <EnquiryForm buttonText="Book Free Demo" />
         </Suspense>
         <Suspense fallback={null}>
           <TextRevealAnimation />

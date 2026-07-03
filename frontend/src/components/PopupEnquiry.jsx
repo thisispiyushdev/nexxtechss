@@ -211,7 +211,7 @@ export default function PopupEnquiry() {
               disabled={loading}
               className="w-full bg-[#84CC16] text-black font-bold rounded-xl py-6 mt-4 text-base hover:bg-[#65A30D] transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50"
             >
-              {loading ? "Submitting..." : "Get Free Counseling"}
+              {loading ? "Submitting..." : "Book Free Demo"}
               <Send size={16} className="ml-2" />
             </Button>
           </form>
