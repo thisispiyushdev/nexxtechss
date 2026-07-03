@@ -42,8 +42,7 @@ export default function NoidaEnquiryBanner({
   addressLink = "https://www.google.com/maps/search/B-54+Krishna+Park+Vikaspuri+New+Delhi+110018",
   defaultBranch = "Nexxtechs Delhi",
   className = "py-24 md:py-32 bg-transparent",
-  buttonText = "Submit Enquiry",
-  useNoidaBanners = false
+  buttonText = "Submit Enquiry"
 }) {
   const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: defaultBranch });
   const [loading, setLoading] = useState(false);
@@ -53,7 +52,6 @@ export default function NoidaEnquiryBanner({
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    if (!useNoidaBanners) return;
     const fetchBanners = async () => {
       try {
         const response = await fetch(`${API}/content/noida-banners`);
