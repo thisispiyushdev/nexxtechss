@@ -142,7 +142,7 @@ export default function NoidaEnquiryBanner({
         )}
         
         {/* Mobile Book Demo Button - Only shows on mobile inside the banner */}
-        <div className="absolute inset-x-0 bottom-4 z-10 flex justify-center lg:hidden">
+        <div className="absolute inset-x-0 bottom-4 z-10 flex justify-end px-4 sm:px-6 lg:hidden">
           <button 
             onClick={() => document.getElementById('noida-form-container')?.scrollIntoView({ behavior: 'smooth' })}
             className="bg-[#84CC16] text-black font-bold py-2 px-6 rounded-full shadow-lg text-sm hover:bg-[#65A30D] transition-colors"
