@@ -140,6 +140,16 @@ export default function NoidaEnquiryBanner({
             <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30 lg:to-transparent" />
           </>
         )}
+        
+        {/* Mobile Book Demo Button - Only shows on mobile inside the banner */}
+        <div className="absolute inset-x-0 bottom-4 z-10 flex justify-center lg:hidden">
+          <button 
+            onClick={() => document.getElementById('noida-form-container')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-[#84CC16] text-black font-bold py-2 px-6 rounded-full shadow-lg text-sm hover:bg-[#65A30D] transition-colors"
+          >
+            Book Demo
+          </button>
+        </div>
       </div>
       
       <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 py-8 lg:py-0 lg:h-full flex items-center">
@@ -168,7 +178,7 @@ export default function NoidaEnquiryBanner({
           )}
 
           {/* Form */}
-          <div className="bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl sm:rounded-[32px] p-6 sm:p-8 md:p-12 relative overflow-hidden group shadow-2xl dark:shadow-none flex flex-col justify-center max-w-lg mx-auto lg:ml-auto lg:mr-0 w-full">
+          <div id="noida-form-container" className="bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl sm:rounded-[32px] p-6 sm:p-8 md:p-12 relative overflow-hidden group shadow-2xl dark:shadow-none flex flex-col justify-center max-w-lg mx-auto lg:ml-auto lg:mr-0 w-full">
             {/* Ambient Background Glow */}
             <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-[#84CC16] rounded-full blur-[100px] opacity-0 group-hover:opacity-10 transition-opacity duration-1000 pointer-events-none"></div>
             
