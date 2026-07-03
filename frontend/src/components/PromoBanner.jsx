@@ -44,7 +44,7 @@ export default function PromoBanner() {
     <aside 
       role="complementary"
       aria-label="Promotional Announcement"
-      className="relative z-[60] w-full py-2.5 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-500 ease-in-out overflow-hidden flex items-center"
+      className="relative z-[60] w-full py-2.5 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-500 ease-in-out overflow-hidden flex items-center selection:bg-red-500 selection:text-white"
       style={{ backgroundColor: banner.bg_color || '#84CC16', color: banner.text_color || '#000000' }}
     >
       {/* Decorative Glow */}
