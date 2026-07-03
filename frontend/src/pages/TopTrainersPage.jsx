@@ -47,27 +47,17 @@ export default function TopTrainersPage() {
           <div className="space-y-12 mb-16">
             {pageData.trainers.map((trainer, index) => (
               <section key={index} className="prose prose-lg max-w-none dark:prose-invert">
-                {index === 0 ? (
-                  <div className="mt-8 mb-4">
-                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-1 flex items-center flex-wrap gap-2">
-                      1. Best {category} Trainer {trainer.name}
-                      <span className="text-xl sm:text-2xl font-semibold text-[#84CC16]">
-                        ({category} Expert)
-                      </span>
-                    </h2>
-                    <p className="text-lg font-semibold text-gray-600 dark:text-gray-400 flex flex-wrap gap-x-4 gap-y-2 mt-2">
-                      <span>Location: Nexxtechs, Delhi, India</span>
-                      {trainer.experience && (
-                        <span className="text-[#84CC16]">| Experience: {trainer.experience}</span>
-                      )}
-                    </p>
-                  </div>
-                ) : (
-                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-                    {index + 1}. Best {category} Trainer {trainer.name} ({trainer.location})
-                    {trainer.experience && <span className="text-[#84CC16] ml-2 text-xl">| {trainer.experience}</span>}
+                <div className="mt-8 mb-4">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
+                    {index + 1}. {trainer.name} <span className="font-semibold text-gray-700 dark:text-gray-300">(Best {category} Trainer in Delhi)</span>
                   </h2>
-                )}
+                  <p className="text-base sm:text-lg font-semibold text-gray-600 dark:text-gray-400 flex flex-wrap gap-x-4 gap-y-2">
+                    <span>Location: {trainer.location}</span>
+                    {trainer.experience && (
+                      <span className="text-[#84CC16]">| Experience: {trainer.experience}</span>
+                    )}
+                  </p>
+                </div>
                 
                 {index === 0 && trainer.image && (
                   <img 
