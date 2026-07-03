@@ -30,7 +30,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#0A0A0A] text-white pt-16 md:pt-20 pb-8" data-testid="footer">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
+        <div className="grid md:grid-cols-3 lg:grid-cols-7 gap-8 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2 md:col-span-3 lg:pr-4">
             <img 
@@ -137,6 +137,31 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          {/* Branches */}
+          <div>
+            <h4 className="font-bold text-white text-base mb-5">Branches</h4>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  to="/"
+                  onClick={scrollToTop}
+                  className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
+                >
+                  Nexxtechs Delhi
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/nexxtechs-noida"
+                  onClick={scrollToTop}
+                  className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
+                >
+                  Nexxtechs Noida
+                </Link>
+              </li>
             </ul>
           </div>
 
