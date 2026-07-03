@@ -10,6 +10,7 @@ import { getBlogs, getBlogById, createBlog, updateBlog, deleteBlog } from "../co
 import { getCourses, createCourse, updateCourse, deleteCourse } from "../controllers/adminCoursesController.js";
 import { getAdminUsers, createAdminUser, updateAdminUser, deleteAdminUser } from "../controllers/adminUsersController.js";
 import { getBanners, createBanner, updateBanner, deleteBanner } from "../controllers/adminBannersController.js";
+import { getAllBanners as getNoidaBanners, createBanner as createNoidaBanner, updateBanner as updateNoidaBanner, deleteBanner as deleteNoidaBanner } from "../controllers/adminNoidaBannersController.js";
 
 const router = express.Router();
 
@@ -67,5 +68,11 @@ router.get("/banners", getBanners);
 router.post("/banners", createBanner);
 router.put("/banners/:id", updateBanner);
 router.delete("/banners/:id", deleteBanner);
+
+// Noida Image Banners
+router.get("/noida-banners", getNoidaBanners);
+router.post("/noida-banners", createNoidaBanner);
+router.put("/noida-banners/:id", updateNoidaBanner);
+router.delete("/noida-banners/:id", deleteNoidaBanner);
 
 export default router;

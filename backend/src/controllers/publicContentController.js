@@ -13,6 +13,7 @@ const cache = {
   blogs: { data: null, timestamp: 0 },
   courses: { data: null, timestamp: 0 },
   banner: {}, // Object map for different pages
+  noidaBanners: { data: null, timestamp: 0 },
   blogById: new Map(),
   courseBySlug: new Map(),
 };
@@ -168,6 +169,30 @@ export const getActiveBanner = async (req, res, next) => {
     
     // Return the first active banner or null if none exist
     res.status(200).json(bannerData);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// --- Noida Banners ---
+export const getPublicNoidaBanners = async (req, res, next) => {
+  try {
+    const now = Date.now();
+    if (cache.noidaBanners.data && (now - cache.noidaBanners.timestamp < CACHE_TTL)) {
+      return res.status(200).json(cache.noidaBanners.data);
+    }
+
+    const { data, error } = await db
+      .from('noida_banners')
+      .select('*')
+      .eq('is_active', true)
+      .order('sort_order', { ascending: true })
+      .limit(4);
+
+    if (error) throw error;
+
+    cache.noidaBanners = { data: data || [], timestamp: now };
+    res.status(200).json(data || []);
   } catch (err) {
     next(err);
   }

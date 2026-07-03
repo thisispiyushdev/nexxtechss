@@ -222,3 +222,29 @@ CREATE TABLE IF NOT EXISTS public.admins (
 ALTER TABLE public.admins ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Allow all for admins" ON public.admins;
 CREATE POLICY "Allow all for admins" ON public.admins FOR ALL TO public USING (true) WITH CHECK (true);
+
+
+-- ============================================================
+-- NOIDA IMAGE BANNERS TABLE
+-- ============================================================
+CREATE TABLE IF NOT EXISTS public.noida_banners (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    image TEXT NOT NULL,
+    title TEXT DEFAULT '',
+    link_url TEXT DEFAULT '',
+    sort_order INT DEFAULT 0,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE public.noida_banners ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Allow public read" ON public.noida_banners;
+CREATE POLICY "Allow public read" ON public.noida_banners FOR SELECT TO public USING (true);
+DROP POLICY IF EXISTS "Allow public inserts" ON public.noida_banners;
+CREATE POLICY "Allow public inserts" ON public.noida_banners FOR INSERT TO public WITH CHECK (true);
+DROP POLICY IF EXISTS "Allow public update" ON public.noida_banners;
+CREATE POLICY "Allow public update" ON public.noida_banners FOR UPDATE TO public USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Allow public delete" ON public.noida_banners;
+CREATE POLICY "Allow public delete" ON public.noida_banners FOR DELETE TO public USING (true);
+

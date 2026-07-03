@@ -19,7 +19,8 @@ import {
   XCircle,
   Menu,
   X,
-  Megaphone
+  Megaphone,
+  Image as ImageIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,7 +28,7 @@ export default function AdminDashboard() {
   const { isAuthenticated, loading, logout, role } = useAdminAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("leads");
-  const [data, setData] = useState({ leads: [], reviews: [], stats: [], blogs: [], courses: [], users: [], banners: [] });
+  const [data, setData] = useState({ leads: [], reviews: [], stats: [], blogs: [], courses: [], users: [], banners: [], noidaBanners: [] });
   const [fetching, setFetching] = useState(false);
   const [toast, setToast] = useState(null);
   const [modal, setModal] = useState(null);
@@ -51,7 +52,8 @@ export default function AdminDashboard() {
       { id: "placements", label: "Placements", icon: Trophy, desc: "Reviews & Stats" },
       { id: "blogs", label: "Blogs", icon: FileText, desc: "Blog posts" },
       { id: "courses", label: "Courses", icon: BookOpen, desc: "Course catalog" },
-      { id: "banners", label: "Banners", icon: Megaphone, desc: "Promo Banners" },
+      { id: "banners", label: "Promo Banners", icon: Megaphone, desc: "Text Promo Banners" },
+      { id: "noida_banners", label: "Noida Banners", icon: ImageIcon, desc: "Noida Image Slider" },
       { id: "team", label: "Team", icon: Users, desc: "Manage admins" },
     ] : []),
   ];
@@ -71,11 +73,11 @@ export default function AdminDashboard() {
     try {
       const leadsPromise = adminApi.get("/leads").catch(() => ({ data: { leads: [] } }));
 
-      let reviews = [], stats = [], blogs = [], courses = [], users = [], banners = [];
+      let reviews = [], stats = [], blogs = [], courses = [], users = [], banners = [], noidaBanners = [];
       let leadsR = { data: { leads: [] } };
 
       if (isCoreAdmin) {
-        const [resolvedLeads, reviewsR, statsR, blogsR, coursesR, usersR, bannersR] = await Promise.all([
+        const [resolvedLeads, reviewsR, statsR, blogsR, coursesR, usersR, bannersR, noidaBannersR] = await Promise.all([
           leadsPromise,
           adminApi.get("/reviews").catch(() => ({ data: [] })),
           adminApi.get("/stats").catch(() => ({ data: [] })),
@@ -83,6 +85,7 @@ export default function AdminDashboard() {
           adminApi.get("/courses").catch(() => ({ data: [] })),
           adminApi.get("/users").catch(() => ({ data: [] })),
           adminApi.get("/banners").catch(() => ({ data: { data: [] } })),
+          adminApi.get("/noida-banners").catch(() => ({ data: [] })),
         ]);
         leadsR = resolvedLeads;
         reviews = reviewsR.data || [];
@@ -90,15 +93,15 @@ export default function AdminDashboard() {
         blogs = blogsR.data || [];
         courses = coursesR.data || [];
         users = usersR.data || [];
-        // Note: adminBannersController returns { success: true, data: [...] }
         banners = bannersR.data?.data || bannersR.data || [];
+        noidaBanners = noidaBannersR.data || [];
       } else {
         leadsR = await leadsPromise;
       }
 
       setData({
         leads: leadsR.data?.leads || leadsR.data || [],
-        reviews, stats, blogs, courses, users, banners
+        reviews, stats, blogs, courses, users, banners, noidaBanners
       });
     } catch { /* handled per-request */ }
     setFetching(false);
@@ -334,6 +337,7 @@ export default function AdminDashboard() {
             {activeTab === "blogs" && isCoreAdmin && <BlogsTable blogs={filtered(data.blogs, ["title","category"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "courses" && isCoreAdmin && <CoursesTable courses={filtered(data.courses, ["title","slug"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "banners" && isCoreAdmin && <BannersTable banners={filtered(data.banners, ["title","text"])} onDelete={handleDelete} onEdit={openEditModal} />}
+            {activeTab === "noida_banners" && isCoreAdmin && <NoidaBannersTable banners={filtered(data.noidaBanners, ["title","link_url"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "team" && isCoreAdmin && <TeamTable users={filtered(data.users, ["username","display_name","role"])} onDelete={handleDelete} onEdit={openEditModal} />}
           </div>
         </main>
@@ -381,6 +385,7 @@ export default function AdminDashboard() {
       blogs: { title: "Add Blog", type: "blog", data: { id: "", title: "", excerpt: "", author: "NexxTechs", date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }), category: "Our blog", read_time: "5 min read", image: "", content: "", is_active: true } },
       courses: { title: "Add Course", type: "course", data: { slug: "", title: "", tagline: "", image: "", duration: "", level: "", overview: "", is_popular: false, is_trending: false, is_active: true, batch_timings: [], highlights: [], trending_tools: [], modules: [], brochure_url: "", sort_order: 0 } },
       banners: { title: "Add Banner", type: "banner", data: { title: "", text: "", link_url: "", link_text: "", target_page: "home", bg_color: "#84CC16", text_color: "#000000", start_date: "", end_date: "", is_active: true } },
+      noida_banners: { title: "Add Noida Banner", type: "noida_banner", data: { title: "", image: "", link_url: "", sort_order: 0, is_active: true } },
       team: { title: "Add Admin", type: "user", data: { username: "", password: "", role: "counselor", display_name: "" } },
     };
     const t = templates[activeTab];
@@ -388,7 +393,7 @@ export default function AdminDashboard() {
   }
 
   async function openEditModal(type, item) {
-    const titles = { review: "Edit Review", blog: "Edit Blog", course: "Edit Course", stat: "Edit Stat", user: "Edit Admin", banner: "Edit Banner" };
+    const titles = { review: "Edit Review", blog: "Edit Blog", course: "Edit Course", stat: "Edit Stat", user: "Edit Admin", banner: "Edit Banner", noida_banner: "Edit Noida Banner" };
     // Format dates for input type="datetime-local" if banner
     let editData = { ...item, password: "" };
     if (type === "banner") {
@@ -768,6 +773,53 @@ function BannersTable({ banners, onDelete, onEdit }) {
   );
 }
 
+function NoidaBannersTable({ banners, onDelete, onEdit }) {
+  if (!banners.length) return <EmptyState label="Noida Image Banners" />;
+  return (
+    <TableContainer>
+      <thead>
+        <tr>
+          <Th>Image</Th>
+          <Th>Info</Th>
+          <Th>Order</Th>
+          <Th>Status</Th>
+          <Th></Th>
+        </tr>
+      </thead>
+      <tbody>
+        {banners.map(b => (
+          <tr key={b.id} className="hover:bg-slate-50/50 transition-colors">
+            <Td>
+              <img src={b.image} alt="Noida Banner" className="h-12 w-auto object-cover rounded-md shadow-sm border border-slate-200" />
+            </Td>
+            <Td>
+              <div className="flex flex-col">
+                <span className="text-slate-900 font-bold max-w-xs truncate">{b.title || "No Title"}</span>
+                <a href={b.link_url || "#"} target="_blank" rel="noopener noreferrer" className="text-[10px] text-lime-600 truncate max-w-xs">{b.link_url || "No Link"}</a>
+              </div>
+            </Td>
+            <Td>
+              <span className="text-xs font-bold text-slate-500 tabular-nums">#{b.sort_order}</span>
+            </Td>
+            <Td>
+              {b.is_active ? 
+                <span className="px-2 py-1 bg-emerald-50 text-emerald-600 rounded-md text-[10px] font-black uppercase">Active</span> : 
+                <span className="px-2 py-1 bg-slate-100 text-slate-400 rounded-md text-[10px] font-black uppercase">Inactive</span>
+              }
+            </Td>
+            <Td>
+              <div className="flex gap-1 justify-end">
+                <button onClick={() => onEdit("noida_banner", b)} className="p-2 text-slate-300 hover:text-lime-600 hover:bg-lime-50 rounded-lg transition-all"><Edit size={18} /></button>
+                <button onClick={() => onDelete(`/noida-banners/${b.id}`, "Noida Banner")} className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"><Trash2 size={18} /></button>
+              </div>
+            </Td>
+          </tr>
+        ))}
+      </tbody>
+    </TableContainer>
+  );
+}
+
 function EmptyState({ label }) {
   return (
     <div className="flex flex-col items-center justify-center py-20 px-4 bg-white rounded-3xl border border-slate-100 border-dashed">
@@ -809,6 +861,7 @@ function ModalForm({ modal, onSave }) {
       blog: modal.method === "post" ? "/blogs" : `/blogs/${modal.editId}`,
       course: modal.method === "post" ? "/courses" : `/courses/${modal.editId}`,
       banner: modal.method === "post" ? "/banners" : `/banners/${modal.editId}`,
+      noida_banner: modal.method === "post" ? "/noida-banners" : `/noida-banners/${modal.editId}`,
       user: modal.method === "post" ? "/users" : `/users/${modal.editId}`,
     };
     await onSave(modal.method, endpoints[modal.type], form, modal.type);
@@ -968,6 +1021,16 @@ function ModalForm({ modal, onSave }) {
       </div>
     );
 
+    if (modal.type === "noida_banner") return (
+      <div className="space-y-4">
+        <Field label="Banner Title (Internal reference)" value={form.title} onChange={v => set("title", v)} />
+        <Field label="Link URL (Optional, where to redirect on click)" value={form.link_url} onChange={v => set("link_url", v)} />
+        <ImageField label="Banner Image (max 150 KB, recommended aspect ratio 21:9 or 3:1)" value={form.image} onChange={v => set("image", v)} required />
+        <Field label="Sort Order" type="number" value={form.sort_order} onChange={v => set("sort_order", parseInt(v) || 0)} />
+        <CheckField label="Active" checked={form.is_active} onChange={v => set("is_active", v)} />
+      </div>
+    );
+
     if (modal.type === "user") return (
       <div className="space-y-5">
         <Field label="Full Name" value={form.display_name} onChange={v => set("display_name", v)} required />
@@ -1030,9 +1093,10 @@ function Field({ label, value, onChange, textarea, large, type = "text", require
   );
 }
 
-function ImageField({ label, value, onChange, required }) {
+  function ImageField({ label, value, onChange, required }) {
   const [error, setError] = useState("");
-  const MAX_KB = 200;
+  // Determine MAX_KB based on whether label contains "150 KB"
+  const MAX_KB = label.includes("150 KB") ? 150 : 200;
 
   const handleFile = (e) => {
     const file = e.target.files[0];

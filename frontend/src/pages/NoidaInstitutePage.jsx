@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import PageTransition from "@/components/PageTransition";
 import SEOHead from "@/components/SEOHead";
 import EnquiryForm from "@/components/EnquiryForm";
+import NoidaImageCarousel from "@/components/NoidaImageCarousel";
 
 // Lazy load other components to maintain performance
 const CoursesGrid = lazy(() => import("@/components/CoursesGrid"));
@@ -58,6 +59,11 @@ export default function NoidaInstitutePage() {
           defaultBranch="Nexxtechs Noida"
           className="pt-6 pb-24 md:pt-10 md:pb-32 bg-transparent"
         />
+      </div>
+
+      {/* Second Section: Promotional Banner Carousel */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 md:-mt-24 mb-16 relative z-10">
+        <NoidaImageCarousel />
       </div>
 
       {/* Rest of the standard offerings */}

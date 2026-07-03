@@ -7,6 +7,7 @@ import {
   getPublicCourses,
   getPublicCourseBySlug,
   getActiveBanner,
+  getPublicNoidaBanners,
 } from "../controllers/publicContentController.js";
 
 const router = express.Router();
@@ -19,5 +20,6 @@ router.get("/blogs/:id", getPublicBlogById);
 router.get("/courses", getPublicCourses);
 router.get("/courses/:slug", getPublicCourseBySlug);
 router.get("/banners/active", getActiveBanner);
+router.get("/noida-banners", getPublicNoidaBanners);
 
 export default router;
