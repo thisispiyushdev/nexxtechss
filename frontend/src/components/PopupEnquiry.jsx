@@ -44,7 +44,7 @@ const COURSE_OPTIONS = [
 
 export default function PopupEnquiry() {
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", phone: "", course_interested: "" });
+  const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: "Nexxtechs Delhi" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -74,7 +74,7 @@ export default function PopupEnquiry() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.phone || !form.course_interested) {
+    if (!form.name || !form.phone || !form.course_interested || !form.branch) {
       setError("Please fill all fields");
       return;
     }
@@ -98,7 +98,7 @@ export default function PopupEnquiry() {
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
         const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
-        const msg = `New Enquiry Lead (Popup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}${offerText}`;
+        const msg = `New Enquiry Lead (Popup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
         window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
       } else {
         throw new Error("Backend storage failed");
@@ -106,7 +106,7 @@ export default function PopupEnquiry() {
     } catch (err) {
       console.error("Backend error:", err);
       const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
-      const msg = `New Enquiry Lead (Popup Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}${offerText}`;
+      const msg = `New Enquiry Lead (Popup Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
       window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
       setError("Note: Enquiry submitted via WhatsApp only.");
       setSubmitted(true);
@@ -183,6 +183,22 @@ export default function PopupEnquiry() {
                       {course}
                     </SelectItem>
                   ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-2">Institute Branch</label>
+              <Select
+                value={form.branch}
+                onValueChange={(val) => setForm({ ...form, branch: val })}
+              >
+                <SelectTrigger className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20">
+                  <SelectValue placeholder="Select your branch" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Nexxtechs Delhi">Nexxtechs Delhi</SelectItem>
+                  <SelectItem value="Nexxtechs Noida">Nexxtechs Noida</SelectItem>
                 </SelectContent>
               </Select>
             </div>
