@@ -118,54 +118,57 @@ export default function NoidaEnquiryBanner({
   return (
     <section
       id="enquiry"
-      className="relative py-16 md:py-20 lg:py-24 overflow-hidden bg-[#111827]"
+      className="relative flex flex-col lg:block overflow-hidden bg-gray-50 dark:bg-[#111827] lg:bg-[#111827] lg:aspect-video lg:py-0"
       data-testid="enquiry-section"
     >
-      {/* Background Images with Overlay */}
-      {banners.length > 0 ? (
-        banners.map((banner, idx) => (
-          <div 
-            key={banner.id || idx}
-            className={`absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat transition-opacity duration-1000 ${idx === currentSlide ? 'opacity-100' : 'opacity-0'}`} 
-            style={{ backgroundImage: `url("${banner.image}")` }} 
-          />
-        ))
-      ) : (
-        <>
-          <div 
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40" 
-            style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80")' }} 
-          />
-          <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
-        </>
-      )}
+      {/* Background Images with Overlay - Top Banner on mobile, absolute on desktop */}
+      <div className="relative w-full aspect-video lg:absolute lg:inset-0 lg:h-full lg:w-full z-0 lg:aspect-auto">
+        {banners.length > 0 ? (
+          banners.map((banner, idx) => (
+            <div 
+              key={banner.id || idx}
+              className={`absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat transition-opacity duration-1000 ${idx === currentSlide ? 'opacity-100' : 'opacity-0'}`} 
+              style={{ backgroundImage: `url("${banner.image}")` }} 
+            />
+          ))
+        ) : (
+          <>
+            <div 
+              className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40 lg:opacity-40 mobile-opacity-100" 
+              style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80")' }} 
+            />
+            <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30 lg:to-transparent" />
+          </>
+        )}
+      </div>
       
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12">
+      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 py-8 lg:py-0 lg:h-full flex items-center">
         {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center w-full">
           
           {/* Left Side: Banner Text or Empty Space */}
           {banners.length > 0 ? (
             <div className="hidden lg:block"></div>
           ) : (
-            <div className="space-y-6 md:space-y-8 z-10">
-              <h2 className="text-4xl md:text-5xl lg:text-5xl font-extrabold text-white leading-[1.2] tracking-tight">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8 z-10 lg:pl-0">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-[#111827] dark:text-white lg:text-white leading-[1.2] tracking-tight">
                 Level Up Your <span className="text-[#FFD700]">Skills,</span><br/>
                 Invest In Skills For a <span className="text-[#FFD700]">Future-Proof Growth</span>
               </h2>
               <div className="space-y-2">
-                <p className="text-xl md:text-2xl text-white font-semibold leading-relaxed tracking-wide">
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-300 lg:text-white font-semibold leading-relaxed tracking-wide">
                   Unlock Your Potential,
                 </p>
-                <p className="text-xl md:text-2xl text-white font-semibold leading-relaxed tracking-wide">
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-300 lg:text-white font-semibold leading-relaxed tracking-wide">
                   Shape Your Future with<br/>
                   Nexxtechs IT Training School.
                 </p>
               </div>
             </div>
           )}
+
           {/* Form */}
-          <div className="bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-[32px] p-8 md:p-12 relative overflow-hidden group shadow-2xl dark:shadow-none flex flex-col justify-center">
+          <div className="bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl sm:rounded-[32px] p-6 sm:p-8 md:p-12 relative overflow-hidden group shadow-2xl dark:shadow-none flex flex-col justify-center max-w-lg mx-auto lg:ml-auto lg:mr-0 w-full">
             {/* Ambient Background Glow */}
             <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-[#84CC16] rounded-full blur-[100px] opacity-0 group-hover:opacity-10 transition-opacity duration-1000 pointer-events-none"></div>
             
