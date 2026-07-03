@@ -126,7 +126,7 @@ export default function EnquiryForm({
         banners.map((banner, idx) => (
           <div 
             key={banner.id || idx}
-            className={`absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ${idx === currentSlide ? 'opacity-100' : 'opacity-0'}`} 
+            className={`absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat transition-opacity duration-1000 ${idx === currentSlide ? 'opacity-100' : 'opacity-0'}`} 
             style={{ backgroundImage: `url("${banner.image}")` }} 
           />
         ))
