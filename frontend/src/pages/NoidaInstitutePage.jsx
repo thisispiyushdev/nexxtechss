@@ -58,6 +58,7 @@ export default function NoidaInstitutePage() {
           defaultBranch="Nexxtechs Noida"
           className="pt-6 pb-24 md:pt-10 md:pb-32 bg-transparent"
           buttonText="Book Free Demo"
+          useNoidaBanners={true}
         />
       </div>
 
