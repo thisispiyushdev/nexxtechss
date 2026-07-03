@@ -22,8 +22,11 @@ export default function TopTrainersPage() {
 
   const category = pageData.title.replace("Top 5 Best ", "").replace(" Trainers in India", "");
 
-  const extractCity = (locationStr) => {
-    if (!locationStr) return 'India';
+  const extractCity = (locationStr, idx = 0) => {
+    const techCities = ["Bangalore", "Pune", "Hyderabad", "Mumbai", "Chennai", "Gurgaon"];
+    const fallbackCity = techCities[idx % techCities.length];
+    
+    if (!locationStr) return fallbackCity;
     const loc = locationStr.toLowerCase();
     if (loc.includes('delhi') || loc.includes('nexxtechs')) return 'Delhi';
     if (loc.includes('bangalore') || loc.includes('bengaluru')) return 'Bangalore';
@@ -34,12 +37,17 @@ export default function TopTrainersPage() {
     if (loc.includes('chennai')) return 'Chennai';
     if (loc.includes('noida')) return 'Noida';
     
+    let result = fallbackCity;
     const match = locationStr.match(/\((.*?)\)/);
     if (match) {
       const parts = match[1].split(',');
-      return parts[parts.length - 1].trim();
+      result = parts[parts.length - 1].trim();
     }
-    return 'India';
+    
+    if (result.toLowerCase() === 'india' || result.trim() === '') {
+      return fallbackCity;
+    }
+    return result;
   };
 
   return (
@@ -69,7 +77,7 @@ export default function TopTrainersPage() {
               <section key={index} className="prose prose-lg max-w-none dark:prose-invert">
                 <div className="mt-8 mb-4">
                   <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
-                    {index + 1}. {trainer.name} <span className="font-semibold text-gray-700 dark:text-gray-300">(Best {category} Trainer in {extractCity(trainer.location)})</span>
+                    {index + 1}. {trainer.name} <span className="font-semibold text-gray-700 dark:text-gray-300">(Best {category} Trainer in {extractCity(trainer.location, index)})</span>
                   </h2>
                   <p className="text-base sm:text-lg font-semibold text-gray-600 dark:text-gray-400 flex flex-wrap gap-x-4 gap-y-2">
                     <span>Location: {trainer.location}</span>
