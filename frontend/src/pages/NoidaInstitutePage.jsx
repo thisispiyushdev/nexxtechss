@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import PageTransition from "@/components/PageTransition";
 import SEOHead from "@/components/SEOHead";
-import EnquiryForm from "@/components/EnquiryForm";
+import NoidaEnquiryBanner from "@/components/NoidaEnquiryBanner";
 
 // Lazy load other components to maintain performance
 const CoursesGrid = lazy(() => import("@/components/CoursesGrid"));
@@ -50,15 +50,14 @@ export default function NoidaInstitutePage() {
       
       {/* First Section: Enquiry Form */}
       <div className="pt-2">
-        <EnquiryForm 
+        <NoidaEnquiryBanner 
           titleText="Nexxtechs" 
-          highlightText="Noida" 
-          addressText="B-136 Upper, Ground floor, B Block, Sector 2,<br/>Noida, Uttar Pradesh 201301" 
+          highlightText="Noida"
+          addressText="B-136 Upper, Ground floor, B Block, Sector 2,<br/>Noida, Uttar Pradesh 201301"
           addressLink="https://www.google.com/maps/search/B-136+Upper,+Ground+floor,+B+Block,+Sector+2,+Noida,+Uttar+Pradesh+201301" 
           defaultBranch="Nexxtechs Noida"
           className="pt-6 pb-24 md:pt-10 md:pb-32 bg-transparent"
           buttonText="Book Free Demo"
-          useNoidaBanners={true}
         />
       </div>
 

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Send, Phone, Mail, MapPin, CheckCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Send, CheckCircle } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import {
@@ -35,19 +35,48 @@ const COURSE_OPTIONS = [
   "SAP Masterclass",
 ];
 
-export default function EnquiryForm({
+export default function NoidaEnquiryBanner({
   titleText = "Start Your",
   highlightText = "Journey",
   addressText = "B-54 Krishna Park, Vikaspuri,<br/>New Delhi - 110018",
   addressLink = "https://www.google.com/maps/search/B-54+Krishna+Park+Vikaspuri+New+Delhi+110018",
   defaultBranch = "Nexxtechs Delhi",
   className = "py-24 md:py-32 bg-transparent",
-  buttonText = "Submit Enquiry"
+  buttonText = "Submit Enquiry",
+  useNoidaBanners = false
 }) {
   const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: defaultBranch });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [banners, setBanners] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    if (!useNoidaBanners) return;
+    const fetchBanners = async () => {
+      try {
+        const response = await fetch(`${API}/content/noida-banners`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            setBanners(data);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch backgrounds", error);
+      }
+    };
+    fetchBanners();
+  }, []);
+
+  useEffect(() => {
+    if (banners.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % banners.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [banners.length]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,24 +120,52 @@ export default function EnquiryForm({
   return (
     <section
       id="enquiry"
-      className={className}
+      className="relative py-16 md:py-20 lg:py-24 overflow-hidden bg-[#111827]"
       data-testid="enquiry-section"
     >
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        {/* Section Header */}
-        <div className="text-center mb-16 md:mb-24">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#84CC16]/10 text-[#65A30D] dark:text-[#84CC16] text-xs font-bold tracking-[0.2em] uppercase mb-4 border border-[#84CC16]/20">
-            Get In Touch
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight font-extrabold text-[#111827] dark:text-white mb-6">
-            {titleText} <span className="text-[#84CC16]">{highlightText}</span>
-          </h2>
-          <p className="text-lg md:text-xl text-[#4B5563] dark:text-gray-400 max-w-2xl mx-auto font-medium">
-            Fill in your details and our counselor will reach out within 24 hours
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+      {/* Background Images with Overlay */}
+      {banners.length > 0 ? (
+        banners.map((banner, idx) => (
+          <div 
+            key={banner.id || idx}
+            className={`absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat transition-opacity duration-1000 ${idx === currentSlide ? 'opacity-100' : 'opacity-0'}`} 
+            style={{ backgroundImage: `url("${banner.image}")` }} 
+          />
+        ))
+      ) : (
+        <>
+          <div 
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40" 
+            style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80")' }} 
+          />
+          <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
+        </>
+      )}
+      
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12">
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Side: Banner Text or Empty Space */}
+          {banners.length > 0 ? (
+            <div className="hidden lg:block"></div>
+          ) : (
+            <div className="space-y-6 md:space-y-8 z-10">
+              <h2 className="text-4xl md:text-5xl lg:text-5xl font-extrabold text-white leading-[1.2] tracking-tight">
+                Level Up Your <span className="text-[#FFD700]">Skills,</span><br/>
+                Invest In Skills For a <span className="text-[#FFD700]">Future-Proof Growth</span>
+              </h2>
+              <div className="space-y-2">
+                <p className="text-xl md:text-2xl text-white font-semibold leading-relaxed tracking-wide">
+                  Unlock Your Potential,
+                </p>
+                <p className="text-xl md:text-2xl text-white font-semibold leading-relaxed tracking-wide">
+                  Shape Your Future with<br/>
+                  Nexxtechs IT Training School.
+                </p>
+              </div>
+            </div>
+          )}
           {/* Form */}
           <div className="bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-[32px] p-8 md:p-12 relative overflow-hidden group shadow-2xl dark:shadow-none flex flex-col justify-center">
             {/* Ambient Background Glow */}
@@ -214,65 +271,6 @@ export default function EnquiryForm({
                   </Button>
                 </form>
               )}
-            </div>
-          </div>
-
-          {/* Contact Info */}
-          <div className="space-y-8 lg:pt-4" id="contact">
-            <div>
-              <h3 className="text-3xl font-extrabold text-[#111827] dark:text-white mb-4 tracking-tight">Contact Information</h3>
-              <p className="text-[#4B5563] dark:text-gray-400 text-lg leading-relaxed mb-8 max-w-md">
-                Have questions? Reach out to us directly or fill out the form, and our experts will guide you to the perfect roadmap.
-              </p>
-            </div>
-
-            <div className="space-y-5">
-              <a
-                href="tel:+919217179762"
-                className="flex items-center gap-5 p-6 bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-[24px] hover:border-[#84CC16]/50 hover:shadow-2xl hover:shadow-[#84CC16]/10 hover:-translate-y-1 transition-all duration-500 cursor-pointer group relative overflow-hidden"
-                data-testid="contact-phone"
-              >
-                <div className="absolute top-0 left-0 w-1 h-full bg-[#84CC16] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="w-14 h-14 rounded-2xl bg-[#F4FCE3] dark:bg-[#1A1A1A] border border-[#84CC16]/20 dark:border-transparent flex items-center justify-center group-hover:bg-[#84CC16] transition-colors duration-500 shadow-inner">
-                  <Phone size={24} className="text-[#84CC16] group-hover:text-black transition-colors duration-500" />
-                </div>
-                <div>
-                  <div className="font-bold text-[#111827] dark:text-white text-base group-hover:text-[#84CC16] transition-colors tracking-wide">Call With Counselors</div>
-                  <div className="text-[#4B5563] dark:text-gray-400 text-sm font-medium mt-1">+91 9217179762</div>
-                </div>
-              </a>
-
-              <a
-                href="mailto:info@nexxtechs.com"
-                className="flex items-center gap-5 p-6 bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-[24px] hover:border-[#84CC16]/50 hover:shadow-2xl hover:shadow-[#84CC16]/10 hover:-translate-y-1 transition-all duration-500 cursor-pointer group relative overflow-hidden"
-                data-testid="contact-email"
-              >
-                <div className="absolute top-0 left-0 w-1 h-full bg-[#84CC16] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="w-14 h-14 rounded-2xl bg-[#F4FCE3] dark:bg-[#1A1A1A] border border-[#84CC16]/20 dark:border-transparent flex items-center justify-center group-hover:bg-[#84CC16] transition-colors duration-500 shadow-inner">
-                  <Mail size={24} className="text-[#84CC16] group-hover:text-black transition-colors duration-500" />
-                </div>
-                <div>
-                  <div className="font-bold text-[#111827] dark:text-white text-base group-hover:text-[#84CC16] transition-colors tracking-wide">Email Us</div>
-                  <div className="text-[#4B5563] dark:text-gray-400 text-sm font-medium mt-1">info@nexxtechs.com</div>
-                </div>
-              </a>
-
-              <a
-                href={addressLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-5 p-6 bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-[24px] hover:border-[#84CC16]/50 hover:shadow-2xl hover:shadow-[#84CC16]/10 hover:-translate-y-1 transition-all duration-500 cursor-pointer group relative overflow-hidden"
-                data-testid="contact-address"
-              >
-                <div className="absolute top-0 left-0 w-1 h-full bg-[#84CC16] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="w-14 h-14 rounded-2xl bg-[#F4FCE3] dark:bg-[#1A1A1A] border border-[#84CC16]/20 dark:border-transparent flex items-center justify-center shrink-0 group-hover:bg-[#84CC16] transition-colors duration-500 shadow-inner">
-                  <MapPin size={24} className="text-[#84CC16] group-hover:text-black transition-colors duration-500" />
-                </div>
-                <div>
-                  <div className="font-bold text-[#111827] dark:text-white text-base group-hover:text-[#84CC16] transition-colors tracking-wide">Visit Our Institute</div>
-                  <div className="text-[#4B5563] dark:text-gray-400 text-sm font-medium mt-1 leading-relaxed" dangerouslySetInnerHTML={{ __html: addressText }} />
-                </div>
-              </a>
             </div>
           </div>
         </div>
