@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Send, CheckCircle } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -47,6 +47,33 @@ export default function EnquiryForm({
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [banners, setBanners] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const response = await fetch(`${API}/content/noida-banners`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            setBanners(data);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch backgrounds", error);
+      }
+    };
+    fetchBanners();
+  }, []);
+
+  useEffect(() => {
+    if (banners.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % banners.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [banners.length]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -93,11 +120,21 @@ export default function EnquiryForm({
       className="relative py-20 md:py-28 overflow-hidden bg-[#111827]"
       data-testid="enquiry-section"
     >
-      {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40" 
-        style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80")' }} 
-      />
+      {/* Background Images with Overlay */}
+      {banners.length > 0 ? (
+        banners.map((banner, idx) => (
+          <div 
+            key={banner.id || idx}
+            className={`absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ${idx === currentSlide ? 'opacity-40' : 'opacity-0'}`} 
+            style={{ backgroundImage: `url("${banner.image}")` }} 
+          />
+        ))
+      ) : (
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40" 
+          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80")' }} 
+        />
+      )}
       <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
       
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12">
