@@ -66,6 +66,7 @@ const AdminLogin = lazy(() => import("@/pages/admin/AdminLogin"));
 const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard"));
 const TopTrainersPage = lazy(() => import("@/pages/TopTrainersPage"));
 const NoidaInstitutePage = lazy(() => import("@/pages/NoidaInstitutePage"));
+const AdityaDevopsTrainerPage = lazy(() => import("@/pages/AdityaDevopsTrainerPage"));
 // Basic loading fallback
 const LoadingFallback = () => (
   <div className="min-h-screen flex items-center justify-center bg-background">
@@ -214,7 +215,9 @@ function App() {
                   <Route path="/career-guidance" element={<CareerGuidancePage />} />
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                  <Route path="/cyberhooks" element={<CyberHooks />} />
+                  <Route path="/best-cloud-devops-trainer-in-delhi" element={<AdityaDevopsTrainerPage />} />
+            
+            <Route path="/cyberhooks" element={<CyberHooks />} />
                   <Route path="/course/:slug" element={<CourseDetail />} />
                   <Route path="/top-5-cloud-computing-trainers-in-india" element={<TopTrainersPage />} />
                   <Route path="/top-5-devops-trainers-in-india" element={<TopTrainersPage />} />
