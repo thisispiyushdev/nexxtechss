@@ -63,6 +63,15 @@ export default function TagPage() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
               Tag: {displayTagName}
             </h1>
+            <div className="mt-6 text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl space-y-4">
+              <p>
+                Welcome to the official <strong>{displayTagName}</strong> archive at NexxTechs. Here, you will find our expertly curated collection of top-tier resources, technical insights, and premier mentor recommendations dedicated exclusively to this domain. 
+                Whether you are a complete beginner aiming to secure your first major role in the tech industry, or an experienced corporate professional looking to drastically upskill and upgrade your salary package, this section is designed to guide your journey.
+              </p>
+              <p>
+                Browse through our highly vetted lists of India's most elite trainers, explore their in-depth, project-based curriculums, and compare their proven placement records. Our goal is to ensure you have all the critical information needed to make the best educational choices for your future, connecting you with the exact mentors who specialize deeply in <strong>{displayTagName}</strong>.
+              </p>
+            </div>
           </header>
 
           {/* Posts List */}
