@@ -329,9 +329,8 @@ export default function CourseDetail() {
               {/* Image & Stats Cards */}
               <div className="flex flex-col gap-6">
                 {course.image && (
-                  <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
-                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500 z-10"></div>
-                    <ResponsiveImage src={course.image} alt={`${course.title} Course in Delhi | NexxTechs IT Training Institute Vikaspuri`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl group bg-white">
+                    <ResponsiveImage src={course.image} alt={`${course.title} Course in Delhi | NexxTechs IT Training Institute Vikaspuri`} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700" />
                   </div>
                 )}
                 <div className="grid grid-cols-2 gap-4">
