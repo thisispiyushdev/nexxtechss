@@ -121,7 +121,7 @@ function HomePage() {
       <PromoBanner />
       <HeroSection />
       <Suspense fallback={<div className="h-96" />}>
-        <CoursesGrid />
+        <CoursesGrid limit={6} showMoreButton={true} />
       </Suspense>
       <DeferredRender delay={500}>
         <Suspense fallback={null}>

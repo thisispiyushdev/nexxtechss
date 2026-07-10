@@ -28,29 +28,32 @@ const BROCHURES = {
 };
 
 const STATIC_COURSES = [
-  { title: "Data Analytics", slug: "data-analytics", image: "/course-images/da.webp", desc: "Turn data into actionable insights", icon: BarChart3, color: "#EDE9FE", category: "Data & AI", isPopular: true },
-  { title: "Data Science", slug: "data-science", image: "/course-images/ds.webp", desc: "AI & ML with Python and R", icon: Brain, color: "#FEF2F2", category: "Data & AI", isPopular: true },
-  { title: "Cloud Computing", slug: "cloud-computing", image: "/course-images/ccp.webp", desc: "AWS, Azure & GCP mastery", icon: Cloud, color: "#ECFEFF", category: "Cloud & DevOps", isPopular: true },
-  { title: "Cyber Security", slug: "cyber-security", image: "/course-images/cyber.webp", desc: "Protect systems from threats", icon: Shield, color: "#FFF7ED", category: "Cloud & DevOps", isPopular: true },
-  { title: "DevOps", slug: "devops", image: "/course-images/Devops.webp", desc: "CI/CD, Docker & Kubernetes", icon: GitBranch, color: "#F0FDFA", category: "Cloud & DevOps", isTrending: true },
-  { title: "DSA", slug: "dsa", image: "/course-images/dsa.webp", desc: "Crack coding interviews with confidence", icon: Code2, color: "#F5F3FF", category: "Development", isTrending: true },
-  { title: "Python Full Stack", slug: "python-full-stack", image: "/course-images/python.webp", desc: "Build powerful apps with Python", icon: FileCode2, color: "#EFF6FF", category: "Development", isTrending: true },
-  { title: "Web Development", slug: "web-development", image: "/course-images/web.webp", desc: "Build modern web apps with latest frameworks", icon: Monitor, color: "#EFF6FF", category: "Development", isTrending: true },
-  { title: "UI/UX Design", slug: "ui-ux-design", image: "/course-images/uiuxx.webp", desc: "Create stunning user experiences", icon: Palette, color: "#FEF3C7", category: "Design & Marketing" },
-  { title: "Graphic Design", slug: "graphic-design", image: "/course-images/graphicc.webp", desc: "Master visual communication & branding", icon: PenTool, color: "#FCE7F3", category: "Design & Marketing" },
-  { title: "Digital Marketing", slug: "digital-marketing", image: "/course-images/dmm.webp", desc: "Drive growth with digital strategies", icon: Megaphone, color: "#F0FDF4", category: "Design & Marketing" },
-  { title: "SAP Masterclass", slug: "sap-masterclass", image: "/course-images/sapp.webp", desc: "Master SAP FICO, MM & S/4HANA", icon: Building2, color: "#FEF3C7", category: "Enterprise" },
+  { title: "Data Analytics", slug: "data-analytics", image: "/course-images/da.webp", desc: "Master tools to turn raw data into actionable insights.", features: ["Excel & Advanced SQL", "Power BI & Tableau", "Live Industry Datasets"], icon: BarChart3, color: "#EDE9FE", category: "Data & AI", isPopular: true },
+  { title: "Data Science", slug: "data-science", image: "/course-images/ds.webp", desc: "Learn AI, Machine Learning, and deep statistical analysis.", features: ["Python & R Programming", "Machine Learning Models", "Predictive Analytics"], icon: Brain, color: "#FEF2F2", category: "Data & AI", isPopular: true },
+  { title: "Diploma in Cloud Computing", slug: "cloud-computing", image: "/course-images/ccp.webp", desc: "Master top cloud platforms and scalable infrastructure.", features: ["AWS, Azure & GCP", "Cloud Architecture", "Deployment Strategies"], icon: Cloud, color: "#ECFEFF", category: "Cloud & DevOps", isPopular: true },
+  { title: "Diploma in Cyber Security", slug: "cyber-security", image: "/course-images/cyber.webp", desc: "Protect critical systems and networks from digital threats.", features: ["Ethical Hacking", "Network Security", "Vulnerability Assessment"], icon: Shield, color: "#FFF7ED", category: "Cloud & DevOps", isPopular: true },
+  { title: "DevOps with AWS", slug: "devops", image: "/course-images/Devops.webp", desc: "Automate and streamline the software development lifecycle.", features: ["CI/CD Pipelines", "Docker & Kubernetes", "Infrastructure as Code"], icon: GitBranch, color: "#F0FDFA", category: "Cloud & DevOps", isTrending: true },
+  { title: "Data Structures and Algorithm", slug: "dsa", image: "/course-images/dsa.webp", desc: "Master algorithms and crack top tech coding interviews.", features: ["Array & Strings", "Trees & Graphs", "Dynamic Programming"], icon: Code2, color: "#F5F3FF", category: "Development", isTrending: true },
+  { title: "Python Full Stack with Gen AI", slug: "python-full-stack", image: "/course-images/python.webp", desc: "Build powerful, scalable web applications using Python.", features: ["Django & Flask", "React.js Integration", "Database Management"], icon: FileCode2, color: "#EFF6FF", category: "Development", isTrending: true },
+  { title: "Web Dev with Gen AI", slug: "web-development", image: "/course-images/web.webp", desc: "Build modern web apps with the latest MERN stack frameworks.", features: ["MongoDB & Express", "React.js & Node.js", "Responsive Design"], icon: Monitor, color: "#EFF6FF", category: "Development", isTrending: true },
+  { title: "UI/UX Design", slug: "ui-ux-design", image: "/course-images/uiuxx.webp", desc: "Create stunning, user-centric digital experiences.", features: ["Figma Prototyping", "User Research", "Wireframing"], icon: Palette, color: "#FEF3C7", category: "Design & Marketing" },
+  { title: "Graphic Design", slug: "graphic-design", image: "/course-images/graphicc.webp", desc: "Master visual communication, branding, and typography.", features: ["Adobe Photoshop", "Illustrator & InDesign", "Brand Identity"], icon: PenTool, color: "#FCE7F3", category: "Design & Marketing" },
+  { title: "Digital Marketing", slug: "digital-marketing", image: "/course-images/dmm.webp", desc: "Drive exponential business growth with digital strategies.", features: ["SEO & SEM", "Social Media Marketing", "Google Ads"], icon: Megaphone, color: "#F0FDF4", category: "Design & Marketing" },
+  { title: "SAP Masterclass", slug: "sap-masterclass", image: "/course-images/sapp.webp", desc: "Master enterprise resource planning with SAP modules.", features: ["SAP FICO & MM", "S/4HANA Architecture", "Business Processes"], icon: Building2, color: "#FEF3C7", category: "Enterprise" },
 ];
 
 const CATEGORIES = ["All", "Development", "Design & Marketing", "Data & AI", "Cloud & DevOps", "Enterprise"];
 
-export default function CoursesGrid({ layout = "grid" }) {
+export default function CoursesGrid({ layout = "grid", limit = null, showMoreButton = false }) {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
   const [brochureModal, setBrochureModal] = useState({ open: false, course: "", url: "" });
   const [activeCategory, setActiveCategory] = useState("All");
   const [COURSES, setCourses] = useState(STATIC_COURSES);
   const navigate = useNavigate();
+
+  const displayedCourses = activeCategory === "All" ? COURSES : COURSES.filter((c) => c.category === activeCategory);
+  const finalCourses = limit ? displayedCourses.slice(0, limit) : displayedCourses;
 
   useEffect(() => {
     cachedFetch(`${API}/content/courses`)
@@ -147,60 +150,70 @@ export default function CoursesGrid({ layout = "grid" }) {
                   style={{ animationDuration: '80s' }}
                   aria-hidden={groupIndex === 1}
                 >
-                  {(activeCategory === "All" ? COURSES : COURSES.filter((c) => c.category === activeCategory)).map((course, i) => {
+                  {finalCourses.map((course, i) => {
                     return (
                       <div
                         key={`${groupIndex}-${course.title}`}
-                        className="w-[280px] sm:w-[320px] md:w-[380px] shrink-0 group bg-white dark:bg-[#0f1117]/60 dark:backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-[20px] sm:rounded-[24px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_30px_rgba(132,204,22,0.15)] dark:hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
+                        className="w-[280px] sm:w-[320px] md:w-[380px] h-full shrink-0 group bg-white/80 dark:bg-[#0a0a0a]/70 backdrop-blur-2xl border border-gray-200/50 dark:border-white/10 rounded-[24px] sm:rounded-[28px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_40px_-10px_rgba(132,204,22,0.3)] hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
                         onClick={() => navigate(`/course/${course.slug}/`)}
                       >
                         {course.image && (
-                          <div className="relative w-full aspect-video overflow-hidden bg-gray-100 dark:bg-[#050505]">
-                            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500 z-10"></div>
-                            <ResponsiveImage src={course.image} alt={`${course.title} course at NexxTechs`} className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700" priority={i < 3} width={480} height={270} />
+                          <div className="relative w-full aspect-video overflow-hidden rounded-t-[24px] sm:rounded-t-[28px] z-10">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/40 group-hover:via-transparent transition-colors duration-500 z-20 pointer-events-none"></div>
+                            <ResponsiveImage src={course.image} alt={`${course.title} course at NexxTechs`} className="w-full h-full object-cover transform group-hover:scale-[1.15] group-hover:rotate-1 transition-all duration-700 ease-out" priority={i < 3} width={480} height={270} />
                             
                             {/* Badges */}
                             {course.isPopular && (
-                              <div className="absolute top-4 right-4 z-20">
-                                <span className="bg-[#84CC16] text-black text-[10px] font-bold px-3 py-1 rounded-full shadow-lg shadow-[#84CC16]/20 md:animate-pulse">
+                              <div className="absolute top-4 right-4 z-30">
+                                <span className="bg-[#84CC16]/90 backdrop-blur-md text-black text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg shadow-[#84CC16]/30">
                                   POPULAR
                                 </span>
                               </div>
                             )}
                             {course.isTrending && (
-                              <div className="absolute top-4 right-4 z-20">
-                                <span className="bg-[#3B82F6] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg shadow-blue-500/20 md:animate-pulse">
+                              <div className="absolute top-4 right-4 z-30">
+                                <span className="bg-[#3B82F6]/90 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg shadow-blue-500/30">
                                   TRENDING
                                 </span>
                               </div>
                             )}
                           </div>
                         )}
-                        <div className="p-6 flex flex-col flex-1 relative z-10">
-                          <div className="flex flex-col gap-3 mb-4">
-                            <h4 className="font-bold text-[#111827] dark:text-white text-xl group-hover:text-[#84CC16] transition-colors whitespace-normal">
+                        <div className="p-6 pt-5 flex flex-col flex-1 relative z-10">
+                          <div className="flex flex-col gap-2 mb-3">
+                            <h4 className="font-bold text-[#111827] dark:text-white text-xl md:text-2xl tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#84CC16] group-hover:to-[#10b981] transition-all duration-300 whitespace-normal leading-tight">
                               {course.title}
                             </h4>
                           </div>
-                          <p className="text-sm text-[#4B5563] dark:text-gray-400 mb-6 flex-1 leading-relaxed whitespace-normal">{course.desc}</p>
-                          <div className="flex items-center gap-3 mt-auto pt-5 border-t border-gray-100 dark:border-white/10">
+                          <p className="text-sm text-[#4B5563] dark:text-gray-400 mb-4 leading-relaxed whitespace-normal font-medium line-clamp-2">{course.desc}</p>
+                          {course.features && (
+                            <ul className="space-y-1.5 mb-6">
+                              {course.features.map((feature, idx) => (
+                                <li key={idx} className="flex items-start text-[13px] text-gray-600 dark:text-gray-400">
+                                  <span className="text-[#84CC16] mr-2 mt-0.5">•</span>
+                                  <span className="leading-tight">{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                          <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100 dark:border-white/5">
                             <Button
                               onClick={(e) => { e.stopPropagation(); navigate(`/course/${course.slug}/`); }}
                               variant="outline"
-                              className="flex-1 px-4 text-sm h-11 rounded-xl border-[#84CC16]/40 text-[#111827] dark:text-[#84CC16] font-semibold hover:!bg-[#84CC16] hover:!text-black dark:hover:!text-black hover:border-[#84CC16] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(132,204,22,0.2)] min-w-0"
+                              className="flex-1 px-4 h-12 rounded-full border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-black/20 text-[#111827] dark:text-white font-semibold hover:bg-[#84CC16] hover:text-black dark:hover:bg-[#84CC16] dark:hover:text-black hover:border-[#84CC16] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(132,204,22,0.2)] min-w-0 flex items-center justify-center overflow-hidden"
                               data-testid={`view-details-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
                             >
-                              <span className="truncate">View Details</span>
-                              <ArrowRight size={16} className="ml-2 shrink-0 transition-transform group-hover:translate-x-1" />
+                              <span className="truncate">View Course</span>
+                              <ArrowRight size={16} className="ml-2 shrink-0 transition-transform duration-300 group-hover:translate-x-2" />
                             </Button>
                             <Button
                               onClick={(e) => { e.stopPropagation(); openBrochure(course.title); }}
-                              className="h-11 w-11 p-0 shrink-0 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-[#84CC16] transition-all duration-300 border border-transparent dark:hover:border-white/10"
+                              className="h-12 w-12 p-0 shrink-0 rounded-full bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-[#84CC16] transition-all duration-300 border border-transparent dark:hover:border-white/10 flex items-center justify-center"
                               data-testid={`brochure-btn-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
                               title="Download Syllabus"
                               aria-label={`Download ${course.title} Syllabus`}
                             >
-                              <Download size={18} className="shrink-0 group-hover/btn:animate-bounce" />
+                              <Download size={18} className="shrink-0 transition-transform duration-300 group-hover:scale-110" />
                             </Button>
                           </div>
                         </div>
@@ -213,66 +226,88 @@ export default function CoursesGrid({ layout = "grid" }) {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-            {(activeCategory === "All" ? COURSES : COURSES.filter((c) => c.category === activeCategory)).map((course, i) => {
+            {finalCourses.map((course, i) => {
               return (
                 <div
                   key={`grid-${course.title}`}
-                  className="h-full group bg-white dark:bg-[#0f1117]/60 dark:backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-[20px] sm:rounded-[24px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_30px_rgba(132,204,22,0.15)] dark:hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
+                  className="h-full group bg-white/80 dark:bg-[#0a0a0a]/70 backdrop-blur-2xl border border-gray-200/50 dark:border-white/10 rounded-[24px] sm:rounded-[28px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_40px_-10px_rgba(132,204,22,0.3)] hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
                   onClick={() => navigate(`/course/${course.slug}/`)}
                 >
                   {course.image && (
-                    <div className="relative w-full aspect-video overflow-hidden bg-gray-100 dark:bg-[#050505]">
-                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500 z-10"></div>
-                      <ResponsiveImage src={course.image} alt={`${course.title} course at NexxTechs`} className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700" priority={i < 3} width={480} height={270} />
+                    <div className="relative w-full aspect-video overflow-hidden rounded-t-[24px] sm:rounded-t-[28px] z-10">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/40 group-hover:via-transparent transition-colors duration-500 z-20 pointer-events-none"></div>
+                      <ResponsiveImage src={course.image} alt={`${course.title} course at NexxTechs`} className="w-full h-full object-cover transform group-hover:scale-[1.15] group-hover:rotate-1 transition-all duration-700 ease-out" priority={i < 3} width={480} height={270} />
                       
                       {/* Badges */}
                       {course.isPopular && (
-                        <div className="absolute top-4 right-4 z-20">
-                          <span className="bg-[#84CC16] text-black text-[10px] font-bold px-3 py-1 rounded-full shadow-lg shadow-[#84CC16]/20 md:animate-pulse">
+                        <div className="absolute top-4 right-4 z-30">
+                          <span className="bg-[#84CC16]/90 backdrop-blur-md text-black text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg shadow-[#84CC16]/30">
                             POPULAR
                           </span>
                         </div>
                       )}
                       {course.isTrending && (
-                        <div className="absolute top-4 right-4 z-20">
-                          <span className="bg-[#3B82F6] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg shadow-blue-500/20 md:animate-pulse">
+                        <div className="absolute top-4 right-4 z-30">
+                          <span className="bg-[#3B82F6]/90 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg shadow-blue-500/30">
                             TRENDING
                           </span>
                         </div>
                       )}
                     </div>
                   )}
-                  <div className="p-6 flex flex-col flex-1 relative z-10">
-                    <div className="flex flex-col gap-3 mb-4">
-                      <h4 className="font-bold text-[#111827] dark:text-white text-xl group-hover:text-[#84CC16] transition-colors whitespace-normal">
+                  <div className="p-6 pt-5 flex flex-col flex-1 relative z-10">
+                    <div className="flex flex-col gap-2 mb-3">
+                      <h4 className="font-bold text-[#111827] dark:text-white text-xl md:text-2xl tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#84CC16] group-hover:to-[#10b981] transition-all duration-300 whitespace-normal leading-tight">
                         {course.title}
                       </h4>
                     </div>
-                    <p className="text-sm text-[#4B5563] dark:text-gray-400 mb-6 flex-1 leading-relaxed whitespace-normal">{course.desc}</p>
-                    <div className="flex items-center gap-3 mt-auto pt-5 border-t border-gray-100 dark:border-white/10">
+                    <p className="text-sm text-[#4B5563] dark:text-gray-400 mb-4 leading-relaxed whitespace-normal font-medium line-clamp-2">{course.desc}</p>
+                    {course.features && (
+                      <ul className="space-y-1.5 mb-6">
+                        {course.features.map((feature, idx) => (
+                          <li key={idx} className="flex items-start text-[13px] text-gray-600 dark:text-gray-400">
+                            <span className="text-[#84CC16] mr-2 mt-0.5">•</span>
+                            <span className="leading-tight">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100 dark:border-white/5">
                       <Button
                         onClick={(e) => { e.stopPropagation(); navigate(`/course/${course.slug}/`); }}
                         variant="outline"
-                        className="flex-1 px-4 text-sm h-11 rounded-xl border-[#84CC16]/40 text-[#111827] dark:text-[#84CC16] font-semibold hover:!bg-[#84CC16] hover:!text-black dark:hover:!text-black hover:border-[#84CC16] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(132,204,22,0.2)] min-w-0"
+                        className="flex-1 px-4 h-12 rounded-full border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-black/20 text-[#111827] dark:text-white font-semibold hover:bg-[#84CC16] hover:text-black dark:hover:bg-[#84CC16] dark:hover:text-black hover:border-[#84CC16] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(132,204,22,0.2)] min-w-0 flex items-center justify-center overflow-hidden"
                         data-testid={`view-details-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
                       >
-                        <span className="truncate">View Details</span>
-                        <ArrowRight size={16} className="ml-2 shrink-0 transition-transform group-hover:translate-x-1" />
+                        <span className="truncate">View Course</span>
+                        <ArrowRight size={16} className="ml-2 shrink-0 transition-transform duration-300 group-hover:translate-x-2" />
                       </Button>
                       <Button
                         onClick={(e) => { e.stopPropagation(); openBrochure(course.title); }}
-                        className="h-11 w-11 p-0 shrink-0 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-[#84CC16] transition-all duration-300 border border-transparent dark:hover:border-white/10"
+                        className="h-12 w-12 p-0 shrink-0 rounded-full bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-[#84CC16] transition-all duration-300 border border-transparent dark:hover:border-white/10 flex items-center justify-center"
                         data-testid={`brochure-btn-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
                         title="Download Syllabus"
                         aria-label={`Download ${course.title} Syllabus`}
                       >
-                        <Download size={18} className="shrink-0 group-hover/btn:animate-bounce" />
+                        <Download size={18} className="shrink-0 transition-transform duration-300 group-hover:scale-110" />
                       </Button>
                     </div>
                   </div>
                 </div>
               );
             })}
+          </div>
+        )}
+
+        {showMoreButton && (
+          <div className="mt-16 flex justify-center courses-heading-animate">
+            <Button
+              onClick={() => navigate('/courses')}
+              className="px-10 h-14 rounded-full bg-[#84CC16] text-black font-bold text-lg hover:bg-[#65a30d] transition-all shadow-[0_0_20px_rgba(132,204,22,0.3)] hover:shadow-[0_0_30px_rgba(132,204,22,0.5)] hover:-translate-y-1 flex items-center"
+            >
+              Explore All Courses
+              <ArrowRight className="ml-2" size={20} />
+            </Button>
           </div>
         )}
         </div>
