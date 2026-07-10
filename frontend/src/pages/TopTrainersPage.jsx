@@ -4,7 +4,6 @@ import PageTransition from "../components/PageTransition";
 import SEOHead from "../components/SEOHead";
 import Breadcrumbs from "../components/Breadcrumbs";
 import EnquiryForm from "../components/EnquiryForm";
-import OtherTrainers from "../components/OtherTrainers";
 import topTrainersData from "../data/topTrainersData";
 import { useTheme } from "../context/ThemeContext";
 
@@ -131,17 +130,20 @@ export default function TopTrainersPage() {
               <span className="text-gray-600 dark:text-gray-400 mr-1">Tagged</span>
               {pageData.tags.map((tag, index) => {
                 const t = tag.toLowerCase();
-                let url = "/courses";
-                if (t === "best cloud devops trainer in delhi") url = "/best-cloud-devops-trainer-in-delhi";
-                else if (t.includes("top") || t.includes("best trainer") || t.includes("expert") || t.includes("in india")) url = `/${fullSlug}`;
-                else if (t.includes("placement") || t.includes("job") || t.includes("salary")) url = "/placement";
-                else if (t.includes("roadmap") || t.includes("career") || t.includes("path")) url = "/roadmap";
-                else if (fullSlug.includes("cloud")) url = "/course/cloud-computing";
-                else if (fullSlug.includes("devops")) url = "/course/devops";
-                else if (fullSlug.includes("digital-marketing")) url = "/course/digital-marketing";
-                else if (fullSlug.includes("cyber-security")) url = "/course/cyber-security";
-                else if (fullSlug.includes("graphic-design")) url = "/course/graphic-design";
-                else if (fullSlug.includes("data-science")) url = "/course/data-science";
+                let url;
+                
+                // Specific overrides for expert tags
+                if (t === "aditya sharma devops expert") url = "/best-devops-trainer-in-delhi";
+                else if (t === "aditya sharma cloud computing expert") url = "/best-cloud-computing-trainer-in-delhi";
+                else if (t === "sagar sir digital marketing expert") url = "/best-digital-marketing-trainer-in-delhi";
+                else if (t === "meghesh kumar cyber security expert") url = "/best-cyber-security-trainer-in-delhi";
+                else if (t === "suraj rewadia graphic design expert") url = "/best-graphic-design-trainer-in-delhi";
+                else if (t === "niti gupta personal development expert") url = "/best-personal-development-trainer-in-delhi";
+                else if (t === "saba hussain data science expert") url = "/best-data-science-trainer-in-delhi";
+                else {
+                  const tagSlug = t.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+                  url = `/tag/${tagSlug}`;
+                }
 
                 return (
                   <React.Fragment key={index}>
@@ -157,8 +159,6 @@ export default function TopTrainersPage() {
               })}
             </p>
           </div>
-
-          <OtherTrainers currentTrainerPath="" />
 
           {/* Related Articles / Other Modules */}
           <div className="border-t border-gray-200 dark:border-white/10 pt-12 pb-8">
