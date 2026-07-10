@@ -67,6 +67,12 @@ const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard"));
 const TopTrainersPage = lazy(() => import("@/pages/TopTrainersPage"));
 const NoidaInstitutePage = lazy(() => import("@/pages/NoidaInstitutePage"));
 const AdityaDevopsTrainerPage = lazy(() => import("@/pages/AdityaDevopsTrainerPage"));
+const AdityaCloudTrainerPage = lazy(() => import("@/pages/AdityaCloudTrainerPage"));
+const SagarDigitalMarketingTrainerPage = lazy(() => import("@/pages/SagarDigitalMarketingTrainerPage"));
+const MegheshCyberSecurityTrainerPage = lazy(() => import("@/pages/MegheshCyberSecurityTrainerPage"));
+const SurajGraphicDesignTrainerPage = lazy(() => import("@/pages/SurajGraphicDesignTrainerPage"));
+const NitiPersonalDevelopmentTrainerPage = lazy(() => import("@/pages/NitiPersonalDevelopmentTrainerPage"));
+const SabaDataScienceTrainerPage = lazy(() => import("@/pages/SabaDataScienceTrainerPage"));
 // Basic loading fallback
 const LoadingFallback = () => (
   <div className="min-h-screen flex items-center justify-center bg-background">
@@ -215,7 +221,13 @@ function App() {
                   <Route path="/career-guidance" element={<CareerGuidancePage />} />
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                  <Route path="/best-cloud-devops-trainer-in-delhi" element={<AdityaDevopsTrainerPage />} />
+                  <Route path="/best-devops-trainer-in-delhi" element={<AdityaDevopsTrainerPage />} />
+                  <Route path="/best-cloud-computing-trainer-in-delhi" element={<AdityaCloudTrainerPage />} />
+                  <Route path="/best-digital-marketing-trainer-in-delhi" element={<SagarDigitalMarketingTrainerPage />} />
+                  <Route path="/best-cyber-security-trainer-in-delhi" element={<MegheshCyberSecurityTrainerPage />} />
+                  <Route path="/best-graphic-design-trainer-in-delhi" element={<SurajGraphicDesignTrainerPage />} />
+                  <Route path="/best-personal-development-trainer-in-delhi" element={<NitiPersonalDevelopmentTrainerPage />} />
+                  <Route path="/best-data-science-trainer-in-delhi" element={<SabaDataScienceTrainerPage />} />
             
             <Route path="/cyberhooks" element={<CyberHooks />} />
                   <Route path="/course/:slug" element={<CourseDetail />} />

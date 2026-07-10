@@ -4,6 +4,7 @@ import PageTransition from "../components/PageTransition";
 import SEOHead from "../components/SEOHead";
 import Breadcrumbs from "../components/Breadcrumbs";
 import EnquiryForm from "../components/EnquiryForm";
+import OtherTrainers from "../components/OtherTrainers";
 import topTrainersData from "../data/topTrainersData";
 import { useTheme } from "../context/ThemeContext";
 
@@ -156,6 +157,8 @@ export default function TopTrainersPage() {
               })}
             </p>
           </div>
+
+          <OtherTrainers currentTrainerPath="" />
 
           {/* Related Articles / Other Modules */}
           <div className="border-t border-gray-200 dark:border-white/10 pt-12 pb-8">
