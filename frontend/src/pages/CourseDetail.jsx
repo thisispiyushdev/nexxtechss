@@ -330,7 +330,7 @@ export default function CourseDetail() {
               <div className="flex flex-col gap-6">
                 {course.image && (
                   <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl group bg-white">
-                    <ResponsiveImage src={course.image} alt={`${course.title} Course in Delhi | NexxTechs IT Training Institute Vikaspuri`} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700" />
+                    <ResponsiveImage src={course.image} alt={`${course.title} Course in Delhi | NexxTechs IT Training Institute Vikaspuri`} width={600} height={400} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700" />
                   </div>
                 )}
                 <div className="grid grid-cols-2 gap-4">
@@ -547,14 +547,14 @@ export default function CourseDetail() {
               <div className="animate-marquee flex gap-6 py-4 whitespace-nowrap shrink-0 min-w-full pr-6">
                 {certImages.concat(certImages).map((img, i) => (
                   <div key={i} className="flex-none w-[220px] md:w-[280px] h-[160px] md:h-[200px] rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#84CC16]/50 dark:hover:border-[#84CC16]/50 transition-all duration-300 hover:scale-105 bg-[#F9FAFB] dark:bg-white/5 flex items-center justify-center p-3">
-                    <img src={img} alt={`${course.title} Certification from NexxTechs IT Training Institute Delhi`} className="max-w-full max-h-full object-contain rounded-lg mix-blend-multiply dark:mix-blend-normal" loading="lazy" />
+                    <img src={img} alt={`${course.title} Certification from NexxTechs IT Training Institute Delhi`} width={280} height={200} className="max-w-full max-h-full object-contain rounded-lg mix-blend-multiply dark:mix-blend-normal" loading="lazy" />
                   </div>
                 ))}
               </div>
               <div className="animate-marquee flex gap-6 py-4 whitespace-nowrap shrink-0 min-w-full pr-6" aria-hidden="true">
                 {certImages.concat(certImages).map((img, i) => (
                   <div key={`second-${i}`} className="flex-none w-[220px] md:w-[280px] h-[160px] md:h-[200px] rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#84CC16]/50 dark:hover:border-[#84CC16]/50 transition-all duration-300 hover:scale-105 bg-[#F9FAFB] dark:bg-white/5 flex items-center justify-center p-3">
-                    <img src={img} alt={`${course.title} Certification from NexxTechs IT Training Institute Delhi`} className="max-w-full max-h-full object-contain rounded-lg mix-blend-multiply dark:mix-blend-normal" loading="lazy" />
+                    <img src={img} alt={`${course.title} Certification from NexxTechs IT Training Institute Delhi`} width={280} height={200} className="max-w-full max-h-full object-contain rounded-lg mix-blend-multiply dark:mix-blend-normal" loading="lazy" />
                   </div>
                 ))}
               </div>
