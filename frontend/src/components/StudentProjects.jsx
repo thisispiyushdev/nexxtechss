@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const PROJECTS = [
   {
-    url: "/ngo.webp",
+    url: "/assets/projects/ngo.webp",
     alt: "NGO Full Stack Website",
     title: "NGO Full Stack Website",
     student: "Piyush.",
@@ -29,7 +29,7 @@ Key Features:
 • Admin dashboard for tracking activities`
   },
   {
-    url: "/dashboard.webp",
+    url: "/assets/projects/amazon.webp",
     alt: "Amazon Analytics Dashboard",
     title: "Amazon Analytics Dashboard",
     student: "Priyansh Shrivastav",
@@ -38,14 +38,14 @@ Key Features:
 Using services like Amazon QuickSight, users can create interactive dashboards to track trends, business performance, and insights. It supports features like filtering, drill-down analysis, and real-time updates, helping in better decision-making.`
   },
   {
-    url: "/aura-chat-bot.webp",
+    url: "/assets/projects/chat.webp",
     alt: "Aura Realtime Chat App",
     title: "Aura Realtime Chat App",
     student: "Sujal Chauhan",
     description: "Aura is a high-performance realtime chat application that integrates a vector database to enable lightning-fast semantic search across conversation histories. It features instant messaging, online presence, and AI-powered message retrieval."
   },
   {
-    url: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?crop=entropy&cs=srgb&fm=webp&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxjbG91ZCUyMGNvbXB1dGluZ3xlbnwwfHx8fDE3NzY0MDUyNjV8MA&ixlib=rb-4.1.0&q=85",
+    url: "/assets/projects/cypto.webp",
     alt: "Crypto Price Alert using AWS",
     title: "Crypto Price Alert using AWS",
     student: "Devops batch - Piyush",
