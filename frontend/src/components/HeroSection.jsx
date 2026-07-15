@@ -48,15 +48,11 @@ export default function HeroSection() {
       const response = await axios.post(`${API}/enquiry`, form);
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
-        const msg = `New Enquiry Lead (Hero):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}`;
-        window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
         setForm({ name: "", phone: "", course_interested: "", branch: "Nexxtechs Delhi" });
       } else { throw new Error("Backend storage failed"); }
     } catch (err) {
       console.error("Backend error:", err);
-      const msg = `New Enquiry Lead (Hero Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}`;
-      window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
-      setError("Note: Enquiry submitted via WhatsApp only."); setSubmitted(true);
+      setError("Failed to submit enquiry. Please try again."); setSubmitted(true);
     } finally { setLoading(false); }
   };
 
@@ -126,10 +122,10 @@ export default function HeroSection() {
               Build your future with AI, Data Science, Full Stack Development, Digital Marketing & more at Nexxtechs Institute — the best institute in Vikaspuri. Join 5000+ students with practical training and real-world projects.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button onClick={() => scrollTo("#enquiry")} className="group relative bg-[#84CC16] text-black font-semibold rounded-full px-8 py-6 text-sm md:text-base hover:bg-[#65A30D] transition-all duration-300 md:hover:-translate-y-1.5 active:translate-y-0 hover:shadow-[0_10px_30px_rgba(132,204,22,0.4)] active:shadow-none" data-testid="hero-enroll-btn">
+              <Button onClick={() => window.dispatchEvent(new CustomEvent("openPopupEnquiry"))} className="group relative bg-[#84CC16] text-black font-semibold rounded-full px-8 py-6 text-sm md:text-base hover:bg-[#65A30D] transition-all duration-300 md:hover:-translate-y-1.5 active:translate-y-0 hover:shadow-[0_10px_30px_rgba(132,204,22,0.4)] active:shadow-none" data-testid="hero-enroll-btn">
                 Enroll Now <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
               </Button>
-              <Button onClick={() => { const msg = `Hi, I'd like to book a free demo class at NEXXTECHS.`; window.open(`https://wa.me/919217179762?text=${encodeURIComponent(msg)}`, "_blank"); }} variant="outline" className="group relative border-2 border-[#0A0A0A] dark:border-gray-600 text-[#0A0A0A] dark:text-white font-semibold rounded-full px-8 py-6 text-sm md:text-base hover:bg-[#0A0A0A] hover:text-white transition-all duration-300 md:hover:-translate-y-1.5 active:translate-y-0 hover:shadow-[0_10px_30px_rgba(0,0,0,0.15)] active:shadow-none" data-testid="hero-demo-btn">
+              <Button onClick={() => window.dispatchEvent(new CustomEvent("openPopupEnquiry"))} variant="outline" className="group relative border-2 border-[#0A0A0A] dark:border-gray-600 text-[#0A0A0A] dark:text-white font-semibold rounded-full px-8 py-6 text-sm md:text-base hover:bg-[#0A0A0A] hover:text-white transition-all duration-300 md:hover:-translate-y-1.5 active:translate-y-0 hover:shadow-[0_10px_30px_rgba(0,0,0,0.15)] active:shadow-none" data-testid="hero-demo-btn">
                 <Play size={16} className="mr-2 transition-transform duration-300 group-hover:scale-125" /> Book Free Demo
               </Button>
             </div>

@@ -49,6 +49,7 @@ export default function PopupEnquiry() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [bannerTitle, setBannerTitle] = useState("");
+  const [isWhatsApp, setIsWhatsApp] = useState(false);
 
   useEffect(() => {
     // Show popup after 8 seconds instead of 500ms to avoid blocking initial paint
@@ -57,10 +58,12 @@ export default function PopupEnquiry() {
     }, 8000);
 
     const handleOpenPopup = (e) => {
-      if (e && e.detail && e.detail.bannerTitle) {
-        setBannerTitle(e.detail.bannerTitle);
+      if (e && e.detail) {
+        setBannerTitle(e.detail.bannerTitle || "");
+        setIsWhatsApp(!!e.detail.isWhatsApp);
       } else {
         setBannerTitle(""); // Reset if opened normally
+        setIsWhatsApp(false);
       }
       setOpen(true);
     };
@@ -97,18 +100,24 @@ export default function PopupEnquiry() {
       const response = await axios.post(`${API}/enquiry`, form);
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
-        const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
-        const msg = `New Enquiry Lead (Popup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
-        window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
+        if (isWhatsApp) {
+          const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
+          const msg = `New Enquiry Lead (Popup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
+          window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
+        }
       } else {
         throw new Error("Backend storage failed");
       }
     } catch (err) {
       console.error("Backend error:", err);
-      const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
-      const msg = `New Enquiry Lead (Popup Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
-      window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
-      setError("Note: Enquiry submitted via WhatsApp only.");
+      if (isWhatsApp) {
+        const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
+        const msg = `New Enquiry Lead (Popup Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
+        window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
+        setError("Note: Enquiry submitted via WhatsApp only.");
+      } else {
+        setError("Failed to submit enquiry. Please try again.");
+      }
       setSubmitted(true);
     } finally {
       setLoading(false);

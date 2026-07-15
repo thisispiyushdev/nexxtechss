@@ -165,16 +165,12 @@ export default function CourseDetail() {
       const response = await axios.post(`${API}/enquiry`, demoForm);
       if (response.status === 201 || response.status === 200) {
         setDemoSubmitted(true);
-        const msg = `New Demo Request (Course Page):%0AName: ${encodeURIComponent(demoForm.name)}%0APhone: ${encodeURIComponent(demoForm.phone)}%0ACourse: ${encodeURIComponent(demoForm.course_interested)}%0ABranch: ${encodeURIComponent(demoForm.branch)}`;
-        window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
       } else {
         throw new Error("Backend storage failed");
       }
     } catch (err) {
       console.error("Backend error:", err);
-      const msg = `New Demo Request (Course Page Backup):%0AName: ${encodeURIComponent(demoForm.name)}%0APhone: ${encodeURIComponent(demoForm.phone)}%0ACourse: ${encodeURIComponent(demoForm.course_interested)}%0ABranch: ${encodeURIComponent(demoForm.branch)}`;
-      window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
-      setDemoError("Note: Enquiry submitted via WhatsApp only.");
+      setDemoError("Failed to submit enquiry. Please try again.");
       setDemoSubmitted(true);
     } finally {
       setDemoLoading(false);
@@ -296,10 +292,7 @@ export default function CourseDetail() {
 
                 <div className="flex flex-wrap gap-4 pt-4">
                   <Button
-                    onClick={() => {
-                      const msg = `Hi, I'm interested in the ${course.title} course at NEXXTECHS.`;
-                      window.open(`https://wa.me/919217179762?text=${encodeURIComponent(msg)}`, "_blank");
-                    }}
+                    onClick={() => setDemoPopupOpen(true)}
                     className="bg-[#84CC16] text-black font-semibold rounded-full px-8 py-6 text-base hover:bg-[#65A30D] transition-all duration-300 hover:-translate-y-1"
                     data-testid="course-enquire-btn"
                   >
@@ -307,10 +300,7 @@ export default function CourseDetail() {
                     <Phone size={16} className="ml-2" />
                   </Button>
                   <Button
-                    onClick={() => {
-                      const msg = `Hi, I want to book a FREE DEMO for the ${course.title} course.`;
-                      window.open(`https://wa.me/919217179762?text=${encodeURIComponent(msg)}`, "_blank");
-                    }}
+                    onClick={() => setDemoPopupOpen(true)}
                     className="bg-white text-[#111827] font-extrabold rounded-full px-8 py-6 text-base transition-all duration-300 shadow-[0_4px_20px_rgba(132,204,22,0.4)] hover:shadow-[0_8px_30px_rgba(132,204,22,0.6)] hover:-translate-y-1 border-2 border-[#84CC16]/50"
                   >
                     <PlayCircle size={18} className="mr-2 text-[#84CC16]" /> Book Free Demo
@@ -483,20 +473,14 @@ export default function CourseDetail() {
                   </div>
 
                   <Button
-                    onClick={() => {
-                      const msg = `Hi, I want to book a FREE DEMO for the ${course.title} course.`;
-                      window.open(`https://wa.me/919217179762?text=${encodeURIComponent(msg)}`, "_blank");
-                    }}
+                    onClick={() => setDemoPopupOpen(true)}
                     className="w-full bg-white text-[#111827] font-extrabold rounded-xl py-5 transition-all mb-3 shadow-[0_4px_15px_rgba(132,204,22,0.3)] hover:shadow-[0_8px_25px_rgba(132,204,22,0.5)] hover:-translate-y-1 border border-[#84CC16]/50"
                   >
                     <PlayCircle size={16} className="mr-2 text-[#84CC16]" /> Book Free Demo
                   </Button>
 
                   <Button
-                    onClick={() => {
-                      const msg = `Hi, I'm interested in the ${course.title} course. Please share the pricing details.`;
-                      window.open(`https://wa.me/919217179762?text=${encodeURIComponent(msg)}`, "_blank");
-                    }}
+                    onClick={() => setDemoPopupOpen(true)}
                     className="w-full bg-[#84CC16] text-black font-semibold rounded-xl py-5 hover:bg-[#65A30D] transition-all mb-3"
                     data-testid="sidebar-enquire-btn"
                   >

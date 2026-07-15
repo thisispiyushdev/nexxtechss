@@ -338,7 +338,7 @@ export default function AdminDashboard() {
             {activeTab === "courses" && isCoreAdmin && <CoursesTable courses={filtered(data.courses, ["title","slug"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "banners" && isCoreAdmin && <BannersTable banners={filtered(data.banners, ["title","text"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "noida_banners" && isCoreAdmin && <NoidaBannersTable banners={filtered(data.noidaBanners, ["title","link_url"])} onDelete={handleDelete} onEdit={openEditModal} />}
-            {activeTab === "team" && isCoreAdmin && <TeamTable users={filtered(data.users, ["username","display_name","role"])} onDelete={handleDelete} onEdit={openEditModal} />}
+            {activeTab === "team" && isCoreAdmin && <TeamTable users={filtered(data.users.filter(u => u.role !== 'core'), ["username","display_name","role"])} onDelete={handleDelete} onEdit={openEditModal} />}
           </div>
         </main>
       </div>

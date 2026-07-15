@@ -9,17 +9,15 @@ export default function FloatingButtons() {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3" data-testid="floating-buttons">
       {/* WhatsApp */}
-      <a
-        href="https://wa.me/919217179762?text=Hi%2C%20I%27m%20interested%20in%20your%20courses"
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openPopupEnquiry', { detail: { isWhatsApp: true } })); }}
         className="group relative w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-110 transition-all duration-300 floating-pulse"
         data-testid="whatsapp-btn"
         title="Chat on WhatsApp"
         aria-label="Chat on WhatsApp"
       >
         <WhatsAppIcon className="text-white transition-transform duration-300 group-hover:rotate-12" />
-      </a>
+      </button>
 
       {/* Call */}
       <a
