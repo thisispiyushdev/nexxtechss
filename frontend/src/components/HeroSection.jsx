@@ -45,7 +45,8 @@ export default function HeroSection() {
     if (!form.name || !form.phone || !form.course_interested || !form.branch) { setError("Please fill all fields"); return; }
     setError(""); setLoading(true);
     try {
-      const response = await axios.post(`${API}/enquiry`, form);
+      const payload = { ...form, branch: `${form.branch} | Page: ${window.location.pathname}` };
+      const response = await axios.post(`${API}/enquiry`, payload);
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
         setForm({ name: "", phone: "", course_interested: "", branch: "Nexxtechs Delhi" });

@@ -97,7 +97,8 @@ export default function PopupEnquiry() {
     setError("");
     setLoading(true);
     try {
-      const response = await axios.post(`${API}/enquiry`, form);
+      const payload = { ...form, branch: `${form.branch} | Page: ${window.location.pathname}` };
+      const response = await axios.post(`${API}/enquiry`, payload);
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
         if (isWhatsApp) {

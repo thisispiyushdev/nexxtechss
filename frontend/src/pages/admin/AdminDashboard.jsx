@@ -457,7 +457,7 @@ function LeadsTable({ leads, onDelete, isCoreAdmin }) {
           <Th>Name</Th>
           <Th>Contact Info</Th>
           <Th>Interest</Th>
-          <Th>Branch</Th>
+          <Th>Branch & Page</Th>
           <Th>Source</Th>
           <Th>Date</Th>
           <Th></Th>
@@ -479,9 +479,16 @@ function LeadsTable({ leads, onDelete, isCoreAdmin }) {
               </span>
             </Td>
             <Td>
-              <span className="text-xs font-semibold text-slate-500">
-                {l.branch || "—"}
-              </span>
+              <div className="flex flex-col">
+                <span className="text-xs font-semibold text-slate-500">
+                  {(l.branch || "—").split(" | Page: ")[0]}
+                </span>
+                {(l.branch || "").includes(" | Page: ") && (
+                  <span className="text-[10px] text-lime-600 bg-lime-50 px-1.5 py-0.5 rounded w-fit mt-1 border border-lime-100 font-medium">
+                    {(l.branch || "").split(" | Page: ")[1]}
+                  </span>
+                )}
+              </div>
             </Td>
             <Td>
               <span className={cn(

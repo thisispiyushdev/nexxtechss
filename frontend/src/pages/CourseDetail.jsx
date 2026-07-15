@@ -162,7 +162,8 @@ export default function CourseDetail() {
     setDemoError("");
     setDemoLoading(true);
     try {
-      const response = await axios.post(`${API}/enquiry`, demoForm);
+      const payload = { ...demoForm, branch: `${demoForm.branch} | Page: ${window.location.pathname}` };
+      const response = await axios.post(`${API}/enquiry`, payload);
       if (response.status === 201 || response.status === 200) {
         setDemoSubmitted(true);
       } else {

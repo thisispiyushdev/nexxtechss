@@ -348,14 +348,17 @@ export default function RoadmapPage() {
                 >
                   Explore Paths <ArrowRight size={20} />
                 </button>
-                <a 
-                  href="https://wa.me/919217179762?text=Hi%2C%20I%20would%20like%20to%20talk%20to%20an%20expert%20about%20the%20courses."
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.dispatchEvent(new CustomEvent('openPopupEnquiry', { 
+                      detail: { isWhatsApp: true, bannerTitle: 'Contact Expert (Roadmap)' } 
+                    }));
+                  }}
                   className="bg-white/20 hover:bg-white/30 text-black px-8 py-4 rounded-xl font-bold hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex items-center gap-3 w-full justify-center text-lg"
                 >
                   Contact to our expert <Phone size={20} />
-                </a>
+                </button>
               </div>
             </div>
           </div>

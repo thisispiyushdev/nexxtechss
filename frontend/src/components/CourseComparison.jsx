@@ -116,9 +116,11 @@ export default function CourseComparison({ courseTitle = "NexxTechs" }) {
 
         <div className="mt-16 flex flex-col items-center">
           <button 
-            onClick={() => {
-              const msg = `Hi, I'm interested in the ${courseTitle} course.`;
-              window.open(`https://wa.me/919217179762?text=${encodeURIComponent(msg)}`, "_blank");
+            onClick={(e) => {
+              e.preventDefault();
+              window.dispatchEvent(new CustomEvent('openPopupEnquiry', { 
+                detail: { isWhatsApp: true, bannerTitle: `Interested in ${courseTitle}` } 
+              }));
             }}
             className="relative group overflow-hidden bg-[#84CC16] hover:bg-[#a3e635] text-black font-black px-12 py-5 rounded-2xl transition-all duration-300 shadow-[0_20px_40px_-10px_#84CC1640]"
           >
