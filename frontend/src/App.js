@@ -74,7 +74,10 @@ const MegheshCyberSecurityTrainerPage = lazy(() => import("@/pages/MegheshCyberS
 const SurajGraphicDesignTrainerPage = lazy(() => import("@/pages/SurajGraphicDesignTrainerPage"));
 const NitiPersonalDevelopmentTrainerPage = lazy(() => import("@/pages/NitiPersonalDevelopmentTrainerPage"));
 const SabaDataScienceTrainerPage = lazy(() => import("@/pages/SabaDataScienceTrainerPage"));
+const AdityaCloudDevopsTrainerPage = lazy(() => import("@/pages/AdityaCloudDevopsTrainerPage"));
 const SabaDataAnalyticsTrainerPage = lazy(() => import("@/pages/SabaDataAnalyticsTrainerPage"));
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
+
 // Basic loading fallback
 const LoadingFallback = () => (
   <div className="min-h-screen flex items-center justify-center bg-background">
@@ -226,6 +229,7 @@ function App() {
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                   <Route path="/best-devops-trainer-in-delhi" element={<AdityaDevopsTrainerPage />} />
                   <Route path="/best-cloud-computing-trainer-in-delhi" element={<AdityaCloudTrainerPage />} />
+                  <Route path="/best-cloud-devops-trainer-in-delhi" element={<AdityaCloudDevopsTrainerPage />} />
                   <Route path="/best-digital-marketing-trainer-in-delhi" element={<SagarDigitalMarketingTrainerPage />} />
                   <Route path="/best-cyber-security-trainer-in-delhi" element={<MegheshCyberSecurityTrainerPage />} />
                   <Route path="/best-graphic-design-trainer-in-delhi" element={<SurajGraphicDesignTrainerPage />} />
@@ -244,6 +248,9 @@ function App() {
                   <Route path="/top-5-data-science-trainers-in-india" element={<TopTrainersPage />} />
                   <Route path="/top-5-data-analytics-trainers-in-india" element={<TopTrainersPage />} />
                   <Route path="/nexxtechs-noida" element={<NoidaInstitutePage />} />
+
+                  {/* Catch-all 404 Route */}
+                  <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </PublicLayout>
             } />

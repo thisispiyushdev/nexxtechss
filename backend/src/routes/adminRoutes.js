@@ -1,7 +1,7 @@
 import express from "express";
 import { requireAdmin, requireCoreAdmin } from "../middleware/authMiddleware.js";
 import { adminLogin, verifyToken } from "../controllers/adminAuthController.js";
-import { getAllLeads, deleteLead, transferLead } from "../controllers/adminLeadsController.js";
+import { getAllLeads, deleteLead, transferLead, assignLead } from "../controllers/adminLeadsController.js";
 import {
   getReviews, createReview, updateReview, deleteReview,
   getStats, createStat, updateStat, deleteStat,
@@ -28,6 +28,9 @@ router.get("/leads", getAllLeads);
 
 // Transfer Leads (core, receptionist)
 router.put("/leads/transfer/:table/:id", transferLead);
+
+// Assign Leads (core, receptionist)
+router.put("/leads/assign/:table/:id", assignLead);
 
 // Users (core, receptionist for creating counselors)
 router.get("/users", getAdminUsers);

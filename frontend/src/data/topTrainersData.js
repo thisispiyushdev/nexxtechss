@@ -1,8 +1,8 @@
 const topTrainersData = {
   "top-5-cloud-computing-trainers-in-india": {
-    metaTitle: "Top 5 Best Cloud Computing Trainers in India | Expert Mentors",
-    metaDescription: "Looking for the best cloud computing mentors? Here is the list of top 5 best cloud computing trainers in India featuring experts from Delhi, Bangalore, and more.",
-    title: "Top 5 Best Cloud Computing Trainers in India",
+    metaTitle: "Top 5 Best Cloud Computing Trainers in India (Delhi & Noida NCR) | Expert Mentors",
+    metaDescription: "Looking for the best cloud computing mentors? Here is the list of top 5 best cloud computing trainers in India featuring experts from Delhi, Noida NCR, Bangalore, and more.",
+    title: "Top 5 Best Cloud Computing Trainers in India (Delhi & Noida NCR)",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 1: CLOUD ARCHITECTURE & INFRASTRUCTURE ENGINEERING",
     tags: [
         "best cloud computing trainers in india",
@@ -18,7 +18,17 @@ const topTrainersData = {
         "gcp professional cloud architect training",
         "learn cloud computing step by step",
         "best cloud devops trainer in delhi",
-        "aditya sharma cloud computing expert"
+        "aditya sharma cloud computing expert",
+        "best cloud computing trainers in noida",
+        "top cloud computing expert noida",
+        "top cloud computing expert delhi ncr",
+        "cloud architecture courses in noida",
+        "cloud architecture courses in delhi ncr",
+        "top 5 cloud computing institutes in noida",
+        "best aws trainer in noida ncr",
+        "best aws trainer in delhi ncr ncr",
+        "best cloud devops trainer in noida",
+        "best cloud devops trainer in delhi ncr"
     ],
     trainers: [
       {
@@ -169,9 +179,9 @@ Rohan’s FinOps frameworks are highly valuable for senior architects and engine
     ]
   },
   "top-5-devops-trainers-in-india": {
-    metaTitle: "Top 5 Best DevOps Trainers in India | Expert IT Mentors",
+    metaTitle: "Top 5 Best DevOps Trainers in India (Delhi & Noida NCR) | Expert IT Mentors",
     metaDescription: "Discover the top 5 best DevOps trainers in India. Learn CI/CD, Docker, Kubernetes, and automation from the industry's finest mentors in Delhi and beyond.",
-    title: "Top 5 Best DevOps Trainers in India",
+    title: "Top 5 Best DevOps Trainers in India (Delhi & Noida NCR)",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 2: DEVOPS, GITOPS & SITE RELIABILITY ENGINEERING",
     tags: [
         "best devops trainers in india",
@@ -187,7 +197,17 @@ Rohan’s FinOps frameworks are highly valuable for senior architects and engine
         "jenkins ci cd pipeline training",
         "learn devops step by step",
         "best cloud devops trainer in delhi",
-        "aditya sharma devops expert"
+        "aditya sharma devops expert",
+        "best devops trainers in noida",
+        "top devops expert noida",
+        "top devops expert delhi ncr",
+        "devops courses in noida with placement",
+        "devops courses in delhi ncr with placement",
+        "top 5 devops institutes in noida",
+        "best kubernetes trainer in noida ncr",
+        "best kubernetes trainer in delhi ncr ncr",
+        "best cloud devops trainer in noida",
+        "best cloud devops trainer in delhi ncr"
     ],
     trainers: [
       {
@@ -324,9 +344,9 @@ Rajesh’s course is highly recommended for principal engineers and infrastructu
     ]
   },
   "top-5-digital-marketing-trainers-in-india": {
-    metaTitle: "Top 5 Best Digital Marketing Trainers in India",
+    metaTitle: "Top 5 Best Digital Marketing Trainers in India (Delhi & Noida NCR)",
     metaDescription: "Find the best digital marketing trainers in India. Learn SEO, PPC, and Social Media from top experts like Sagar Sir in Delhi.",
-    title: "Top 5 Best Digital Marketing Trainers in India",
+    title: "Top 5 Best Digital Marketing Trainers in India (Delhi & Noida NCR)",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 3: ADVANCED PERFORMANCE MARKETING & GROWTH HACKING",
     tags: [
         "best digital marketing trainers in india",
@@ -341,7 +361,15 @@ Rajesh’s course is highly recommended for principal engineers and infrastructu
         "best social media trainer in delhi ncr",
         "google ads certification training",
         "learn digital marketing step by step",
-        "sagar sir digital marketing expert"
+        "sagar sir digital marketing expert",
+        "best digital marketing trainers in noida",
+        "top digital marketing expert noida",
+        "top digital marketing expert delhi ncr",
+        "digital marketing courses in noida",
+        "digital marketing courses in delhi ncr",
+        "top 5 digital marketing institutes in noida",
+        "best social media trainer in noida ncr",
+        "best social media trainer in delhi ncr ncr"
     ],
     trainers: [
       {
@@ -472,9 +500,9 @@ Avi’s video-centric training is excellent for real estate agents, individual c
     ]
   },
   "top-5-cyber-security-trainers-in-india": {
-    metaTitle: "Top 5 Best Cyber Security Trainers in India | Ethical Hacking",
+    metaTitle: "Top 5 Best Cyber Security Trainers in India (Delhi & Noida NCR) | Ethical Hacking",
     metaDescription: "Looking to become an ethical hacker? Check out our list of the top 5 best cyber security trainers in India, featuring Meghesh Kumar from Delhi.",
-    title: "Top 5 Best Cyber Security Trainers in India",
+    title: "Top 5 Best Cyber Security Trainers in India (Delhi & Noida NCR)",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 4: DEFENSIVE CYBERSECURITY INFRASTRUCTURE & THREAT OPERATIONS",
     tags: [
         "best cyber security trainers in india",
@@ -489,7 +517,15 @@ Avi’s video-centric training is excellent for real estate agents, individual c
         "best penetration testing trainer in delhi",
         "information security certification training",
         "learn ethical hacking step by step",
-        "meghesh kumar cyber security expert"
+        "meghesh kumar cyber security expert",
+        "best cyber security trainers in noida",
+        "top ethical hacking expert noida",
+        "top ethical hacking expert delhi ncr",
+        "ethical hacking courses in noida",
+        "ethical hacking courses in delhi ncr",
+        "top 5 cyber security institutes in noida",
+        "best penetration testing trainer in noida",
+        "best penetration testing trainer in delhi ncr"
     ],
     trainers: [
       {
@@ -619,9 +655,9 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
     ]
   },
   "top-5-graphic-design-trainers-in-india": {
-    metaTitle: "Top 5 Best Graphic Design Trainers in India",
+    metaTitle: "Top 5 Best Graphic Design Trainers in India (Delhi & Noida NCR)",
     metaDescription: "Master Photoshop, Illustrator, and UI/UX with the best. Here are the top 5 graphic design trainers in India, starting with Suraj Rewadiya from Delhi.",
-    title: "Top 5 Best Graphic Design Trainers in India",
+    title: "Top 5 Best Graphic Design Trainers in India (Delhi & Noida NCR)",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 5: HUMAN-CENTRIC UI/UX & VISUAL IDENTITY SYSTEMS",
     tags: [
         "best graphic design trainers in india",
@@ -636,7 +672,15 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
         "best figma trainer in delhi ncr",
         "visual design masterclass training",
         "learn graphic design step by step",
-        "suraj rewadia graphic design expert"
+        "suraj rewadia graphic design expert",
+        "best graphic design trainers in noida",
+        "top ui ux design expert noida",
+        "top ui ux design expert delhi ncr",
+        "graphic design courses in noida",
+        "graphic design courses in delhi ncr",
+        "top 5 graphic design institutes in noida",
+        "best figma trainer in noida ncr",
+        "best figma trainer in delhi ncr ncr"
     ],
     trainers: [
       {
@@ -765,9 +809,9 @@ Ranveer provides highly valuable training for visual designers and illustrators 
     ]
   },
   "top-5-personal-development-trainers-in-india": {
-    metaTitle: "Top 5 Best Personal Development Trainers in India",
+    metaTitle: "Top 5 Best Personal Development Trainers in India (Delhi & Noida NCR)",
     metaDescription: "Elevate your mindset and career. Discover the top 5 personal development and soft skills trainers in India, featuring Niti Gupta Mam from Delhi.",
-    title: "Top 5 Best Personal Development Trainers in India",
+    title: "Top 5 Best Personal Development Trainers in India (Delhi & Noida NCR)",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 6: EXECUTIVE LEADERSHIP & BEHAVIORAL OPTIMIZATION",
     tags: [
         "best personal development trainers in india",
@@ -783,7 +827,18 @@ Ranveer provides highly valuable training for visual designers and illustrators 
         "public speaking skills training india",
         "leadership courses in delhi",
         "learn communication skills step by step",
-        "niti gupta personal development expert"
+        "niti gupta personal development expert",
+        "best personal development trainers in noida",
+        "top soft skills expert noida",
+        "top soft skills expert delhi ncr",
+        "personality development courses in noida",
+        "personality development courses in delhi ncr",
+        "top 5 soft skills institutes in noida",
+        "best corporate trainer in noida ncr",
+        "best corporate trainer in delhi ncr ncr",
+        "public speaking skills training noida",
+        "leadership courses in noida",
+        "leadership courses in delhi ncr"
     ],
     trainers: [
       {
@@ -912,9 +967,9 @@ Varun’s highly practical training is the ultimate finishing school for univers
     ]
   },
   "top-5-data-science-trainers-in-india": {
-    metaTitle: "Top 5 Best Data Science Trainers in India | Expert Mentors",
+    metaTitle: "Top 5 Best Data Science Trainers in India (Delhi & Noida NCR) | Expert Mentors",
     metaDescription: "Looking for the best data science and data analytics mentors? Here is the list of top 5 best trainers in India featuring experts from Delhi and beyond.",
-    title: "Top 5 Best Data Science Trainers in India",
+    title: "Top 5 Best Data Science Trainers in India (Delhi & Noida NCR)",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 7: DATA SCIENCE & DATA ANALYTICS COGNITIVE ENGINEERING",
     tags: [
         "best data science trainers in india",
@@ -930,7 +985,17 @@ Varun’s highly practical training is the ultimate finishing school for univers
         "best data scientist trainer in delhi ncr",
         "machine learning certification training",
         "learn data science step by step",
-        "saba hussain data science expert"
+        "saba hussain data science expert",
+        "best data science trainers in noida",
+        "top data analytics expert noida",
+        "top data analytics expert delhi ncr",
+        "data analytics courses in noida",
+        "data analytics courses in delhi ncr",
+        "top 5 data science institutes in noida",
+        "best python data analytics trainer in noida",
+        "best python data analytics trainer in delhi ncr",
+        "best data scientist trainer in noida ncr",
+        "best data scientist trainer in delhi ncr ncr"
     ],
     trainers: [
       {
@@ -1076,9 +1141,9 @@ Rohan’s advanced training is highly recommended for tech leads and analytical 
   }
 ,
   "top-5-data-analytics-trainers-in-india": {
-    metaTitle: "Top 5 Best Data Science Trainers in India | Expert Mentors",
+    metaTitle: "Top 5 Best Data Science Trainers in India (Delhi & Noida NCR) | Expert Mentors",
     metaDescription: "Looking for the best data science and data analytics mentors? Here is the list of top 5 best trainers in India featuring experts from Delhi and beyond.",
-    title: "Top 5 Best Data Analytics Trainers in India",
+    title: "Top 5 Best Data Analytics Trainers in India (Delhi & Noida NCR)",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 7: DATA SCIENCE & DATA ANALYTICS COGNITIVE ENGINEERING",
     tags: [
         "best data science trainers in india",
@@ -1094,7 +1159,17 @@ Rohan’s advanced training is highly recommended for tech leads and analytical 
         "best data scientist trainer in delhi ncr",
         "machine learning certification training",
         "learn data science step by step",
-        "saba hussain data analytics expert"
+        "saba hussain data analytics expert",
+        "best data science trainers in noida",
+        "top data analytics expert noida",
+        "top data analytics expert delhi ncr",
+        "data analytics courses in noida",
+        "data analytics courses in delhi ncr",
+        "top 5 data science institutes in noida",
+        "best python data analytics trainer in noida",
+        "best python data analytics trainer in delhi ncr",
+        "best data scientist trainer in noida ncr",
+        "best data scientist trainer in delhi ncr ncr"
     ],
     trainers: [
       {

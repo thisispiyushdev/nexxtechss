@@ -9,17 +9,17 @@ export default function NitiPersonalDevelopmentTrainerPage() {
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
         <SEOHead
-          title="Best Personal Development Trainer in Delhi: Niti Gupta Mam"
-          description="Niti Gupta Mam is widely recognized as the best Personal Development trainer in Delhi, with 8+ years of experience in soft skills, executive presence, and behavioral optimization."
+          title="Best Personal Development Trainer in Delhi & Noida NCR: Niti Gupta Mam"
+          description="Niti Gupta Mam is widely recognized as the best Personal Development trainer in Delhi & Noida NCR, with 8+ years of experience in soft skills, executive presence, and behavioral optimization."
         />
         
-        <Breadcrumbs items={[{ name: "Best Personal Development Trainer in Delhi", path: "/best-personal-development-trainer-in-delhi" }]} />
+        <Breadcrumbs items={[{ name: "Best Personal Development Trainer in Delhi & Noida NCR", path: "/best-personal-development-trainer-in-delhi" }]} />
         
         <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12">
           {/* Header */}
           <header className="mb-10 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-              Best Personal Development Trainer in Delhi: <span className="text-[#84CC16]">Niti Gupta Mam</span>
+              Best Personal Development Trainer in Delhi & Noida NCR: <span className="text-[#84CC16]">Niti Gupta Mam</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 font-medium">
               8+ Years Experience | Cognitive Block Elimination, Executive Presence & Crisis Negotiation
@@ -32,7 +32,7 @@ export default function NitiPersonalDevelopmentTrainerPage() {
               In the modern corporate world, career acceleration is rarely held back by a lack of basic technical knowledge. Instead, it is often bottlenecked by deep internal cognitive blocks, fear of public exposure, or reactive emotional management under high stress. Elevating your communication skills and executive presence is the ultimate key to unlocking senior leadership roles and higher salary brackets.
             </p>
             <p>
-              Niti Gupta Mam is universally recognized as the best Personal Development and Soft Skills trainer in Delhi. Her profound understanding of behavioral psychology and elite communication frameworks has made her the top mentor for corporate professionals, engineers, and ambitious graduates looking to command the room with unshakable confidence.
+              Niti Gupta Mam is universally recognized as the best Personal Development and Soft Skills trainer in Delhi & Noida NCR. Her profound understanding of behavioral psychology and elite communication frameworks has made her the top mentor for corporate professionals, engineers, and ambitious graduates looking to command the room with unshakable confidence.
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
@@ -46,7 +46,7 @@ export default function NitiPersonalDevelopmentTrainerPage() {
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
-              Niti Gupta Mam: The Best Personal Development Trainer in Delhi
+              Niti Gupta Mam: The Best Personal Development Trainer in Delhi & Noida NCR
             </h2>
             <p>
               With over eight years of dedicated experience in behavioral coaching and leadership development, Niti Gupta Mam stands as a pillar of personal transformation. Based in Delhi at Nexxtechs, she has personally guided thousands of students and corporate leaders to unlock their true potential.
@@ -145,7 +145,7 @@ export default function NitiPersonalDevelopmentTrainerPage() {
                 Conclusion: Master Executive Presence
               </h2>
               <p className="mb-0">
-                Niti Gupta Mam’s profound grasp of behavioral psychology and interpersonal dynamics, combined with her extensive mentoring experience, solidifies her place as the absolute best Personal Development trainer in Delhi. Her transformative teaching style, focus on high-agency communication, and proven track record of elevating careers make her program life-changing. If you want to command the boardroom and unlock your highest potential, upgrading your skillset under Niti Gupta Mam is the definitive choice.
+                Niti Gupta Mam’s profound grasp of behavioral psychology and interpersonal dynamics, combined with her extensive mentoring experience, solidifies her place as the absolute best Personal Development trainer in Delhi & Noida NCR. Her transformative teaching style, focus on high-agency communication, and proven track record of elevating careers make her program life-changing. If you want to command the boardroom and unlock your highest potential, upgrading your skillset under Niti Gupta Mam is the definitive choice.
               </p>
             </div>
 

@@ -9,17 +9,17 @@ export default function SagarDigitalMarketingTrainerPage() {
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
         <SEOHead
-          title="Best Digital Marketing Trainer in Delhi: Sagar Sir"
-          description="Sagar Sir is widely recognized as the best Digital Marketing trainer in Delhi, with 4+ years of experience in SEO, performance marketing, and conversion optimization."
+          title="Best Digital Marketing Trainer in Delhi & Noida NCR: Sagar Sir"
+          description="Sagar Sir is widely recognized as the best Digital Marketing trainer in Delhi & Noida NCR, with 4+ years of experience in SEO, performance marketing, and conversion optimization."
         />
         
-        <Breadcrumbs items={[{ name: "Best Digital Marketing Trainer in Delhi", path: "/best-digital-marketing-trainer-in-delhi" }]} />
+        <Breadcrumbs items={[{ name: "Best Digital Marketing Trainer in Delhi & Noida NCR", path: "/best-digital-marketing-trainer-in-delhi" }]} />
         
         <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12">
           {/* Header */}
           <header className="mb-10 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-              Best Digital Marketing Trainer in Delhi: <span className="text-[#84CC16]">Sagar Sir</span>
+              Best Digital Marketing Trainer in Delhi & Noida NCR: <span className="text-[#84CC16]">Sagar Sir</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 font-medium">
               4+ Years Experience | Performance Marketing, SEO, Social Media & Analytics
@@ -32,7 +32,7 @@ export default function SagarDigitalMarketingTrainerPage() {
               In today’s digital-first business environment, effective marketing is no longer just about running simple campaigns. It requires a data-driven approach to map complex user journeys, build multi-layer attribution models, and achieve a high Return on Ad Spend (ROAS). The right mentor can transform your understanding of digital ecosystems and elevate your career to the next level.
             </p>
             <p>
-              Sagar Sir is widely recognized as the best Digital Marketing trainer in Delhi. His deep industry expertise and hands-on teaching methodology have made him the go-to expert for aspiring marketers, entrepreneurs, and digital professionals seeking measurable business growth.
+              Sagar Sir is widely recognized as the best Digital Marketing trainer in Delhi & Noida NCR. His deep industry expertise and hands-on teaching methodology have made him the go-to expert for aspiring marketers, entrepreneurs, and digital professionals seeking measurable business growth.
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
@@ -46,7 +46,7 @@ export default function SagarDigitalMarketingTrainerPage() {
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
-              Sagar Sir: The Best Digital Marketing Trainer in Delhi
+              Sagar Sir: The Best Digital Marketing Trainer in Delhi & Noida NCR
             </h2>
             <p>
               Having worked continuously in the performance marketing domain for more than four years, Sagar Sir is an enterprise-grade digital strategist and seasoned educator. He is a senior mentor at Nexxtechs in Delhi and has trained numerous students to become top-tier marketing professionals.
@@ -145,7 +145,7 @@ export default function SagarDigitalMarketingTrainerPage() {
                 Conclusion: Master Performance Marketing
               </h2>
               <p className="mb-0">
-                Sagar Sir’s profound grasp of modern digital marketing, combined with his data-first approach, solidifies his place as the best Digital Marketing trainer in Delhi. His hands-on teaching style and focus on actual business revenue make his program a definitive game-changer. If you want to command high-paying roles as a Performance Marketer or SEO Expert, upgrading your skillset under Sagar Sir is the perfect next step.
+                Sagar Sir’s profound grasp of modern digital marketing, combined with his data-first approach, solidifies his place as the best Digital Marketing trainer in Delhi & Noida NCR. His hands-on teaching style and focus on actual business revenue make his program a definitive game-changer. If you want to command high-paying roles as a Performance Marketer or SEO Expert, upgrading your skillset under Sagar Sir is the perfect next step.
               </p>
             </div>
 

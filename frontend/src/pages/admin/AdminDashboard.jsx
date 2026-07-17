@@ -165,6 +165,30 @@ export default function AdminDashboard() {
     }
   };
 
+  const [assignTarget, setAssignTarget] = useState(null);
+
+  const handleAssign = async (counselorId) => {
+    if (!assignTarget) return;
+    try {
+      setFetching(true);
+      if (assignTarget.type === "single") {
+        await adminApi.put(`/leads/assign/${assignTarget.table}/${assignTarget.id}`, { counselor_id: counselorId });
+        showToast(`Lead assigned successfully`);
+      } else if (assignTarget.type === "bulk") {
+        const leadsToAssign = data.leads.filter(l => assignTarget.ids.includes(l.id));
+        for (const lead of leadsToAssign) {
+          await adminApi.put(`/leads/assign/${lead.source_table}/${lead.id}`, { counselor_id: counselorId });
+        }
+        showToast(`${assignTarget.ids.length} leads assigned successfully`);
+      }
+      fetchData();
+      setAssignTarget(null);
+    } catch { 
+      showToast(`Failed to assign lead(s)`, "error"); 
+      fetchData();
+    }
+  };
+
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50">
       <div className="flex flex-col items-center gap-4">
@@ -363,7 +387,7 @@ export default function AdminDashboard() {
 
           {/* Active View */}
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads") && <LeadsTable leads={getProcessedLeads()} onDelete={handleDelete} onTransfer={handleTransfer} onBulkTransfer={handleBulkTransfer} isCoreAdmin={isCoreAdmin} role={role} />}
+            {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads") && <LeadsTable leads={getProcessedLeads()} onDelete={handleDelete} onTransfer={handleTransfer} onBulkTransfer={handleBulkTransfer} onAssign={setAssignTarget} isCoreAdmin={isCoreAdmin} role={role} users={data.users} />}
             {activeTab === "placements" && isCoreAdmin && <PlacementsTab reviews={filtered(data.reviews, ["name","company","role"])} stats={data.stats} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "blogs" && isCoreAdmin && <BlogsTable blogs={filtered(data.blogs, ["title","category"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "courses" && isCoreAdmin && <CoursesTable courses={filtered(data.courses, ["title","slug"])} onDelete={handleDelete} onEdit={openEditModal} />}
@@ -382,6 +406,37 @@ export default function AdminDashboard() {
         )}>
           {toast.type === "error" ? <XCircle size={20} /> : <CheckCircle2 size={20} />}
           {toast.msg}
+        </div>
+      )}
+
+      {/* Assign Modal */}
+      {assignTarget && (
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl flex flex-col max-h-[90vh]">
+            <div className="flex items-center justify-between p-6 border-b border-slate-100">
+              <h2 className="text-xl font-black text-slate-800">Assign Counselor</h2>
+              <button onClick={() => setAssignTarget(null)} className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-xl transition-all">
+                <XCircle size={24} />
+              </button>
+            </div>
+            <div className="p-6 overflow-y-auto space-y-4">
+              <p className="text-sm text-slate-500">Select a counselor to assign to {assignTarget.type === "bulk" ? `${assignTarget.ids.length} leads` : "this lead"}.</p>
+              <div className="space-y-2">
+                {data.users.filter(u => u.role.includes("counselor") && u.is_active).map(counselor => (
+                  <button 
+                    key={counselor.id}
+                    onClick={() => handleAssign(counselor.id)}
+                    className="w-full text-left px-4 py-3 bg-slate-50 hover:bg-lime-50 hover:text-lime-700 rounded-xl transition-colors font-medium text-slate-700 border border-slate-100 hover:border-lime-200"
+                  >
+                    {counselor.display_name || counselor.username} <span className="text-[10px] uppercase ml-2 text-slate-400">({counselor.role})</span>
+                  </button>
+                ))}
+                {data.users.filter(u => u.role.includes("counselor") && u.is_active).length === 0 && (
+                  <p className="text-sm text-red-500 font-medium">No active counselors found.</p>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
@@ -476,7 +531,7 @@ function Td({ children, className }) {
   );
 }
 
-function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, isCoreAdmin, role }) {
+function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, onAssign, isCoreAdmin, role, users }) {
   const [selected, setSelected] = useState(new Set());
 
   const toggleAll = (e) => {
@@ -500,7 +555,7 @@ function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, isCoreAdmin, 
           <div className="flex gap-2">
             <button onClick={() => { onBulkTransfer(Array.from(selected), "Nexxtechs Delhi"); setSelected(new Set()); }} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-blue-700 transition-colors">Move to Delhi</button>
             <button onClick={() => { onBulkTransfer(Array.from(selected), "Nexxtechs Noida"); setSelected(new Set()); }} className="px-4 py-2 bg-purple-600 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-purple-700 transition-colors">Move to Noida</button>
-            <button onClick={() => alert("Assign counselor feature coming soon")} className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-indigo-700 transition-colors">Assign Counselor</button>
+            <button onClick={() => { onAssign({ type: "bulk", ids: Array.from(selected) }); setSelected(new Set()); }} className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-indigo-700 transition-colors">Assign Counselor</button>
           </div>
         </div>
       )}
@@ -552,6 +607,11 @@ function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, isCoreAdmin, 
                     Transferred from {l.transferred_from.split(" | Page: ")[0]}
                   </span>
                 )}
+                {l.counselor_id && (
+                  <span className="text-[9px] font-medium text-indigo-500 mt-1 uppercase tracking-wider bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-100 w-fit">
+                    Assigned: {users?.find(u => u.id === l.counselor_id)?.display_name || 'Counselor'}
+                  </span>
+                )}
               </div>
             </Td>
             <Td>
@@ -570,7 +630,7 @@ function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, isCoreAdmin, 
               <div className="flex gap-1 justify-end">
                 {selected.size === 0 && (isCoreAdmin || role === "receptionist" || role === "noida_receptionist") && (
                   <button 
-                    onClick={() => alert("Assign counselor feature coming soon")}
+                    onClick={() => onAssign({ type: "single", table: l.source_table, id: l.id })}
                     className="px-2 py-1 bg-indigo-50 text-indigo-600 rounded-md text-[10px] font-black uppercase tracking-wider hover:bg-indigo-100 transition-all mr-2"
                   >
                     Assign Counselor

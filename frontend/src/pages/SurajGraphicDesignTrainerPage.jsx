@@ -9,17 +9,17 @@ export default function SurajGraphicDesignTrainerPage() {
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
         <SEOHead
-          title="Best Graphic Design & UI/UX Trainer in Delhi: Suraj Rewadia"
-          description="Suraj Rewadia is widely recognized as the best Graphic Design and UI/UX trainer in Delhi, with 5+ Years of experience in Visual Hierarchy, Spatial Layout, and Interaction Patterns."
+          title="Best Graphic Design & UI/UX Trainer in Delhi & Noida NCR: Suraj Rewadia"
+          description="Suraj Rewadia is widely recognized as the best Graphic Design and UI/UX trainer in Delhi & Noida NCR, with 5+ Years of experience in Visual Hierarchy, Spatial Layout, and Interaction Patterns."
         />
         
-        <Breadcrumbs items={[{ name: "Best Graphic Design Trainer in Delhi", path: "/best-graphic-design-trainer-in-delhi" }]} />
+        <Breadcrumbs items={[{ name: "Best Graphic Design Trainer in Delhi & Noida NCR", path: "/best-graphic-design-trainer-in-delhi" }]} />
         
         <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12">
           {/* Header */}
           <header className="mb-10 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-              Best Graphic Design Trainer in Delhi: <span className="text-[#84CC16]">Suraj Rewadia</span>
+              Best Graphic Design Trainer in Delhi & Noida NCR: <span className="text-[#84CC16]">Suraj Rewadia</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 font-medium">
               5+ Years Experience | UI/UX, Spatial Layout Logic, Typographic Scales & Interaction Design
@@ -32,7 +32,7 @@ export default function SurajGraphicDesignTrainerPage() {
               In modern digital product development, user interface and graphic design are not simply about making things look pretty. Exceptional design is a precise engineering discipline centered around human perception, cognitive load, and frictionless interaction. Having the right mentor to guide you through these principles can elevate you from a simple pixel-pusher to a highly paid UI/UX Architect.
             </p>
             <p>
-              Suraj Rewadia is widely recognized as the best Graphic Design and UI/UX trainer in Delhi. His deep understanding of visual logic and human-centric design patterns makes him the premier educator for aspiring product designers, creative directors, and front-end developers aiming to build world-class digital experiences.
+              Suraj Rewadia is widely recognized as the best Graphic Design and UI/UX trainer in Delhi & Noida NCR. His deep understanding of visual logic and human-centric design patterns makes him the premier educator for aspiring product designers, creative directors, and front-end developers aiming to build world-class digital experiences.
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
@@ -46,7 +46,7 @@ export default function SurajGraphicDesignTrainerPage() {
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
-              Suraj Rewadia: The Best Graphic Design Trainer in Delhi
+              Suraj Rewadia: The Best Graphic Design Trainer in Delhi & Noida NCR
             </h2>
             <p>
               With over five years of dedicated experience in crafting visual identity systems and high-converting UI/UX layouts, Suraj Rewadia stands at the forefront of design education in Delhi. As a lead mentor at Nexxtechs, his studio operates like a fast-paced product development environment.
@@ -145,7 +145,7 @@ export default function SurajGraphicDesignTrainerPage() {
                 Conclusion: Master UI/UX and Graphic Design
               </h2>
               <p className="mb-0">
-                Suraj Rewadia’s profound grasp of human-centric visual design, combined with over five years of industry experience, solidifies his place as the best Graphic Design and UI/UX trainer in Delhi. His deeply analytical teaching style, focus on design logic, and exceptional portfolio guidance make his program a definitive game-changer. If you want to command a premier role as a Product Designer, upgrading your skillset under Suraj Rewadia is the perfect next step.
+                Suraj Rewadia’s profound grasp of human-centric visual design, combined with over five years of industry experience, solidifies his place as the best Graphic Design and UI/UX trainer in Delhi & Noida NCR. His deeply analytical teaching style, focus on design logic, and exceptional portfolio guidance make his program a definitive game-changer. If you want to command a premier role as a Product Designer, upgrading your skillset under Suraj Rewadia is the perfect next step.
               </p>
             </div>
 

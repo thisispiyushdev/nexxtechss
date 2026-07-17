@@ -44,19 +44,21 @@ export default function PromoBanner() {
     <aside 
       role="complementary"
       aria-label="Promotional Announcement"
-      className="relative z-[60] w-full py-2.5 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-500 ease-in-out overflow-hidden flex items-center selection:bg-red-500 selection:text-white"
+      className="relative z-[60] w-full py-2 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-500 ease-in-out overflow-hidden flex items-center selection:bg-red-500 selection:text-white"
       style={{ backgroundColor: banner.bg_color || '#84CC16', color: banner.text_color || '#000000' }}
     >
       {/* Decorative Glow */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 animate-shimmer" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 animate-shimmer hidden sm:block" />
 
-      <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 relative z-10">
+      <div className="max-w-[1440px] w-full mx-auto px-2 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4 relative z-10">
         
         {/* Scrolling Banner Text */}
         <div className="flex-1 overflow-hidden flex items-center mask-image-edges">
           {/* We use a simple CSS animation for marquee effect if the text is long, otherwise it just centers */}
-          <div className="whitespace-nowrap flex items-center gap-8 animate-marquee font-bold text-sm sm:text-base md:text-lg tracking-wide">
+          <div className="whitespace-nowrap flex items-center gap-4 sm:gap-8 animate-marquee font-bold text-xs sm:text-base md:text-lg tracking-wide">
             <span>{banner.text}</span>
+            <span aria-hidden="true">★</span>
+            <span aria-hidden="true">{banner.text}</span>
             <span className="hidden sm:inline" aria-hidden="true">★</span>
             <span className="hidden sm:inline" aria-hidden="true">{banner.text}</span>
             <span className="hidden lg:inline" aria-hidden="true">★</span>
@@ -68,12 +70,12 @@ export default function PromoBanner() {
         <div className="flex-shrink-0">
           <button 
             onClick={handleConnectClick}
-            className="group relative inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-wider transition-all whitespace-nowrap bg-white/20 hover:bg-white/30 backdrop-blur-sm px-5 py-2 rounded-full overflow-hidden shadow-lg cursor-pointer"
+            className="group relative inline-flex items-center gap-1 sm:gap-2 text-[10px] sm:text-sm font-black uppercase tracking-wider transition-all whitespace-nowrap bg-white/20 hover:bg-white/30 backdrop-blur-sm px-3 py-1.5 sm:px-5 sm:py-2 rounded-full overflow-hidden shadow-lg cursor-pointer"
             style={{ color: banner.text_color || '#000000', border: `1px solid ${banner.text_color}40` }}
           >
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="relative z-10 flex items-center gap-1 sm:gap-2">
               {banner.link_text || "Connect Now"}
-              <MessageCircle size={16} className="group-hover:scale-110 transition-transform" />
+              <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 group-hover:scale-110 transition-transform" />
             </span>
           </button>
         </div>
@@ -102,14 +104,10 @@ export default function PromoBanner() {
           transform: translateX(-100%);
           animation: shimmer 3s infinite;
         }
-        /* Mobile: disable shimmer, slow marquee */
+        /* Mobile adjustments */
         @media (max-width: 768px) {
-          .animate-shimmer {
-            animation: none;
-            display: none;
-          }
           .animate-marquee {
-            animation-duration: 20s;
+            animation-duration: 8s; /* Make it faster on mobile */
           }
         }
       `}</style>

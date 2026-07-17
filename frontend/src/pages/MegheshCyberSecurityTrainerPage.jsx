@@ -9,17 +9,17 @@ export default function MegheshCyberSecurityTrainerPage() {
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
         <SEOHead
-          title="Best Cyber Security Trainer in Delhi: Meghesh Kumar"
-          description="Meghesh Kumar is widely recognized as the best Cyber Security trainer in Delhi, with 6+ years of experience in Ethical Hacking, offensive simulation, and defense."
+          title="Best Cyber Security Trainer in Delhi & Noida NCR: Meghesh Kumar"
+          description="Meghesh Kumar is widely recognized as the best Cyber Security trainer in Delhi & Noida NCR, with 6+ years of experience in Ethical Hacking, offensive simulation, and defense."
         />
         
-        <Breadcrumbs items={[{ name: "Best Cyber Security Trainer in Delhi", path: "/best-cyber-security-trainer-in-delhi" }]} />
+        <Breadcrumbs items={[{ name: "Best Cyber Security Trainer in Delhi & Noida NCR", path: "/best-cyber-security-trainer-in-delhi" }]} />
         
         <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12">
           {/* Header */}
           <header className="mb-10 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-              Best Cyber Security Trainer in Delhi: <span className="text-[#84CC16]">Meghesh Kumar</span>
+              Best Cyber Security Trainer in Delhi & Noida NCR: <span className="text-[#84CC16]">Meghesh Kumar</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 font-medium">
               6+ Years Experience | Ethical Hacking, Offensive Simulation, Vulnerability Hardening & SIEM
@@ -32,7 +32,7 @@ export default function MegheshCyberSecurityTrainerPage() {
               In today’s hyper-connected world, safeguarding enterprise infrastructure against malicious threats is mission-critical. Effective cyber security is no longer just about compliance checklists; it requires a deep understanding of offensive simulation frameworks, vulnerability hardening, and continuous telemetry inspection. The right mentor can elevate you to the front lines of digital defense.
             </p>
             <p>
-              Meghesh Kumar is widely recognized as the best Cyber Security and Ethical Hacking trainer in Delhi. His combat-tested teaching methodologies and real-world threat models make him the premier expert for students and IT professionals looking to build a high-stakes career in information security.
+              Meghesh Kumar is widely recognized as the best Cyber Security and Ethical Hacking trainer in Delhi & Noida NCR. His combat-tested teaching methodologies and real-world threat models make him the premier expert for students and IT professionals looking to build a high-stakes career in information security.
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
@@ -46,7 +46,7 @@ export default function MegheshCyberSecurityTrainerPage() {
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
-              Meghesh Kumar: The Best Cyber Security Trainer in Delhi
+              Meghesh Kumar: The Best Cyber Security Trainer in Delhi & Noida NCR
             </h2>
             <p>
               Having worked extensively in offensive security and network defense for over six years, Meghesh Kumar is a seasoned cybersecurity architect and an exceptional educator. As a key mentor at Nexxtechs, he has trained countless aspiring security analysts to confidently navigate complex corporate networks.
@@ -145,7 +145,7 @@ export default function MegheshCyberSecurityTrainerPage() {
                 Conclusion: Master Defensive Cybersecurity
               </h2>
               <p className="mb-0">
-                Meghesh Kumar’s profound grasp of both offensive hacking and defensive engineering, combined with his years of field experience, solidifies his place as the best Cyber Security trainer in Delhi. His intense, real-world scenario training ensures his graduates are fully prepared to join elite incident response and DevSecOps teams. If you want to master ethical hacking and safeguard global infrastructure, Meghesh Kumar's program is the ultimate starting point.
+                Meghesh Kumar’s profound grasp of both offensive hacking and defensive engineering, combined with his years of field experience, solidifies his place as the best Cyber Security trainer in Delhi & Noida NCR. His intense, real-world scenario training ensures his graduates are fully prepared to join elite incident response and DevSecOps teams. If you want to master ethical hacking and safeguard global infrastructure, Meghesh Kumar's program is the ultimate starting point.
               </p>
             </div>
 

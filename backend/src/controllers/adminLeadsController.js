@@ -162,3 +162,38 @@ export const transferLead = async (req, res, next) => {
     res.status(500).json({ error: "Failed to transfer lead." });
   }
 };
+
+/**
+ * PUT /api/admin/leads/assign/:table/:id
+ * Assigns a lead to a counselor.
+ */
+export const assignLead = async (req, res, next) => {
+  try {
+    if (req.admin && (req.admin.role === "counselor" || req.admin.role === "noida_counselor")) {
+      return res.status(403).json({ error: "Counselors cannot re-assign leads." });
+    }
+    const { table, id } = req.params;
+    const { counselor_id } = req.body;
+
+    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads"];
+    if (!allowedTables.includes(table)) {
+      return res.status(400).json({ error: "Invalid table name." });
+    }
+
+    if (!counselor_id) {
+      return res.status(400).json({ error: "Counselor ID is required." });
+    }
+
+    const { error } = await db.from(table).update({ counselor_id }).eq('id', id);
+
+    if (error) {
+      console.error(`Assign lead error (${table}):`, error);
+      return res.status(500).json({ error: "Failed to assign lead." });
+    }
+
+    res.status(200).json({ message: "Lead assigned successfully." });
+  } catch (err) {
+    console.error(`Assign lead error (${req.params.table}):`, err);
+    res.status(500).json({ error: "Failed to assign lead." });
+  }
+};
