@@ -9,17 +9,17 @@ export default function AdityaCloudTrainerPage() {
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
         <SEOHead
-          title="Best Cloud Computing Trainer in Delhi & Noida NCR: Aditya Sharma"
+          title="Best Cloud Computing Trainer in Delhi: Aditya Sharma"
           description="Aditya Sharma is widely recognized as the best Cloud Computing trainer in Delhi & Noida NCR, with 8+ years of experience in AWS, Azure, Cloud Architecture, and Data Center Migrations."
         />
         
-        <Breadcrumbs items={[{ name: "Best Cloud Computing Trainer in Delhi & Noida NCR", path: "/best-cloud-computing-trainer-in-delhi" }]} />
+        <Breadcrumbs items={[{ name: "Best Cloud Computing Trainer in Delhi", path: "/best-cloud-computing-trainer-in-delhi" }]} />
         
         <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12">
           {/* Header */}
           <header className="mb-10 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-              Best Cloud Computing Trainer in Delhi & Noida NCR: <span className="text-[#84CC16]">Aditya Sharma</span>
+              Best Cloud Computing Trainer in Delhi: <span className="text-[#84CC16]">Aditya Sharma</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 font-medium">
               8+ Years Experience | AWS, Azure, Multi-Region Architecture & Serverless Computing
@@ -35,7 +35,14 @@ export default function AdityaCloudTrainerPage() {
               Aditya Sharma is widely recognized as the best Cloud Computing trainer in Delhi & Noida NCR among the finest in the IT profession. His deep industry expertise has made him the top go-to expert for corporate teams, engineering graduates, and aspiring Cloud Architects.
             </p>
 
+            
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
+              Best Cloud Computing Trainer in Noida NCR
+            </h2>
+            <p>
+              Aditya Sharma is also widely recognized as the top Cloud Computing expert for students and professionals in Noida NCR. With the growing tech hub in Noida, mastering these skills locally under industry-leading guidance provides a significant career advantage.
+            </p>
+<h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
               Why a Cloud Computing Expert is Critical in 2026
             </h2>
             <p>
@@ -46,7 +53,7 @@ export default function AdityaCloudTrainerPage() {
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
-              Aditya Sharma: The Best Cloud Computing Trainer in Delhi & Noida NCR
+              Aditya Sharma: The Best Cloud Computing Trainer in Delhi
             </h2>
             <p>
               Having worked continuously in the cloud computing domain for more than eight years, Aditya Sharma is best defined as an enterprise-grade cloud architect. He has personally trained and upskilled over 5,000+ engineers and transition-seeking IT professionals.

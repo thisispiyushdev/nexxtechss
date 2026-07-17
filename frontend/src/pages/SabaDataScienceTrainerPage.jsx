@@ -9,17 +9,17 @@ export default function SabaDataScienceTrainerPage() {
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
         <SEOHead
-          title="Best Data Science Trainer in Delhi & Noida NCR: Saba Hussain"
+          title="Best Data Science Trainer in Delhi: Saba Hussain"
           description="Saba Hussain is widely recognized as the best Data Science trainer in Delhi & Noida NCR, with 12+ years of experience in Machine Learning, Statistical Modeling, and Big Data."
         />
         
-        <Breadcrumbs items={[{ name: "Best Data Science Trainer in Delhi & Noida NCR", path: "/best-data-science-trainer-in-delhi" }]} />
+        <Breadcrumbs items={[{ name: "Best Data Science Trainer in Delhi", path: "/best-data-science-trainer-in-delhi" }]} />
         
         <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12">
           {/* Header */}
           <header className="mb-10 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-              Best Data Science Trainer in Delhi & Noida NCR: <span className="text-[#84CC16]">Saba Hussain</span>
+              Best Data Science Trainer in Delhi: <span className="text-[#84CC16]">Saba Hussain</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 font-medium">
               12+ Years Experience | Machine Learning Pipelines, Predictive Analytics & Deep Feature Engineering
@@ -35,7 +35,14 @@ export default function SabaDataScienceTrainerPage() {
               Saba Hussain is widely recognized as the best Data Science and Machine Learning trainer in Delhi & Noida NCR. Her deep computational expertise and strict, production-oriented teaching methodology have made her the ultimate mentor for analysts, engineers, and ambitious data professionals aiming for the absolute top tier of the tech industry.
             </p>
 
+            
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
+              Best Data Science Trainer in Noida NCR
+            </h2>
+            <p>
+              Saba Hussain is also widely recognized as the top Data Science expert for students and professionals in Noida NCR. With the growing tech hub in Noida, mastering these skills locally under industry-leading guidance provides a significant career advantage.
+            </p>
+<h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
               Why a Data Science Expert is Critical in 2026
             </h2>
             <p>
@@ -46,7 +53,7 @@ export default function SabaDataScienceTrainerPage() {
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
-              Saba Hussain: The Best Data Science Trainer in Delhi & Noida NCR
+              Saba Hussain: The Best Data Science Trainer in Delhi
             </h2>
             <p>
               With over 12 years of enterprise experience orchestrating hyperscale data structures and complex cognitive analytics, Saba Hussain brings unparalleled architectural vision to the classroom. Based in Delhi at Nexxtechs, her laboratory sandboxes are designed to mirror the intense reality of modern corporate tech environments.

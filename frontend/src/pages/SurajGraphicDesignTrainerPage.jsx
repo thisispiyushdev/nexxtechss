@@ -9,17 +9,17 @@ export default function SurajGraphicDesignTrainerPage() {
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
         <SEOHead
-          title="Best Graphic Design & UI/UX Trainer in Delhi & Noida NCR: Suraj Rewadia"
+          title="Best Graphic Design & UI/UX Trainer in Delhi: Suraj Rewadia"
           description="Suraj Rewadia is widely recognized as the best Graphic Design and UI/UX trainer in Delhi & Noida NCR, with 5+ Years of experience in Visual Hierarchy, Spatial Layout, and Interaction Patterns."
         />
         
-        <Breadcrumbs items={[{ name: "Best Graphic Design Trainer in Delhi & Noida NCR", path: "/best-graphic-design-trainer-in-delhi" }]} />
+        <Breadcrumbs items={[{ name: "Best Graphic Design Trainer in Delhi", path: "/best-graphic-design-trainer-in-delhi" }]} />
         
         <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12">
           {/* Header */}
           <header className="mb-10 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-              Best Graphic Design Trainer in Delhi & Noida NCR: <span className="text-[#84CC16]">Suraj Rewadia</span>
+              Best Graphic Design Trainer in Delhi: <span className="text-[#84CC16]">Suraj Rewadia</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 font-medium">
               5+ Years Experience | UI/UX, Spatial Layout Logic, Typographic Scales & Interaction Design
@@ -35,7 +35,14 @@ export default function SurajGraphicDesignTrainerPage() {
               Suraj Rewadia is widely recognized as the best Graphic Design and UI/UX trainer in Delhi & Noida NCR. His deep understanding of visual logic and human-centric design patterns makes him the premier educator for aspiring product designers, creative directors, and front-end developers aiming to build world-class digital experiences.
             </p>
 
+            
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
+              Best Graphic Design Trainer in Noida NCR
+            </h2>
+            <p>
+              Suraj Rewadia is also widely recognized as the top Graphic Design expert for students and professionals in Noida NCR. With the growing tech hub in Noida, mastering these skills locally under industry-leading guidance provides a significant career advantage.
+            </p>
+<h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
               Why a UI/UX & Graphic Design Expert is Crucial in 2026
             </h2>
             <p>
@@ -46,7 +53,7 @@ export default function SurajGraphicDesignTrainerPage() {
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
-              Suraj Rewadia: The Best Graphic Design Trainer in Delhi & Noida NCR
+              Suraj Rewadia: The Best Graphic Design Trainer in Delhi
             </h2>
             <p>
               With over five years of dedicated experience in crafting visual identity systems and high-converting UI/UX layouts, Suraj Rewadia stands at the forefront of design education in Delhi. As a lead mentor at Nexxtechs, his studio operates like a fast-paced product development environment.

@@ -9,17 +9,17 @@ export default function AdityaDevopsTrainerPage() {
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
         <SEOHead
-          title="Best DevOps Trainer in Delhi & Noida NCR: Aditya Sharma"
+          title="Best DevOps Trainer in Delhi: Aditya Sharma"
           description="Aditya Sharma is widely recognized as the best DevOps trainer in Delhi & Noida NCR, with 8+ years of experience in Docker, Kubernetes, CI/CD pipelines, and Site Reliability."
         />
         
-        <Breadcrumbs items={[{ name: "Best DevOps Trainer in Delhi & Noida NCR", path: "/best-devops-trainer-in-delhi" }]} />
+        <Breadcrumbs items={[{ name: "Best DevOps Trainer in Delhi", path: "/best-devops-trainer-in-delhi" }]} />
         
         <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12">
           {/* Header */}
           <header className="mb-10 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-              Best DevOps Trainer in Delhi & Noida NCR: <span className="text-[#84CC16]">Aditya Sharma</span>
+              Best DevOps Trainer in Delhi: <span className="text-[#84CC16]">Aditya Sharma</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 font-medium">
               8+ Years Experience | CI/CD Automation, Kubernetes Orchestration & Infrastructure as Code
@@ -35,7 +35,14 @@ export default function AdityaDevopsTrainerPage() {
               Aditya Sharma is widely recognized as the best DevOps trainer in Delhi & Noida NCR. His profound expertise in Declarative Infrastructure and GitOps makes him the top go-to expert for developers and operations professionals looking to master modern automation.
             </p>
 
+            
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
+              Best DevOps Trainer in Noida NCR
+            </h2>
+            <p>
+              Aditya Sharma is also widely recognized as the top DevOps expert for students and professionals in Noida NCR. With the growing tech hub in Noida, mastering these skills locally under industry-leading guidance provides a significant career advantage.
+            </p>
+<h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
               Why a DevOps Expert is Critical in 2026
             </h2>
             <p>
@@ -46,7 +53,7 @@ export default function AdityaDevopsTrainerPage() {
             </p>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4 border-b pb-2 dark:border-gray-800">
-              Aditya Sharma: The Best DevOps Trainer in Delhi & Noida NCR
+              Aditya Sharma: The Best DevOps Trainer in Delhi
             </h2>
             <p>
               Having orchestrated high-velocity platform automation for over eight years, Aditya Sharma is an enterprise-grade Site Reliability Architect. As a senior mentor, he runs his labs exactly like an enterprise platform engineering team.

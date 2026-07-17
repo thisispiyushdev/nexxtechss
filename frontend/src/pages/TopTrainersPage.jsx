@@ -58,13 +58,22 @@ export default function TopTrainersPage() {
           description={pageData.metaDescription}
         />
         
-        <Breadcrumbs items={[{ name: "Blog", path: "/blog" }, { name: pageData.title, path: `/${fullSlug}` }]} />
+        <Breadcrumbs items={[{ name: "Blog", path: "/blog" }, { name: pageData.title.replace("(Delhi & Noida NCR)", "in Delhi"), path: `/${fullSlug}` }]} />
         
         <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12">
           {/* Header */}
           <header className="mb-10">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              {pageData.title}
+              {pageData.title.includes("(Delhi & Noida NCR)") ? (
+                <>
+                  {pageData.title.replace("(Delhi & Noida NCR)", "in Delhi")}
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-200 mt-4 text-center">
+                    {pageData.title.replace("in India (Delhi & Noida NCR)", "in Noida NCR")}
+                  </h2>
+                </>
+              ) : (
+                pageData.title
+              )}
             </h1>
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
               {pageData.intro}
