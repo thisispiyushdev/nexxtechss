@@ -1,4 +1,5 @@
 import { Phone } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 const WhatsAppIcon = ({ className }) => (
   <svg viewBox="0 0 24 24" width="28" height="28" fill="white" className={className}>
@@ -6,6 +7,10 @@ const WhatsAppIcon = ({ className }) => (
   </svg>
 );
 export default function FloatingButtons() {
+  const location = useLocation();
+  const isNoida = location.pathname.includes('noida');
+  const phoneNumber = isNoida ? "+919217179764" : "+919217179762";
+
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3" data-testid="floating-buttons">
       {/* WhatsApp */}
@@ -21,7 +26,7 @@ export default function FloatingButtons() {
 
       {/* Call */}
       <a
-        href="tel:+919217179762"
+        href={`tel:${phoneNumber}`}
         className="group w-14 h-14 rounded-full bg-[#84CC16] flex items-center justify-center shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-110 transition-all duration-300"
         data-testid="call-btn"
         title="Call Now"

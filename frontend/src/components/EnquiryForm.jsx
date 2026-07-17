@@ -238,7 +238,7 @@ export default function EnquiryForm({
                 </div>
                 <div>
                   <div className="font-bold text-[#111827] dark:text-white text-base group-hover:text-[#84CC16] transition-colors tracking-wide">Call With Counselors</div>
-                  <div className="text-[#4B5563] dark:text-gray-400 text-sm font-medium mt-1">+91 9217179762</div>
+                  <div className="text-[#4B5563] dark:text-gray-400 text-sm font-medium mt-1">+91 9217179762<br/>+91 9217179764</div>
                 </div>
               </a>
 
@@ -270,7 +270,16 @@ export default function EnquiryForm({
                 </div>
                 <div>
                   <div className="font-bold text-[#111827] dark:text-white text-base group-hover:text-[#84CC16] transition-colors tracking-wide">Visit Our Institute</div>
-                  <div className="text-[#4B5563] dark:text-gray-400 text-sm font-medium mt-1 leading-relaxed" dangerouslySetInnerHTML={{ __html: addressText }} />
+                  <div className="text-[#4B5563] dark:text-gray-400 text-sm font-medium mt-2 space-y-2 leading-relaxed">
+                    <div>
+                      <strong className="text-[#111827] dark:text-white">Delhi:</strong><br/>
+                      B-54 Krishna Park, Vikaspuri, New Delhi - 110018
+                    </div>
+                    <div>
+                      <strong className="text-[#111827] dark:text-white">Noida:</strong><br/>
+                      B-136 Upper, Ground floor, B Block, Sector 2, Noida, UP 201301
+                    </div>
+                  </div>
                 </div>
               </a>
             </div>

@@ -90,7 +90,7 @@ export default function PromoBanner() {
         }
         .animate-marquee {
           display: inline-flex;
-          animation: marquee 40s linear infinite;
+          animation: marquee 15s linear infinite;
         }
         .animate-marquee:hover {
           animation-play-state: paused;
@@ -109,7 +109,7 @@ export default function PromoBanner() {
             display: none;
           }
           .animate-marquee {
-            animation-duration: 60s;
+            animation-duration: 20s;
           }
         }
       `}</style>

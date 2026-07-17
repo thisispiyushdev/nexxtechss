@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Send, CheckCircle } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -43,6 +44,8 @@ const COURSE_OPTIONS = [
 ];
 
 export default function PopupEnquiry() {
+  const location = useLocation();
+  const isNoida = location.pathname.includes('noida');
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: "Nexxtechs Delhi" });
   const [loading, setLoading] = useState(false);
@@ -104,7 +107,8 @@ export default function PopupEnquiry() {
         if (isWhatsApp) {
           const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
           const msg = `New Enquiry Lead (Popup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
-          window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
+          const waPhone = isNoida ? "919217179764" : "919217179762";
+          window.open(`https://wa.me/${waPhone}?text=${msg}`, "_blank");
         }
       } else {
         throw new Error("Backend storage failed");
@@ -114,7 +118,8 @@ export default function PopupEnquiry() {
       if (isWhatsApp) {
         const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
         const msg = `New Enquiry Lead (Popup Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
-        window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
+        const waPhone = isNoida ? "919217179764" : "919217179762";
+        window.open(`https://wa.me/${waPhone}?text=${msg}`, "_blank");
         setError("Note: Enquiry submitted via WhatsApp only.");
       } else {
         setError("Failed to submit enquiry. Please try again.");

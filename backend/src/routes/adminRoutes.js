@@ -1,7 +1,7 @@
 import express from "express";
 import { requireAdmin, requireCoreAdmin } from "../middleware/authMiddleware.js";
 import { adminLogin, verifyToken } from "../controllers/adminAuthController.js";
-import { getAllLeads, deleteLead } from "../controllers/adminLeadsController.js";
+import { getAllLeads, deleteLead, transferLead } from "../controllers/adminLeadsController.js";
 import {
   getReviews, createReview, updateReview, deleteReview,
   getStats, createStat, updateStat, deleteStat,
@@ -26,16 +26,21 @@ router.get("/verify", verifyToken);
 // Leads (both roles — counselor + core)
 router.get("/leads", getAllLeads);
 
+// Transfer Leads (core, receptionist)
+router.put("/leads/transfer/:table/:id", transferLead);
+
+// Users (core, receptionist for creating counselors)
+router.get("/users", getAdminUsers);
+router.post("/users", createAdminUser);
+router.put("/users/:id", updateAdminUser);
+
 // --- Everything below requires CORE admin ---
 router.use(requireCoreAdmin);
 
 // Delete Leads (core only)
 router.delete("/leads/:table/:id", deleteLead);
 
-// Admin User Management (core only)
-router.get("/users", getAdminUsers);
-router.post("/users", createAdminUser);
-router.put("/users/:id", updateAdminUser);
+// Admin User Management (core only for delete)
 router.delete("/users/:id", deleteAdminUser);
 
 // Reviews

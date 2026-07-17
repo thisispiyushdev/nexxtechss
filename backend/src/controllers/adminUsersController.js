@@ -7,6 +7,9 @@ import db from "../config/db.js";
  */
 export const getAdminUsers = async (req, res) => {
   try {
+    if (req.admin?.role !== "core" && req.admin?.role !== "receptionist" && req.admin?.role !== "noida_receptionist") {
+      return res.status(403).json({ error: "Access denied." });
+    }
     const { data, error } = await db.from('admins').select('id, username, role, display_name, is_active, created_at').order('created_at', { ascending: true });
     if (error) throw error;
     res.json(data || []);
@@ -29,8 +32,14 @@ export const createAdminUser = async (req, res) => {
       return res.status(400).json({ error: "Username, password, and role are required." });
     }
 
-    if (!["core", "counselor", "noida_counselor"].includes(role)) {
-      return res.status(400).json({ error: "Role must be 'core', 'counselor', or 'noida_counselor'." });
+    if (!["core", "counselor", "noida_counselor", "receptionist", "noida_receptionist"].includes(role)) {
+      return res.status(400).json({ error: "Role must be 'core', 'counselor', 'noida_counselor', 'receptionist', or 'noida_receptionist'." });
+    }
+
+    if (req.admin?.role !== "core") {
+      if (role !== "counselor" && role !== "noida_counselor") {
+        return res.status(403).json({ error: "Access denied. Receptionists can only create counselor accounts." });
+      }
     }
 
     if (password.length < 6) {
@@ -86,9 +95,16 @@ export const updateAdminUser = async (req, res) => {
     const updates = {};
     if (username !== undefined) updates.username = username;
     if (role !== undefined) {
-      if (!["core", "counselor", "noida_counselor"].includes(role)) {
-        return res.status(400).json({ error: "Role must be 'core', 'counselor', or 'noida_counselor'." });
+      if (!["core", "counselor", "noida_counselor", "receptionist", "noida_receptionist"].includes(role)) {
+        return res.status(400).json({ error: "Role must be 'core', 'counselor', 'noida_counselor', 'receptionist', or 'noida_receptionist'." });
       }
+      
+      if (req.admin?.role !== "core") {
+        if (role !== "counselor" && role !== "noida_counselor") {
+          return res.status(403).json({ error: "Access denied. Receptionists can only assign counselor roles." });
+        }
+      }
+
       updates.role = role;
     }
     if (display_name !== undefined) updates.display_name = display_name;

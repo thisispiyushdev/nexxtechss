@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import PageTransition from "@/components/PageTransition";
 import SEOHead from "@/components/SEOHead";
 import NoidaEnquiryBanner from "@/components/NoidaEnquiryBanner";
+import EnquiryForm from "@/components/EnquiryForm";
 
 // Lazy load other components to maintain performance
 const CoursesGrid = lazy(() => import("@/components/CoursesGrid"));
@@ -95,6 +96,9 @@ export default function NoidaInstitutePage() {
       </Suspense>
       <Suspense fallback={null}>
         <TextRevealAnimation />
+      </Suspense>
+      <Suspense fallback={null}>
+        <EnquiryForm />
       </Suspense>
       <Suspense fallback={null}>
         <FAQ faqData={NOIDA_FAQ_DATA} />

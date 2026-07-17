@@ -196,10 +196,23 @@ export default function CourseDetail() {
     );
   }
 
-  const seoInfo = COURSE_SEO[slug] || {
-    title: `${course.title} Course in Delhi | NexxTechs Vikaspuri`,
-    description: `Learn ${course.title} at NexxTechs Vikaspuri Delhi. ${course.duration} course with 100% placement assistance, real-world projects & industry certification. Enroll today!`
-  };
+  const seoInfo = COURSE_SEO[slug] || (() => {
+    if (slug.endsWith('-noida')) {
+      const baseSlug = slug.replace('-noida', '');
+      const baseSeo = COURSE_SEO[baseSlug] || {
+        title: `${course.title} Course in Delhi | NexxTechs Vikaspuri`,
+        description: `Learn ${course.title} at NexxTechs Vikaspuri Delhi. ${course.duration} course with 100% placement assistance, real-world projects & industry certification. Enroll today!`
+      };
+      return {
+        title: baseSeo.title.replace(/Delhi|Vikaspuri|Janakpuri/gi, 'Noida'),
+        description: baseSeo.description.replace(/Delhi|Vikaspuri|Janakpuri/gi, 'Noida')
+      };
+    }
+    return {
+      title: `${course.title} Course in Delhi | NexxTechs Vikaspuri`,
+      description: `Learn ${course.title} at NexxTechs Vikaspuri Delhi. ${course.duration} course with 100% placement assistance, real-world projects & industry certification. Enroll today!`
+    };
+  })();
 
   return (
     <>

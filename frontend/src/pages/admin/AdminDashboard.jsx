@@ -23,6 +23,7 @@ import {
   Image as ImageIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 
 export default function AdminDashboard() {
   const { isAuthenticated, loading, logout, role } = useAdminAuth();
@@ -125,12 +126,42 @@ export default function AdminDashboard() {
 
   const handleSave = async (method, endpoint, body, label) => {
     try {
-      await adminApi[method](endpoint, body);
-      showToast(`${label} saved`);
+      if (label === "lead") {
+        await axios.post(`${import.meta.env.VITE_API_URL || ""}/api/enquiries`, body);
+        showToast(`Lead created`);
+      } else {
+        await adminApi[method](endpoint, body);
+        showToast(`${label} saved`);
+      }
       setModal(null);
       fetchData();
     } catch (err) {
       showToast(err.response?.data?.error || `Failed to save ${label}`, "error");
+    }
+  };
+
+  const handleTransfer = async (table, id, newBranch) => {
+    if (!window.confirm(`Transfer this lead to ${newBranch}?`)) return;
+    try {
+      await adminApi.put(`/leads/transfer/${table}/${id}`, { branch: newBranch });
+      showToast(`Lead transferred to ${newBranch}`);
+      fetchData();
+    } catch { showToast(`Failed to transfer lead`, "error"); }
+  };
+
+  const handleBulkTransfer = async (selectedIds, newBranch) => {
+    if (!window.confirm(`Transfer ${selectedIds.length} leads to ${newBranch}?`)) return;
+    try {
+      setFetching(true);
+      const leadsToTransfer = data.leads.filter(l => selectedIds.includes(l.id));
+      for (const lead of leadsToTransfer) {
+        await adminApi.put(`/leads/transfer/${lead.source_table}/${lead.id}`, { branch: newBranch });
+      }
+      showToast(`${selectedIds.length} leads transferred to ${newBranch}`);
+      fetchData();
+    } catch { 
+      showToast(`Failed to transfer some leads`, "error"); 
+      fetchData();
     }
   };
 
@@ -318,7 +349,7 @@ export default function AdminDashboard() {
                 <span className="hidden lg:inline">Refresh</span>
               </button>
               
-              {(activeTab !== "leads" && activeTab !== "delhi_leads" && activeTab !== "noida_leads" && isCoreAdmin) && (
+              {(isCoreAdmin || role === "receptionist" || role === "noida_receptionist") && (
                 <button 
                   onClick={() => openCreateModal()}
                   className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-lime-500 text-slate-900 rounded-xl text-sm font-extrabold hover:bg-lime-400 active:scale-95 transition-all shadow-md shadow-lime-500/20"
@@ -332,13 +363,13 @@ export default function AdminDashboard() {
 
           {/* Active View */}
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads") && <LeadsTable leads={getProcessedLeads()} onDelete={handleDelete} isCoreAdmin={isCoreAdmin} />}
+            {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads") && <LeadsTable leads={getProcessedLeads()} onDelete={handleDelete} onTransfer={handleTransfer} onBulkTransfer={handleBulkTransfer} isCoreAdmin={isCoreAdmin} role={role} />}
             {activeTab === "placements" && isCoreAdmin && <PlacementsTab reviews={filtered(data.reviews, ["name","company","role"])} stats={data.stats} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "blogs" && isCoreAdmin && <BlogsTable blogs={filtered(data.blogs, ["title","category"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "courses" && isCoreAdmin && <CoursesTable courses={filtered(data.courses, ["title","slug"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "banners" && isCoreAdmin && <BannersTable banners={filtered(data.banners, ["title","text"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "noida_banners" && isCoreAdmin && <NoidaBannersTable banners={filtered(data.noidaBanners, ["title","link_url"])} onDelete={handleDelete} onEdit={openEditModal} />}
-            {activeTab === "team" && isCoreAdmin && <TeamTable users={filtered(data.users.filter(u => u.role !== 'core'), ["username","display_name","role"])} onDelete={handleDelete} onEdit={openEditModal} />}
+            {activeTab === "team" && (isCoreAdmin || role === "receptionist" || role === "noida_receptionist") && <TeamTable users={data.users} onDelete={handleDelete} onEdit={openEditModal} isCoreAdmin={isCoreAdmin} />}
           </div>
         </main>
       </div>
@@ -356,22 +387,16 @@ export default function AdminDashboard() {
 
       {/* Modal */}
       {modal && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4" onClick={() => setModal(null)}>
-          <div 
-            className="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col animate-in zoom-in-95 duration-200" 
-            onClick={e => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-slate-50/50">
-              <h2 className="text-xl font-black text-slate-900 tracking-tight">{modal.title}</h2>
-              <button 
-                onClick={() => setModal(null)} 
-                className="p-2 rounded-full hover:bg-slate-200 text-slate-400 hover:text-slate-600 transition-colors"
-              >
-                <X size={20} />
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl w-full max-w-2xl shadow-2xl flex flex-col max-h-[90vh]">
+            <div className="flex items-center justify-between p-6 border-b border-slate-100">
+              <h2 className="text-xl font-black text-slate-800">{modal.title}</h2>
+              <button onClick={() => setModal(null)} className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-xl transition-all">
+                <XCircle size={24} />
               </button>
             </div>
-            <div className="flex-1 overflow-auto p-6">
-              <ModalForm modal={modal} onSave={handleSave} />
+            <div className="p-6 overflow-y-auto">
+              <ModalForm modal={modal} onSave={handleSave} role={role} />
             </div>
           </div>
         </div>
@@ -381,6 +406,9 @@ export default function AdminDashboard() {
 
   function openCreateModal() {
     const templates = {
+      leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: role === "noida_receptionist" ? "Nexxtechs Noida" : "Nexxtechs Delhi", source: "Walk-in" } },
+      delhi_leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: "Nexxtechs Delhi", source: "Walk-in" } },
+      noida_leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: "Nexxtechs Noida", source: "Walk-in" } },
       placements: { title: "Add Review", type: "review", data: { name: "", role: "", company: "", image: "", text: "", is_active: true, sort_order: 0 } },
       blogs: { title: "Add Blog", type: "blog", data: { id: "", title: "", excerpt: "", author: "NexxTechs", date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }), category: "Our blog", read_time: "5 min read", image: "", content: "", is_active: true } },
       courses: { title: "Add Course", type: "course", data: { slug: "", title: "", tagline: "", image: "", duration: "", level: "", overview: "", is_popular: false, is_trending: false, is_active: true, batch_timings: [], highlights: [], trending_tools: [], modules: [], brochure_url: "", sort_order: 0 } },
@@ -448,13 +476,41 @@ function Td({ children, className }) {
   );
 }
 
-function LeadsTable({ leads, onDelete, isCoreAdmin }) {
+function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, isCoreAdmin, role }) {
+  const [selected, setSelected] = useState(new Set());
+
+  const toggleAll = (e) => {
+    if (e.target.checked) setSelected(new Set(leads.map(l => l.id)));
+    else setSelected(new Set());
+  };
+
+  const toggleOne = (id) => {
+    const next = new Set(selected);
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
+    setSelected(next);
+  };
+
   if (!leads.length) return <EmptyState label="leads" />;
   return (
-    <TableContainer>
-      <thead>
-        <tr>
-          <Th>Name</Th>
+    <div className="space-y-4">
+      {selected.size > 0 && (isCoreAdmin || role === "receptionist" || role === "noida_receptionist") && (
+        <div className="flex items-center justify-between p-4 bg-lime-50 border border-lime-200 rounded-xl animate-in slide-in-from-top-2 duration-200">
+          <span className="text-sm font-bold text-lime-800">{selected.size} lead{selected.size > 1 ? 's' : ''} selected</span>
+          <div className="flex gap-2">
+            <button onClick={() => { onBulkTransfer(Array.from(selected), "Nexxtechs Delhi"); setSelected(new Set()); }} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-blue-700 transition-colors">Move to Delhi</button>
+            <button onClick={() => { onBulkTransfer(Array.from(selected), "Nexxtechs Noida"); setSelected(new Set()); }} className="px-4 py-2 bg-purple-600 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-purple-700 transition-colors">Move to Noida</button>
+            <button onClick={() => alert("Assign counselor feature coming soon")} className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-indigo-700 transition-colors">Assign Counselor</button>
+          </div>
+        </div>
+      )}
+      <TableContainer>
+        <thead>
+          <tr>
+            <th className="px-6 py-4 w-10 border-b border-slate-100 bg-slate-50/50">
+              <input type="checkbox" checked={selected.size > 0 && selected.size === leads.length} onChange={toggleAll} className="w-4 h-4 rounded text-lime-600 focus:ring-lime-500 cursor-pointer" />
+            </th>
+            <Th>Name</Th>
           <Th>Contact Info</Th>
           <Th>Interest</Th>
           <Th>Branch & Page</Th>
@@ -466,6 +522,9 @@ function LeadsTable({ leads, onDelete, isCoreAdmin }) {
       <tbody>
         {leads.map(l => (
           <tr key={l.id} className="hover:bg-slate-50/50 transition-colors">
+            <td className="px-6 py-4 border-b border-slate-50">
+              <input type="checkbox" checked={selected.has(l.id)} onChange={() => toggleOne(l.id)} className="w-4 h-4 rounded text-lime-600 focus:ring-lime-500 cursor-pointer" />
+            </td>
             <Td className="text-slate-900 font-bold">{l.name}</Td>
             <Td>
               <div className="flex flex-col">
@@ -488,6 +547,11 @@ function LeadsTable({ leads, onDelete, isCoreAdmin }) {
                     {(l.branch || "").split(" | Page: ")[1]}
                   </span>
                 )}
+                {l.transferred_from && (
+                  <span className="text-[9px] font-medium text-orange-500 mt-1 uppercase tracking-wider bg-orange-50 px-1.5 py-0.5 rounded border border-orange-100 w-fit">
+                    Transferred from {l.transferred_from.split(" | Page: ")[0]}
+                  </span>
+                )}
               </div>
             </Td>
             <Td>
@@ -503,19 +567,30 @@ function LeadsTable({ leads, onDelete, isCoreAdmin }) {
               {l.created_at ? new Date(l.created_at).toLocaleDateString() : "—"}
             </Td>
             <Td>
-              {isCoreAdmin && (
-                <button 
-                  onClick={() => onDelete(`/leads/${l.source_table}/${l.id}`, "Lead")}
-                  className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
-                >
-                  <Trash2 size={18} />
-                </button>
-              )}
+              <div className="flex gap-1 justify-end">
+                {selected.size === 0 && (isCoreAdmin || role === "receptionist" || role === "noida_receptionist") && (
+                  <button 
+                    onClick={() => alert("Assign counselor feature coming soon")}
+                    className="px-2 py-1 bg-indigo-50 text-indigo-600 rounded-md text-[10px] font-black uppercase tracking-wider hover:bg-indigo-100 transition-all mr-2"
+                  >
+                    Assign Counselor
+                  </button>
+                )}
+                {isCoreAdmin && (
+                  <button 
+                    onClick={() => onDelete(`/leads/${l.source_table}/${l.id}`, "Lead")}
+                    className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                )}
+              </div>
             </Td>
           </tr>
         ))}
       </tbody>
     </TableContainer>
+    </div>
   );
 }
 
@@ -673,8 +748,9 @@ function CoursesTable({ courses, onDelete, onEdit }) {
   );
 }
 
-function TeamTable({ users, onDelete, onEdit }) {
-  if (!users.length) return <EmptyState label="team members" />;
+function TeamTable({ users, onDelete, onEdit, isCoreAdmin }) {
+  const visibleUsers = users.filter(u => u.role !== "core");
+  if (!visibleUsers.length) return <EmptyState label="users" />;
   return (
     <TableContainer>
       <thead>
@@ -686,17 +762,12 @@ function TeamTable({ users, onDelete, onEdit }) {
         </tr>
       </thead>
       <tbody>
-        {users.map(u => (
-          <tr key={u.id} className="hover:bg-slate-50/50">
+        {visibleUsers.map(u => (
+          <tr key={u.id} className="hover:bg-slate-50/50 transition-colors">
             <Td>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-xs">
-                  {u.display_name?.[0]}
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-slate-900 font-bold">{u.display_name}</span>
-                  <span className="text-xs text-slate-400 italic">@{u.username}</span>
-                </div>
+              <div className="flex flex-col">
+                <span className="text-slate-900 font-bold">{u.name || u.username}</span>
+                <span className="text-xs text-slate-400 italic">@{u.username}</span>
               </div>
             </Td>
             <Td>
@@ -841,7 +912,7 @@ function EmptyState({ label }) {
 
 /* ============== Modal Form Components ============== */
 
-function ModalForm({ modal, onSave }) {
+function ModalForm({ modal, onSave, role: currentUserRole }) {
   const [form, setForm] = useState(modal.data);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -870,12 +941,53 @@ function ModalForm({ modal, onSave }) {
       banner: modal.method === "post" ? "/banners" : `/banners/${modal.editId}`,
       noida_banner: modal.method === "post" ? "/noida-banners" : `/noida-banners/${modal.editId}`,
       user: modal.method === "post" ? "/users" : `/users/${modal.editId}`,
+      lead: "/leads", // not used by adminApi directly, handled above
     };
-    await onSave(modal.method, endpoints[modal.type], form, modal.type);
+
+    let submitForm = { ...form };
+    if (modal.type === "user" && submitForm.role?.includes("receptionist") && !submitForm.display_name) {
+      submitForm.display_name = "Receptionist";
+    }
+
+    await onSave(modal.method, endpoints[modal.type], submitForm, modal.type);
     setIsSubmitting(false);
   };
 
   const formContent = () => {
+    if (modal.type === "lead") return (
+      <div className="space-y-5">
+        <Field label="Full Name" value={form.name} onChange={v => set("name", v)} required />
+        <Field label="Phone Number" value={form.phone} onChange={v => set("phone", v)} required />
+        <Field label="Email Address (Optional)" type="email" value={form.email} onChange={v => set("email", v)} />
+        <Field label="Course Interested" value={form.course_interested} onChange={v => set("course_interested", v)} required />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Source</label>
+            <select 
+              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-lime-500/20 outline-none transition-all"
+              value={form.source} 
+              onChange={e => set("source", e.target.value)}
+            >
+              <option value="Walk-in">Walk-in</option>
+              <option value="Phone Call">Phone Call</option>
+              <option value="WhatsApp">WhatsApp</option>
+            </select>
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Branch</label>
+            <select 
+              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-lime-500/20 outline-none transition-all"
+              value={form.branch} 
+              onChange={e => set("branch", e.target.value)}
+            >
+              <option value="Nexxtechs Delhi">Delhi Branch</option>
+              <option value="Nexxtechs Noida">Noida Branch</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    );
+
     if (modal.type === "review") return (
       <div className="space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -1040,7 +1152,9 @@ function ModalForm({ modal, onSave }) {
 
     if (modal.type === "user") return (
       <div className="space-y-5">
-        <Field label="Full Name" value={form.display_name} onChange={v => set("display_name", v)} required />
+        {!form.role?.includes("receptionist") && (
+          <Field label="Full Name" value={form.display_name} onChange={v => set("display_name", v)} required />
+        )}
         <Field label="Login Username" value={form.username} onChange={v => set("username", v)} required />
         <Field label={modal.method === "post" ? "Initial Password" : "New Password (empty to keep)"} type="password" value={form.password || ""} onChange={v => set("password", v)} required={modal.method === "post"} />
         <div className="space-y-1.5">
@@ -1052,7 +1166,13 @@ function ModalForm({ modal, onSave }) {
           >
             <option value="counselor">👤 Delhi Counselor (Delhi Leads Only)</option>
             <option value="noida_counselor">🏢 Noida Counselor (Noida Leads Only)</option>
-            <option value="core">🔑 Core Admin (Full access)</option>
+            {currentUserRole === "core" && (
+              <>
+                <option value="receptionist">📞 Delhi Receptionist (Delhi Leads, Transfer & Add)</option>
+                <option value="noida_receptionist">📞 Noida Receptionist (Noida Leads, Transfer & Add)</option>
+                <option value="core">🔑 Core Admin (Full access)</option>
+              </>
+            )}
           </select>
         </div>
         {modal.method === "put" && <CheckField label="Account Enabled" checked={form.is_active} onChange={v => set("is_active", v)} />}

@@ -281,7 +281,7 @@ Our advanced digital marketing course focuses on practical learning, website ran
     slug: "java-full-stack",
     title: "Java Full Stack Development",
     image: "/course-images/java-fullstack.webp",
-    tagline: "Enterprise-grade full stack development with Java & React",
+    tagline: "Master Java, Spring Boot & React for enterprise apps",
     duration: "6 Months",
     level: "Beginner to Advanced",
     batchTimings: ["Mon-Fri: 10 AM - 12 PM", "Evening: 7 PM - 9 PM"],
@@ -367,5 +367,16 @@ COURSES_DATA.forEach((course) => {
   course.brochureUrl = BROCHURES[course.slug] || null;
 });
 
-export default COURSES_DATA;
+const NOIDA_COURSES = COURSES_DATA.map(course => ({
+  ...course,
+  slug: course.slug + "-noida",
+  title: course.title + " in Noida",
+  tagline: course.tagline + " (Noida)",
+  aboutContent: course.aboutContent ? course.aboutContent.replace(/Delhi/g, "Noida").replace(/Janakpuri/g, "Sector 2, Noida").replace(/Vikaspuri/g, "Sector 2, Noida") : "",
+  brochureUrl: course.brochureUrl
+}));
+
+const FINAL_COURSES_DATA = [...COURSES_DATA, ...NOIDA_COURSES];
+
+export default FINAL_COURSES_DATA;
 export { BROCHURES };

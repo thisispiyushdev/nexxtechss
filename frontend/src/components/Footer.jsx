@@ -1,5 +1,5 @@
 import { Phone, Mail, MapPin, ArrowUp, ArrowRight, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { externalLinks } from "../data/externalLinks";const LOGO_URL = "/assets/logo_white.webp";
 
 const QUICK_LINKS = [
@@ -22,6 +22,15 @@ const RESOURCES = [
 
 export default function Footer() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isNoida = location.pathname.includes('noida');
+  const contactInfo = isNoida ? {
+    phone: "+91 9217179764",
+    phoneLink: "tel:+919217179764"
+  } : {
+    phone: "+91 9217179762",
+    phoneLink: "tel:+919217179762"
+  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -30,7 +39,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#0A0A0A] text-white pt-16 md:pt-20 pb-8" data-testid="footer">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        <div className="grid md:grid-cols-3 lg:grid-cols-7 gap-8 mb-12">
+        <div className="grid md:grid-cols-3 lg:grid-cols-8 gap-8 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2 md:col-span-3 lg:pr-4">
             <img 
@@ -91,27 +100,53 @@ export default function Footer() {
           </div>
 
           {/* Courses */}
-          <div className="lg:col-span-1">
-            <h4 className="font-bold text-white text-base mb-5">Courses</h4>
-            <ul className="space-y-3 mb-6">
-              {[
-                { label: "Data Science & AI", href: "/course/data-science/" },
-                { label: "Full Stack Web Dev", href: "/course/web-development/" },
-                { label: "DevOps Engineering", href: "/course/devops/" },
-                { label: "Cyber Security", href: "/course/cyber-security/" },
-                { label: "Cloud Computing", href: "/course/cloud-computing/" },
-              ].map((course) => (
-                <li key={course.label}>
-                  <Link
-                    to={course.href}
-                    onClick={scrollToTop}
-                    className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
-                  >
-                    {course.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <div className="lg:col-span-2">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <h4 className="font-bold text-white text-base mb-5">Courses in Vikaspuri</h4>
+                <ul className="space-y-3 mb-6">
+                  {[
+                    { label: "Data Science & AI", href: "/course/data-science/" },
+                    { label: "Full Stack Web Dev", href: "/course/web-development/" },
+                    { label: "DevOps Engineering", href: "/course/devops/" },
+                    { label: "Cyber Security", href: "/course/cyber-security/" },
+                    { label: "Cloud Computing", href: "/course/cloud-computing/" },
+                  ].map((course) => (
+                    <li key={course.label}>
+                      <Link
+                        to={course.href}
+                        onClick={scrollToTop}
+                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
+                      >
+                        {course.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-bold text-white text-base mb-5">Courses in Noida</h4>
+                <ul className="space-y-3 mb-6">
+                  {[
+                    { label: "Data Science & AI", href: "/course/data-science-noida/" },
+                    { label: "Full Stack Web Dev", href: "/course/web-development-noida/" },
+                    { label: "DevOps Engineering", href: "/course/devops-noida/" },
+                    { label: "Cyber Security", href: "/course/cyber-security-noida/" },
+                    { label: "Cloud Computing", href: "/course/cloud-computing-noida/" },
+                  ].map((course) => (
+                    <li key={`noida-${course.label}`}>
+                      <Link
+                        to={course.href}
+                        onClick={scrollToTop}
+                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
+                      >
+                        {course.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
             <Link
               to="/courses/"
               onClick={scrollToTop}
@@ -169,9 +204,9 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <h4 className="font-bold text-white text-base mb-5">Contact Us</h4>
             <address className="space-y-3 not-italic">
-              <a href="tel:+919217179762" className="flex items-start gap-3 text-gray-400 text-sm hover:text-[#84CC16] transition-colors" data-testid="footer-phone">
+              <a href={contactInfo.phoneLink} className="flex items-start gap-3 text-gray-400 text-sm hover:text-[#84CC16] transition-colors" data-testid="footer-phone">
                 <Phone size={14} className="mt-0.5 shrink-0" />
-                <span>+91 9217179762</span>
+                <span>{contactInfo.phone}</span>
               </a>
               <a href="mailto:info@nexxtechs.com" className="flex items-start gap-3 text-gray-400 text-sm hover:text-[#84CC16] transition-colors" data-testid="footer-email">
                 <Mail size={14} className="mt-0.5 shrink-0" />

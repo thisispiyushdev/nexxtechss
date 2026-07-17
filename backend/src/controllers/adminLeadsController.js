@@ -11,13 +11,13 @@ export const getAllLeads = async (req, res, next) => {
     let brQuery = db.from("brochure_leads").select("*").order("created_at", { ascending: false });
     let rdQuery = db.from("roadmap_leads").select("*").order("created_at", { ascending: false });
 
-    if (req.admin && req.admin.role === "noida_counselor") {
+    if (req.admin && (req.admin.role === "noida_counselor" || req.admin.role === "noida_receptionist")) {
       eqQuery = eqQuery.ilike("branch", "%Noida%");
       brQuery = brQuery.ilike("branch", "%Noida%");
       rdQuery = rdQuery.ilike("branch", "%Noida%");
     }
     
-    if (req.admin && req.admin.role === "counselor") {
+    if (req.admin && (req.admin.role === "counselor" || req.admin.role === "receptionist")) {
       eqQuery = eqQuery.ilike("branch", "%Delhi%");
       brQuery = brQuery.ilike("branch", "%Delhi%");
       rdQuery = rdQuery.ilike("branch", "%Delhi%");
@@ -37,7 +37,7 @@ export const getAllLeads = async (req, res, next) => {
       enquiriesRes.data.forEach((item) => {
         leads.push({
           ...item,
-          source: "Enquiry",
+          source: item.source || "Enquiry",
           source_table: "enquiries",
           email: item.email || "—",
           course: item.course_interested || "—",
@@ -95,6 +95,9 @@ export const getAllLeads = async (req, res, next) => {
  */
 export const deleteLead = async (req, res, next) => {
   try {
+    if (req.admin && (req.admin.role === "receptionist" || req.admin.role === "noida_receptionist")) {
+      return res.status(403).json({ error: "Receptionists are not allowed to delete leads." });
+    }
     const { table, id } = req.params;
 
     // Whitelist allowed tables to prevent SQL injection
@@ -114,5 +117,48 @@ export const deleteLead = async (req, res, next) => {
   } catch (err) {
     console.error(`Delete lead error (${req.params.table}):`, err);
     res.status(500).json({ error: "Failed to delete lead." });
+  }
+};
+
+/**
+ * PUT /api/admin/leads/transfer/:table/:id
+ * Transfers a lead to a new branch (Delhi <-> Noida).
+ */
+export const transferLead = async (req, res, next) => {
+  try {
+    if (req.admin && (req.admin.role === "counselor" || req.admin.role === "noida_counselor")) {
+      return res.status(403).json({ error: "Counselors cannot transfer leads." });
+    }
+    const { table, id } = req.params;
+    const { branch } = req.body;
+
+    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads"];
+    if (!allowedTables.includes(table)) {
+      return res.status(400).json({ error: "Invalid table name." });
+    }
+
+    if (!branch) {
+      return res.status(400).json({ error: "Branch is required." });
+    }
+
+    const { data: oldLead, error: fetchError } = await db.from(table).select('branch').eq('id', id).single();
+    if (fetchError || !oldLead) {
+      return res.status(404).json({ error: "Lead not found." });
+    }
+
+    const { error } = await db.from(table).update({ 
+      branch,
+      transferred_from: oldLead.branch || "Unknown"
+    }).eq('id', id);
+
+    if (error) {
+      console.error(`Transfer lead error (${table}):`, error);
+      return res.status(500).json({ error: "Failed to transfer lead." });
+    }
+
+    res.status(200).json({ message: "Lead transferred successfully." });
+  } catch (err) {
+    console.error(`Transfer lead error (${req.params.table}):`, err);
+    res.status(500).json({ error: "Failed to transfer lead." });
   }
 };

@@ -5,7 +5,8 @@ const brochureLeadSchema = z.object({
   name: z.string().min(1, "Name is required"),
   phone: z.string().min(1, "Phone is required"),
   email: z.string().email("Invalid email address"),
-  course: z.string().min(1, "Course is required")
+  course: z.string().min(1, "Course is required"),
+  branch: z.string().optional()
 });
 
 export const createBrochureLead = async (req, res, next) => {
@@ -15,7 +16,7 @@ export const createBrochureLead = async (req, res, next) => {
     const { data, error } = await db
       .from('brochure_leads')
       .insert([{
-        name: validatedData.name, phone: validatedData.phone, email: validatedData.email, course: validatedData.course
+        name: validatedData.name, phone: validatedData.phone, email: validatedData.email, course: validatedData.course, branch: validatedData.branch
       }])
       .select();
 

@@ -40,9 +40,11 @@ const STATIC_COURSES = [
   { title: "Graphic Design", slug: "graphic-design", image: "/course-images/Graphic-Design.webp", desc: "Master visual communication, branding, and typography.", features: ["Adobe Photoshop", "Illustrator & InDesign", "Brand Identity"], icon: PenTool, color: "#FCE7F3", category: "Design & Marketing" },
   { title: "Digital Marketing", slug: "digital-marketing", image: "/course-images/Digital-Marketing.webp", desc: "Drive exponential business growth with digital strategies.", features: ["SEO & SEM", "Social Media Marketing", "Google Ads"], icon: Megaphone, color: "#F0FDF4", category: "Design & Marketing" },
   { title: "SAP Masterclass", slug: "sap-masterclass", image: "/course-images/SAP.webp", desc: "Master enterprise resource planning with SAP modules.", features: ["SAP FICO & MM", "S/4HANA Architecture", "Business Processes"], icon: Building2, color: "#FEF3C7", category: "Enterprise" },
+  { title: "Java Full Stack", slug: "java-full-stack", image: "/course-images/java-fullstack.webp", desc: "Enterprise-grade full stack development with Java & React.", features: ["Spring Boot 3", "React Frontend", "Microservices"], icon: Code2, color: "#F5F3FF", category: "Development", isTrending: true },
+  { title: "Cyber Security", slug: "cyber-security", image: "/course-images/Cyber-Security.webp", desc: "Master ethical hacking, network security, and defense.", features: ["Ethical Hacking", "Network Defense", "Penetration Testing"], icon: Code2, color: "#FEF2F2", category: "Cyber Security", isTrending: true },
 ];
 
-const CATEGORIES = ["All", "Development", "Design & Marketing", "Data & AI", "Cloud & DevOps", "Enterprise"];
+const CATEGORIES = ["All", "Development", "Design & Marketing", "Data & AI", "Cloud & DevOps", "Enterprise", "Cyber Security"];
 
 export default function CoursesGrid({ layout = "grid", limit = null, showMoreButton = false }) {
   const sectionRef = useRef(null);
@@ -51,8 +53,20 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
   const [activeCategory, setActiveCategory] = useState("All");
   const [COURSES, setCourses] = useState(STATIC_COURSES);
   const navigate = useNavigate();
+  const isNoida = window.location.pathname.includes('noida');
 
-  const displayedCourses = activeCategory === "All" ? COURSES : COURSES.filter((c) => c.category === activeCategory);
+  const processedCourses = COURSES.map(c => {
+    if (isNoida) {
+      return {
+        ...c,
+        title: c.title + " in Noida",
+        slug: c.slug + "-noida"
+      };
+    }
+    return c;
+  });
+
+  const displayedCourses = activeCategory === "All" ? processedCourses : processedCourses.filter((c) => c.category === activeCategory);
   const finalCourses = limit ? displayedCourses.slice(0, limit) : displayedCourses;
 
   useEffect(() => {
@@ -146,7 +160,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
               {[0, 1].map((groupIndex) => (
                 <div 
                   key={groupIndex} 
-                  className="flex shrink-0 gap-4 sm:gap-6 md:gap-8 animate-marquee group-hover:[animation-play-state:paused]"
+                  className="flex shrink-0 gap-4 sm:gap-6 md:gap-8 animate-marquee group-hover:[animation-play-state:paused] will-change-transform"
                   style={{ animationDuration: '80s' }}
                   aria-hidden={groupIndex === 1}
                 >
@@ -154,7 +168,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
                     return (
                       <div
                         key={`${groupIndex}-${course.title}`}
-                        className="w-[280px] sm:w-[320px] md:w-[380px] h-full shrink-0 group bg-white/80 dark:bg-[#0a0a0a]/70 backdrop-blur-2xl border border-gray-200/50 dark:border-white/10 rounded-[24px] sm:rounded-[28px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_40px_-10px_rgba(132,204,22,0.3)] hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
+                        className="w-[280px] sm:w-[320px] md:w-[380px] h-full shrink-0 group bg-white dark:bg-[#0a0a0a] border border-gray-200/50 dark:border-white/10 rounded-[24px] sm:rounded-[28px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_40px_-10px_rgba(132,204,22,0.3)] hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
                         onClick={() => navigate(`/course/${course.slug}/`)}
                       >
                         {course.image && (
@@ -230,7 +244,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
               return (
                 <div
                   key={`grid-${course.title}`}
-                  className="h-full group bg-white/80 dark:bg-[#0a0a0a]/70 backdrop-blur-2xl border border-gray-200/50 dark:border-white/10 rounded-[24px] sm:rounded-[28px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_40px_-10px_rgba(132,204,22,0.3)] hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
+                  className="h-full group bg-white dark:bg-[#0a0a0a] border border-gray-200/50 dark:border-white/10 rounded-[24px] sm:rounded-[28px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_40px_-10px_rgba(132,204,22,0.3)] hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
                   onClick={() => navigate(`/course/${course.slug}/`)}
                 >
                   {course.image && (

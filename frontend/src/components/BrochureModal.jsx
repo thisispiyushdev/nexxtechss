@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { createPortal } from "react-dom";
 import { X, Send, Download, FileText, CheckCircle, MessageCircle, ExternalLink } from "lucide-react";
 import { Button } from "../components/ui/button";
@@ -9,6 +10,8 @@ import { API_ROOT } from "../lib/apiConfig";
 const API = API_ROOT;
 
 export default function BrochureModal({ isOpen, onClose, courseName, brochureUrl }) {
+  const location = useLocation();
+  const isNoida = location.pathname.includes('noida');
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -45,6 +48,7 @@ export default function BrochureModal({ isOpen, onClose, courseName, brochureUrl
       const response = await axios.post(`${API}/brochure-download`, {
         ...form,
         course: courseName,
+        branch: isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi"
       });
 
       // Handle successful DB storage
@@ -61,8 +65,10 @@ export default function BrochureModal({ isOpen, onClose, courseName, brochureUrl
       setLoading(false);
       
       // Prepare WhatsApp URL and redirect
-      const msg = `Brochure Download Lead:%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0AEmail: ${encodeURIComponent(form.email)}%0ACourse: ${encodeURIComponent(courseName)}`;
-      const waUrl = `https://wa.me/919217179762?text=${msg}`;
+      const branchName = isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi";
+      const msg = `Brochure Download Lead:%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0AEmail: ${encodeURIComponent(form.email)}%0ACourse: ${encodeURIComponent(courseName)}%0ABranch: ${encodeURIComponent(branchName)}`;
+      const waPhone = isNoida ? "919217179764" : "919217179762";
+      const waUrl = `https://wa.me/${waPhone}?text=${msg}`;
       
       window.open(waUrl, "_blank");
       

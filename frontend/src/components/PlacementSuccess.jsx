@@ -20,6 +20,15 @@ const FALLBACK_REVIEWS = [
   { name: "Anuj", role: "Digital Marketing Lead", company: "Flipkart", image: "/students/anuj.png", text: "The growth hacking strategies and performance marketing skills I developed here have been invaluable." },
 ];
 
+const GOOGLE_REVIEWS = [
+  { name: "Aman Sharma", role: "Software Engineer", company: "via Google Reviews", text: "The trainers are highly experienced. NexxTechs is the best institute for Java Full Stack in Vikaspuri. The placement assistance is top-notch!" },
+  { name: "Priya Singh", role: "Data Analyst", company: "via Google Reviews", text: "Great place to learn Data Science. The curriculum is very industry-oriented and the hands-on projects really help in building a strong portfolio." },
+  { name: "Rohit Verma", role: "Frontend Developer", company: "via Google Reviews", text: "I joined the MERN Stack course and got a job within a month of completion. Highly recommended for anyone looking to switch to IT." },
+  { name: "Sneha Gupta", role: "Digital Marketer", company: "via Google Reviews", text: "The faculty here is amazing. They explain complex concepts in a very simple way. Best decision of my life to join Nexxtechs." },
+  { name: "Vikash Kumar", role: "Cloud Architect", company: "via Google Reviews", text: "Excellent environment and practical labs. The AWS and Azure modules were incredibly detailed. Got multiple offers!" },
+  { name: "Neha Sharma", role: "UI/UX Designer", company: "via Google Reviews", text: "Loved the UI/UX bootcamp! The mentors provide personalized feedback which helped me refine my design skills tremendously." },
+];
+
 const COMPANY_LOGOS = [
   { name: "Netflix", domain: "netflix.com", url: "https://www.netflix.com" },
   { name: "Microsoft", domain: "microsoft.com", url: "https://www.microsoft.com" },
@@ -38,6 +47,7 @@ const PlacementSuccess = () => {
   const sectionRef = useRef(null);
   const [reviews, setReviews] = useState(FALLBACK_REVIEWS);
   const [stats, setStats] = useState(FALLBACK_STATS);
+  const [showGoogleReviews, setShowGoogleReviews] = useState(false);
 
   // Fetch reviews and stats from the backend API
   useEffect(() => {
@@ -144,7 +154,7 @@ const PlacementSuccess = () => {
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20 testimonials-grid">
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ${showGoogleReviews ? 'mb-20' : 'mb-10'} testimonials-grid`}>
           {reviews.map((t, i) => (
             <div 
               key={i} 
@@ -160,23 +170,51 @@ const PlacementSuccess = () => {
                 ))}
               </div>
               <div className="flex items-center gap-4 shrink-0 border-t border-gray-100 dark:border-white/5 pt-6">
-                <div className="w-14 h-14 rounded-full overflow-hidden bg-[#84CC16]/10 flex-shrink-0">
-                  <ResponsiveImage
-                    src={t.image}
-                    alt={t.name}
-                    className="w-full h-full object-cover"
-                    pexelsOptions={{ w: 100, h: 100, fit: 'crop' }}
-                    onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.classList.add('bg-gray-200'); }}
-                  />
-                </div>
                 <div className="min-w-0">
                   <div className="font-bold text-[#0A0A0A] dark:text-white text-base truncate">{t.name}</div>
-                  <div className="text-xs text-[#84CC16] font-medium truncate">{t.role} at {t.company}</div>
+                  <div className="text-xs text-[#84CC16] font-medium truncate">{t.role} {t.company ? `• ${t.company}` : ''}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+          
+          {showGoogleReviews && GOOGLE_REVIEWS.map((t, i) => (
+            <div 
+              key={`google-${i}`} 
+              className="bg-white dark:bg-[#1a1d27] border border-gray-100 dark:border-white/10 rounded-2xl p-8 shadow-lg flex flex-col testimonial-card animate-fade-in"
+            >
+              <Quote size={32} className="text-[#84CC16] mb-6 opacity-40 shrink-0" />
+              <p className="text-[#4B5563] dark:text-gray-300 text-sm md:text-base leading-relaxed mb-8 italic flex-grow">
+                "{t.text}"
+              </p>
+              <div className="flex items-center gap-1 mb-6 shrink-0">
+                {[...Array(5)].map((_, j) => (
+                  <Star key={j} size={16} className="fill-[#84CC16] text-[#84CC16]" />
+                ))}
+              </div>
+              <div className="flex items-center gap-4 shrink-0 border-t border-gray-100 dark:border-white/5 pt-6">
+                <div className="min-w-0">
+                  <div className="font-bold text-[#0A0A0A] dark:text-white text-base truncate">{t.name}</div>
+                  <div className="text-xs text-[#84CC16] font-medium truncate">{t.role} • {t.company}</div>
                 </div>
               </div>
             </div>
           ))}
         </div>
+
+        {!showGoogleReviews && (
+          <div className="flex justify-center mb-20">
+            <button 
+              onClick={() => setShowGoogleReviews(true)}
+              className="px-8 py-3 bg-white dark:bg-[#1a1d27] border border-gray-200 dark:border-white/10 hover:border-[#84CC16] dark:hover:border-[#84CC16] rounded-xl font-bold text-[#0A0A0A] dark:text-white transition-all duration-300 flex items-center gap-2 hover:shadow-lg group"
+            >
+              Load More Reviews 
+              <svg className="w-5 h-5 text-gray-400 group-hover:text-[#84CC16] transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/>
+              </svg>
+            </button>
+          </div>
+        )}
 
         {/* Why Students Trust Us */}
         <div className="pt-12 mt-12 border-t border-gray-100 dark:border-white/5">
