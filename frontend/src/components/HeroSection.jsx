@@ -93,9 +93,10 @@ export default function HeroSection() {
           statsRef.current.querySelectorAll('.stat-number').forEach((num) => {
             const target = parseInt(num.getAttribute('data-target'));
             const suffix = num.getAttribute('data-suffix') || "";
-            gsap.to(num, { innerText: target, duration: 2, snap: { innerText: 1 }, ease: "power2.out",
+            const obj = { val: 0 };
+            gsap.to(obj, { val: target, duration: 2, ease: "power2.out",
               scrollTrigger: { trigger: num, start: "top 90%", once: true },
-              onUpdate: function() { num.innerText = Math.floor(this.targets()[0].innerText) + suffix; }
+              onUpdate: function() { num.innerText = Math.floor(obj.val) + suffix; }
             });
           });
         });

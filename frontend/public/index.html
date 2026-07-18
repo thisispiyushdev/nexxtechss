@@ -64,6 +64,8 @@
         <link rel="dns-prefetch" href="https://logo.clearbit.com" />
         <link rel="dns-prefetch" href="https://img.youtube.com" />
         
+        <!-- Preload Google Fonts to improve LCP text render speed -->
+        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700;900&family=Inter:wght@400;600;700&display=swap" />
         <!-- Non-blocking Google Fonts (eliminates ~440ms render blocking) -->
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
         <noscript><link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" /></noscript>
