@@ -31,7 +31,7 @@ export default function NoidaImageCarousel() {
     
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % banners.length);
-    }, 5000); // 5 seconds per slide
+    }, 7000); // 7 seconds per slide
     
     return () => clearInterval(interval);
   }, [banners.length]);

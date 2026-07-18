@@ -72,7 +72,7 @@ export default function NoidaEnquiryBanner({
     if (banners.length <= 1) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % banners.length);
-    }, 5000);
+    }, 7000);
     return () => clearInterval(interval);
   }, [banners.length]);
 

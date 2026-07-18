@@ -196,68 +196,32 @@ export default function Header() {
                       </div>
 
                       {/* Right Content - Courses */}
-                      <div className="w-3/4 p-10 flex gap-8">
-                        {/* Vikaspuri Branch Column */}
-                        <div className="flex-1">
-                          <div className="text-xs font-bold text-[#84CC16] uppercase tracking-widest mb-6">Vikaspuri Branch</div>
-                          <div className="grid grid-cols-1 gap-y-3">
-                            {MEGA_MENU_DATA[activeDomain].map((course, idx) => (
-                              <Link 
-                                key={`vikas-${idx}`} 
-                                to={course.link || "/courses"}
-                                onClick={() => {
-                                  setMegaMenuOpen(false);
-                                  window.scrollTo(0, 0);
-                                }}
-                                className={`flex items-start gap-3 p-3 rounded-2xl transition-all duration-300 group/course border border-transparent ${
-                                  dark ? "hover:bg-white/5 hover:border-white/5" : "hover:bg-gray-50 hover:border-gray-100 shadow-sm hover:shadow-md"
-                                }`}
-                              >
-                                <div className="w-8 h-8 rounded-xl bg-[#84CC16]/10 flex items-center justify-center shrink-0 group-hover/course:bg-[#84CC16] transition-colors duration-300">
-                                  <div className="w-3 h-3 bg-[#84CC16] rounded-sm group-hover/course:bg-black group-hover/course:rotate-45 transition-all duration-300" />
-                                </div>
-                                <div>
-                                  <div className={`font-bold text-sm mb-1 group-hover/course:text-[#84CC16] transition-colors ${
-                                    dark ? "text-white" : "text-[#111827]"
-                                  }`}>{course.title} in Vikaspuri</div>
-                                  <div className="text-gray-400 text-[11px] font-medium">{course.type}</div>
-                                </div>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Noida Branch Column */}
-                        <div className="flex-1">
-                          <div className="text-xs font-bold text-[#84CC16] uppercase tracking-widest mb-6">Noida Branch</div>
-                          <div className="grid grid-cols-1 gap-y-3">
-                            {MEGA_MENU_DATA[activeDomain].map((course, idx) => {
-                              const noidaLink = course.link.replace(/\/$/, '') + '-noida/';
-                              return (
-                                <Link 
-                                  key={`noida-${idx}`} 
-                                  to={noidaLink || "/courses"}
-                                  onClick={() => {
-                                    setMegaMenuOpen(false);
-                                    window.scrollTo(0, 0);
-                                  }}
-                                  className={`flex items-start gap-3 p-3 rounded-2xl transition-all duration-300 group/course border border-transparent ${
-                                    dark ? "hover:bg-white/5 hover:border-white/5" : "hover:bg-gray-50 hover:border-gray-100 shadow-sm hover:shadow-md"
-                                  }`}
-                                >
-                                  <div className="w-8 h-8 rounded-xl bg-[#84CC16]/10 flex items-center justify-center shrink-0 group-hover/course:bg-[#84CC16] transition-colors duration-300">
-                                    <div className="w-3 h-3 bg-[#84CC16] rounded-sm group-hover/course:bg-black group-hover/course:rotate-45 transition-all duration-300" />
-                                  </div>
-                                  <div>
-                                    <div className={`font-bold text-sm mb-1 group-hover/course:text-[#84CC16] transition-colors ${
-                                      dark ? "text-white" : "text-[#111827]"
-                                    }`}>{course.title} in Noida</div>
-                                    <div className="text-gray-400 text-[11px] font-medium">{course.type}</div>
-                                  </div>
-                                </Link>
-                              );
-                            })}
-                          </div>
+                      <div className="w-3/4 p-10">
+                        <div className="text-xs font-bold text-[#84CC16] uppercase tracking-widest mb-6">Explore Courses</div>
+                        <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+                          {MEGA_MENU_DATA[activeDomain].map((course, idx) => (
+                            <Link 
+                              key={idx} 
+                              to={course.link || "/courses"}
+                              onClick={() => {
+                                setMegaMenuOpen(false);
+                                window.scrollTo(0, 0);
+                              }}
+                              className={`flex items-start gap-3 p-3 rounded-2xl transition-all duration-300 group/course border border-transparent ${
+                                dark ? "hover:bg-white/5 hover:border-white/5" : "hover:bg-gray-50 hover:border-gray-100 shadow-sm hover:shadow-md"
+                              }`}
+                            >
+                              <div className="w-8 h-8 rounded-xl bg-[#84CC16]/10 flex items-center justify-center shrink-0 group-hover/course:bg-[#84CC16] transition-colors duration-300">
+                                <div className="w-3 h-3 bg-[#84CC16] rounded-sm group-hover/course:bg-black group-hover/course:rotate-45 transition-all duration-300" />
+                              </div>
+                              <div>
+                                <div className={`font-bold text-sm mb-1 group-hover/course:text-[#84CC16] transition-colors ${
+                                  dark ? "text-white" : "text-[#111827]"
+                                }`}>{course.title}</div>
+                                <div className="text-gray-400 text-[11px] font-medium">{course.type}</div>
+                              </div>
+                            </Link>
+                          ))}
                         </div>
                       </div>
                     </div>

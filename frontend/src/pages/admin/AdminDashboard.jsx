@@ -73,31 +73,36 @@ export default function AdminDashboard() {
     setFetching(true);
     try {
       const leadsPromise = adminApi.get("/leads").catch(() => ({ data: { leads: [] } }));
+      const usersPromise = (isCoreAdmin || role === "receptionist" || role === "noida_receptionist") 
+        ? adminApi.get("/users").catch(() => ({ data: [] })) 
+        : Promise.resolve({ data: [] });
 
       let reviews = [], stats = [], blogs = [], courses = [], users = [], banners = [], noidaBanners = [];
       let leadsR = { data: { leads: [] } };
 
       if (isCoreAdmin) {
-        const [resolvedLeads, reviewsR, statsR, blogsR, coursesR, usersR, bannersR, noidaBannersR] = await Promise.all([
+        const [resolvedLeads, resolvedUsers, reviewsR, statsR, blogsR, coursesR, bannersR, noidaBannersR] = await Promise.all([
           leadsPromise,
+          usersPromise,
           adminApi.get("/reviews").catch(() => ({ data: [] })),
           adminApi.get("/stats").catch(() => ({ data: [] })),
           adminApi.get("/blogs").catch(() => ({ data: [] })),
           adminApi.get("/courses").catch(() => ({ data: [] })),
-          adminApi.get("/users").catch(() => ({ data: [] })),
           adminApi.get("/banners").catch(() => ({ data: { data: [] } })),
           adminApi.get("/noida-banners").catch(() => ({ data: [] })),
         ]);
         leadsR = resolvedLeads;
+        users = resolvedUsers.data || [];
         reviews = reviewsR.data || [];
         stats = statsR.data || [];
         blogs = blogsR.data || [];
         courses = coursesR.data || [];
-        users = usersR.data || [];
         banners = bannersR.data?.data || bannersR.data || [];
         noidaBanners = noidaBannersR.data || [];
       } else {
-        leadsR = await leadsPromise;
+        const [resolvedLeads, resolvedUsers] = await Promise.all([leadsPromise, usersPromise]);
+        leadsR = resolvedLeads;
+        users = resolvedUsers.data || [];
       }
 
       setData({
@@ -106,7 +111,7 @@ export default function AdminDashboard() {
       });
     } catch { /* handled per-request */ }
     setFetching(false);
-  }, [isCoreAdmin]);
+  }, [isCoreAdmin, role]);
 
   useEffect(() => {
     if (isAuthenticated && !didFetch.current) {
@@ -422,17 +427,19 @@ export default function AdminDashboard() {
             <div className="p-6 overflow-y-auto space-y-4">
               <p className="text-sm text-slate-500">Select a counselor to assign to {assignTarget.type === "bulk" ? `${assignTarget.ids.length} leads` : "this lead"}.</p>
               <div className="space-y-2">
-                {data.users.filter(u => u.role.includes("counselor") && u.is_active).map(counselor => (
+                {data.users
+                  .filter(u => u.role.includes("counselor") && u.is_active)
+                  .map(counselor => (
                   <button 
                     key={counselor.id}
                     onClick={() => handleAssign(counselor.id)}
                     className="w-full text-left px-4 py-3 bg-slate-50 hover:bg-lime-50 hover:text-lime-700 rounded-xl transition-colors font-medium text-slate-700 border border-slate-100 hover:border-lime-200"
                   >
-                    {counselor.display_name || counselor.username} <span className="text-[10px] uppercase ml-2 text-slate-400">({counselor.role})</span>
+                    {counselor.display_name || counselor.username} <span className="text-[10px] uppercase ml-2 text-slate-400">({counselor.role === "noida_counselor" ? "Noida Counselor" : "Delhi Counselor"})</span>
                   </button>
                 ))}
                 {data.users.filter(u => u.role.includes("counselor") && u.is_active).length === 0 && (
-                  <p className="text-sm text-red-500 font-medium">No active counselors found.</p>
+                  <p className="text-sm text-red-500 font-medium">No active counselors found. Please create a user with the corresponding Counselor role.</p>
                 )}
               </div>
             </div>
@@ -835,9 +842,17 @@ function TeamTable({ users, onDelete, onEdit, isCoreAdmin }) {
                 "px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-widest",
                 u.role === "core" ? "bg-red-50 text-red-600 border border-red-100" : 
                 u.role === "noida_counselor" ? "bg-amber-50 text-amber-600 border border-amber-100" :
-                "bg-blue-50 text-blue-600 border border-blue-100"
+                u.role === "counselor" ? "bg-blue-50 text-blue-600 border border-blue-100" :
+                u.role === "noida_receptionist" ? "bg-purple-50 text-purple-600 border border-purple-100" :
+                u.role === "receptionist" ? "bg-indigo-50 text-indigo-600 border border-indigo-100" :
+                "bg-gray-50 text-gray-600 border border-gray-200"
               )}>
-                {u.role === "core" ? "Core Admin" : u.role === "noida_counselor" ? "Noida Counselor" : "Delhi Counselor"}
+                {u.role === "core" ? "Core Admin" : 
+                 u.role === "noida_counselor" ? "Noida Counselor" : 
+                 u.role === "counselor" ? "Delhi Counselor" : 
+                 u.role === "noida_receptionist" ? "Noida Receptionist" :
+                 u.role === "receptionist" ? "Delhi Receptionist" : 
+                 u.role}
               </span>
             </Td>
             <Td>
