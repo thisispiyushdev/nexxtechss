@@ -161,7 +161,7 @@ export default function SabaDataScienceTrainerPage() {
             <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/10">
               <p className="text-sm text-gray-500 font-medium">
                 <span className="text-gray-700 dark:text-gray-300 mr-2">Tags:</span>
-                best data science trainer in delhi, machine learning course delhi, python data analytics expert, big data training, AI mentor
+                <a href="https://www.nexxtechs.com/tag/best-data-science-trainer-in-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">best data science trainer in delhi</a>,  <a href="https://www.nexxtechs.com/tag/machine-learning-course-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">machine learning course delhi</a>,  <a href="https://www.nexxtechs.com/tag/python-data-analytics-expert" className="text-gray-500 hover:text-[#84CC16] underline transition">python data analytics expert</a>,  <a href="https://www.nexxtechs.com/tag/big-data-training" className="text-gray-500 hover:text-[#84CC16] underline transition">big data training</a>,  <a href="https://www.nexxtechs.com/tag/ai-mentor" className="text-gray-500 hover:text-[#84CC16] underline transition">AI mentor</a>
               </p>
             </div>
           </div>

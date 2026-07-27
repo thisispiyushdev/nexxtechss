@@ -161,7 +161,7 @@ export default function SagarDigitalMarketingTrainerPage() {
             <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/10">
               <p className="text-sm text-gray-500 font-medium">
                 <span className="text-gray-700 dark:text-gray-300 mr-2">Tags:</span>
-                best digital marketing trainer in delhi, digital marketing course delhi, performance marketing expert, seo trainer, google ads training
+                <a href="https://www.nexxtechs.com/tag/best-digital-marketing-trainer-in-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">best digital marketing trainer in delhi</a>,  <a href="https://www.nexxtechs.com/tag/digital-marketing-course-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">digital marketing course delhi</a>,  <a href="https://www.nexxtechs.com/tag/performance-marketing-expert" className="text-gray-500 hover:text-[#84CC16] underline transition">performance marketing expert</a>,  <a href="https://www.nexxtechs.com/tag/seo-trainer" className="text-gray-500 hover:text-[#84CC16] underline transition">seo trainer</a>,  <a href="https://www.nexxtechs.com/tag/google-ads-training" className="text-gray-500 hover:text-[#84CC16] underline transition">google ads training</a>
               </p>
             </div>
           </div>

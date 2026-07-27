@@ -161,7 +161,7 @@ export default function NitiPersonalDevelopmentTrainerPage() {
             <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/10">
               <p className="text-sm text-gray-500 font-medium">
                 <span className="text-gray-700 dark:text-gray-300 mr-2">Tags:</span>
-                best personal development trainer in delhi, soft skills course delhi, communication mastery, executive presence, interview preparation
+                <a href="https://www.nexxtechs.com/tag/best-personal-development-trainer-in-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">best personal development trainer in delhi</a>,  <a href="https://www.nexxtechs.com/tag/soft-skills-course-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">soft skills course delhi</a>,  <a href="https://www.nexxtechs.com/tag/communication-mastery" className="text-gray-500 hover:text-[#84CC16] underline transition">communication mastery</a>,  <a href="https://www.nexxtechs.com/tag/executive-presence" className="text-gray-500 hover:text-[#84CC16] underline transition">executive presence</a>,  <a href="https://www.nexxtechs.com/tag/interview-preparation" className="text-gray-500 hover:text-[#84CC16] underline transition">interview preparation</a>
               </p>
             </div>
           </div>

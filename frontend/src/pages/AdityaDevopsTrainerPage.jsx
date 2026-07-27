@@ -137,7 +137,7 @@ export default function AdityaDevopsTrainerPage() {
             <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/10">
               <p className="text-sm text-gray-500 font-medium">
                 <span className="text-gray-700 dark:text-gray-300 mr-2">Tags:</span>
-                best devops trainer in delhi ncr, devops course delhi, kubernetes expert, site reliability engineer training
+                <a href="https://www.nexxtechs.com/tag/best-devops-trainer-in-delhi-ncr" className="text-gray-500 hover:text-[#84CC16] underline transition">best devops trainer in delhi ncr</a>,  <a href="https://www.nexxtechs.com/tag/devops-course-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">devops course delhi</a>,  <a href="https://www.nexxtechs.com/tag/kubernetes-expert" className="text-gray-500 hover:text-[#84CC16] underline transition">kubernetes expert</a>,  <a href="https://www.nexxtechs.com/tag/site-reliability-engineer-training" className="text-gray-500 hover:text-[#84CC16] underline transition">site reliability engineer training</a>
               </p>
             </div>
           </div>

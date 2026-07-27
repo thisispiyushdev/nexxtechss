@@ -161,7 +161,7 @@ export default function MegheshCyberSecurityTrainerPage() {
             <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/10">
               <p className="text-sm text-gray-500 font-medium">
                 <span className="text-gray-700 dark:text-gray-300 mr-2">Tags:</span>
-                best cyber security trainer in delhi, ethical hacking course delhi, penetration testing expert, siem trainer, devsecops training
+                <a href="https://www.nexxtechs.com/tag/best-cyber-security-trainer-in-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">best cyber security trainer in delhi</a>,  <a href="https://www.nexxtechs.com/tag/ethical-hacking-course-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">ethical hacking course delhi</a>,  <a href="https://www.nexxtechs.com/tag/penetration-testing-expert" className="text-gray-500 hover:text-[#84CC16] underline transition">penetration testing expert</a>,  <a href="https://www.nexxtechs.com/tag/siem-trainer" className="text-gray-500 hover:text-[#84CC16] underline transition">siem trainer</a>,  <a href="https://www.nexxtechs.com/tag/devsecops-training" className="text-gray-500 hover:text-[#84CC16] underline transition">devsecops training</a>
               </p>
             </div>
           </div>

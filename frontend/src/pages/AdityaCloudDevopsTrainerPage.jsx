@@ -120,7 +120,7 @@ export default function AdityaCloudDevopsTrainerPage() {
             <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/10">
               <p className="text-sm text-gray-500 font-medium">
                 <span className="text-gray-700 dark:text-gray-300 mr-2">Tags:</span>
-                best cloud devops trainer in delhi, best cloud computing trainer in noida ncr, aws expert, kubernetes training delhi
+                <a href="https://www.nexxtechs.com/tag/best-cloud-devops-trainer-in-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">best cloud devops trainer in delhi</a>,  <a href="https://www.nexxtechs.com/tag/best-cloud-computing-trainer-in-noida-ncr" className="text-gray-500 hover:text-[#84CC16] underline transition">best cloud computing trainer in noida ncr</a>,  <a href="https://www.nexxtechs.com/tag/aws-expert" className="text-gray-500 hover:text-[#84CC16] underline transition">aws expert</a>,  <a href="https://www.nexxtechs.com/tag/kubernetes-training-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">kubernetes training delhi</a>
               </p>
             </div>
           </div>

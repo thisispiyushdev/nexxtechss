@@ -161,7 +161,7 @@ export default function SurajGraphicDesignTrainerPage() {
             <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/10">
               <p className="text-sm text-gray-500 font-medium">
                 <span className="text-gray-700 dark:text-gray-300 mr-2">Tags:</span>
-                best graphic design trainer in delhi, ui ux course delhi, figma expert, product design training, visual hierarchy
+                <a href="https://www.nexxtechs.com/tag/best-graphic-design-trainer-in-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">best graphic design trainer in delhi</a>,  <a href="https://www.nexxtechs.com/tag/ui-ux-course-delhi" className="text-gray-500 hover:text-[#84CC16] underline transition">ui ux course delhi</a>,  <a href="https://www.nexxtechs.com/tag/figma-expert" className="text-gray-500 hover:text-[#84CC16] underline transition">figma expert</a>,  <a href="https://www.nexxtechs.com/tag/product-design-training" className="text-gray-500 hover:text-[#84CC16] underline transition">product design training</a>,  <a href="https://www.nexxtechs.com/tag/visual-hierarchy" className="text-gray-500 hover:text-[#84CC16] underline transition">visual hierarchy</a>
               </p>
             </div>
           </div>
