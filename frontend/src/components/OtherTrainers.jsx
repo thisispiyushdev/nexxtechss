@@ -8,6 +8,9 @@ const trainersList = [
   { name: "Suraj Rewadia", role: "UI/UX & Graphic Design", path: "/best-graphic-design-trainer-in-delhi" },
   { name: "Niti Gupta Mam", role: "Personal Development", path: "/best-personal-development-trainer-in-delhi" },
   { name: "Saba Hussain", role: "Data Science", path: "/best-data-science-trainer-in-delhi" },
+  { name: "Suraj Rewadia (Noida)", role: "Animation & VFX", path: "/best-animation-filmmaking-vfx-graphic-uiux-video-editing-trainer-in-noida" },
+  { name: "Aditya Sharma (Noida)", role: "Cyber Security", path: "/best-cyber-security-trainer-in-noida" },
+  { name: "Niti Gupta Mam (Noida)", role: "Personal Development", path: "/best-personal-development-trainer-in-noida" },
 ];
 
 export default function OtherTrainers({ currentTrainerPath }) {

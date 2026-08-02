@@ -236,6 +236,9 @@ function App() {
                   <Route path="/best-personal-development-trainer-in-delhi" element={<NitiPersonalDevelopmentTrainerPage />} />
                   <Route path="/best-data-science-trainer-in-delhi" element={<SabaDataScienceTrainerPage />} />
                   <Route path="/best-data-analytics-trainer-in-delhi" element={<SabaDataAnalyticsTrainerPage />} />
+                  <Route path="/best-animation-filmmaking-vfx-graphic-uiux-video-editing-trainer-in-noida" element={<TopTrainersPage />} />
+                  <Route path="/best-cyber-security-trainer-in-noida" element={<TopTrainersPage />} />
+                  <Route path="/best-personal-development-trainer-in-noida" element={<TopTrainersPage />} />
             
             <Route path="/cyberhooks" element={<CyberHooks />} />
                   <Route path="/course/:slug" element={<CourseDetail />} />
