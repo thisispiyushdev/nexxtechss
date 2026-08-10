@@ -360,6 +360,49 @@ If you are searching for the best SAP institute in Delhi, best SAP institute in 
       { name: "Module 6: Interview Strategy & System Design Basics", topics: ["How to approach unknown problems", "Writing clean, production-ready code", "Communicating trade-offs", "High-level System Design concepts", "Load Balancing & Caching", "Database Scaling Basics"] },
     ],
   },
+  {
+    slug: "gen-ai",
+    title: "Generative AI",
+    isPopular: true,
+    image: "/course-images/Data-Science.webp", 
+    tagline: "Build production-ready AI applications & Autonomous Agents",
+    duration: "4 Months",
+    level: "Intermediate to Advanced",
+    batchTimings: ["Mon-Fri: 10 AM - 12 PM", "Sat-Sun: 10 AM - 1 PM"],
+    overview: "Master Generative AI, Large Language Models, Prompt Engineering, RAG, and AI Agents using Python, LangChain, and LlamaIndex. Learn to build, fine-tune and deploy real-world AI applications from scratch.",
+    highlights: ["Build AI Agents & Chatbots", "RAG Pipeline Implementation", "LangChain & LlamaIndex", "Production Deployment (MLOps)"],
+    trendingTools: ["OpenAI API", "Gemini", "Claude", "LangChain", "LlamaIndex", "ChromaDB", "FastAPI"],
+    modules: [
+      { name: "Module 1: AI & Generative AI Fundamentals", topics: ["Artificial Intelligence vs ML vs Deep Learning vs Gen AI", "Generative AI kya hai & Kaise work karta hai", "Neural Networks basics & Transformers architecture", "Tokens, embeddings & context window", "LLM kya hai? Popular LLMs and AI models", "Generative AI use cases"] },
+      { name: "Module 2: Python for Gen AI", topics: ["Python fundamentals, Functions & modules", "Lists, dictionaries, tuples & File handling", "Exception handling & OOP basics", "Virtual environments & pip", "APIs ke saath Python & JSON handling"] },
+      { name: "Module 3: Prompt Engineering", topics: ["Zero-shot, One-shot & few-shot prompting", "Role prompting & Chain-of-thought", "Structured prompting & Context engineering", "Prompt templates & Output formatting", "Prompt evaluation, optimization & Advanced techniques"] },
+      { name: "Module 4: LLMs & APIs", topics: ["OpenAI / Gemini / Claude APIs & Authentication", "Chat completion & System instructions", "Temperature & model parameters", "Streaming responses & Function/tool calling", "Structured JSON outputs & Building an LLM app"] },
+      { name: "Module 5: Embeddings & Vector Databases", topics: ["What are embeddings? Text embeddings", "Semantic search & Similarity search", "Vector databases: ChromaDB, FAISS, Pinecone", "Metadata & filtering", "Creating a semantic search application"] },
+      { name: "Module 6: RAG (Retrieval Augmented Generation)", topics: ["What is RAG? Document ingestion", "PDF/Text/Website data extraction", "Chunking strategies & Embedding generation", "Vector storage, Retrieval & Context injection", "RAG pipeline, evaluation & optimization", "Project: AI PDF Chatbot"] },
+      { name: "Module 7: LangChain / LlamaIndex", topics: ["LangChain fundamentals: Models, Prompts, Chains", "Retrievers, Document loaders & Text splitters", "Vector stores, Memory & Tools", "Agents & LlamaIndex basics", "Building production-ready AI workflows"] },
+      { name: "Module 8: AI Agents", topics: ["AI Agent kya hai? Agent architecture", "Tools & function calling & Tool selection", "Planning, reasoning & Agent memory", "Multi-step workflows & MCP fundamentals", "Single-agent & Multi-agent systems", "Project: AI Research Agent"] },
+      { name: "Module 9: Multimodal Generative AI", topics: ["Text & Image generation", "Image understanding", "Speech-to-text & Text-to-speech", "Video generation basics", "Vision-Language Models & Multimodal applications"] },
+      { name: "Module 10: Fine-Tuning & Model Customization", topics: ["Fine-tuning vs RAG & Dataset preparation", "Training data formats", "LoRA, PEFT, QLoRA & Hugging Face", "Model evaluation & Quantization", "Local LLMs, Ollama & Running open-source LLMs"] },
+      { name: "Module 11: AI Application Development", topics: ["Building Gen AI backend with Python", "FastAPI, REST APIs & Authentication", "Database integration & Frontend integration", "Chat history & File uploads", "Streaming AI responses & Production architecture"] },
+      { name: "Module 12: Gen AI Deployment & MLOps", topics: ["Docker for AI applications", "Environment variables & secrets", "AWS basics for AI applications", "Deploying FastAPI & LLM applications", "GPU vs CPU & Model optimization", "Logging, monitoring, Cost optimization & Security"] }
+    ],
+    aboutContent: `### Course Outcome
+Course complete hone ke baad student:
+- LLM-based applications bana sakega
+- Advanced prompt engineering kar sakega
+- RAG applications develop kar sakega
+- AI agents create kar sakega
+- Open-source LLMs use/fine-tune kar sakega
+- APIs aur databases integrate kar sakega
+- Gen AI application ko production mein deploy kar sakega
+- Portfolio-ready real-world AI projects bana sakega
+
+### 🔥 Major Projects
+AI Chatbot • AI PDF Chatbot using RAG • AI Resume Analyzer • AI Content Generator • AI Research Agent • Multi-Agent AI System • End-to-End Gen AI SaaS Application
+
+### 🛠️ Tools & Technologies
+Python • OpenAI API • Gemini API • Claude • Hugging Face • LangChain • LlamaIndex • ChromaDB • FAISS • Pinecone • FastAPI • Ollama • Docker • Git/GitHub • AWS`
+  },
 ];
 
 // Add brochure URLs to course data

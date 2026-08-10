@@ -123,7 +123,7 @@ export default function NoidaEnquiryBanner({
       data-testid="enquiry-section"
     >
       {/* Background Images with Overlay - Top Banner on mobile, absolute on desktop */}
-      <div className={`relative w-full ${compact ? 'h-64 lg:h-full' : 'aspect-video lg:aspect-auto'} lg:absolute lg:inset-0 lg:h-full lg:w-full z-0`}>
+      <div className={`hidden lg:block relative w-full ${compact ? 'h-64 lg:h-full' : 'aspect-video lg:aspect-auto'} lg:absolute lg:inset-0 lg:h-full lg:w-full z-0`}>
         {banners.length > 0 ? (
           banners.map((banner, idx) => (
             <div 

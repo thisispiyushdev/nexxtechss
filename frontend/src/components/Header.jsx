@@ -35,6 +35,7 @@ const CONTACT_INFO = {
 
 const MEGA_MENU_DATA = {
   "Data Science & AI": [
+    { title: "Generative AI", type: "Professional Certification", link: "/course/gen-ai/" },
     { title: "Data Science & GenAI", type: "Job Bootcamp", link: "/course/data-science/" },
     { title: "Data Analytics", type: "Professional Certification", link: "/course/data-analytics/" },
     { title: "Machine Learning Specialist", type: "Professional Certification", link: "/course/data-science/" },

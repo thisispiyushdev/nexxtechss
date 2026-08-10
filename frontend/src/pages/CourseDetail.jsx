@@ -56,6 +56,10 @@ const COURSE_SEO = {
     title: "Best Cyber Security Course in Delhi | NexxTechs",
     description: "Master ethical hacking, network security & cyber defense with NexxTechs Cyber Security course in Delhi. Practical learning included."
   },
+  "gen-ai": {
+    title: "Generative AI Course in Delhi | NexxTechs",
+    description: "Learn Generative AI, Large Language Models, Prompt Engineering & build AI applications from scratch with NexxTechs in Delhi."
+  },
   "devops": {
     title: "DevOps Engineering Course in Delhi | NexxTechs",
     description: "Learn Docker, Kubernetes, Jenkins & CI/CD tools with practical DevOps training at NexxTechs in Delhi. Build industry-ready skills."
