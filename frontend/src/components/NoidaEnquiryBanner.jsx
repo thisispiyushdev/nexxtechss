@@ -42,7 +42,8 @@ export default function NoidaEnquiryBanner({
   addressLink = "https://www.google.com/maps/search/B-54+Krishna+Park+Vikaspuri+New+Delhi+110018",
   defaultBranch = "Nexxtechs Delhi",
   className = "py-24 md:py-32 bg-transparent",
-  buttonText = "Submit Enquiry"
+  buttonText = "Submit Enquiry",
+  compact = false
 }) {
   const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: defaultBranch });
   const [loading, setLoading] = useState(false);
@@ -118,11 +119,11 @@ export default function NoidaEnquiryBanner({
   return (
     <section
       id="enquiry"
-      className="relative flex flex-col lg:block overflow-hidden bg-gray-50 dark:bg-[#111827] lg:bg-[#111827] lg:aspect-video lg:py-0"
+      className={`relative flex flex-col lg:block overflow-hidden bg-gray-50 dark:bg-[#111827] lg:bg-[#111827] ${compact ? 'lg:py-16' : 'lg:aspect-video lg:py-0'}`}
       data-testid="enquiry-section"
     >
       {/* Background Images with Overlay - Top Banner on mobile, absolute on desktop */}
-      <div className="relative w-full aspect-video lg:absolute lg:inset-0 lg:h-full lg:w-full z-0 lg:aspect-auto">
+      <div className={`relative w-full ${compact ? 'h-64 lg:h-full' : 'aspect-video lg:aspect-auto'} lg:absolute lg:inset-0 lg:h-full lg:w-full z-0`}>
         {banners.length > 0 ? (
           banners.map((banner, idx) => (
             <div 
@@ -152,16 +153,16 @@ export default function NoidaEnquiryBanner({
         </div>
       </div>
       
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 py-8 lg:py-0 lg:h-full flex items-center">
+      <div className={`relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 py-8 lg:py-0 ${compact ? '' : 'lg:h-full'} flex items-center`}>
         {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center w-full">
+        <div className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-center w-full ${compact ? 'py-8' : ''}`}>
           
           {/* Left Side: Banner Text or Empty Space */}
-          {banners.length > 0 ? (
+          {banners.length > 0 || compact ? (
             <div className="hidden lg:block"></div>
           ) : (
             <div className="space-y-4 sm:space-y-6 md:space-y-8 z-10 lg:pl-0">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-[#111827] dark:text-white lg:text-white leading-[1.2] tracking-tight">
+              <h2 className={`font-extrabold text-[#111827] dark:text-white lg:text-white leading-[1.2] tracking-tight ${compact ? 'text-3xl sm:text-4xl lg:text-4xl' : 'text-3xl sm:text-4xl md:text-5xl lg:text-5xl'}`}>
                 Level Up Your <span className="text-[#FFD700]">Skills,</span><br/>
                 Invest In Skills For a <span className="text-[#FFD700]">Future-Proof Growth</span>
               </h2>

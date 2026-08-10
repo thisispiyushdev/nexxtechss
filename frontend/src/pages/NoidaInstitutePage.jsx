@@ -2,20 +2,25 @@ import React, { Suspense, lazy } from "react";
 import PageTransition from "@/components/PageTransition";
 import SEOHead from "@/components/SEOHead";
 import NoidaEnquiryBanner from "@/components/NoidaEnquiryBanner";
+import NoidaHeroSection from "@/components/NoidaHeroSection";
 import EnquiryForm from "@/components/EnquiryForm";
 
 // Lazy load other components to maintain performance
+const NoidaWhyChooseUs = lazy(() => import("@/components/NoidaSEOContent").then(module => ({ default: module.NoidaWhyChooseUs })));
+const NoidaPracticalTraining = lazy(() => import("@/components/NoidaSEOContent").then(module => ({ default: module.NoidaPracticalTraining })));
+const NoidaWhoCanJoin = lazy(() => import("@/components/NoidaSEOContent").then(module => ({ default: module.NoidaWhoCanJoin })));
+const NoidaLocation = lazy(() => import("@/components/NoidaSEOContent").then(module => ({ default: module.NoidaLocation })));
+const NoidaTestimonials = lazy(() => import("@/components/NoidaSEOContent").then(module => ({ default: module.NoidaTestimonials })));
+
 const CoursesGrid = lazy(() => import("@/components/CoursesGrid"));
 const CareerTransformation = lazy(() => import("@/components/CareerTransformation"));
-const VideoTestimonials = lazy(() => import("@/components/VideoTestimonials"));
-const WhyChooseUs = lazy(() => import("@/components/WhyChooseUs"));
+const CoursePlacementStats = lazy(() => import("@/components/CoursePlacementStats"));
 const ComparisonSection = lazy(() => import("@/components/ComparisonSection"));
 const StudentProjects = lazy(() => import("@/components/StudentProjects"));
 const PlacementSuccess = lazy(() => import("@/components/PlacementSuccess"));
 const TrainingPartners = lazy(() => import("@/components/TrainingPartners"));
 const TextRevealAnimation = lazy(() => import("@/components/TextRevealAnimation"));
 const FAQ = lazy(() => import("@/components/FAQ"));
-const CoursePlacementStats = lazy(() => import("@/components/CoursePlacementStats"));
 
 const NOIDA_FAQ_DATA = [
   {
@@ -44,23 +49,13 @@ export default function NoidaInstitutePage() {
   return (
     <PageTransition>
       <SEOHead
-        title="Top IT Training Institute in Noida – Nexxtechs"
-        description="Join Nexxtechs in Noida for top-notch IT training programs and industry experts. Providing Placement, Certification and affordable fees."
+        title="Best IT Training Institute in Noida | Nexxtechs"
+        description="Join Nexxtechs Noida for practical IT training in Data Science, AI, Cyber Security, Cloud Computing, DevOps and Full Stack Development with expert trainers and live projects."
         canonical="/nexxtechs-noida"
       />
       
-      {/* First Section: Enquiry Form */}
-      <div className="pt-2">
-        <NoidaEnquiryBanner 
-          titleText="Nexxtechs" 
-          highlightText="Noida"
-          addressText="B-136 Upper, Ground floor, B Block, Sector 2,<br/>Noida, Uttar Pradesh 201301"
-          addressLink="https://www.google.com/maps/search/B-136+Upper,+Ground+floor,+B+Block,+Sector+2,+Noida,+Uttar+Pradesh+201301" 
-          defaultBranch="Nexxtechs Noida"
-          className="pt-6 pb-24 md:pt-10 md:pb-32 bg-transparent"
-          buttonText="Book Free Demo"
-        />
-      </div>
+      {/* First Section: Hero Section */}
+      <NoidaHeroSection />
 
       {/* Rest of the standard offerings */}
       <Suspense fallback={
@@ -70,17 +65,32 @@ export default function NoidaInstitutePage() {
       }>
         <CoursesGrid layout="marquee" />
       </Suspense>
+
+      <div className="py-4">
+        <NoidaEnquiryBanner 
+          titleText="Nexxtechs" 
+          highlightText="Noida"
+          addressText="B-136 Upper, Ground floor, B Block, Sector 2,<br/>Noida, Uttar Pradesh 201301"
+          addressLink="https://www.google.com/maps/search/B-136+Upper,+Ground+floor,+B+Block,+Sector+2,+Noida,+Uttar+Pradesh+201301" 
+          defaultBranch="Nexxtechs Noida"
+          buttonText="Book Free Demo"
+          compact={true}
+        />
+      </div>
       <Suspense fallback={null}>
-        <WhyChooseUs />
+        <NoidaWhyChooseUs />
       </Suspense>
       <Suspense fallback={null}>
         <CareerTransformation />
       </Suspense>
       <Suspense fallback={null}>
+        <NoidaPracticalTraining />
+      </Suspense>
+      <Suspense fallback={null}>
         <CoursePlacementStats />
       </Suspense>
       <Suspense fallback={null}>
-        <VideoTestimonials />
+        <NoidaWhoCanJoin />
       </Suspense>
       <Suspense fallback={null}>
         <ComparisonSection />
@@ -92,10 +102,16 @@ export default function NoidaInstitutePage() {
         <PlacementSuccess />
       </Suspense>
       <Suspense fallback={null}>
+        <NoidaLocation />
+      </Suspense>
+      <Suspense fallback={null}>
         <TrainingPartners />
       </Suspense>
       <Suspense fallback={null}>
         <TextRevealAnimation />
+      </Suspense>
+      <Suspense fallback={null}>
+        <NoidaTestimonials />
       </Suspense>
       <Suspense fallback={null}>
         <EnquiryForm />
