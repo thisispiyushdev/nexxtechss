@@ -47,7 +47,7 @@ export default function AdminDashboard() {
       { id: "delhi_leads", label: "Delhi Leads", icon: ClipboardList, desc: "Delhi Enquiries" },
       { id: "noida_leads", label: "Noida Leads", icon: ClipboardList, desc: "Noida Enquiries" },
     ] : [
-      { id: "leads", label: role === "noida_counselor" ? "Noida Leads" : "Delhi Leads", icon: ClipboardList, desc: "Assigned enquiries" }
+      { id: "leads", label: (role === "noida_counselor" || role === "noida_receptionist") ? "Noida Leads" : "Delhi Leads", icon: ClipboardList, desc: "Assigned enquiries" }
     ]),
     ...(isCoreAdmin ? [
       { id: "placements", label: "Placements", icon: Trophy, desc: "Reviews & Stats" },
@@ -267,7 +267,7 @@ export default function AdminDashboard() {
         <div className="flex items-center gap-3 md:gap-6">
           <div className="hidden sm:flex flex-col items-end">
             <span className="text-xs font-bold uppercase tracking-wider text-lime-500 bg-lime-500/10 px-2 py-0.5 rounded border border-lime-500/20">
-              {isCoreAdmin ? "Core Admin" : (role === "noida_counselor" ? "Noida Counselor" : "Delhi Counselor")}
+              {isCoreAdmin ? "Core Admin" : ((role === "noida_counselor" || role === "noida_receptionist") ? "Noida Counselor" : "Delhi Counselor")}
             </span>
           </div>
           <button 
@@ -290,7 +290,7 @@ export default function AdminDashboard() {
         )}>
           <div className="px-4 mb-6 md:hidden">
              <span className="text-xs font-bold uppercase tracking-wider text-lime-600 bg-lime-50 px-2 py-1 rounded border border-lime-100">
-              {isCoreAdmin ? "Core Admin" : (role === "noida_counselor" ? "Noida Counselor" : "Delhi Counselor")}
+              {isCoreAdmin ? "Core Admin" : ((role === "noida_counselor" || role === "noida_receptionist") ? "Noida Counselor" : "Delhi Counselor")}
             </span>
           </div>
           
@@ -468,9 +468,9 @@ export default function AdminDashboard() {
 
   function openCreateModal() {
     const templates = {
-      leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: role === "noida_receptionist" ? "Nexxtechs Noida" : "Nexxtechs Delhi", source: "Walk-in" } },
-      delhi_leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: "Nexxtechs Delhi", source: "Walk-in" } },
-      noida_leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: "Nexxtechs Noida", source: "Walk-in" } },
+      leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: role === "noida_receptionist" ? "Nexxtechs Noida" : "Nexxtechs Delhi", source: "Self Visit" } },
+      delhi_leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: "Nexxtechs Delhi", source: "Self Visit" } },
+      noida_leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: "Nexxtechs Noida", source: "Self Visit" } },
       placements: { title: "Add Review", type: "review", data: { name: "", role: "", company: "", image: "", text: "", is_active: true, sort_order: 0 } },
       blogs: { title: "Add Blog", type: "blog", data: { id: "", title: "", excerpt: "", author: "NexxTechs", date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }), category: "Our blog", read_time: "5 min read", image: "", content: "", is_active: true } },
       courses: { title: "Add Course", type: "course", data: { slug: "", title: "", tagline: "", image: "", duration: "", level: "", overview: "", is_popular: false, is_trending: false, is_active: true, batch_timings: [], highlights: [], trending_tools: [], modules: [], brochure_url: "", sort_order: 0 } },
@@ -1023,6 +1023,9 @@ function ModalForm({ modal, onSave, role: currentUserRole }) {
     if (modal.type === "user" && submitForm.role?.includes("receptionist") && !submitForm.display_name) {
       submitForm.display_name = "Receptionist";
     }
+    if (modal.type === "lead" && submitForm.source === "Other") {
+      submitForm.source = submitForm.source_description ? `Other - ${submitForm.source_description}` : "Other";
+    }
 
     await onSave(modal.method, endpoints[modal.type], submitForm, modal.type);
     setIsSubmitting(false);
@@ -1043,9 +1046,14 @@ function ModalForm({ modal, onSave, role: currentUserRole }) {
               value={form.source} 
               onChange={e => set("source", e.target.value)}
             >
-              <option value="Walk-in">Walk-in</option>
-              <option value="Phone Call">Phone Call</option>
-              <option value="WhatsApp">WhatsApp</option>
+              <option value="Self Visit">Self Visit</option>
+              <option value="Inbound Call">Inbound Call</option>
+              <option value="Marketing Executive">Marketing Executive</option>
+              <option value="WhatsApp Chat">WhatsApp Chat</option>
+              <option value="Web Application">Web Application</option>
+              <option value="Reference">Reference</option>
+              <option value="Converted">Converted</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <div className="space-y-1.5">
@@ -1060,6 +1068,9 @@ function ModalForm({ modal, onSave, role: currentUserRole }) {
             </select>
           </div>
         </div>
+        {form.source === "Other" && (
+          <Field label="Other Description" value={form.source_description || ""} onChange={v => set("source_description", v)} required />
+        )}
       </div>
     );
 
