@@ -76,6 +76,15 @@ const NitiPersonalDevelopmentTrainerPage = lazy(() => import("@/pages/NitiPerson
 const SabaDataScienceTrainerPage = lazy(() => import("@/pages/SabaDataScienceTrainerPage"));
 const AdityaCloudDevopsTrainerPage = lazy(() => import("@/pages/AdityaCloudDevopsTrainerPage"));
 const SabaDataAnalyticsTrainerPage = lazy(() => import("@/pages/SabaDataAnalyticsTrainerPage"));
+const AdityaDevopsTrainerPageNoida = lazy(() => import("@/pages/AdityaDevopsTrainerPageNoida"));
+const AdityaCloudTrainerPageNoida = lazy(() => import("@/pages/AdityaCloudTrainerPageNoida"));
+const AdityaCloudDevopsTrainerPageNoida = lazy(() => import("@/pages/AdityaCloudDevopsTrainerPageNoida"));
+const SagarDigitalMarketingTrainerPageNoida = lazy(() => import("@/pages/SagarDigitalMarketingTrainerPageNoida"));
+const MegheshCyberSecurityTrainerPageNoida = lazy(() => import("@/pages/MegheshCyberSecurityTrainerPageNoida"));
+const SurajGraphicDesignTrainerPageNoida = lazy(() => import("@/pages/SurajGraphicDesignTrainerPageNoida"));
+const NitiPersonalDevelopmentTrainerPageNoida = lazy(() => import("@/pages/NitiPersonalDevelopmentTrainerPageNoida"));
+const SabaDataScienceTrainerPageNoida = lazy(() => import("@/pages/SabaDataScienceTrainerPageNoida"));
+const SabaDataAnalyticsTrainerPageNoida = lazy(() => import("@/pages/SabaDataAnalyticsTrainerPageNoida"));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
 // Basic loading fallback
@@ -236,11 +245,16 @@ function App() {
                   <Route path="/best-personal-development-trainer-in-delhi" element={<NitiPersonalDevelopmentTrainerPage />} />
                   <Route path="/best-data-science-trainer-in-delhi" element={<SabaDataScienceTrainerPage />} />
                   <Route path="/best-data-analytics-trainer-in-delhi" element={<SabaDataAnalyticsTrainerPage />} />
-                  <Route path="/best-animation-filmmaking-vfx-graphic-uiux-video-editing-trainer-in-noida" element={<TopTrainersPage />} />
-                  <Route path="/best-cyber-security-trainer-in-noida" element={<TopTrainersPage />} />
-                  <Route path="/best-personal-development-trainer-in-noida" element={<TopTrainersPage />} />
-            
-            <Route path="/cyberhooks" element={<CyberHooks />} />
+                  <Route path="/best-devops-trainer-in-noida" element={<AdityaDevopsTrainerPageNoida />} />
+                  <Route path="/best-cloud-computing-trainer-in-noida" element={<AdityaCloudTrainerPageNoida />} />
+                  <Route path="/best-cloud-devops-trainer-in-noida" element={<AdityaCloudDevopsTrainerPageNoida />} />
+                  <Route path="/best-digital-marketing-trainer-in-noida" element={<SagarDigitalMarketingTrainerPageNoida />} />
+                  <Route path="/best-cyber-security-trainer-in-noida" element={<MegheshCyberSecurityTrainerPageNoida />} />
+                  <Route path="/best-graphic-design-trainer-in-noida" element={<SurajGraphicDesignTrainerPageNoida />} />
+                  <Route path="/best-personal-development-trainer-in-noida" element={<NitiPersonalDevelopmentTrainerPageNoida />} />
+                  <Route path="/best-data-science-trainer-in-noida" element={<SabaDataScienceTrainerPageNoida />} />
+                  <Route path="/best-data-analytics-trainer-in-noida" element={<SabaDataAnalyticsTrainerPageNoida />} />
+                  <Route path="/cyberhooks" element={<CyberHooks />} />
                   <Route path="/course/:slug" element={<CourseDetail />} />
                   <Route path="/top-5-cloud-computing-trainers-in-india" element={<TopTrainersPage />} />
                   <Route path="/top-5-devops-trainers-in-india" element={<TopTrainersPage />} />
@@ -250,6 +264,15 @@ function App() {
                   <Route path="/top-5-personal-development-trainers-in-india" element={<TopTrainersPage />} />
                   <Route path="/top-5-data-science-trainers-in-india" element={<TopTrainersPage />} />
                   <Route path="/top-5-data-analytics-trainers-in-india" element={<TopTrainersPage />} />
+                  
+                  <Route path="/top-5-cloud-computing-trainers-in-noida" element={<TopTrainersPage />} />
+                  <Route path="/top-5-devops-trainers-in-noida" element={<TopTrainersPage />} />
+                  <Route path="/top-5-digital-marketing-trainers-in-noida" element={<TopTrainersPage />} />
+                  <Route path="/top-5-cyber-security-trainers-in-noida" element={<TopTrainersPage />} />
+                  <Route path="/top-5-graphic-design-trainers-in-noida" element={<TopTrainersPage />} />
+                  <Route path="/top-5-personal-development-trainers-in-noida" element={<TopTrainersPage />} />
+                  <Route path="/top-5-data-science-trainers-in-noida" element={<TopTrainersPage />} />
+                  <Route path="/top-5-data-analytics-trainers-in-noida" element={<TopTrainersPage />} />
                   <Route path="/nexxtechs-noida" element={<NoidaInstitutePage />} />
 
                   {/* Catch-all 404 Route */}
