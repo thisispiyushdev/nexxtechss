@@ -9,8 +9,8 @@ export default function PlacementPage() {
   return (
     <PageTransition>
       <SEOHead
-        title="Placement Success & 95% Placement Rate | NexxTechs"
-        description="See how 5000+ students got placed at top MNCs. NexxTechs provides 100% placement support for all IT training courses in Delhi."
+        title="Placement Success – 95% Placement Rate | NexxTechs"
+        description="Discover NexxTechs placement success stories. Over 5000+ students placed at top MNCs with a 95% placement rate. Check our reviews and top salary packages."
         canonical="/placement"
       />
       <Breadcrumbs items={[{ name: "Placements", path: "/placement" }]} />

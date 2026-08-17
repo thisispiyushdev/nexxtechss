@@ -10,8 +10,8 @@ export default function CareerGuidancePage() {
   return (
     <PageTransition>
       <SEOHead
-        title="Career Guidance & IT Counseling | NexxTechs Delhi"
-        description="Get free IT career advice and personalized roadmaps for DevOps, Data Science, and Cloud at NexxTechs Vikaspuri. Book your session!"
+        title="Free IT Career Guidance & Counseling | NexxTechs"
+        description="Get free IT career counseling from NexxTechs experts. Receive personalized guidance to choose the right tech course and accelerate your career in New Delhi."
         canonical="/career-guidance"
       />
       <Breadcrumbs items={[{ name: "Career Guidance", path: "/career-guidance" }]} />

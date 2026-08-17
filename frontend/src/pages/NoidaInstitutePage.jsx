@@ -49,8 +49,8 @@ export default function NoidaInstitutePage() {
   return (
     <PageTransition>
       <SEOHead
-        title="Best IT Training Institute in Noida | Nexxtechs"
-        description="Join Nexxtechs Noida for practical IT training in Data Science, AI, Cyber Security, Cloud Computing, DevOps and Full Stack Development with expert trainers and live projects."
+        title="Top Institute for IT Training Courses in Noida – Nexxtechs"
+        description="Nexxtechs is the No.1 Training Company in Noida with top-notch IT training programs and industry experts. Providing Placement, Certification and affordable fees."
         canonical="/nexxtechs-noida"
       />
       

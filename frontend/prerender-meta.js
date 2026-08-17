@@ -192,6 +192,27 @@ const ROUTES = [
   },
 ];
 
+
+// Duplicate all /course/ routes for Noida
+const noidaRoutes = [];
+for (const route of ROUTES) {
+  if (route.path.startsWith("/course/")) {
+    noidaRoutes.push({
+      path: route.path + "-noida",
+      title: route.title.replace(/Delhi|Vikaspuri/g, "Noida"),
+      description: route.description.replace(/Delhi|Vikaspuri/g, "Noida"),
+    });
+  }
+}
+ROUTES.push(...noidaRoutes);
+
+// Add Noida Institute Page
+ROUTES.push({
+  path: "/nexxtechs-noida",
+  title: "Top Institute for IT Training Courses in Noida – Nexxtechs",
+  description: "Nexxtechs is the No.1 Training Company in Noida with top-notch IT training programs and industry experts. Providing Placement, Certification and affordable fees.",
+});
+
 async function prerenderRoutes() {
   // Fetch dynamic blogs from API and append to ROUTES
   try {
@@ -222,8 +243,8 @@ async function prerenderRoutes() {
         if (!ROUTES.some(r => r.path === path)) {
           ROUTES.push({
             path: path,
-            title: `${course.title} Course in Delhi | NexxTechs Vikaspuri`,
-            description: `Learn ${course.title} at NexxTechs Vikaspuri Delhi. Course with 100% placement assistance, real-world projects & industry certification.`
+            title: path.includes("-noida") ? `${course.title} Course in Noida | NexxTechs Noida` : `${course.title} Course in Delhi | NexxTechs Vikaspuri`,
+            description: path.includes("-noida") ? `Learn ${course.title} at NexxTechs Noida. Course with 100% placement assistance, real-world projects & industry certification.` : `Learn ${course.title} at NexxTechs Vikaspuri Delhi. Course with 100% placement assistance, real-world projects & industry certification.`
           });
         }
       });

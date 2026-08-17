@@ -16,7 +16,6 @@ export default function BlogPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    document.title = "Tech Blog | DevOps, AI, Cyber Security Guides | NexxTechs";
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
@@ -48,8 +47,8 @@ export default function BlogPage() {
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
         <SEOHead
-          title="Tech Blog & Industry Guides | NexxTechs IT Training"
-          description="Read expert guides on DevOps, AI, and Cyber Security. Career tips and industry insights from NexxTechs IT Training Delhi."
+          title="Tech Blog: AI, Cyber Security & Data Science Guide"
+          description="Read expert guides on Artificial Intelligence, Cyber Security, Data Science, and DevOps. Get top IT career insights from NexxTechs industry mentors today."
           canonical="/blog"
         />
         <Breadcrumbs items={[{ name: "Blog", path: "/blog" }]} />

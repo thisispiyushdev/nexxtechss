@@ -9,8 +9,8 @@ export default function ContactPage() {
   return (
     <PageTransition>
       <SEOHead
-        title="Contact NexxTechs | IT Training in Vikaspuri, Delhi"
-        description="Contact NexxTechs for IT course counseling. Visit our Vikaspuri Delhi campus or call +91 9217179762 for DevOps and Cloud training."
+        title="Contact Us – NexxTechs IT Training Vikaspuri Delhi"
+        description="Contact NexxTechs for course inquiries, free counseling, and enrollment. Visit us at B-54 Krishna Park, Vikaspuri, New Delhi 110018 or call +91 9217179762."
         canonical="/contact"
       />
       <Breadcrumbs items={[{ name: "Contact Us", path: "/contact" }]} />

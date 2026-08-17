@@ -691,8 +691,8 @@ export default function RoadmapPage() {
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
         <SEOHead
-          title="Career Roadmaps | IT Learning Paths | NexxTechs Delhi"
-          description="Structured career roadmaps for DevOps, Full Stack, Data Science & more. Start your IT journey with NexxTechs step-by-step guides."
+          title="Career Roadmaps for IT & Tech Careers | NexxTechs"
+          description="Follow our step-by-step career roadmaps for Data Science, DevOps, Full Stack, and Cyber Security. Plan your tech career successfully with NexxTechs Delhi."
           canonical="/roadmap"
         />
         <Breadcrumbs items={[{ name: "Roadmaps", path: "/roadmap" }]} />

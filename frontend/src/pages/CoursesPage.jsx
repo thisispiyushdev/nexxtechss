@@ -44,8 +44,8 @@ export default function CoursesPage() {
   return (
     <PageTransition>
       <SEOHead
-        title="IT Training Courses in Delhi | Cloud & DevOps | NexxTechs"
-        description="Explore 50+ IT training courses at NexxTechs Delhi. Master DevOps, Cloud, Data Science & more with placement support. Enroll today!"
+        title="Explore Top IT & Tech Courses in Delhi | NexxTechs"
+        description="Browse 50+ industry-focused IT training courses at NexxTechs Vikaspuri. Master Web Dev, Data Science, Cyber Security & AI with live projects. Enroll today!"
         canonical="/courses"
         jsonLd={itemListSchema}
       />

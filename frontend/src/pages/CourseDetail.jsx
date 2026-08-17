@@ -136,7 +136,6 @@ export default function CourseDetail() {
     setCourse(newStaticCourse);
     
     window.scrollTo(0, 0);
-    if (newStaticCourse) document.title = `${newStaticCourse.title} Course | NexxTechs – Best IT Training Vikaspuri Delhi`;
     
     setDemoPopupOpen(false);
     setDemoSubmitted(false);

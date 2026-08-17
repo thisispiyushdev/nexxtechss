@@ -89,9 +89,6 @@ export default function BlogPost() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  useEffect(() => {
-    if (blog) document.title = `${blog.title} | NexxTechs Blog`;
-  }, [blog]);
 
   if (loading && !blog) {
     return (

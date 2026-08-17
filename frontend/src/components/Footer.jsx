@@ -39,7 +39,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#0A0A0A] text-white pt-16 md:pt-20 pb-8" data-testid="footer">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        <div className="grid md:grid-cols-3 lg:grid-cols-8 gap-8 mb-12">
+        <div className="grid md:grid-cols-3 lg:grid-cols-9 gap-8 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2 md:col-span-3 lg:pr-4">
             <img 
@@ -100,23 +100,23 @@ export default function Footer() {
           </div>
 
           {/* Courses */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <h4 className="font-bold text-white text-base mb-5">Courses in Vikaspuri</h4>
+                <h4 className="font-bold text-white text-base mb-5">Courses in Delhi</h4>
                 <ul className="space-y-3 mb-6">
                   {[
-                    { label: "Data Science & AI", href: "/course/data-science/" },
-                    { label: "Full Stack Web Dev", href: "/course/web-development/" },
-                    { label: "DevOps Engineering", href: "/course/devops/" },
-                    { label: "Cyber Security", href: "/course/cyber-security/" },
-                    { label: "Cloud Computing", href: "/course/cloud-computing/" },
+                    { label: "Data Science & AI in Delhi", href: "/course/data-science/" },
+                    { label: "Full Stack Web Dev in Delhi", href: "/course/web-development/" },
+                    { label: "DevOps Engineering in Delhi", href: "/course/devops/" },
+                    { label: "Cyber Security in Delhi", href: "/course/cyber-security/" },
+                    { label: "Cloud Computing in Delhi", href: "/course/cloud-computing/" },
                   ].map((course) => (
                     <li key={course.label}>
                       <Link
                         to={course.href}
                         onClick={scrollToTop}
-                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
+                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap block"
                       >
                         {course.label}
                       </Link>
@@ -128,17 +128,17 @@ export default function Footer() {
                 <h4 className="font-bold text-white text-base mb-5">Courses in Noida</h4>
                 <ul className="space-y-3 mb-6">
                   {[
-                    { label: "Data Science & AI", href: "/course/data-science-noida/" },
-                    { label: "Full Stack Web Dev", href: "/course/web-development-noida/" },
-                    { label: "DevOps Engineering", href: "/course/devops-noida/" },
-                    { label: "Cyber Security", href: "/course/cyber-security-noida/" },
-                    { label: "Cloud Computing", href: "/course/cloud-computing-noida/" },
+                    { label: "Data Science & AI in Noida", href: "/course/data-science-noida/" },
+                    { label: "Full Stack Web Dev in Noida", href: "/course/web-development-noida/" },
+                    { label: "DevOps Engineering in Noida", href: "/course/devops-noida/" },
+                    { label: "Cyber Security in Noida", href: "/course/cyber-security-noida/" },
+                    { label: "Cloud Computing in Noida", href: "/course/cloud-computing-noida/" },
                   ].map((course) => (
                     <li key={`noida-${course.label}`}>
                       <Link
                         to={course.href}
                         onClick={scrollToTop}
-                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
+                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap block"
                       >
                         {course.label}
                       </Link>
@@ -204,7 +204,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <h4 className="font-bold text-white text-base mb-5">Contact Us</h4>
             <address className="space-y-3 not-italic">
-              <a href={contactInfo.phoneLink} className="flex items-start gap-3 text-gray-400 text-sm hover:text-[#84CC16] transition-colors" data-testid="footer-phone">
+              <a href={contactInfo.phoneLink} className="flex items-start gap-3 text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap" data-testid="footer-phone">
                 <Phone size={14} className="mt-0.5 shrink-0" />
                 <span>{contactInfo.phone}</span>
               </a>
@@ -212,20 +212,23 @@ export default function Footer() {
                 <Mail size={14} className="mt-0.5 shrink-0" />
                 <span>info@nexxtechs.com</span>
               </a>
-              <div className="flex items-start gap-3 text-gray-400 text-sm" data-testid="footer-address-delhi">
-                <MapPin size={14} className="mt-0.5 shrink-0" />
-                <div>
-                  <span className="block font-semibold text-white/90">Delhi Branch</span>
-                  <span>B-54 Krishna Park, Vikaspuri, New Delhi - 110018</span>
+              {!isNoida ? (
+                <div className="flex items-start gap-3 text-gray-400 text-sm" data-testid="footer-address-delhi">
+                  <MapPin size={14} className="mt-0.5 shrink-0" />
+                  <div>
+                    <span className="block font-semibold text-white/90">Delhi Branch</span>
+                    <span>B-54 Krishna Park, Vikaspuri, New Delhi - 110018</span>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start gap-3 text-gray-400 text-sm mt-4" data-testid="footer-address-noida">
-                <MapPin size={14} className="mt-0.5 shrink-0 text-[#84CC16]" />
-                <div>
-                  <span className="block font-semibold text-white/90">Noida Branch</span>
-                  <span>B-136 Upper, Ground floor, B Block, Sector 2, Noida, UP 201301</span>
+              ) : (
+                <div className="flex items-start gap-3 text-gray-400 text-sm" data-testid="footer-address-noida">
+                  <MapPin size={14} className="mt-0.5 shrink-0 text-[#84CC16]" />
+                  <div>
+                    <span className="block font-semibold text-white/90">Noida Branch</span>
+                    <span>B-136 Upper, Ground floor, B Block, Sector 2, Noida, UP 201301</span>
+                  </div>
                 </div>
-              </div>
+              )}
             </address>
           </div>
         </div>

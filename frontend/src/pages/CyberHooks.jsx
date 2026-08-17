@@ -58,8 +58,8 @@ export default function CyberHooks() {
     <PageTransition>
       <div className="min-h-screen bg-background text-foreground dark:bg-[#050505] dark:text-white selection:bg-[#84CC16] selection:text-black" ref={container}>
         <SEOHead
-          title="Cyber Security & AI Training | CyberHooks × NexxTechs Delhi"
-          description="Master Cyber Security and AI with CyberHooks at NexxTechs. Industry-leading expertise and hands-on labs in Delhi. Enroll today!"
+          title="CyberHooks Partnership – Cyber Security & AI Training"
+          description="Explore NexxTechs strategic partnership with CyberHooks for advanced Cyber Security, Ethical Hacking, and AI courses. Get industry-certified in Delhi now."
           canonical="/cyberhooks"
         />
         <Breadcrumbs items={[{ name: "CyberHooks", path: "/cyberhooks" }]} />
