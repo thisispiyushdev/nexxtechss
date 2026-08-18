@@ -41,6 +41,7 @@ export const getAllLeads = async (req, res, next) => {
           source_table: "enquiries",
           email: item.email || "—",
           course: item.course_interested || "—",
+          status: item.status || "pending",
         });
       });
     }
@@ -53,6 +54,7 @@ export const getAllLeads = async (req, res, next) => {
           source: "Brochure Download",
           source_table: "brochure_leads",
           course: item.course || "—",
+          status: item.status || "pending",
         });
       });
     }
@@ -66,6 +68,7 @@ export const getAllLeads = async (req, res, next) => {
           source_table: "roadmap_leads",
           email: item.email || "—",
           course: item.course_interested || "—",
+          status: item.status || "pending",
         });
       });
     }
@@ -197,3 +200,91 @@ export const assignLead = async (req, res, next) => {
     res.status(500).json({ error: "Failed to assign lead." });
   }
 };
+
+/**
+ * PUT /api/admin/leads/status/:table/:id
+ * Updates the status of a lead (pending, dead, converted).
+ */
+export const updateLeadStatus = async (req, res, next) => {
+  try {
+    const { table, id } = req.params;
+    const { status } = req.body;
+
+    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads"];
+    if (!allowedTables.includes(table)) {
+      return res.status(400).json({ error: "Invalid table name." });
+    }
+
+    const validStatuses = ["pending", "dead", "converted"];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ error: "Invalid status." });
+    }
+
+    const { error } = await db.from(table).update({ status }).eq('id', id);
+
+    if (error) {
+      console.error(`Update lead status error (${table}):`, error);
+      return res.status(500).json({ error: "Failed to update lead status." });
+    }
+
+    res.status(200).json({ message: "Lead status updated successfully." });
+  } catch (err) {
+    console.error(`Update lead status error (${req.params.table}):`, err);
+    res.status(500).json({ error: "Failed to update lead status." });
+  }
+};
+
+/**
+ * POST /api/admin/leads/bulk-delete
+ * Bulk deletes leads across multiple tables.
+ * Expected body: { leads: [{ id, table }] }
+ */
+export const bulkDeleteLeads = async (req, res, next) => {
+  try {
+    if (req.admin && (req.admin.role === "receptionist" || req.admin.role === "noida_receptionist" || req.admin.role === "counselor" || req.admin.role === "noida_counselor")) {
+      return res.status(403).json({ error: "Only Core Admins can bulk delete leads." });
+    }
+
+    const { leads } = req.body;
+    if (!Array.isArray(leads) || leads.length === 0) {
+      return res.status(400).json({ error: "Invalid or empty leads array." });
+    }
+
+    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads"];
+    
+    // Group IDs by table for efficient bulk deletion
+    const grouped = {
+      enquiries: [],
+      brochure_leads: [],
+      roadmap_leads: []
+    };
+
+    leads.forEach(lead => {
+      if (allowedTables.includes(lead.table) && lead.id) {
+        grouped[lead.table].push(lead.id);
+      }
+    });
+
+    // Perform deletions in parallel
+    const deletePromises = [];
+    for (const table of allowedTables) {
+      if (grouped[table].length > 0) {
+        deletePromises.push(db.from(table).delete().in('id', grouped[table]));
+      }
+    }
+
+    const results = await Promise.all(deletePromises);
+    
+    const errors = results.filter(r => r.error).map(r => r.error.message);
+    if (errors.length > 0) {
+      console.error("Bulk delete leads errors:", errors);
+      return res.status(500).json({ error: "Failed to delete some leads.", details: errors });
+    }
+
+    res.status(200).json({ message: "Leads bulk deleted successfully." });
+  } catch (err) {
+    console.error("Bulk delete leads error:", err);
+    res.status(500).json({ error: "Failed to bulk delete leads." });
+  }
+};
+

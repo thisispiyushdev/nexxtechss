@@ -1,7 +1,7 @@
 import express from "express";
 import { requireAdmin, requireCoreAdmin } from "../middleware/authMiddleware.js";
 import { adminLogin, verifyToken } from "../controllers/adminAuthController.js";
-import { getAllLeads, deleteLead, transferLead, assignLead } from "../controllers/adminLeadsController.js";
+import { getAllLeads, deleteLead, transferLead, assignLead, updateLeadStatus, bulkDeleteLeads } from "../controllers/adminLeadsController.js";
 import {
   getReviews, createReview, updateReview, deleteReview,
   getStats, createStat, updateStat, deleteStat,
@@ -32,6 +32,9 @@ router.put("/leads/transfer/:table/:id", transferLead);
 // Assign Leads (core, receptionist)
 router.put("/leads/assign/:table/:id", assignLead);
 
+// Update Lead Status (both roles)
+router.put("/leads/status/:table/:id", updateLeadStatus);
+
 // Users (core, receptionist for creating counselors)
 router.get("/users", getAdminUsers);
 router.post("/users", createAdminUser);
@@ -42,6 +45,7 @@ router.use(requireCoreAdmin);
 
 // Delete Leads (core only)
 router.delete("/leads/:table/:id", deleteLead);
+router.post("/leads/bulk-delete", bulkDeleteLeads);
 
 // Admin User Management (core only for delete)
 router.delete("/users/:id", deleteAdminUser);

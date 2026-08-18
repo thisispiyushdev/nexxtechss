@@ -170,6 +170,30 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleBulkDelete = async (selectedItems) => {
+    if (!window.confirm(`Are you sure you want to delete ${selectedItems.length} leads? This action cannot be undone.`)) return;
+    try {
+      setFetching(true);
+      // selectedItems is array of objects { id, table } for the leads
+      await adminApi.post(`/leads/bulk-delete`, { leads: selectedItems });
+      showToast(`${selectedItems.length} leads deleted successfully`);
+      fetchData();
+    } catch {
+      showToast(`Failed to delete some leads`, "error");
+      fetchData();
+    }
+  };
+
+  const handleStatusChange = async (table, id, newStatus) => {
+    try {
+      await adminApi.put(`/leads/status/${table}/${id}`, { status: newStatus });
+      showToast(`Lead status updated to ${newStatus}`);
+      fetchData();
+    } catch {
+      showToast(`Failed to update lead status`, "error");
+    }
+  };
+
   const [assignTarget, setAssignTarget] = useState(null);
 
   const handleAssign = async (counselorId) => {
@@ -392,7 +416,7 @@ export default function AdminDashboard() {
 
           {/* Active View */}
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads") && <LeadsTable leads={getProcessedLeads()} onDelete={handleDelete} onTransfer={handleTransfer} onBulkTransfer={handleBulkTransfer} onAssign={setAssignTarget} isCoreAdmin={isCoreAdmin} role={role} users={data.users} />}
+            {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads") && <LeadsTable leads={getProcessedLeads()} onDelete={handleDelete} onTransfer={handleTransfer} onBulkTransfer={handleBulkTransfer} onBulkDelete={handleBulkDelete} onStatusChange={handleStatusChange} onAssign={setAssignTarget} isCoreAdmin={isCoreAdmin} role={role} users={data.users} />}
             {activeTab === "placements" && isCoreAdmin && <PlacementsTab reviews={filtered(data.reviews, ["name","company","role"])} stats={data.stats} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "blogs" && isCoreAdmin && <BlogsTable blogs={filtered(data.blogs, ["title","category"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "courses" && isCoreAdmin && <CoursesTable courses={filtered(data.courses, ["title","slug"])} onDelete={handleDelete} onEdit={openEditModal} />}
@@ -538,7 +562,7 @@ function Td({ children, className }) {
   );
 }
 
-function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, onAssign, isCoreAdmin, role, users }) {
+function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, onBulkDelete, onStatusChange, onAssign, isCoreAdmin, role, users }) {
   const [selected, setSelected] = useState(new Set());
 
   const toggleAll = (e) => {
@@ -557,12 +581,19 @@ function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, onAssign, isC
   return (
     <div className="space-y-4">
       {selected.size > 0 && (isCoreAdmin || role === "receptionist" || role === "noida_receptionist") && (
-        <div className="flex items-center justify-between p-4 bg-lime-50 border border-lime-200 rounded-xl animate-in slide-in-from-top-2 duration-200">
+        <div className="flex items-center justify-between p-4 bg-lime-50 border border-lime-200 rounded-xl animate-in slide-in-from-top-2 duration-200 flex-wrap gap-2">
           <span className="text-sm font-bold text-lime-800">{selected.size} lead{selected.size > 1 ? 's' : ''} selected</span>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <button onClick={() => { onBulkTransfer(Array.from(selected), "Nexxtechs Delhi"); setSelected(new Set()); }} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-blue-700 transition-colors">Move to Delhi</button>
             <button onClick={() => { onBulkTransfer(Array.from(selected), "Nexxtechs Noida"); setSelected(new Set()); }} className="px-4 py-2 bg-purple-600 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-purple-700 transition-colors">Move to Noida</button>
             <button onClick={() => { onAssign({ type: "bulk", ids: Array.from(selected) }); setSelected(new Set()); }} className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-indigo-700 transition-colors">Assign Counselor</button>
+            {isCoreAdmin && (
+              <button onClick={() => { 
+                const selectedItems = leads.filter(l => selected.has(l.id)).map(l => ({ id: l.id, table: l.source_table }));
+                onBulkDelete(selectedItems); 
+                setSelected(new Set()); 
+              }} className="px-4 py-2 bg-red-600 text-white rounded-lg text-xs font-bold shadow-sm hover:bg-red-700 transition-colors">Delete Selected</button>
+            )}
           </div>
         </div>
       )}
@@ -577,6 +608,7 @@ function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, onAssign, isC
           <Th>Interest</Th>
           <Th>Branch & Page</Th>
           <Th>Source</Th>
+          <Th>Status</Th>
           <Th>Date</Th>
           <Th></Th>
         </tr>
@@ -629,6 +661,22 @@ function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, onAssign, isC
               )}>
                 {l.source}
               </span>
+            </Td>
+            <Td>
+              <select 
+                value={l.status || "pending"} 
+                onChange={(e) => onStatusChange(l.source_table, l.id, e.target.value)}
+                className={cn(
+                  "px-2 py-1 border rounded-md text-xs font-bold uppercase tracking-wider outline-none cursor-pointer",
+                  l.status === "converted" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
+                  l.status === "dead" ? "bg-red-50 text-red-700 border-red-200" :
+                  "bg-amber-50 text-amber-700 border-amber-200"
+                )}
+              >
+                <option value="pending">Pending</option>
+                <option value="dead">Dead</option>
+                <option value="converted">Converted</option>
+              </select>
             </Td>
             <Td className="text-slate-400 tabular-nums">
               {l.created_at ? new Date(l.created_at).toLocaleDateString() : "—"}

@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS public.enquiries (
     name TEXT NOT NULL,
     phone TEXT NOT NULL,
     course_interested TEXT NOT NULL,
+    status TEXT DEFAULT 'pending',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -21,6 +22,7 @@ CREATE TABLE IF NOT EXISTS public.brochure_leads (
     phone TEXT NOT NULL,
     email TEXT NOT NULL,
     course TEXT NOT NULL,
+    status TEXT DEFAULT 'pending',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -30,6 +32,7 @@ CREATE TABLE IF NOT EXISTS public.roadmap_leads (
     name TEXT NOT NULL,
     phone TEXT NOT NULL,
     course_interested TEXT NOT NULL,
+    status TEXT DEFAULT 'pending',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
