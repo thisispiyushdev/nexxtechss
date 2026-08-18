@@ -10,24 +10,28 @@ export const getAllLeads = async (req, res, next) => {
     let eqQuery = db.from("enquiries").select("*").order("created_at", { ascending: false });
     let brQuery = db.from("brochure_leads").select("*").order("created_at", { ascending: false });
     let rdQuery = db.from("roadmap_leads").select("*").order("created_at", { ascending: false });
+    let ldQuery = db.from("leads").select("*").order("created_at", { ascending: false });
 
     if (req.admin && (req.admin.role === "noida_counselor" || req.admin.role === "noida_receptionist")) {
       eqQuery = eqQuery.ilike("branch", "%Noida%");
       brQuery = brQuery.ilike("branch", "%Noida%");
       rdQuery = rdQuery.ilike("branch", "%Noida%");
+      ldQuery = ldQuery.ilike("preferred_location", "%Noida%");
     }
     
     if (req.admin && (req.admin.role === "counselor" || req.admin.role === "receptionist")) {
       eqQuery = eqQuery.ilike("branch", "%Delhi%");
       brQuery = brQuery.ilike("branch", "%Delhi%");
       rdQuery = rdQuery.ilike("branch", "%Delhi%");
+      ldQuery = ldQuery.ilike("preferred_location", "%Delhi%");
     }
 
-    // Fetch from all three tables in parallel
-    const [enquiriesRes, brochureRes, roadmapRes] = await Promise.all([
+    // Fetch from all tables in parallel
+    const [enquiriesRes, brochureRes, roadmapRes, leadsRes] = await Promise.all([
       eqQuery,
       brQuery,
       rdQuery,
+      ldQuery,
     ]);
 
     const leads = [];
@@ -73,6 +77,21 @@ export const getAllLeads = async (req, res, next) => {
       });
     }
 
+    // Merge general leads table
+    if (!leadsRes.error && leadsRes.data) {
+      leadsRes.data.forEach((item) => {
+        leads.push({
+          ...item,
+          branch: item.preferred_location || item.branch || "—",
+          source: item.source || "General Lead",
+          source_table: "leads",
+          email: item.email || "—",
+          course: item.course || item.course_interested || "—",
+          status: item.status || "pending",
+        });
+      });
+    }
+
     // Sort all merged leads by created_at descending
     leads.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
@@ -81,6 +100,7 @@ export const getAllLeads = async (req, res, next) => {
     if (enquiriesRes.error) errors.push({ table: "enquiries", error: enquiriesRes.error.message });
     if (brochureRes.error) errors.push({ table: "brochure_leads", error: brochureRes.error.message });
     if (roadmapRes.error) errors.push({ table: "roadmap_leads", error: roadmapRes.error.message });
+    if (leadsRes.error) errors.push({ table: "leads", error: leadsRes.error.message });
 
     res.status(200).json({
       leads,
@@ -104,7 +124,7 @@ export const deleteLead = async (req, res, next) => {
     const { table, id } = req.params;
 
     // Whitelist allowed tables to prevent SQL injection
-    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads"];
+    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads", "leads"];
     if (!allowedTables.includes(table)) {
       return res.status(400).json({ error: "Invalid table name." });
     }
@@ -135,7 +155,7 @@ export const transferLead = async (req, res, next) => {
     const { table, id } = req.params;
     const { branch } = req.body;
 
-    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads"];
+    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads", "leads"];
     if (!allowedTables.includes(table)) {
       return res.status(400).json({ error: "Invalid table name." });
     }
@@ -178,7 +198,7 @@ export const assignLead = async (req, res, next) => {
     const { table, id } = req.params;
     const { counselor_id } = req.body;
 
-    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads"];
+    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads", "leads"];
     if (!allowedTables.includes(table)) {
       return res.status(400).json({ error: "Invalid table name." });
     }
@@ -210,7 +230,7 @@ export const updateLeadStatus = async (req, res, next) => {
     const { table, id } = req.params;
     const { status } = req.body;
 
-    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads"];
+    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads", "leads"];
     if (!allowedTables.includes(table)) {
       return res.status(400).json({ error: "Invalid table name." });
     }
@@ -250,13 +270,14 @@ export const bulkDeleteLeads = async (req, res, next) => {
       return res.status(400).json({ error: "Invalid or empty leads array." });
     }
 
-    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads"];
+    const allowedTables = ["enquiries", "brochure_leads", "roadmap_leads", "leads"];
     
     // Group IDs by table for efficient bulk deletion
     const grouped = {
       enquiries: [],
       brochure_leads: [],
-      roadmap_leads: []
+      roadmap_leads: [],
+      leads: []
     };
 
     leads.forEach(lead => {

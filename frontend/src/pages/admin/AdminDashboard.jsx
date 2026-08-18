@@ -46,8 +46,10 @@ export default function AdminDashboard() {
       { id: "leads", label: "All Leads", icon: ClipboardList, desc: "All Enquiries" },
       { id: "delhi_leads", label: "Delhi Leads", icon: ClipboardList, desc: "Delhi Enquiries" },
       { id: "noida_leads", label: "Noida Leads", icon: ClipboardList, desc: "Noida Enquiries" },
+      { id: "nexxtechs_info_leads", label: "Leads from nexxtechs.info", icon: ClipboardList, desc: "Website Leads" },
     ] : [
-      { id: "leads", label: (role === "noida_counselor" || role === "noida_receptionist") ? "Noida Leads" : "Delhi Leads", icon: ClipboardList, desc: "Assigned enquiries" }
+      { id: "leads", label: (role === "noida_counselor" || role === "noida_receptionist") ? "Noida Leads" : "Delhi Leads", icon: ClipboardList, desc: "Assigned enquiries" },
+      { id: "nexxtechs_info_leads", label: "Leads from nexxtechs.info", icon: ClipboardList, desc: "Website Leads" }
     ]),
     ...(isCoreAdmin ? [
       { id: "placements", label: "Placements", icon: Trophy, desc: "Reviews & Stats" },
@@ -246,6 +248,10 @@ export default function AdminDashboard() {
       }
     }
     
+    if (activeTab === "nexxtechs_info_leads") {
+      result = result.filter(l => l.source_table === "leads");
+    }
+    
     if (leadCategory !== "all") {
       result = result.filter(l => {
         const src = (l.source || "").toLowerCase();
@@ -333,7 +339,7 @@ export default function AdminDashboard() {
                   )}
                 >
                   <Icon size={20} className={cn(activeTab === t.id ? "text-lime-600" : "text-slate-400 group-hover:text-slate-600")} />
-                  <div className="flex flex-col items-start leading-tight">
+                  <div className="flex flex-col items-start leading-tight text-left">
                     <span className="text-sm font-bold">{t.label}</span>
                     <span className="text-[10px] opacity-70 font-medium uppercase tracking-tighter">{t.desc}</span>
                   </div>
@@ -367,7 +373,7 @@ export default function AdminDashboard() {
               </div>
               
               {/* Show filters for leads tabs */}
-              {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads") && (
+              {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads" || activeTab === "nexxtechs_info_leads") && (
                 <div className="flex flex-wrap sm:flex-nowrap gap-2">
                   <select 
                     value={leadCategory} 
@@ -416,7 +422,7 @@ export default function AdminDashboard() {
 
           {/* Active View */}
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads") && <LeadsTable leads={getProcessedLeads()} onDelete={handleDelete} onTransfer={handleTransfer} onBulkTransfer={handleBulkTransfer} onBulkDelete={handleBulkDelete} onStatusChange={handleStatusChange} onAssign={setAssignTarget} isCoreAdmin={isCoreAdmin} role={role} users={data.users} />}
+            {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads" || activeTab === "nexxtechs_info_leads") && <LeadsTable leads={getProcessedLeads()} onDelete={handleDelete} onTransfer={handleTransfer} onBulkTransfer={handleBulkTransfer} onBulkDelete={handleBulkDelete} onStatusChange={handleStatusChange} onAssign={setAssignTarget} isCoreAdmin={isCoreAdmin} role={role} users={data.users} />}
             {activeTab === "placements" && isCoreAdmin && <PlacementsTab reviews={filtered(data.reviews, ["name","company","role"])} stats={data.stats} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "blogs" && isCoreAdmin && <BlogsTable blogs={filtered(data.blogs, ["title","category"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "courses" && isCoreAdmin && <CoursesTable courses={filtered(data.courses, ["title","slug"])} onDelete={handleDelete} onEdit={openEditModal} />}
@@ -495,6 +501,7 @@ export default function AdminDashboard() {
       leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: role === "noida_receptionist" ? "Nexxtechs Noida" : "Nexxtechs Delhi", source: "Self Visit" } },
       delhi_leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: "Nexxtechs Delhi", source: "Self Visit" } },
       noida_leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: "Nexxtechs Noida", source: "Self Visit" } },
+      nexxtechs_info_leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: "Nexxtechs Info", source: "Self Visit" } },
       placements: { title: "Add Review", type: "review", data: { name: "", role: "", company: "", image: "", text: "", is_active: true, sort_order: 0 } },
       blogs: { title: "Add Blog", type: "blog", data: { id: "", title: "", excerpt: "", author: "NexxTechs", date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }), category: "Our blog", read_time: "5 min read", image: "", content: "", is_active: true } },
       courses: { title: "Add Course", type: "course", data: { slug: "", title: "", tagline: "", image: "", duration: "", level: "", overview: "", is_popular: false, is_trending: false, is_active: true, batch_timings: [], highlights: [], trending_tools: [], modules: [], brochure_url: "", sort_order: 0 } },
