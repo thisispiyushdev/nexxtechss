@@ -71,7 +71,6 @@ const AdityaDevopsTrainerPage = lazy(() => import("@/pages/AdityaDevopsTrainerPa
 const AdityaCloudTrainerPage = lazy(() => import("@/pages/AdityaCloudTrainerPage"));
 const SagarDigitalMarketingTrainerPage = lazy(() => import("@/pages/SagarDigitalMarketingTrainerPage"));
 const MegheshCyberSecurityTrainerPage = lazy(() => import("@/pages/MegheshCyberSecurityTrainerPage"));
-const SurajGraphicDesignTrainerPage = lazy(() => import("@/pages/SurajGraphicDesignTrainerPage"));
 const NitiPersonalDevelopmentTrainerPage = lazy(() => import("@/pages/NitiPersonalDevelopmentTrainerPage"));
 const SabaDataScienceTrainerPage = lazy(() => import("@/pages/SabaDataScienceTrainerPage"));
 const AdityaCloudDevopsTrainerPage = lazy(() => import("@/pages/AdityaCloudDevopsTrainerPage"));
@@ -81,7 +80,6 @@ const AdityaCloudTrainerPageNoida = lazy(() => import("@/pages/AdityaCloudTraine
 const AdityaCloudDevopsTrainerPageNoida = lazy(() => import("@/pages/AdityaCloudDevopsTrainerPageNoida"));
 const SagarDigitalMarketingTrainerPageNoida = lazy(() => import("@/pages/SagarDigitalMarketingTrainerPageNoida"));
 const MegheshCyberSecurityTrainerPageNoida = lazy(() => import("@/pages/MegheshCyberSecurityTrainerPageNoida"));
-const SurajGraphicDesignTrainerPageNoida = lazy(() => import("@/pages/SurajGraphicDesignTrainerPageNoida"));
 const NitiPersonalDevelopmentTrainerPageNoida = lazy(() => import("@/pages/NitiPersonalDevelopmentTrainerPageNoida"));
 const SabaDataScienceTrainerPageNoida = lazy(() => import("@/pages/SabaDataScienceTrainerPageNoida"));
 const SabaDataAnalyticsTrainerPageNoida = lazy(() => import("@/pages/SabaDataAnalyticsTrainerPageNoida"));
@@ -241,7 +239,6 @@ function App() {
                   <Route path="/best-cloud-devops-trainer-in-delhi" element={<AdityaCloudDevopsTrainerPage />} />
                   <Route path="/best-digital-marketing-trainer-in-delhi" element={<SagarDigitalMarketingTrainerPage />} />
                   <Route path="/best-cyber-security-trainer-in-delhi" element={<MegheshCyberSecurityTrainerPage />} />
-                  <Route path="/best-graphic-design-trainer-in-delhi" element={<SurajGraphicDesignTrainerPage />} />
                   <Route path="/best-personal-development-trainer-in-delhi" element={<NitiPersonalDevelopmentTrainerPage />} />
                   <Route path="/best-data-science-trainer-in-delhi" element={<SabaDataScienceTrainerPage />} />
                   <Route path="/best-data-analytics-trainer-in-delhi" element={<SabaDataAnalyticsTrainerPage />} />
@@ -250,7 +247,6 @@ function App() {
                   <Route path="/best-cloud-devops-trainer-in-noida" element={<AdityaCloudDevopsTrainerPageNoida />} />
                   <Route path="/best-digital-marketing-trainer-in-noida" element={<SagarDigitalMarketingTrainerPageNoida />} />
                   <Route path="/best-cyber-security-trainer-in-noida" element={<MegheshCyberSecurityTrainerPageNoida />} />
-                  <Route path="/best-graphic-design-trainer-in-noida" element={<SurajGraphicDesignTrainerPageNoida />} />
                   <Route path="/best-personal-development-trainer-in-noida" element={<NitiPersonalDevelopmentTrainerPageNoida />} />
                   <Route path="/best-data-science-trainer-in-noida" element={<SabaDataScienceTrainerPageNoida />} />
                   <Route path="/best-data-analytics-trainer-in-noida" element={<SabaDataAnalyticsTrainerPageNoida />} />

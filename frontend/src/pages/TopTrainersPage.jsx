@@ -152,7 +152,6 @@ export default function TopTrainersPage() {
                 else if (t === "aditya sharma cloud computing expert") url = "/best-cloud-computing-trainer-in-delhi";
                 else if (t === "sagar sir digital marketing expert") url = "/best-digital-marketing-trainer-in-delhi";
                 else if (t === "meghesh kumar cyber security expert") url = "/best-cyber-security-trainer-in-delhi";
-                else if (t === "suraj rewadia graphic design expert") url = "/best-graphic-design-trainer-in-delhi";
                 else if (t === "niti gupta personal development expert") url = "/best-personal-development-trainer-in-delhi";
                 else if (t === "saba hussain data science expert") url = "/best-data-science-trainer-in-delhi";
                 else {
