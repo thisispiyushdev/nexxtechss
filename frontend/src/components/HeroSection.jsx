@@ -148,7 +148,7 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-          <div className="relative hidden lg:block w-full lg:max-w-[400px] xl:max-w-[480px] mx-auto lg:ml-auto">
+          <div className="relative w-full max-w-[400px] lg:max-w-[400px] xl:max-w-[480px] mx-auto lg:ml-auto mt-8 lg:mt-0">
             <div className="absolute -inset-1 bg-gradient-to-r from-[#84CC16] to-[#65A30D] rounded-3xl blur opacity-20 animate-pulse"></div>
             <div className="relative bg-white/90 dark:bg-[#1a1d27]/90 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-3xl p-8 shadow-2xl">
               {submitted && !error ? (
