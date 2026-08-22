@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon, ChevronDown, ChevronRight, Mail, Phone, MapPin } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { useTheme } from "../context/ThemeContext";
 
@@ -246,15 +246,7 @@ export default function Header() {
 
           {/* CTA + Theme Toggle + Mobile Toggle */}
           <div className="flex items-center gap-4">
-            <button
-              onClick={toggle}
-              aria-label="Toggle dark mode"
-              className={`p-2.5 rounded-full transition-all duration-300 hover:scale-110 ${
-                dark ? "bg-white/5 text-gray-300 hover:text-white" : "bg-gray-100 text-[#111827]"
-              }`}
-            >
-              {dark ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
+
 
             <Button
               onClick={() => navigate("/contact/")}
