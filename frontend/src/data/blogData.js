@@ -1,8 +1,8 @@
 const BLOG_DATA = [
   {
     id: "what-is-artificial-intelligence",
-    title: "What is Artificial Intelligence? Meaning, Basics, Uses & Career Guide (2026)",
-    excerpt: "What is Artificial Intelligence? In today's technology-driven world, understanding what is artificial intelligence has become essential for students, professionals, and businesses. Artificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think, learn, and make decisions.",
+    title: "What is Artificial Intelligence? A 2026 Guide | NexxTechs",
+    excerpt: "Learn what Artificial Intelligence is, how it works, its various types, applications, and career opportunities. Read this beginner-friendly guide by NexxTechs.",
     author: "NexxTechs",
     date: "28-Apr-2026",
     category: "Our blog",
@@ -70,8 +70,8 @@ const BLOG_DATA = [
   },
   {
     id: "what-is-cyber-security",
-    title: "What is Cyber Security? Meaning, Types, Importance & Career Guide (2026)",
-    excerpt: "What is Cyber Security? In today's digital-first world, understanding what is cyber security is essential for everyone—from students to business owners. Cyber security refers to the practice of protecting systems, networks, and programs from digital attacks.",
+    title: "What is Cyber Security? Complete 2026 Guide | NexxTechs",
+    excerpt: "Understand core cyber security fundamentals, major threats, career paths, and essential skills. Read this expert guide by NexxTechs IT training institute.",
     author: "NexxTechs",
     date: "25-Apr-2026",
     category: "Our blog",
@@ -118,8 +118,8 @@ const BLOG_DATA = [
   },
   {
     id: "what-is-data-science",
-    title: "What is Data Science? Meaning, Lifecycle, Techniques & Career Guide (2026)",
-    excerpt: "In today's data-driven world, understanding what is data science is essential for students, professionals, and businesses alike. Data science is a multidisciplinary field that uses scientific methods, processes, algorithms, and systems to extract knowledge and insights.",
+    title: "What is Data Science? The Ultimate 2026 Guide | NexxTechs",
+    excerpt: "Learn what Data Science is, key skills required, latest career opportunities, and how to get started today. Read this comprehensive guide by NexxTechs experts.",
     author: "NexxTechs",
     date: "20-Apr-2026",
     category: "Our blog",
@@ -288,8 +288,8 @@ const BLOG_DATA = [
   },
   {
     id: "how-to-become-an-ethical-hacker",
-    title: "How to Become an Ethical Hacker in 2026",
-    excerpt: "In today's digital era, understanding how to become an ethical hacker in 2026 is one of the most searched career paths among students and IT professionals. With cyber threats growing rapidly, ethical hackers are in high demand.",
+    title: "How to Become an Ethical Hacker in 2026 | Step-by-Step",
+    excerpt: "A complete roadmap to becoming an ethical hacker. Learn about the required skills, certifications like CEH, essential tools, and career opportunities in India.",
     author: "NexxTechs",
     date: "18-Apr-2026",
     category: "Our blog",
@@ -456,8 +456,8 @@ const BLOG_DATA = [
   },
   {
     id: "top-10-cyber-security-tools",
-    title: "Top 10 Cyber Security Tools (2026) – Best Cybersecurity Software List",
-    excerpt: "In today's digital world, knowing the Top 10 Cyber Security Tools is essential for anyone interested in cybersecurity. From protecting networks to testing vulnerabilities, these tools help professionals secure digital assets.",
+    title: "Top 10 Cyber Security Tools Every Professional Must Know",
+    excerpt: "Discover the top 10 essential cyber security tools including Kali Linux, Metasploit, Burp Suite, and Wireshark. Get expert recommendations by NexxTechs now.",
     author: "NexxTechs",
     date: "15-Apr-2026",
     category: "Our blog",
@@ -639,8 +639,8 @@ const BLOG_DATA = [
   },
   {
     id: "cyber-security-career-in-india",
-    title: "Cyber Security Career in India – Scope, Salary & Complete Guide (2026)",
-    excerpt: "In today's digital era, building a cyber security career in India is one of the smartest choices for students and professionals. With rising cyber threats, companies are actively hiring skilled cyber experts.",
+    title: "Cyber Security Career in India – Scope & Salary in 2026",
+    excerpt: "Explore lucrative cyber security career opportunities in India. Learn about salary packages, top job roles, required skills, and a complete career roadmap.",
     author: "NexxTechs",
     date: "10-Apr-2026",
     category: "Our blog",

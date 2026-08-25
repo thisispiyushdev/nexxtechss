@@ -251,3 +251,10 @@ CREATE POLICY "Allow public update" ON public.noida_banners FOR UPDATE TO public
 DROP POLICY IF EXISTS "Allow public delete" ON public.noida_banners;
 CREATE POLICY "Allow public delete" ON public.noida_banners FOR DELETE TO public USING (true);
 
+
+
+-- Add missing columns to leads table for admin panel compatibility
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending';
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS counselor_id UUID;
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS transferred_from TEXT;
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS branch TEXT;
