@@ -201,6 +201,7 @@ for (const route of ROUTES) {
       path: route.path + "-noida",
       title: route.title.replace(/Delhi|Vikaspuri/g, "Noida"),
       description: route.description.replace(/Delhi|Vikaspuri/g, "Noida"),
+      keywords: "Nexxtechs Noida, IT training institute Noida, computer institute Noida, software training institute Noida, data science course Noida, data science institute Noida, data analytics course Noida, artificial intelligence course Noida, generative AI course Noida, machine learning course Noida, cloud computing course Noida, AWS course Noida, DevOps course Noida, cybersecurity course Noida, ethical hacking course Noida, Java full stack course Noida, web development course Noida, Python course Noida, digital marketing course Noida, UI UX design course Noida"
     });
   }
 }
@@ -211,6 +212,7 @@ ROUTES.push({
   path: "/nexxtechs-noida",
   title: "Top Institute for IT Training Courses in Noida – Nexxtechs",
   description: "Nexxtechs is the No.1 Training Company in Noida with top-notch IT training programs and industry experts. Providing Placement, Certification and affordable fees.",
+  keywords: "Nexxtechs Noida, IT training institute Noida, computer institute Noida, software training institute Noida, data science course Noida, data science institute Noida, data analytics course Noida, artificial intelligence course Noida, generative AI course Noida, machine learning course Noida, cloud computing course Noida, AWS course Noida, DevOps course Noida, cybersecurity course Noida, ethical hacking course Noida, Java full stack course Noida, web development course Noida, Python course Noida, digital marketing course Noida, UI UX design course Noida"
 });
 
 async function prerenderRoutes() {
@@ -287,6 +289,10 @@ async function prerenderRoutes() {
       <meta data-rh="true" name="twitter:description" content="${route.description}" />
       <meta data-rh="true" name="twitter:image" content="https://customer-assets.emergentagent.com/job_learning-hub-preview-2/artifacts/o9ol4rh4_white.png" />
     `;
+
+    if (route.keywords) {
+      html = html.replace(/<meta data-rh="true" name="keywords" content="[^"]*"\s*\/>/, `<meta data-rh="true" name="keywords" content="${route.keywords}" />`);
+    }
 
     // Inject SEO tags right before </head>
     html = html.replace('</head>', `${seoTags}\n</head>`);

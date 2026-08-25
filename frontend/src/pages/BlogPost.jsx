@@ -140,6 +140,7 @@ export default function BlogPost() {
               title={`${blog.title} | NexxTechs Blog`}
               description={blog.excerpt ? blog.excerpt.substring(0, 160) : `Read ${blog.title} on NexxTechs Blog – expert guides, career tips & IT training insights.`}
               canonical={`/blog/${id}`}
+              keywords={blog.keywords}
               ogType="article"
               jsonLd={{
                 "@context": "https://schema.org",

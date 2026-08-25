@@ -127,6 +127,30 @@ function HomePage() {
         title="Top Institute for IT Training Courses in Delhi – Nexxtechs"
         description="Nexxtechs is the No.1 Training Company in Delhi with top-notch IT training programs and industry experts. Providing Placement, Certification and affordable fees."
         canonical="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          "name": "NexxTechs",
+          "url": "https://www.nexxtechs.com",
+          "logo": "https://www.nexxtechs.com/logo.jpeg",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "IT Training Courses",
+            "itemListElement": [
+              {"@type": "Course", "name": "Java Full Stack", "provider": {"@type": "Organization", "name": "NexxTechs"}},
+              {"@type": "Course", "name": "Python Full Stack", "provider": {"@type": "Organization", "name": "NexxTechs"}},
+              {"@type": "Course", "name": "MERN Stack", "provider": {"@type": "Organization", "name": "NexxTechs"}},
+              {"@type": "Course", "name": "Data Science", "provider": {"@type": "Organization", "name": "NexxTechs"}},
+              {"@type": "Course", "name": "Data Analytics", "provider": {"@type": "Organization", "name": "NexxTechs"}},
+              {"@type": "Course", "name": "Cloud Computing", "provider": {"@type": "Organization", "name": "NexxTechs"}},
+              {"@type": "Course", "name": "Cyber Security", "provider": {"@type": "Organization", "name": "NexxTechs"}},
+              {"@type": "Course", "name": "DevOps", "provider": {"@type": "Organization", "name": "NexxTechs"}},
+              {"@type": "Course", "name": "Digital Marketing", "provider": {"@type": "Organization", "name": "NexxTechs"}},
+              {"@type": "Course", "name": "UI/UX Design", "provider": {"@type": "Organization", "name": "NexxTechs"}},
+              {"@type": "Course", "name": "SAP Masterclass", "provider": {"@type": "Organization", "name": "NexxTechs"}}
+            ]
+          }
+        }}
       />
       <PromoBanner />
       <HeroSection />

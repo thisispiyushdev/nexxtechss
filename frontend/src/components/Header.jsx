@@ -67,6 +67,40 @@ const MEGA_MENU_DATA = {
   ]
 };
 
+const NOIDA_MEGA_MENU_DATA = {
+  "Data Science & AI": [
+    { title: "Generative AI", type: "Professional Certification", link: "/course/gen-ai-noida/" },
+    { title: "Data Science & GenAI", type: "Job Bootcamp", link: "/course/data-science-noida/" },
+    { title: "Data Analytics", type: "Professional Certification", link: "/course/data-analytics-noida/" },
+    { title: "Machine Learning Specialist", type: "Professional Certification", link: "/course/data-science-noida/" },
+  ],
+  "Software Development": [
+    { title: "Java Full Stack", type: "Job Bootcamp", link: "/course/java-full-stack-noida/" },
+    { title: "MERN Stack Masterclass", type: "Professional Certification", link: "/course/mern-stack-noida/" },
+    { title: "Python Full Stack", type: "Job Bootcamp", link: "/course/python-full-stack-noida/" },
+    { title: "Web Development", type: "Full Stack Certification", link: "/course/web-development-noida/" },
+    { title: "DSA with Java", type: "Technical Certification", link: "/course/dsa-with-java-noida/" },
+    { title: "DSA Foundation", type: "Career Kickstarter", link: "/course/dsa-noida/" },
+  ],
+  "Cyber Security": [
+    { title: "Cyber Security Professional", type: "Professional Certification", link: "/course/cyber-security-noida/" },
+    { title: "Ethical Hacking Masterclass", type: "Job Bootcamp", link: "/course/cyber-security-noida/" },
+  ],
+  "Cloud & DevOps": [
+    { title: "Cloud Computing Expert", type: "Professional Certification", link: "/course/cloud-computing-noida/" },
+    { title: "DevOps Engineering", type: "Job Bootcamp", link: "/course/devops-noida/" },
+    { title: "Azure/AWS Specialist", type: "Cloud Certification", link: "/course/cloud-computing-noida/" },
+  ],
+  "Design & Creative": [
+    { title: "UI/UX Design", type: "Professional Certification", link: "/course/ui-ux-design-noida/" },
+    { title: "Graphic Design", type: "Professional Certification", link: "/course/graphic-design-noida/" },
+  ],
+  "Business & Marketing": [
+    { title: "Digital Marketing Expert", type: "Professional Certification", link: "/course/digital-marketing-noida/" },
+    { title: "SAP Masterclass", type: "Enterprise Certification", link: "/course/sap-masterclass-noida/" },
+  ]
+};
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -77,6 +111,16 @@ export default function Header() {
   const location = useLocation();
   const isNoida = location.pathname.includes('noida');
   const contactInfo = isNoida ? CONTACT_INFO.noida : CONTACT_INFO.default;
+
+  const activeMegaMenuData = isNoida ? NOIDA_MEGA_MENU_DATA : MEGA_MENU_DATA;
+  const activeNavLinks = isNoida ? [
+    { label: "Home", href: "/nexxtechs-noida" },
+    { label: "Courses", href: "/courses" }, // Wait, should this be /courses-noida? They don't have a /courses-noida page, just /courses
+    { label: "Placement", href: "/placement/" },
+    { label: "Collaborator", href: "/cyberhooks/" },
+    { label: "Roadmap", href: "/roadmap/" },
+    { label: "Blog", href: "/blog/" },
+  ] : NAV_LINKS;
 
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 20);
@@ -128,7 +172,7 @@ export default function Header() {
       >
         <div className="max-w-[1440px] mx-auto px-4 md:px-6 xl:px-8 flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
-          <Link to="/" aria-label="Home" className="flex items-center gap-2 shrink-0">
+          <Link to={isNoida ? "/nexxtechs-noida" : "/"} aria-label="Home" className="flex items-center gap-2 shrink-0">
             <img 
               src={dark ? LOGO_DARK_URL : LOGO_URL} 
               alt="NexxTechs - Best IT Training Institute" 
@@ -142,7 +186,7 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center h-full gap-4 xl:gap-8">
-            {NAV_LINKS.map((link) => {
+            {activeNavLinks.map((link) => {
               const isActive = location.pathname === link.href;
 
               if (link.label === "Courses") {
@@ -178,7 +222,7 @@ export default function Header() {
                       }`}>
                         <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4 px-2">Domain</div>
                         <ul className="space-y-1">
-                          {Object.keys(MEGA_MENU_DATA).map(domain => (
+                          {Object.keys(activeMegaMenuData).map(domain => (
                             <li 
                               key={domain}
                               onMouseEnter={() => setActiveDomain(domain)}
@@ -200,7 +244,7 @@ export default function Header() {
                       <div className="w-3/4 p-10">
                         <div className="text-xs font-bold text-[#84CC16] uppercase tracking-widest mb-6">Explore Courses</div>
                         <div className="grid grid-cols-2 gap-x-8 gap-y-3">
-                          {MEGA_MENU_DATA[activeDomain].map((course, idx) => (
+                          {activeMegaMenuData[activeDomain].map((course, idx) => (
                             <Link 
                               key={idx} 
                               to={course.link || "/courses"}
@@ -271,7 +315,7 @@ export default function Header() {
         } ${dark ? "bg-[#0f1117] border-t border-white/5" : "bg-white border-t border-gray-100"}`}>
           <div className="px-6 py-6 flex flex-col gap-2 h-full overflow-y-auto">
             <div className="text-[10px] font-black text-[#84CC16] uppercase tracking-[0.2em] mb-2 px-4">Navigation</div>
-            {NAV_LINKS.map((link) => (
+            {activeNavLinks.map((link) => (
               <Link
                 key={link.label}
                 to={link.href}

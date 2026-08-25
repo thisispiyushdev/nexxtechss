@@ -503,8 +503,8 @@ export default function AdminDashboard() {
       noida_leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: "Nexxtechs Noida", source: "Self Visit" } },
       nexxtechs_info_leads: { title: "Add Manual Lead", type: "lead", data: { name: "", phone: "", course_interested: "General", branch: "Nexxtechs Info", source: "Self Visit" } },
       placements: { title: "Add Review", type: "review", data: { name: "", role: "", company: "", image: "", text: "", is_active: true, sort_order: 0 } },
-      blogs: { title: "Add Blog", type: "blog", data: { id: "", title: "", excerpt: "", author: "NexxTechs", date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }), category: "Our blog", read_time: "5 min read", image: "", content: "", is_active: true } },
-      courses: { title: "Add Course", type: "course", data: { slug: "", title: "", tagline: "", image: "", duration: "", level: "", overview: "", is_popular: false, is_trending: false, is_active: true, batch_timings: [], highlights: [], trending_tools: [], modules: [], brochure_url: "", sort_order: 0 } },
+      blogs: { title: "Add Blog", type: "blog", data: { id: "", title: "", excerpt: "", keywords: "", author: "NexxTechs", date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }), category: "Our blog", read_time: "5 min read", image: "", content: "", is_active: true } },
+      courses: { title: "Add Course", type: "course", data: { slug: "", title: "", tagline: "", keywords: "", image: "", duration: "", level: "", overview: "", is_popular: false, is_trending: false, is_active: true, batch_timings: [], highlights: [], trending_tools: [], modules: [], brochure_url: "", sort_order: 0 } },
       banners: { title: "Add Banner", type: "banner", data: { title: "", text: "", link_url: "", link_text: "", target_page: "home", bg_color: "#84CC16", text_color: "#000000", start_date: "", end_date: "", is_active: true } },
       noida_banners: { title: "Add Noida Banner", type: "noida_banner", data: { title: "", image: "", link_url: "", sort_order: 0, is_active: true } },
       team: { title: "Add Admin", type: "user", data: { username: "", password: "", role: "counselor", display_name: "" } },
@@ -1183,6 +1183,7 @@ function ModalForm({ modal, onSave, role: currentUserRole }) {
           required 
         />
         <Field label="Excerpt" value={form.excerpt} onChange={v => set("excerpt", v)} textarea />
+        <Field label="SEO Keywords (comma separated)" value={form.keywords} onChange={v => set("keywords", v)} />
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Field label="Author" value={form.author} onChange={v => set("author", v)} />
           <Field label="Category" value={form.category} onChange={v => set("category", v)} />
@@ -1220,6 +1221,7 @@ function ModalForm({ modal, onSave, role: currentUserRole }) {
           />
         </div>
         <Field label="Tagline / Short Hook" value={form.tagline} onChange={v => set("tagline", v)} />
+        <Field label="SEO Keywords (comma separated)" value={form.keywords} onChange={v => set("keywords", v)} />
         <ImageField label="Course Banner" value={form.image} onChange={v => set("image", v)} />
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

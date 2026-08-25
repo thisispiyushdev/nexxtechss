@@ -16,6 +16,7 @@ export default function SEOHead({
   ogType = "website",
   ogImage = DEFAULT_OG_IMAGE,
   jsonLd = null,
+  keywords = null,
 }) {
   const location = useLocation();
 
@@ -56,12 +57,26 @@ export default function SEOHead({
     }
     canonicalTag.setAttribute('href', fullUrl);
   }, [fullUrl]);
+  
+  useEffect(() => {
+    if (keywords) {
+      let keywordsTag = document.querySelector('meta[name="keywords"]');
+      if (!keywordsTag) {
+        keywordsTag = document.createElement('meta');
+        keywordsTag.setAttribute('name', 'keywords');
+        keywordsTag.setAttribute('data-rh', 'true');
+        document.head.appendChild(keywordsTag);
+      }
+      keywordsTag.setAttribute('content', keywords);
+    }
+  }, [keywords]);
 
   return (
     <Helmet>
       {/* Primary Meta Tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
+      {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={fullUrl} />
 
       {/* Open Graph */}
