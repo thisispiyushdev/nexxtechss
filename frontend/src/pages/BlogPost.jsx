@@ -130,6 +130,29 @@ export default function BlogPost() {
     { icon: Instagram, color: "hover:bg-pink-600", name: "Instagram" },
   ];
 
+  let relatedCourse = null;
+  if (blog) {
+    const blogKeywords = {
+      'artificial-intelligence': ['data-science'],
+      'cyber-security': ['cyber-security'],
+      'data-science': ['data-science', 'data-analytics'],
+      'ethical-hacker': ['cyber-security'],
+      'cyber-security-tools': ['cyber-security'],
+      'cyber-security-career': ['cyber-security'],
+    };
+    const matchedSlugs = new Set();
+    Object.entries(blogKeywords).forEach(([keyword, slugs]) => {
+      if (blog.id?.includes(keyword) || blog.title?.toLowerCase().includes(keyword.replace('-', ' '))) {
+        slugs.forEach(s => matchedSlugs.add(s));
+      }
+    });
+    if (matchedSlugs.size === 0) {
+      matchedSlugs.add('web-development');
+    }
+    // Pick exactly ONE related course as requested by SEO
+    relatedCourse = COURSES_DATA.find(c => matchedSlugs.has(c.slug)) || COURSES_DATA[0];
+  }
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
@@ -142,24 +165,59 @@ export default function BlogPost() {
               canonical={`/blog/${id}`}
               keywords={blog.keywords}
               ogType="article"
-              jsonLd={{
-                "@context": "https://schema.org",
-                "@type": "BlogPosting",
-                "headline": blog.title,
-                "description": blog.excerpt,
-                "image": blog.image,
-                "author": { "@type": "Organization", "name": "NexxTechs" },
-                "publisher": {
-                  "@type": "Organization",
-                  "name": "NexxTechs",
-                  "url": "https://www.nexxtechs.com"
+              jsonLd={[
+                {
+                  "@context": "https://schema.org",
+                  "@type": "BlogPosting",
+                  "headline": blog.title,
+                  "description": blog.excerpt,
+                  "image": blog.image,
+                  "author": { "@type": "Organization", "name": "NexxTechs" },
+                  "publisher": {
+                    "@type": "Organization",
+                    "name": "NexxTechs",
+                    "url": "https://www.nexxtechs.com"
+                  },
+                  "datePublished": blog.date,
+                  "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": `https://www.nexxtechs.com/blog/${id}`
+                  }
                 },
-                "datePublished": blog.date,
-                "mainEntityOfPage": {
-                  "@type": "WebPage",
-                  "@id": `https://www.nexxtechs.com/blog/${id}`
-                }
-              }}
+                ...(relatedCourse ? [{
+                  "@context": "https://schema.org",
+                  "@type": "Course",
+                  "name": `${relatedCourse.title} Training in Delhi`,
+                  "description": relatedCourse.tagline,
+                  "url": `https://www.nexxtechs.com/course/${relatedCourse.slug}`,
+                  "provider": {
+                    "@type": "Organization",
+                    "name": "NexxTechs",
+                    "sameAs": "https://www.nexxtechs.com",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "streetAddress": "B-54 Krishna Park",
+                      "addressLocality": "Vikaspuri, New Delhi",
+                      "postalCode": "110018",
+                      "addressCountry": "IN"
+                    }
+                  },
+                  "timeRequired": relatedCourse.duration,
+                  "educationalLevel": relatedCourse.level,
+                  "offers": {
+                    "@type": "Offer",
+                    "category": "Fee-based",
+                    "priceCurrency": "INR",
+                    "price": "0",
+                    "url": `https://www.nexxtechs.com/course/${relatedCourse.slug}`
+                  },
+                  "hasCourseInstance": {
+                    "@type": "CourseInstance",
+                    "courseMode": "Blended",
+                    "instructor": { "@type": "Organization", "name": "NexxTechs" }
+                  }
+                }] : [])
+              ]}
             />
             <Breadcrumbs items={[
               { name: "Blog", path: "/blog" },
@@ -245,47 +303,22 @@ export default function BlogPost() {
               )}
 
               {/* Related Courses Section (Internal Linking) */}
-              {(() => {
-                const blogKeywords = {
-                  'artificial-intelligence': ['data-science'],
-                  'cyber-security': ['cyber-security'],
-                  'data-science': ['data-science', 'data-analytics'],
-                  'ethical-hacker': ['cyber-security'],
-                  'cyber-security-tools': ['cyber-security'],
-                  'cyber-security-career': ['cyber-security'],
-                };
-                const matchedSlugs = new Set();
-                Object.entries(blogKeywords).forEach(([keyword, slugs]) => {
-                  if (blog.id?.includes(keyword) || blog.title?.toLowerCase().includes(keyword.replace('-', ' '))) {
-                    slugs.forEach(s => matchedSlugs.add(s));
-                  }
-                });
-                // Always add a default if no match found
-                if (matchedSlugs.size === 0) {
-                  matchedSlugs.add('web-development');
-                  matchedSlugs.add('devops');
-                }
-                const relatedCourses = COURSES_DATA.filter(c => matchedSlugs.has(c.slug)).slice(0, 3);
-                
-                return (
-                  <div className="mt-14 pt-8 border-t border-gray-100 dark:border-white/5">
-                    <h3 className="text-lg font-black text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                      <BookOpen size={18} className="text-[#84CC16]" /> Related Courses at NexxTechs
-                    </h3>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {relatedCourses.map(rc => (
-                        <Link key={rc.slug} to={`/course/${rc.slug}/`} className="group block bg-[#F9FAFB] dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl p-5 hover:border-[#84CC16]/40 transition-all duration-300 hover:-translate-y-1">
-                          <h4 className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-[#84CC16] transition-colors mb-2">{rc.title}</h4>
-                          <p className="text-xs text-[#4B5563] dark:text-gray-400 line-clamp-2 mb-3">{rc.tagline}</p>
-                          <span className="text-xs font-bold text-[#84CC16] flex items-center gap-1">
-                            Explore Course <ArrowRight size={12} />
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
+              {relatedCourse && (
+                <div className="mt-14 pt-8 border-t border-gray-100 dark:border-white/5">
+                  <h3 className="text-lg font-black text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                    <BookOpen size={18} className="text-[#84CC16]" /> Recommended Course
+                  </h3>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                    <Link to={`/course/${relatedCourse.slug}/`} className="group block bg-[#F9FAFB] dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl p-5 hover:border-[#84CC16]/40 transition-all duration-300 hover:-translate-y-1">
+                      <h4 className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-[#84CC16] transition-colors mb-2">{relatedCourse.title}</h4>
+                      <p className="text-xs text-[#4B5563] dark:text-gray-400 line-clamp-2 mb-3">{relatedCourse.tagline}</p>
+                      <span className="text-xs font-bold text-[#84CC16] flex items-center gap-1">
+                        Explore Course <ArrowRight size={12} />
+                      </span>
+                    </Link>
                   </div>
-                );
-              })()}
+                </div>
+              )}
 
               {/* Bottom Share Section */}
               <div className="mt-16 pt-8 border-t border-gray-100 dark:border-white/5">
