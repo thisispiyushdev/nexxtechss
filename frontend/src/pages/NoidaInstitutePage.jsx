@@ -50,7 +50,7 @@ export default function NoidaInstitutePage() {
     <PageTransition>
       <SEOHead
         title="Top Institute for IT Training Courses in Noida – Nexxtechs"
-        description="Nexxtechs is the No.1 Training Company in Noida with top-notch IT training programs and industry experts. Providing Placement, Certification and affordable fees."
+        description="Nexxtechs is the No.1 IT Training Institute in Noida offering top-notch courses, expert trainers, 100% placement assistance, and affordable fees."
         canonical="/nexxtechs-noida"
         keywords="Nexxtechs Noida, IT training institute Noida, computer institute Noida, software training institute Noida, data science course Noida, data science institute Noida, data analytics course Noida, artificial intelligence course Noida, generative AI course Noida, machine learning course Noida, cloud computing course Noida, AWS course Noida, DevOps course Noida, cybersecurity course Noida, ethical hacking course Noida, Java full stack course Noida, web development course Noida, Python course Noida, digital marketing course Noida, UI UX design course Noida"
       />

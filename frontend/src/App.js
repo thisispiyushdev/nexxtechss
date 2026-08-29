@@ -110,7 +110,7 @@ function HomePage() {
     <PageTransition>
       <SEOHead
         title="Top Institute for IT Training Courses in Delhi – Nexxtechs"
-        description="Nexxtechs is the No.1 Training Company in Delhi with top-notch IT training programs and industry experts. Providing Placement, Certification and affordable fees."
+        description="Nexxtechs is the No.1 IT Training Institute in Delhi offering top-notch courses, expert trainers, 100% placement assistance, and affordable fees."
         canonical="/"
         jsonLd={{
           "@context": "https://schema.org",
