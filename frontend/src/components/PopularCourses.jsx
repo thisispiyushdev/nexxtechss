@@ -111,7 +111,7 @@ export default function PopularCourses() {
 
               <div className="space-y-2">
                 <Button
-                  onClick={() => navigate(`/course/${course.slug}/`)}
+                  onClick={() => navigate(`/course/${course.slug}`)}
                   variant="outline"
                   className="w-full rounded-xl border-gray-200 dark:border-gray-600 text-[#111827] dark:text-white font-medium hover:bg-[#84CC16] hover:text-black hover:border-[#84CC16] transition-all group-hover:bg-[#84CC16] group-hover:text-black group-hover:border-[#84CC16]"
                   data-testid={`view-details-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}

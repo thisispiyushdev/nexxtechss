@@ -104,11 +104,11 @@ export default function Footer() {
             <h4 className="font-bold text-white text-base mb-5">Courses in Delhi</h4>
             <ul className="space-y-3 mb-6">
               {[
-                { label: "Data Science & AI in Delhi", href: "/course/data-science/" },
-                { label: "Full Stack Web Dev in Delhi", href: "/course/web-development/" },
-                { label: "DevOps Engineering in Delhi", href: "/course/devops/" },
-                { label: "Cyber Security in Delhi", href: "/course/cyber-security/" },
-                { label: "Cloud Computing in Delhi", href: "/course/cloud-computing/" },
+                { label: "Data Science & AI in Delhi", href: "/course/data-science" },
+                { label: "Full Stack Web Dev in Delhi", href: "/course/web-development" },
+                { label: "DevOps Engineering in Delhi", href: "/course/devops" },
+                { label: "Cyber Security in Delhi", href: "/course/cyber-security" },
+                { label: "Cloud Computing in Delhi", href: "/course/cloud-computing" },
               ].map((course) => (
                 <li key={course.label}>
                   <Link
@@ -136,11 +136,11 @@ export default function Footer() {
             <h4 className="font-bold text-white text-base mb-5">Courses in Noida</h4>
             <ul className="space-y-3 mb-6">
               {[
-                { label: "Data Science & AI in Noida", href: "/course/data-science-noida/" },
-                { label: "Full Stack Web Dev in Noida", href: "/course/web-development-noida/" },
-                { label: "DevOps Engineering in Noida", href: "/course/devops-noida/" },
-                { label: "Cyber Security in Noida", href: "/course/cyber-security-noida/" },
-                { label: "Cloud Computing in Noida", href: "/course/cloud-computing-noida/" },
+                { label: "Data Science & AI in Noida", href: "/course/data-science-noida" },
+                { label: "Full Stack Web Dev in Noida", href: "/course/web-development-noida" },
+                { label: "DevOps Engineering in Noida", href: "/course/devops-noida" },
+                { label: "Cyber Security in Noida", href: "/course/cyber-security-noida" },
+                { label: "Cloud Computing in Noida", href: "/course/cloud-computing-noida" },
               ].map((course) => (
                 <li key={`noida-${course.label}`}>
                   <Link

@@ -35,69 +35,69 @@ const CONTACT_INFO = {
 
 const MEGA_MENU_DATA = {
   "Data Science & AI": [
-    { title: "Generative AI", type: "Professional Certification", link: "/course/gen-ai/" },
-    { title: "Data Science & GenAI", type: "Job Bootcamp", link: "/course/data-science/" },
-    { title: "Data Analytics", type: "Professional Certification", link: "/course/data-analytics/" },
-    { title: "Machine Learning Specialist", type: "Professional Certification", link: "/course/data-science/" },
+    { title: "Generative AI", type: "Professional Certification", link: "/course/gen-ai" },
+    { title: "Data Science & GenAI", type: "Job Bootcamp", link: "/course/data-science" },
+    { title: "Data Analytics", type: "Professional Certification", link: "/course/data-analytics" },
+    { title: "Machine Learning Specialist", type: "Professional Certification", link: "/course/data-science" },
   ],
   "Software Development": [
-    { title: "Java Full Stack", type: "Job Bootcamp", link: "/course/java-full-stack/" },
-    { title: "MERN Stack Masterclass", type: "Professional Certification", link: "/course/mern-stack/" },
-    { title: "Python Full Stack", type: "Job Bootcamp", link: "/course/python-full-stack/" },
-    { title: "Web Development", type: "Full Stack Certification", link: "/course/web-development/" },
-    { title: "DSA with Java", type: "Technical Certification", link: "/course/dsa-with-java/" },
-    { title: "DSA Foundation", type: "Career Kickstarter", link: "/course/dsa/" },
+    { title: "Java Full Stack", type: "Job Bootcamp", link: "/course/java-full-stack" },
+    { title: "MERN Stack Masterclass", type: "Professional Certification", link: "/course/mern-stack" },
+    { title: "Python Full Stack", type: "Job Bootcamp", link: "/course/python-full-stack" },
+    { title: "Web Development", type: "Full Stack Certification", link: "/course/web-development" },
+    { title: "DSA with Java", type: "Technical Certification", link: "/course/dsa-with-java" },
+    { title: "DSA Foundation", type: "Career Kickstarter", link: "/course/dsa" },
   ],
   "Cyber Security": [
-    { title: "Cyber Security Professional", type: "Professional Certification", link: "/course/cyber-security/" },
-    { title: "Ethical Hacking Masterclass", type: "Job Bootcamp", link: "/course/cyber-security/" },
+    { title: "Cyber Security Professional", type: "Professional Certification", link: "/course/cyber-security" },
+    { title: "Ethical Hacking Masterclass", type: "Job Bootcamp", link: "/course/cyber-security" },
   ],
   "Cloud & DevOps": [
-    { title: "Cloud Computing Expert", type: "Professional Certification", link: "/course/cloud-computing/" },
-    { title: "DevOps Engineering", type: "Job Bootcamp", link: "/course/devops/" },
-    { title: "Azure/AWS Specialist", type: "Cloud Certification", link: "/course/cloud-computing/" },
+    { title: "Cloud Computing Expert", type: "Professional Certification", link: "/course/cloud-computing" },
+    { title: "DevOps Engineering", type: "Job Bootcamp", link: "/course/devops" },
+    { title: "Azure/AWS Specialist", type: "Cloud Certification", link: "/course/cloud-computing" },
   ],
   "Design & Creative": [
-    { title: "UI/UX Design", type: "Professional Certification", link: "/course/ui-ux-design/" },
-    { title: "Graphic Design", type: "Professional Certification", link: "/course/graphic-design/" },
+    { title: "UI/UX Design", type: "Professional Certification", link: "/course/ui-ux-design" },
+    { title: "Graphic Design", type: "Professional Certification", link: "/course/graphic-design" },
   ],
   "Business & Marketing": [
-    { title: "Digital Marketing Expert", type: "Professional Certification", link: "/course/digital-marketing/" },
-    { title: "SAP Masterclass", type: "Enterprise Certification", link: "/course/sap-masterclass/" },
+    { title: "Digital Marketing Expert", type: "Professional Certification", link: "/course/digital-marketing" },
+    { title: "SAP Masterclass", type: "Enterprise Certification", link: "/course/sap-masterclass" },
   ]
 };
 
 const NOIDA_MEGA_MENU_DATA = {
   "Data Science & AI": [
-    { title: "Generative AI", type: "Professional Certification", link: "/course/gen-ai-noida/" },
-    { title: "Data Science & GenAI", type: "Job Bootcamp", link: "/course/data-science-noida/" },
-    { title: "Data Analytics", type: "Professional Certification", link: "/course/data-analytics-noida/" },
-    { title: "Machine Learning Specialist", type: "Professional Certification", link: "/course/data-science-noida/" },
+    { title: "Generative AI", type: "Professional Certification", link: "/course/gen-ai-noida" },
+    { title: "Data Science & GenAI", type: "Job Bootcamp", link: "/course/data-science-noida" },
+    { title: "Data Analytics", type: "Professional Certification", link: "/course/data-analytics-noida" },
+    { title: "Machine Learning Specialist", type: "Professional Certification", link: "/course/data-science-noida" },
   ],
   "Software Development": [
-    { title: "Java Full Stack", type: "Job Bootcamp", link: "/course/java-full-stack-noida/" },
-    { title: "MERN Stack Masterclass", type: "Professional Certification", link: "/course/mern-stack-noida/" },
-    { title: "Python Full Stack", type: "Job Bootcamp", link: "/course/python-full-stack-noida/" },
-    { title: "Web Development", type: "Full Stack Certification", link: "/course/web-development-noida/" },
-    { title: "DSA with Java", type: "Technical Certification", link: "/course/dsa-with-java-noida/" },
-    { title: "DSA Foundation", type: "Career Kickstarter", link: "/course/dsa-noida/" },
+    { title: "Java Full Stack", type: "Job Bootcamp", link: "/course/java-full-stack-noida" },
+    { title: "MERN Stack Masterclass", type: "Professional Certification", link: "/course/mern-stack-noida" },
+    { title: "Python Full Stack", type: "Job Bootcamp", link: "/course/python-full-stack-noida" },
+    { title: "Web Development", type: "Full Stack Certification", link: "/course/web-development-noida" },
+    { title: "DSA with Java", type: "Technical Certification", link: "/course/dsa-with-java-noida" },
+    { title: "DSA Foundation", type: "Career Kickstarter", link: "/course/dsa-noida" },
   ],
   "Cyber Security": [
-    { title: "Cyber Security Professional", type: "Professional Certification", link: "/course/cyber-security-noida/" },
-    { title: "Ethical Hacking Masterclass", type: "Job Bootcamp", link: "/course/cyber-security-noida/" },
+    { title: "Cyber Security Professional", type: "Professional Certification", link: "/course/cyber-security-noida" },
+    { title: "Ethical Hacking Masterclass", type: "Job Bootcamp", link: "/course/cyber-security-noida" },
   ],
   "Cloud & DevOps": [
-    { title: "Cloud Computing Expert", type: "Professional Certification", link: "/course/cloud-computing-noida/" },
-    { title: "DevOps Engineering", type: "Job Bootcamp", link: "/course/devops-noida/" },
-    { title: "Azure/AWS Specialist", type: "Cloud Certification", link: "/course/cloud-computing-noida/" },
+    { title: "Cloud Computing Expert", type: "Professional Certification", link: "/course/cloud-computing-noida" },
+    { title: "DevOps Engineering", type: "Job Bootcamp", link: "/course/devops-noida" },
+    { title: "Azure/AWS Specialist", type: "Cloud Certification", link: "/course/cloud-computing-noida" },
   ],
   "Design & Creative": [
-    { title: "UI/UX Design", type: "Professional Certification", link: "/course/ui-ux-design-noida/" },
-    { title: "Graphic Design", type: "Professional Certification", link: "/course/graphic-design-noida/" },
+    { title: "UI/UX Design", type: "Professional Certification", link: "/course/ui-ux-design-noida" },
+    { title: "Graphic Design", type: "Professional Certification", link: "/course/graphic-design-noida" },
   ],
   "Business & Marketing": [
-    { title: "Digital Marketing Expert", type: "Professional Certification", link: "/course/digital-marketing-noida/" },
-    { title: "SAP Masterclass", type: "Enterprise Certification", link: "/course/sap-masterclass-noida/" },
+    { title: "Digital Marketing Expert", type: "Professional Certification", link: "/course/digital-marketing-noida" },
+    { title: "SAP Masterclass", type: "Enterprise Certification", link: "/course/sap-masterclass-noida" },
   ]
 };
 

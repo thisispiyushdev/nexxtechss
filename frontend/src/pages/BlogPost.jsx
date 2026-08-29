@@ -309,7 +309,7 @@ export default function BlogPost() {
                     <BookOpen size={18} className="text-[#84CC16]" /> Recommended Course
                   </h3>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
-                    <Link to={`/course/${relatedCourse.slug}/`} className="group block bg-[#F9FAFB] dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl p-5 hover:border-[#84CC16]/40 transition-all duration-300 hover:-translate-y-1">
+                    <Link to={`/course/${relatedCourse.slug}`} className="group block bg-[#F9FAFB] dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl p-5 hover:border-[#84CC16]/40 transition-all duration-300 hover:-translate-y-1">
                       <h4 className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-[#84CC16] transition-colors mb-2">{relatedCourse.title}</h4>
                       <p className="text-xs text-[#4B5563] dark:text-gray-400 line-clamp-2 mb-3">{relatedCourse.tagline}</p>
                       <span className="text-xs font-bold text-[#84CC16] flex items-center gap-1">

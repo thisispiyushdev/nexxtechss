@@ -169,7 +169,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
                       <div
                         key={`${groupIndex}-${course.title}`}
                         className="w-[280px] sm:w-[320px] md:w-[380px] h-full shrink-0 group bg-white dark:bg-[#0a0a0a] border border-gray-200/50 dark:border-white/10 rounded-[24px] sm:rounded-[28px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_40px_-10px_rgba(132,204,22,0.3)] hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
-                        onClick={() => navigate(`/course/${course.slug}/`)}
+                        onClick={() => navigate(`/course/${course.slug}`)}
                       >
                         {course.image && (
                           <div className="relative w-full aspect-video overflow-hidden rounded-t-[24px] sm:rounded-t-[28px] z-10">
@@ -212,7 +212,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
                           )}
                           <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100 dark:border-white/5">
                             <Button
-                              onClick={(e) => { e.stopPropagation(); navigate(`/course/${course.slug}/`); }}
+                              onClick={(e) => { e.stopPropagation(); navigate(`/course/${course.slug}`); }}
                               variant="outline"
                               className="flex-1 px-4 h-12 rounded-full border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-black/20 text-[#111827] dark:text-white font-semibold hover:bg-[#84CC16] hover:text-black dark:hover:bg-[#84CC16] dark:hover:text-black hover:border-[#84CC16] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(132,204,22,0.2)] min-w-0 flex items-center justify-center overflow-hidden"
                               data-testid={`view-details-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
@@ -245,7 +245,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
                 <div
                   key={`grid-${course.title}`}
                   className="h-full group bg-white dark:bg-[#0a0a0a] border border-gray-200/50 dark:border-white/10 rounded-[24px] sm:rounded-[28px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_40px_-10px_rgba(132,204,22,0.3)] hover:border-[#84CC16]/50 transition-all duration-500 cursor-pointer flex flex-col"
-                  onClick={() => navigate(`/course/${course.slug}/`)}
+                  onClick={() => navigate(`/course/${course.slug}`)}
                 >
                   {course.image && (
                     <div className="relative w-full aspect-video overflow-hidden rounded-t-[24px] sm:rounded-t-[28px] z-10">
@@ -288,7 +288,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
                     )}
                     <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100 dark:border-white/5">
                       <Button
-                        onClick={(e) => { e.stopPropagation(); navigate(`/course/${course.slug}/`); }}
+                        onClick={(e) => { e.stopPropagation(); navigate(`/course/${course.slug}`); }}
                         variant="outline"
                         className="flex-1 px-4 h-12 rounded-full border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-black/20 text-[#111827] dark:text-white font-semibold hover:bg-[#84CC16] hover:text-black dark:hover:bg-[#84CC16] dark:hover:text-black hover:border-[#84CC16] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(132,204,22,0.2)] min-w-0 flex items-center justify-center overflow-hidden"
                         data-testid={`view-details-${course.title.toLowerCase().replace(/[\s/.]+/g, '-')}`}
