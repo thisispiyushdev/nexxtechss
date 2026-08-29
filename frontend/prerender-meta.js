@@ -351,6 +351,16 @@ async function prerenderRoutes() {
       `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>\n</head>`
     );
 
+    // Fix JSON-LD Schema address for Noida pages
+    if (route.path.includes("noida")) {
+      html = html.replace(/B-54 Krishna Park/g, "B-136 Upper, Ground floor, B Block, Sector 2");
+      html = html.replace(/Vikaspuri/g, "Noida");
+      html = html.replace(/New Delhi/g, "Uttar Pradesh");
+      html = html.replace(/110018/g, "201301");
+      html = html.replace(/"latitude": "28\.6417"/g, '"latitude": "28.5833"');
+      html = html.replace(/"longitude": "77\.0684"/g, '"longitude": "77.3167"');
+    }
+
     // Create directory structure: /courses -> build/courses/index.html
     const routeDir = path.join(BUILD_DIR, route.path);
     fs.mkdirSync(routeDir, { recursive: true });

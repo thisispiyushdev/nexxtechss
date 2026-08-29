@@ -31,45 +31,7 @@ export default function SEOHead({
 
   const fullUrl = `${BASE_URL}${normalizedCanonical}`;
 
-  // Instant direct DOM updates to support SPA navigations without requiring a browser reload
-  useEffect(() => {
-    if (title) {
-      document.title = title;
-    }
-
-    let descTag = document.querySelector('meta[name="description"]');
-    if (!descTag) {
-      descTag = document.createElement('meta');
-      descTag.setAttribute('name', 'description');
-      descTag.setAttribute('data-rh', 'true');
-      document.head.appendChild(descTag);
-    }
-    descTag.setAttribute('content', description);
-  }, [title, description]);
-
-  useEffect(() => {
-    let canonicalTag = document.querySelector('link[rel="canonical"]');
-    if (!canonicalTag) {
-      canonicalTag = document.createElement('link');
-      canonicalTag.setAttribute('rel', 'canonical');
-      canonicalTag.setAttribute('data-rh', 'true');
-      document.head.appendChild(canonicalTag);
-    }
-    canonicalTag.setAttribute('href', fullUrl);
-  }, [fullUrl]);
-  
-  useEffect(() => {
-    if (keywords) {
-      let keywordsTag = document.querySelector('meta[name="keywords"]');
-      if (!keywordsTag) {
-        keywordsTag = document.createElement('meta');
-        keywordsTag.setAttribute('name', 'keywords');
-        keywordsTag.setAttribute('data-rh', 'true');
-        document.head.appendChild(keywordsTag);
-      }
-      keywordsTag.setAttribute('content', keywords);
-    }
-  }, [keywords]);
+  // Rely on react-helmet-async for SEO tags to prevent duplication
 
   return (
     <Helmet>

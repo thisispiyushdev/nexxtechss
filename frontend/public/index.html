@@ -5,18 +5,6 @@
             if (window.location.hostname === 'nexxtechs.com') {
                 window.location.replace('https://www.nexxtechs.com' + window.location.pathname + window.location.search + window.location.hash);
             }
-            (function() {
-                var canonical = document.querySelector('link[rel="canonical"]');
-                if (!canonical) {
-                    canonical = document.createElement('link');
-                    canonical.rel = 'canonical';
-                    canonical.setAttribute('data-rh', 'true');
-                    var pathname = window.location.pathname;
-                    var normalizedPath = pathname === '/' ? '/' : (pathname.endsWith('/') ? pathname : pathname + '/');
-                    canonical.href = 'https://www.nexxtechs.com' + normalizedPath;
-                    document.head.appendChild(canonical);
-                }
-            })();
         </script>
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18083358112"></script>

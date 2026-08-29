@@ -246,9 +246,9 @@ export default function CourseDetail() {
               "sameAs": "https://www.nexxtechs.com",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "B-54 Krishna Park",
-                "addressLocality": "Vikaspuri, New Delhi",
-                "postalCode": "110018",
+                "streetAddress": slug.endsWith('-noida') ? "B-136 Upper, Ground floor, B Block, Sector 2" : "B-54 Krishna Park",
+                "addressLocality": slug.endsWith('-noida') ? "Noida" : "Vikaspuri, New Delhi",
+                "postalCode": slug.endsWith('-noida') ? "201301" : "110018",
                 "addressCountry": "IN"
               }
             },
