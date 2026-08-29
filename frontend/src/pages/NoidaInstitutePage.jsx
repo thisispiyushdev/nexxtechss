@@ -64,20 +64,10 @@ export default function NoidaInstitutePage() {
           <div className="w-12 h-12 border-4 border-lime-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
       }>
-        <CoursesGrid layout="marquee" />
+        <CoursesGrid limit={6} showMoreButton={true} />
       </Suspense>
 
-      <div className="py-4">
-        <NoidaEnquiryBanner 
-          titleText="Nexxtechs" 
-          highlightText="Noida"
-          addressText="B-136 Upper, Ground floor, B Block, Sector 2,<br/>Noida, Uttar Pradesh 201301"
-          addressLink="https://www.google.com/maps/search/B-136+Upper,+Ground+floor,+B+Block,+Sector+2,+Noida,+Uttar+Pradesh+201301" 
-          defaultBranch="Nexxtechs Noida"
-          buttonText="Book Free Demo"
-          compact={true}
-        />
-      </div>
+
       <Suspense fallback={null}>
         <NoidaWhyChooseUs />
       </Suspense>
