@@ -22,11 +22,8 @@ export default function TopTrainersPage() {
 
   const category = pageData.title
     .replace("Top 5 Best ", "")
-    .replace(" Trainers in India", "")
-    .replace(" Trainers in Noida", "")
-    .replace(" Trainer in Noida", "")
-    .replace(" Trainers", "")
-    .replace(" Trainer", "");
+    .replace(/ Trainers? in .*/, "")
+    .replace(/ Trainers?/, "");
 
   const extractCity = (locationStr, idx = 0) => {
     const techCities = ["Bangalore", "Pune", "Hyderabad", "Mumbai", "Chennai", "Gurgaon"];

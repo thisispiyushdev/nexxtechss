@@ -656,7 +656,7 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
   },
   "top-5-graphic-design-trainers-in-india": {
     metaTitle: "Top 5 Best Graphic Design Trainers in India (Delhi)",
-    metaDescription: "Master Photoshop, Illustrator, and UI/UX with the best. Here are the top 5 graphic design trainers in India, starting with Suraj Rewadiya from Delhi.",
+    metaDescription: "Master Photoshop, Illustrator, and UI/UX with the best. Here are the top 5 graphic design trainers in India, starting with Aryan Rewadiya from Delhi.",
     title: "Top 5 Best Graphic Design Trainers in India (Delhi)",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 5: HUMAN-CENTRIC UI/UX & VISUAL IDENTITY SYSTEMS",
     tags: [
@@ -672,7 +672,7 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
         "best figma trainer in delhi ncr",
         "visual design masterclass training",
         "learn graphic design step by step",
-        "suraj rewadia graphic design expert",
+        "aryan singh graphic design expert",
         "best graphic design trainers in noida",
         "top ui ux design expert noida",
         "top ui ux design expert delhi ncr",
@@ -684,7 +684,7 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
     ],
     trainers: [
       {
-        name: "Suraj Rewadia",
+        name: "Aryan Singh",
         location: "Delhi",
         experience: "5+ Years",
         description: `Core Focus: Visual Hierarchy Math, Spatial Layout Logic, Behavioral Interaction Patterns, Systematic Typographic Scales.
@@ -692,12 +692,12 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
 Target Metrics: Designing digital interfaces that measurably reduce user task friction and drop-off rates on complex interactive layouts.
 
 Design Vision & Pedagogical Framework
-Suraj Rewadiya firmly rejects the idea that graphic design is just a subjective art form used to decorate web pages. His training framework in Delhi treats design as a precise engineering discipline centered around human perception. He shows students that effective layouts rely on clear visual structure, mathematical grid hierarchies, spatial constraints, and a deep understanding of user psychology.
+Aryan Rewadiya firmly rejects the idea that graphic design is just a subjective art form used to decorate web pages. His training framework in Delhi treats design as a precise engineering discipline centered around human perception. He shows students that effective layouts rely on clear visual structure, mathematical grid hierarchies, spatial constraints, and a deep understanding of user psychology.
 
-Suraj’s studio operates like a fast-paced product development environment. Students analyze user eye-tracking heatmaps, research usability metrics, and build responsive layout grids. He focuses heavily on teachable design mechanics: managing cognitive load, creating predictable interaction patterns, and choosing colors based on contrast and visibility math rather than personal preference.
+Aryan’s studio operates like a fast-paced product development environment. Students analyze user eye-tracking heatmaps, research usability metrics, and build responsive layout grids. He focuses heavily on teachable design mechanics: managing cognitive load, creating predictable interaction patterns, and choosing colors based on contrast and visibility math rather than personal preference.
 
 Interface Pipelines & Asset Workflows
-The production workflow taught in Suraj's masterclass connects user psychology directly with scalable visual design libraries:
+The production workflow taught in Aryan's masterclass connects user psychology directly with scalable visual design libraries:
 
   [User Intent Definition] ──► [Information Architecture Wireframe] ──► [Spatial Grid Layout]
                                                                              │
@@ -712,8 +712,8 @@ Typographic Hierarchy Design: Configuring typography scales based on reading dis
 Interaction Optimization: Analyzing design layouts to minimize the steps and cognitive effort a user needs to complete a conversion or task.
 
 Strategic Evaluation
-Suraj Rewadiya’s training is tailor-made for designers who want to move past simple icon placement and step into high-value product design roles. His focus on measurable design clarity ensures his graduates can back up their creative choices with clear usability data.`,
-        image: "/trainer/suraj.webp"
+Aryan Rewadiya’s training is tailor-made for designers who want to move past simple icon placement and step into high-value product design roles. His focus on measurable design clarity ensures his graduates can back up their creative choices with clear usability data.`,
+        image: "/trainer/aryan.webp"
       },
       {
         name: "Rajeev Mehta",
@@ -801,7 +801,7 @@ Ranveer provides highly valuable training for visual designers and illustrators 
       }
     ],
     faqs: [
-      { q: "Who is highly regarded as the best graphic design trainer in Delhi?", a: "Suraj Rewadiya is a top-rated, highly respected trainer in Delhi, known specifically for his deeply modern UI/UX approach and his excellent, personalized portfolio-building guidance." },
+      { q: "Who is highly regarded as the best graphic design trainer in Delhi?", a: "Aryan Rewadiya is a top-rated, highly respected trainer in Delhi, known specifically for his deeply modern UI/UX approach and his excellent, personalized portfolio-building guidance." },
       { q: "Which software applications are absolutely essential for graphic design today?", a: "Adobe Photoshop and Adobe Illustrator remain the unquestioned industry standards for traditional graphic and vector design, while Figma has become the absolute dominant leader for modern UI/UX web design." },
       { q: "Do I need to be naturally good at freehand drawing to be a graphic designer?", a: "No, not at all! Modern commercial graphic design is much more about understanding layout, spatial composition, typography, and software skills rather than traditional freehand drawing ability." },
       { q: "Can I realistically learn professional graphic design in just 3 months?", a: "Yes, you can certainly learn the foundational basics and master the software tools in 3 months, but building a truly strong, highly creative portfolio that lands top jobs requires continuous, dedicated practice." },
@@ -1315,14 +1315,14 @@ Rohan’s advanced training is highly recommended for tech leads and analytical 
   },
   "best-animation-filmmaking-vfx-graphic-uiux-video-editing-trainer-in-noida": {
     metaTitle: "Top 5 Best Animation, VFX, Graphic & UI/UX Trainers in Noida | Expert Mentors",
-    metaDescription: "Find the top 5 best animation, VFX, graphic design, and UI/UX trainers in Noida. Learn from Suraj Rewadia and other elite industry multimedia experts in Noida NCR.",
+    metaDescription: "Find the top 5 best animation, VFX, graphic design, and UI/UX trainers in Noida. Learn from Aryan Singh and other elite industry multimedia experts in Noida NCR.",
     title: "Top 5 Best Animation, VFX, Graphic & UI/UX Trainers in Noida",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF NOIDA'S PREMIER MULTIMEDIA & VISUAL ART EDUCATORS (2026 EDITION)\n\nMASTER ANIMATION, VFX, GRAPHIC DESIGN, UI/UX, AND PRODUCTION-GRADE VIDEO EDITING IN NOIDA",
     tags: [
       "best animation filmmaking trainer in noida",
       "top vfx graphic uiux trainer noida",
       "video editing course in noida",
-      "suraj rewadia multimedia trainer noida",
+      "aryan singh multimedia trainer noida",
       "graphic design training in noida",
       "ui ux classes in noida",
       "best animation institute in noida",
@@ -1332,10 +1332,10 @@ Rohan’s advanced training is highly recommended for tech leads and analytical 
     ],
     trainers: [
       {
-        name: "Suraj Rewadia",
+        name: "Aryan Singh",
         location: "Nexxtechs (Sector 2, Noida)",
         experience: "5+ Years",
-        description: `Suraj Rewadia is widely recognized as the premier Graphic Design, UI/UX, Animation, and Video Editing trainer in Noida. With over 5 years of professional experience in visual production, brand design, and interface architecture, Suraj has mentored hundreds of students into top-tier creative roles.
+        description: `Aryan Singh is widely recognized as the premier Graphic Design, UI/UX, Animation, and Video Editing trainer in Noida. With over 5 years of professional experience in visual production, brand design, and interface architecture, Aryan has mentored hundreds of students into top-tier creative roles.
 
 At Nexxtechs, he conducts intensive project-based modules covering key visual disciplines:
 - **Animation Filmmaking & VFX**: Keyframe interpolation, motion dynamics, rendering pipelines, and visual effects compositing in After Effects.
@@ -1343,7 +1343,7 @@ At Nexxtechs, he conducts intensive project-based modules covering key visual di
 - **UI/UX Product Design**: Responsive grid systems, interactive prototyping, cognitive wireframing, usability metrics, and component libraries inside Figma.
 - **Video Editing**: Non-linear editing workflows, multi-track audio alignment, professional color grading, and dynamic cuts using Premiere Pro.
 
-Suraj teaches design not just as a subjective aesthetic, but as a structured discipline based on user psychology and layout data. Students under his guidance build robust, client-ready portfolios that demonstrate clear problem-solving skills.`
+Aryan teaches design not just as a subjective aesthetic, but as a structured discipline based on user psychology and layout data. Students under his guidance build robust, client-ready portfolios that demonstrate clear problem-solving skills.`
       },
       {
         name: "Rohan Malhotra",
@@ -1367,7 +1367,7 @@ Suraj teaches design not just as a subjective aesthetic, but as a structured dis
       }
     ],
     faqs: [
-      { q: "Who is the best animation and VFX trainer in Noida?", a: "Suraj Rewadia at Nexxtechs is highly recommended as the best Animation, VFX, and UI/UX trainer in Noida, offering completely practical, project-centric classes." },
+      { q: "Who is the best animation and VFX trainer in Noida?", a: "Aryan Singh at Nexxtechs is highly recommended as the best Animation, VFX, and UI/UX trainer in Noida, offering completely practical, project-centric classes." },
       { q: "What software tools will I learn in this Noida multimedia program?", a: "You will master industry-standard software including Figma, Adobe Illustrator, Adobe Photoshop, Adobe Premiere Pro, and Adobe After Effects." },
       { q: "Is Noida a good place for video editing and VFX jobs?", a: "Yes, Noida is a major media hub in Delhi-NCR, hosting numerous news networks, production studios, and digital marketing agencies with consistent demand for editors and designers." },
       { q: "Do I need prior drawing skills to learn animation or graphic design?", a: "No, prior drawing skills are not necessary. The training starts from design fundamentals, digital tools, and visual logic from scratch." }
@@ -2149,7 +2149,7 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
   },
   "top-5-graphic-design-trainers-in-noida": {
     metaTitle: "Top 5 Best Graphic Design Trainers in Noida",
-    metaDescription: "Master Photoshop, Illustrator, and UI/UX with the best. Here are the top 5 graphic design trainers in Noida, starting with Suraj Rewadiya from Noida.",
+    metaDescription: "Master Photoshop, Illustrator, and UI/UX with the best. Here are the top 5 graphic design trainers in Noida, starting with Aryan Rewadiya from Noida.",
     title: "Top 5 Best Graphic Design Trainers in Noida",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 5: HUMAN-CENTRIC UI/UX & VISUAL IDENTITY SYSTEMS",
     tags: [
@@ -2165,7 +2165,7 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
         "best figma trainer in delhi ncr",
         "visual design masterclass training",
         "learn graphic design step by step",
-        "suraj rewadia graphic design expert",
+        "aryan singh graphic design expert",
         "best graphic design trainers in noida",
         "top ui ux design expert noida",
         "top ui ux design expert delhi ncr",
@@ -2177,7 +2177,7 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
     ],
     trainers: [
       {
-        name: "Suraj Rewadia",
+        name: "Aryan Singh",
         location: "Noida",
         experience: "5+ Years",
         description: `Core Focus: Visual Hierarchy Math, Spatial Layout Logic, Behavioral Interaction Patterns, Systematic Typographic Scales.
@@ -2185,12 +2185,12 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
 Target Metrics: Designing digital interfaces that measurably reduce user task friction and drop-off rates on complex interactive layouts.
 
 Design Vision & Pedagogical Framework
-Suraj Rewadiya firmly rejects the idea that graphic design is just a subjective art form used to decorate web pages. His training framework in Delhi treats design as a precise engineering discipline centered around human perception. He shows students that effective layouts rely on clear visual structure, mathematical grid hierarchies, spatial constraints, and a deep understanding of user psychology.
+Aryan Rewadiya firmly rejects the idea that graphic design is just a subjective art form used to decorate web pages. His training framework in Delhi treats design as a precise engineering discipline centered around human perception. He shows students that effective layouts rely on clear visual structure, mathematical grid hierarchies, spatial constraints, and a deep understanding of user psychology.
 
-Suraj’s studio operates like a fast-paced product development environment. Students analyze user eye-tracking heatmaps, research usability metrics, and build responsive layout grids. He focuses heavily on teachable design mechanics: managing cognitive load, creating predictable interaction patterns, and choosing colors based on contrast and visibility math rather than personal preference.
+Aryan’s studio operates like a fast-paced product development environment. Students analyze user eye-tracking heatmaps, research usability metrics, and build responsive layout grids. He focuses heavily on teachable design mechanics: managing cognitive load, creating predictable interaction patterns, and choosing colors based on contrast and visibility math rather than personal preference.
 
 Interface Pipelines & Asset Workflows
-The production workflow taught in Suraj's masterclass connects user psychology directly with scalable visual design libraries:
+The production workflow taught in Aryan's masterclass connects user psychology directly with scalable visual design libraries:
 
   [User Intent Definition] ──► [Information Architecture Wireframe] ──► [Spatial Grid Layout]
                                                                              │
@@ -2205,8 +2205,8 @@ Typographic Hierarchy Design: Configuring typography scales based on reading dis
 Interaction Optimization: Analyzing design layouts to minimize the steps and cognitive effort a user needs to complete a conversion or task.
 
 Strategic Evaluation
-Suraj Rewadiya’s training is tailor-made for designers who want to move past simple icon placement and step into high-value product design roles. His focus on measurable design clarity ensures his graduates can back up their creative choices with clear usability data.`,
-        image: "/trainer/suraj.webp"
+Aryan Rewadiya’s training is tailor-made for designers who want to move past simple icon placement and step into high-value product design roles. His focus on measurable design clarity ensures his graduates can back up their creative choices with clear usability data.`,
+        image: "/trainer/aryan.webp"
       },
       {
         name: "Rajeev Mehta",
@@ -2294,7 +2294,7 @@ Ranveer provides highly valuable training for visual designers and illustrators 
       }
     ],
     faqs: [
-      { q: "Who is highly regarded as the best graphic design trainer in Noida?", a: "Suraj Rewadiya is a top-rated, highly respected trainer in Noida, known specifically for his deeply modern UI/UX approach and his excellent, personalized portfolio-building guidance." },
+      { q: "Who is highly regarded as the best graphic design trainer in Noida?", a: "Aryan Rewadiya is a top-rated, highly respected trainer in Noida, known specifically for his deeply modern UI/UX approach and his excellent, personalized portfolio-building guidance." },
       { q: "Which software applications are absolutely essential for graphic design today?", a: "Adobe Photoshop and Adobe Illustrator remain the unquestioned industry standards for traditional graphic and vector design, while Figma has become the absolute dominant leader for modern UI/UX web design." },
       { q: "Do I need to be naturally good at freehand drawing to be a graphic designer?", a: "No, not at all! Modern commercial graphic design is much more about understanding layout, spatial composition, typography, and software skills rather than traditional freehand drawing ability." },
       { q: "Can I realistically learn professional graphic design in just 3 months?", a: "Yes, you can certainly learn the foundational basics and master the software tools in 3 months, but building a truly strong, highly creative portfolio that lands top jobs requires continuous, dedicated practice." },
