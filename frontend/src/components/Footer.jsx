@@ -100,7 +100,7 @@ export default function Footer() {
           </div>
 
           {/* Courses */}
-          <div className="lg:col-span-3 md:col-span-3">
+          <div className="lg:col-span-4 md:col-span-3">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <h4 className="font-bold text-white text-base mb-5">Courses in Delhi</h4>
@@ -116,7 +116,7 @@ export default function Footer() {
                       <Link
                         to={course.href}
                         onClick={scrollToTop}
-                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap block"
+                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
                       >
                         {course.label}
                       </Link>
@@ -138,7 +138,7 @@ export default function Footer() {
                       <Link
                         to={course.href}
                         onClick={scrollToTop}
-                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap block"
+                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
                       >
                         {course.label}
                       </Link>
@@ -184,7 +184,7 @@ export default function Footer() {
                   <Link
                     to={trainer.href}
                     onClick={scrollToTop}
-                    className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap block"
+                    className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
                   >
                     {trainer.label}
                   </Link>
@@ -193,47 +193,48 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Resources */}
-          <div className="lg:col-span-1 md:col-span-2">
-            <h4 className="font-bold text-white text-base mb-5">Resources</h4>
-            <ul className="space-y-3">
-              {RESOURCES.map((link) => (
-                <li key={link.label}>
+          {/* Resources & Branches */}
+          <div className="lg:col-span-1 md:col-span-2 flex flex-col gap-8">
+            <div>
+              <h4 className="font-bold text-white text-base mb-5">Resources</h4>
+              <ul className="space-y-3">
+                {RESOURCES.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      to={link.href}
+                      onClick={scrollToTop}
+                      className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-bold text-white text-base mb-5">Branches</h4>
+              <ul className="space-y-3">
+                <li>
                   <Link
-                    to={link.href}
+                    to="/"
                     onClick={scrollToTop}
-                    className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
+                    className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
                   >
-                    {link.label}
+                    Nexxtechs Delhi
                   </Link>
                 </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Branches */}
-          <div className="md:col-span-2">
-            <h4 className="font-bold text-white text-base mb-5">Branches</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  to="/"
-                  onClick={scrollToTop}
-                  className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
-                >
-                  Nexxtechs Delhi
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/nexxtechs-noida"
-                  onClick={scrollToTop}
-                  className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
-                >
-                  Nexxtechs Noida
-                </Link>
-              </li>
-            </ul>
+                <li>
+                  <Link
+                    to="/nexxtechs-noida"
+                    onClick={scrollToTop}
+                    className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
+                  >
+                    Nexxtechs Noida
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Contact Us */}
