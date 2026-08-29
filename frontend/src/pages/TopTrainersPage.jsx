@@ -31,14 +31,15 @@ export default function TopTrainersPage() {
     
     if (!locationStr) return fallbackCity;
     const loc = locationStr.toLowerCase();
-    if (loc.includes('delhi') || loc.includes('nexxtechs')) return 'Delhi';
+    if (loc.includes('noida')) return 'Noida';
+    if (loc.includes('delhi')) return 'Delhi';
     if (loc.includes('bangalore') || loc.includes('bengaluru')) return 'Bangalore';
     if (loc.includes('mumbai')) return 'Mumbai';
     if (loc.includes('gurgaon') || loc.includes('gurugram')) return 'Gurgaon';
     if (loc.includes('hyderabad')) return 'Hyderabad';
     if (loc.includes('pune')) return 'Pune';
     if (loc.includes('chennai')) return 'Chennai';
-    if (loc.includes('noida')) return 'Noida';
+    if (loc.includes('nexxtechs')) return 'Delhi';
     
     let result = fallbackCity;
     const match = locationStr.match(/\((.*?)\)/);
