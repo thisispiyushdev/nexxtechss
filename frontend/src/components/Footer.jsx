@@ -136,27 +136,18 @@ export default function Footer() {
                   ].map((course) => (
                     <li key={`noida-${course.label}`}>
                       <Link
-          <div className="lg:col-span-2">
-            <h4 className="font-bold text-white text-base mb-5">Courses</h4>
-            <ul className="space-y-3 mb-6">
-              {[
-                { label: "Data Science & AI", href: "/course/data-science/" },
-                { label: "Full Stack Web Dev", href: "/course/web-development/" },
-                { label: "DevOps Engineering", href: "/course/devops/" },
-                { label: "Cyber Security", href: "/course/cyber-security/" },
-                { label: "Cloud Computing", href: "/course/cloud-computing/" },
-              ].map((course) => (
-                <li key={course.label}>
-                  <Link
-                    to={course.href}
-                    onClick={scrollToTop}
-                    className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap block"
-                  >
-                    {course.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                        to={course.href}
+                        onClick={scrollToTop}
+                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap block"
+                      >
+                        {course.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            
             <div className="flex gap-4">
               <Link
                 to="/courses/"
@@ -166,8 +157,17 @@ export default function Footer() {
                 View All Courses
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </Link>
+              <Link
+                to="/nexxtechs-noida/"
+                onClick={scrollToTop}
+                className="inline-flex items-center gap-2 text-white border border-[#84CC16] px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#84CC16]/10 transition-all group"
+              >
+                NexxTechs Noida
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </div>
+
 
           {/* Top Trainers Noida */}
           <div className="lg:col-span-2">
