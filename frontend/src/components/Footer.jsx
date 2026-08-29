@@ -39,9 +39,9 @@ export default function Footer() {
   return (
     <footer className="bg-[#0A0A0A] text-white pt-16 md:pt-20 pb-8" data-testid="footer">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        <div className="grid md:grid-cols-4 lg:grid-cols-11 gap-8 mb-12">
+        <div className="grid md:grid-cols-4 lg:grid-cols-12 gap-8 mb-12">
           {/* Brand */}
-          <div className="lg:col-span-3 md:col-span-4 lg:pr-4">
+          <div className="lg:col-span-2 md:col-span-4 lg:pr-4">
             <img 
               src={LOGO_URL} 
               alt="NexxTechs - Best IT Training Institute in Vikaspuri Delhi" 
@@ -81,7 +81,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="md:col-span-1">
             <h4 className="font-bold text-white text-base mb-5">Quick Links</h4>
             <ul className="space-y-3">
               {QUICK_LINKS.map((link) => (
@@ -100,7 +100,7 @@ export default function Footer() {
           </div>
 
           {/* Courses */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 md:col-span-3">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <h4 className="font-bold text-white text-base mb-5">Courses in Delhi</h4>
@@ -170,7 +170,7 @@ export default function Footer() {
 
 
           {/* Top Trainers Noida */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 md:col-span-2">
             <h4 className="font-bold text-white text-base mb-5">Top Trainers in Noida</h4>
             <ul className="space-y-3 mb-6">
               {[
@@ -194,7 +194,7 @@ export default function Footer() {
           </div>
 
           {/* Resources */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 md:col-span-2">
             <h4 className="font-bold text-white text-base mb-5">Resources</h4>
             <ul className="space-y-3">
               {RESOURCES.map((link) => (
@@ -212,7 +212,7 @@ export default function Footer() {
           </div>
 
           {/* Branches */}
-          <div>
+          <div className="md:col-span-2">
             <h4 className="font-bold text-white text-base mb-5">Branches</h4>
             <ul className="space-y-3">
               <li>
@@ -237,7 +237,7 @@ export default function Footer() {
           </div>
 
           {/* Contact Us */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-2 md:col-span-2">
             <h4 className="font-bold text-white text-base mb-5">Contact Us</h4>
             <address className="space-y-3 not-italic">
               <a href={contactInfo.phoneLink} className="flex items-start gap-3 text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap" data-testid="footer-phone">
