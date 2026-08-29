@@ -103,22 +103,7 @@ function DeferredRender({ children, delay = 2000 }) {
   return children;
 }
 
-// Enforces trailing slashes on all client-side navigations
-function TrailingSlashRedirect() {
-  const location = useLocation();
-  
-  useEffect(() => {
-    if (location.pathname !== '/' && !location.pathname.endsWith('/')) {
-      // Sanitize pathname to prevent double slashes from being evaluated as protocol-relative URLs
-      const safePath = location.pathname.replace(/^\/+/, '/');
-      // Use window.history.replaceState to avoid triggering a new React Router navigation cycle
-      // which can sometimes cause double-renders if using navigate()
-      window.history.replaceState(null, '', `${safePath}/${location.search}${location.hash}`);
-    }
-  }, [location]);
-
-  return null;
-}
+// Enforces trailing slashes on all client-side navigations (Removed due to canonical tag mismatch)
 
 function HomePage() {
   return (
@@ -237,7 +222,6 @@ function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        <TrailingSlashRedirect />
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             {/* Admin routes — NO Header, Footer, Background3D */}

@@ -1,18 +1,31 @@
 import React from 'react';
 
-const trainersList = [
-  { name: "Aditya Sharma (Cloud)", role: "Cloud Computing", path: "/best-cloud-computing-trainer-in-delhi" },
-  { name: "Aditya Sharma (DevOps)", role: "DevOps & SRE", path: "/best-devops-trainer-in-delhi" },
+const delhiTrainers = [
+  { name: "Aditya Sharma", role: "Cloud Computing", path: "/best-cloud-computing-trainer-in-delhi" },
+  { name: "Aditya Sharma", role: "DevOps & SRE", path: "/best-devops-trainer-in-delhi" },
+  { name: "Aditya Sharma", role: "Cloud & DevOps", path: "/best-cloud-devops-trainer-in-delhi" },
   { name: "Sagar Sir", role: "Digital Marketing", path: "/best-digital-marketing-trainer-in-delhi" },
   { name: "Meghesh Kumar", role: "Cyber Security", path: "/best-cyber-security-trainer-in-delhi" },
   { name: "Niti Gupta Mam", role: "Personal Development", path: "/best-personal-development-trainer-in-delhi" },
   { name: "Saba Hussain", role: "Data Science", path: "/best-data-science-trainer-in-delhi" },
-  { name: "Aditya Sharma (Noida)", role: "Cyber Security", path: "/best-cyber-security-trainer-in-noida" },
-  { name: "Niti Gupta Mam (Noida)", role: "Personal Development", path: "/best-personal-development-trainer-in-noida" },
+  { name: "Saba Hussain", role: "Data Analytics", path: "/best-data-analytics-trainer-in-delhi" },
+];
+
+const noidaTrainers = [
+  { name: "Aditya Sharma", role: "Cloud Computing", path: "/best-cloud-computing-trainer-in-noida" },
+  { name: "Aditya Sharma", role: "DevOps & SRE", path: "/best-devops-trainer-in-noida" },
+  { name: "Aditya Sharma", role: "Cloud & DevOps", path: "/best-cloud-devops-trainer-in-noida" },
+  { name: "Sagar Sir", role: "Digital Marketing", path: "/best-digital-marketing-trainer-in-noida" },
+  { name: "Meghesh Kumar", role: "Cyber Security", path: "/best-cyber-security-trainer-in-noida" },
+  { name: "Niti Gupta Mam", role: "Personal Development", path: "/best-personal-development-trainer-in-noida" },
+  { name: "Saba Hussain", role: "Data Science", path: "/best-data-science-trainer-in-noida" },
+  { name: "Saba Hussain", role: "Data Analytics", path: "/best-data-analytics-trainer-in-noida" },
 ];
 
 export default function OtherTrainers({ currentTrainerPath }) {
-  const filteredTrainers = trainersList.filter(t => t.path !== currentTrainerPath);
+  const isNoida = currentTrainerPath.includes('noida');
+  const sourceList = isNoida ? noidaTrainers : delhiTrainers;
+  const filteredTrainers = sourceList.filter(t => t.path !== currentTrainerPath);
 
   return (
     <div className="mt-12 pt-8 border-t border-gray-200 dark:border-white/10">

@@ -39,9 +39,9 @@ export default function Footer() {
   return (
     <footer className="bg-[#0A0A0A] text-white pt-16 md:pt-20 pb-8" data-testid="footer">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        <div className="grid md:grid-cols-3 lg:grid-cols-9 gap-8 mb-12">
+        <div className="grid md:grid-cols-4 lg:grid-cols-11 gap-8 mb-12">
           {/* Brand */}
-          <div className="lg:col-span-2 md:col-span-3 lg:pr-4">
+          <div className="lg:col-span-3 md:col-span-4 lg:pr-4">
             <img 
               src={LOGO_URL} 
               alt="NexxTechs - Best IT Training Institute in Vikaspuri Delhi" 
@@ -136,29 +136,65 @@ export default function Footer() {
                   ].map((course) => (
                     <li key={`noida-${course.label}`}>
                       <Link
-                        to={course.href}
-                        onClick={scrollToTop}
-                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap block"
-                      >
-                        {course.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <div className="lg:col-span-2">
+            <h4 className="font-bold text-white text-base mb-5">Courses</h4>
+            <ul className="space-y-3 mb-6">
+              {[
+                { label: "Data Science & AI", href: "/course/data-science/" },
+                { label: "Full Stack Web Dev", href: "/course/web-development/" },
+                { label: "DevOps Engineering", href: "/course/devops/" },
+                { label: "Cyber Security", href: "/course/cyber-security/" },
+                { label: "Cloud Computing", href: "/course/cloud-computing/" },
+              ].map((course) => (
+                <li key={course.label}>
+                  <Link
+                    to={course.href}
+                    onClick={scrollToTop}
+                    className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap block"
+                  >
+                    {course.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="flex gap-4">
+              <Link
+                to="/courses/"
+                onClick={scrollToTop}
+                className="inline-flex items-center gap-2 text-black bg-[#84CC16] px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#65A30D] transition-all group"
+              >
+                View All Courses
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
-            <Link
-              to="/courses/"
-              onClick={scrollToTop}
-              className="inline-flex items-center gap-2 text-black bg-[#84CC16] px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#65A30D] transition-all group"
-            >
-              View All Courses
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
+          </div>
+
+          {/* Top Trainers Noida */}
+          <div className="lg:col-span-2">
+            <h4 className="font-bold text-white text-base mb-5">Top Trainers in Noida</h4>
+            <ul className="space-y-3 mb-6">
+              {[
+                { label: "Best DevOps Trainer Noida", href: "/best-devops-trainer-in-noida/" },
+                { label: "Best Cloud Computing Trainer Noida", href: "/best-cloud-computing-trainer-in-noida/" },
+                { label: "Top 5 Cyber Security Trainers Noida", href: "/top-5-cyber-security-trainers-in-noida/" },
+                { label: "Top 5 Data Science Trainers Noida", href: "/top-5-data-science-trainers-in-noida/" },
+                { label: "Best Digital Marketing Trainer Noida", href: "/best-digital-marketing-trainer-in-noida/" },
+              ].map((trainer) => (
+                <li key={`noida-${trainer.label}`}>
+                  <Link
+                    to={trainer.href}
+                    onClick={scrollToTop}
+                    className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap block"
+                  >
+                    {trainer.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Resources */}
-          <div>
+          <div className="lg:col-span-1">
             <h4 className="font-bold text-white text-base mb-5">Resources</h4>
             <ul className="space-y-3">
               {RESOURCES.map((link) => (

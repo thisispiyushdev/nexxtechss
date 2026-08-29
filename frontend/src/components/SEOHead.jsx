@@ -24,10 +24,10 @@ export default function SEOHead({
   // otherwise fallback to the current pathname from React Router.
   const activePath = canonical !== undefined ? canonical : location.pathname;
 
-  // Enforce trailing slash normalization (except for the root homepage path)
+  // Enforce NO trailing slash normalization (except for the root homepage path) to match standard host behavior
   const normalizedCanonical = activePath === "/" 
     ? "/" 
-    : (activePath.endsWith("/") ? activePath : `${activePath}/`);
+    : (activePath.endsWith("/") ? activePath.slice(0, -1) : activePath);
 
   const fullUrl = `${BASE_URL}${normalizedCanonical}`;
 
@@ -55,12 +55,82 @@ export default function SEOHead({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
 
-      {/* JSON-LD Structured Data */}
+      {/* JSON-LD Structured Data - Page Specific */}
       {jsonLd && (
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
         </script>
       )}
+
+      {/* JSON-LD Structured Data - Global Organization & LocalBusiness */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "EducationalOrganization",
+              "name": "NexxTechs",
+              "url": "https://www.nexxtechs.com",
+              "logo": "https://www.nexxtechs.com/logo.jpeg",
+              "description": location.pathname.includes('noida') 
+                ? "Noida's leading IT training institute offering Cloud Computing, DevOps, Full Stack Development, Data Science, Cyber Security and more."
+                : "Delhi's leading IT training institute offering Cloud Computing, DevOps, Full Stack Development, Data Science, Cyber Security and more.",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": location.pathname.includes('noida') ? "B-136 Upper, Ground floor, B Block, Sector 2" : "B-54 Krishna Park",
+                "addressLocality": location.pathname.includes('noida') ? "Noida" : "Vikaspuri",
+                "addressRegion": location.pathname.includes('noida') ? "Uttar Pradesh" : "New Delhi",
+                "postalCode": location.pathname.includes('noida') ? "201301" : "110018",
+                "addressCountry": "IN"
+              },
+              "telephone": location.pathname.includes('noida') ? "+919217179764" : "+919217179762",
+              "email": "info@nexxtechs.com",
+              "sameAs": [
+                "https://www.instagram.com/nexxtechs.institute",
+                "https://www.linkedin.com/company/nexxtechs-private-limited/"
+              ]
+            },
+            {
+              "@type": "LocalBusiness",
+              "name": "NexxTechs",
+              "image": "https://www.nexxtechs.com/logo.jpeg",
+              "description": location.pathname.includes('noida')
+                ? "Best IT Training Institute in Noida offering DevOps, Cloud Computing, Full Stack Development, Data Science, Cyber Security courses with 95% placement rate."
+                : "Best IT Training Institute in Vikaspuri, Delhi offering DevOps, Cloud Computing, Full Stack Development, Data Science, Cyber Security courses with 95% placement rate.",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": location.pathname.includes('noida') ? "B-136 Upper, Ground floor, B Block, Sector 2" : "B-54 Krishna Park",
+                "addressLocality": location.pathname.includes('noida') ? "Noida" : "Vikaspuri",
+                "addressRegion": location.pathname.includes('noida') ? "Uttar Pradesh" : "New Delhi",
+                "postalCode": location.pathname.includes('noida') ? "201301" : "110018",
+                "addressCountry": "IN"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": location.pathname.includes('noida') ? "28.5833" : "28.6417",
+                "longitude": location.pathname.includes('noida') ? "77.3167" : "77.0684"
+              },
+              "telephone": location.pathname.includes('noida') ? "+919217179764" : "+919217179762",
+              "email": "info@nexxtechs.com",
+              "url": "https://www.nexxtechs.com",
+              "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                "opens": "09:00",
+                "closes": "19:00"
+              },
+              "priceRange": "₹₹",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "reviewCount": "312",
+                "bestRating": "5",
+                "worstRating": "1"
+              }
+            }
+          ]
+        })}
+      </script>
     </Helmet>
   );
 }

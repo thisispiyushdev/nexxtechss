@@ -215,6 +215,44 @@ ROUTES.push({
   keywords: "Nexxtechs Noida, IT training institute Noida, computer institute Noida, software training institute Noida, data science course Noida, data science institute Noida, data analytics course Noida, artificial intelligence course Noida, generative AI course Noida, machine learning course Noida, cloud computing course Noida, AWS course Noida, DevOps course Noida, cybersecurity course Noida, ethical hacking course Noida, Java full stack course Noida, web development course Noida, Python course Noida, digital marketing course Noida, UI UX design course Noida"
 });
 
+// Add Trainer Pages
+const TRAINERS = [
+  "devops", "cloud-computing", "full-stack", "data-science", "cyber-security", "digital-marketing", "ui-ux", "graphic-design"
+];
+const TRAINER_NAMES = {
+  "devops": "Aditya Sharma",
+  "cloud-computing": "Rahul Verma",
+  "full-stack": "Vikram Singh",
+  "data-science": "Priya Sharma",
+  "cyber-security": "Amit Kumar",
+  "digital-marketing": "Sagar",
+  "ui-ux": "Neha Gupta",
+  "graphic-design": "Karan Singh"
+};
+const TRAINER_TITLES = {
+  "devops": "DevOps",
+  "cloud-computing": "Cloud Computing",
+  "full-stack": "Full Stack",
+  "data-science": "Data Science",
+  "cyber-security": "Cyber Security",
+  "digital-marketing": "Digital Marketing",
+  "ui-ux": "UI/UX Design",
+  "graphic-design": "Graphic Design"
+};
+
+for (const t of TRAINERS) {
+  ROUTES.push({
+    path: `/best-${t}-trainer-in-noida`,
+    title: `Best ${TRAINER_TITLES[t]} Trainer in Noida: ${TRAINER_NAMES[t]}`,
+    description: `Learn from ${TRAINER_NAMES[t]}, the best ${TRAINER_TITLES[t]} trainer in Noida. Get expert guidance and hands-on training.`
+  });
+  ROUTES.push({
+    path: `/top-5-${t}-trainers-in-noida`,
+    title: `Top 5 ${TRAINER_TITLES[t]} Trainers in Noida`,
+    description: `Discover the top 5 ${TRAINER_TITLES[t]} trainers in Noida. Compare and choose the best mentor for your tech career.`
+  });
+}
+
 async function prerenderRoutes() {
   // Fetch dynamic blogs from API and append to ROUTES
   try {
@@ -275,7 +313,7 @@ async function prerenderRoutes() {
   for (const route of ROUTES) {
     let html = baseHtml;
 
-    const normalizedPath = route.path === "/" ? "/" : `${route.path}/`;
+    const normalizedPath = route.path === "/" ? "/" : (route.path.endsWith("/") ? route.path.slice(0, -1) : route.path);
 
     const seoTags = `
       <title data-rh="true">${route.title}</title>
@@ -294,8 +332,9 @@ async function prerenderRoutes() {
       html = html.replace(/<meta data-rh="true" name="keywords" content="[^"]*"\s*\/>/, `<meta data-rh="true" name="keywords" content="${route.keywords}" />`);
     }
 
-    // Inject SEO tags right before </head>
-    html = html.replace('</head>', `${seoTags}\n</head>`);
+    // Inject SEO tags by replacing the placeholder block
+    const seoMetaRegex = /<!-- SEO_META_START -->[\s\S]*?<!-- SEO_META_END -->/;
+    html = html.replace(seoMetaRegex, seoTags);
 
 
     // Inject per-page noscript content so Google sees real text without JS
