@@ -41,7 +41,7 @@ export default function Footer() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-4 lg:grid-cols-12 gap-8 mb-12">
           {/* Brand */}
-          <div className="lg:col-span-2 md:col-span-4 lg:pr-4">
+          <div className="lg:col-span-3 md:col-span-4 lg:pr-4">
             <img 
               src={LOGO_URL} 
               alt="NexxTechs - Best IT Training Institute in Vikaspuri Delhi" 
@@ -99,142 +99,103 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Courses */}
-          <div className="lg:col-span-4 md:col-span-3">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <h4 className="font-bold text-white text-base mb-5">Courses in Delhi</h4>
-                <ul className="space-y-3 mb-6">
-                  {[
-                    { label: "Data Science & AI in Delhi", href: "/course/data-science/" },
-                    { label: "Full Stack Web Dev in Delhi", href: "/course/web-development/" },
-                    { label: "DevOps Engineering in Delhi", href: "/course/devops/" },
-                    { label: "Cyber Security in Delhi", href: "/course/cyber-security/" },
-                    { label: "Cloud Computing in Delhi", href: "/course/cloud-computing/" },
-                  ].map((course) => (
-                    <li key={course.label}>
-                      <Link
-                        to={course.href}
-                        onClick={scrollToTop}
-                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
-                      >
-                        {course.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-bold text-white text-base mb-5">Courses in Noida</h4>
-                <ul className="space-y-3 mb-6">
-                  {[
-                    { label: "Data Science & AI in Noida", href: "/course/data-science-noida/" },
-                    { label: "Full Stack Web Dev in Noida", href: "/course/web-development-noida/" },
-                    { label: "DevOps Engineering in Noida", href: "/course/devops-noida/" },
-                    { label: "Cyber Security in Noida", href: "/course/cyber-security-noida/" },
-                    { label: "Cloud Computing in Noida", href: "/course/cloud-computing-noida/" },
-                  ].map((course) => (
-                    <li key={`noida-${course.label}`}>
-                      <Link
-                        to={course.href}
-                        onClick={scrollToTop}
-                        className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
-                      >
-                        {course.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            
-            <div className="flex gap-4">
-              <Link
-                to="/courses/"
-                onClick={scrollToTop}
-                className="inline-flex items-center gap-2 text-black bg-[#84CC16] px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#65A30D] transition-all group"
-              >
-                View All Courses
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to="/nexxtechs-noida/"
-                onClick={scrollToTop}
-                className="inline-flex items-center gap-2 text-white border border-[#84CC16] px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#84CC16]/10 transition-all group"
-              >
-                NexxTechs Noida
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </div>
-
-
-          {/* Top Trainers Noida */}
+          {/* Courses in Delhi */}
           <div className="lg:col-span-2 md:col-span-2">
-            <h4 className="font-bold text-white text-base mb-5">Top Trainers in Noida</h4>
+            <h4 className="font-bold text-white text-base mb-5">Courses in Delhi</h4>
             <ul className="space-y-3 mb-6">
               {[
-                { label: "Best DevOps Trainer Noida", href: "/best-devops-trainer-in-noida/" },
-                { label: "Best Cloud Computing Trainer Noida", href: "/best-cloud-computing-trainer-in-noida/" },
-                { label: "Top 5 Cyber Security Trainers Noida", href: "/top-5-cyber-security-trainers-in-noida/" },
-                { label: "Top 5 Data Science Trainers Noida", href: "/top-5-data-science-trainers-in-noida/" },
-                { label: "Best Digital Marketing Trainer Noida", href: "/best-digital-marketing-trainer-in-noida/" },
-              ].map((trainer) => (
-                <li key={`noida-${trainer.label}`}>
+                { label: "Data Science & AI in Delhi", href: "/course/data-science/" },
+                { label: "Full Stack Web Dev in Delhi", href: "/course/web-development/" },
+                { label: "DevOps Engineering in Delhi", href: "/course/devops/" },
+                { label: "Cyber Security in Delhi", href: "/course/cyber-security/" },
+                { label: "Cloud Computing in Delhi", href: "/course/cloud-computing/" },
+              ].map((course) => (
+                <li key={course.label}>
                   <Link
-                    to={trainer.href}
+                    to={course.href}
                     onClick={scrollToTop}
                     className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
                   >
-                    {trainer.label}
+                    {course.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link
+              to="/courses/"
+              onClick={scrollToTop}
+              className="inline-flex items-center gap-2 text-black bg-[#84CC16] px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#65A30D] transition-all group"
+            >
+              View All Courses
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          {/* Courses in Noida */}
+          <div className="lg:col-span-2 md:col-span-2">
+            <h4 className="font-bold text-white text-base mb-5">Courses in Noida</h4>
+            <ul className="space-y-3 mb-6">
+              {[
+                { label: "Data Science & AI in Noida", href: "/course/data-science-noida/" },
+                { label: "Full Stack Web Dev in Noida", href: "/course/web-development-noida/" },
+                { label: "DevOps Engineering in Noida", href: "/course/devops-noida/" },
+                { label: "Cyber Security in Noida", href: "/course/cyber-security-noida/" },
+                { label: "Cloud Computing in Noida", href: "/course/cloud-computing-noida/" },
+              ].map((course) => (
+                <li key={`noida-${course.label}`}>
+                  <Link
+                    to={course.href}
+                    onClick={scrollToTop}
+                    className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
+                  >
+                    {course.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Resources & Branches */}
-          <div className="lg:col-span-1 md:col-span-2 flex flex-col gap-8">
-            <div>
-              <h4 className="font-bold text-white text-base mb-5">Resources</h4>
-              <ul className="space-y-3">
-                {RESOURCES.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      to={link.href}
-                      onClick={scrollToTop}
-                      className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-bold text-white text-base mb-5">Branches</h4>
-              <ul className="space-y-3">
-                <li>
+          {/* Resources */}
+          <div className="lg:col-span-1 md:col-span-2">
+            <h4 className="font-bold text-white text-base mb-5">Resources</h4>
+            <ul className="space-y-3">
+              {RESOURCES.map((link) => (
+                <li key={link.label}>
                   <Link
-                    to="/"
+                    to={link.href}
                     onClick={scrollToTop}
                     className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
                   >
-                    Nexxtechs Delhi
+                    {link.label}
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    to="/nexxtechs-noida"
-                    onClick={scrollToTop}
-                    className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
-                  >
-                    Nexxtechs Noida
-                  </Link>
-                </li>
-              </ul>
-            </div>
+              ))}
+            </ul>
+          </div>
+          
+          {/* Branches */}
+          <div className="lg:col-span-1 md:col-span-2">
+            <h4 className="font-bold text-white text-base mb-5">Branches</h4>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  to="/"
+                  onClick={scrollToTop}
+                  className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
+                >
+                  Nexxtechs Delhi
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/nexxtechs-noida"
+                  onClick={scrollToTop}
+                  className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
+                >
+                  Nexxtechs Noida
+                </Link>
+              </li>
+            </ul>
           </div>
 
           {/* Contact Us */}
