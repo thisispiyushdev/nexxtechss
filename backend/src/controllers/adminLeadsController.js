@@ -235,7 +235,7 @@ export const updateLeadStatus = async (req, res, next) => {
       return res.status(400).json({ error: "Invalid table name." });
     }
 
-    const validStatuses = ["pending", "dead", "converted"];
+    const validStatuses = ["pending", "dead", "converted", "not verified"];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({ error: "Invalid status." });
     }

@@ -12,6 +12,7 @@ services:
       - PORT=8000
       - JWT_SECRET=${JWT_SECRET:-super_secret_jwt_key}
       - ADMIN_USERNAME=${ADMIN_USERNAME:-coreadmin}
+      
     ports:
       - "8000:8000"
     restart: unless-stopped

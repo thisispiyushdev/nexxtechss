@@ -677,12 +677,14 @@ function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, onBulkDelete,
                   "px-2 py-1 border rounded-md text-xs font-bold uppercase tracking-wider outline-none cursor-pointer",
                   l.status === "converted" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
                   l.status === "dead" ? "bg-red-50 text-red-700 border-red-200" :
+                  l.status === "not verified" ? "bg-slate-50 text-slate-700 border-slate-200" :
                   "bg-amber-50 text-amber-700 border-amber-200"
                 )}
               >
                 <option value="pending">Pending</option>
                 <option value="dead">Dead</option>
                 <option value="converted">Converted</option>
+                <option value="not verified">Not Verified</option>
               </select>
             </Td>
             <Td className="text-slate-400 tabular-nums">
