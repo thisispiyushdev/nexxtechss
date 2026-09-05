@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { 
   Facebook, Twitter, Linkedin, MessageCircle, 
   Instagram, Share2, ChevronRight, User, Calendar, 
@@ -18,9 +18,11 @@ import ResponsiveImage from "../components/ResponsiveImage";
 export default function BlogPost() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { dark } = useTheme();
   // Try cached data first, then static fallback
   const [blog, setBlog] = useState(() => {
+    if (location.state?.blog) return location.state.blog;
     try {
       const cached = sessionStorage.getItem('api_cache_' + API + '/content/blogs/' + id);
       if (cached) {
@@ -382,7 +384,7 @@ export default function BlogPost() {
                 <h4 className="text-xs font-black text-gray-900 dark:text-white uppercase tracking-[0.2em] border-b border-[#84CC16] pb-3 w-max">Our Blogs</h4>
                 <div className="space-y-4">
                   {allBlogs.filter(b => b.id !== blog.id).slice(0, 3).map((item) => (
-                    <Link key={item.id} to={`/blog/${item.id}/`} className="group block">
+                    <Link key={item.id} to={`/blog/${item.id}/`} state={{ blog: item }} className="group block">
                       <div className="flex gap-4 items-start">
                         <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-gray-100 dark:border-white/5">
                           <ResponsiveImage src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" pexelsOptions={{ w: 200 }} />

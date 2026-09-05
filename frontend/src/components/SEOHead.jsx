@@ -24,10 +24,8 @@ export default function SEOHead({
   // otherwise fallback to the current pathname from React Router.
   const activePath = canonical !== undefined ? canonical : location.pathname;
 
-  // Enforce NO trailing slash normalization (except for the root homepage path) to match standard host behavior
-  const normalizedCanonical = activePath === "/" 
-    ? "/" 
-    : (activePath.endsWith("/") ? activePath.slice(0, -1) : activePath);
+  // Enforce trailing slash normalization to match standard static host behavior
+  const normalizedCanonical = activePath.endsWith("/") ? activePath : `${activePath}/`;
 
   const fullUrl = `${BASE_URL}${normalizedCanonical}`;
 

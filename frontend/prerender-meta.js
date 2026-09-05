@@ -313,7 +313,7 @@ async function prerenderRoutes() {
   for (const route of ROUTES) {
     let html = baseHtml;
 
-    const normalizedPath = route.path === "/" ? "/" : (route.path.endsWith("/") ? route.path.slice(0, -1) : route.path);
+    const normalizedPath = route.path.endsWith("/") ? route.path : `${route.path}/`;
 
     const seoTags = `
       <title data-rh="true">${route.title}</title>

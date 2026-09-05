@@ -115,6 +115,7 @@ export default function BlogPage() {
                 <Link 
                   key={blog.id} 
                   to={`/blog/${blog.id}/`}
+                  state={{ blog }}
                   className="group flex flex-col bg-white dark:bg-[#151515] rounded-[24px] overflow-hidden border border-gray-100 dark:border-white/5 hover:border-[#84CC16]/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#84CC16]/10"
                 >
                   {/* Image Area */}
