@@ -7,17 +7,16 @@ const EXPLORE_LINKS = [
   { label: "Career Roadmaps", href: "/roadmap/" },
   { label: "Career Guidance & Counseling", href: "/career-guidance/" },
   { label: "Placement Success Stories", href: "/placement/" },
-  { label: "CyberHooks Partnership", href: "/cyberhooks/" },
   { label: "Contact Us", href: "/contact/" },
 ];
 
-export default function ExploreMore({ isCollaborator }) {
+export default function ExploreMore() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <section className={`py-12 relative z-10 ${isCollaborator ? 'bg-gray-50 dark:bg-[#050505] border-t border-gray-200 dark:border-white/5' : 'bg-transparent border-t border-gray-200 dark:border-white/5'}`} data-testid="explore-more">
+    <section className="py-12 relative z-10 bg-transparent border-t border-gray-200 dark:border-white/5" data-testid="explore-more">
       <div className="max-w-5xl mx-auto px-6 text-center">
         <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-8">
           Explore More at <span className="text-[#84CC16]">NexxTechs</span>

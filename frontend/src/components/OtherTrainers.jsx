@@ -5,8 +5,7 @@ const delhiTrainers = [
   { name: "Aditya Sharma", role: "DevOps & SRE", path: "/best-devops-trainer-in-delhi" },
   { name: "Aditya Sharma", role: "Cloud & DevOps", path: "/best-cloud-devops-trainer-in-delhi" },
   { name: "Sagar Sir", role: "Digital Marketing", path: "/best-digital-marketing-trainer-in-delhi" },
-  { name: "Meghesh Kumar", role: "Cyber Security", path: "/best-cyber-security-trainer-in-delhi" },
-  { name: "Niti Gupta Mam", role: "Personal Development", path: "/best-personal-development-trainer-in-delhi" },
+  { name: "Niti Gupta", role: "Personal Development", path: "/best-personal-development-trainer-in-delhi" },
   { name: "Saba Hussain", role: "Data Science", path: "/best-data-science-trainer-in-delhi" },
   { name: "Saba Hussain", role: "Data Analytics", path: "/best-data-analytics-trainer-in-delhi" },
 ];
@@ -16,8 +15,7 @@ const noidaTrainers = [
   { name: "Aditya Sharma", role: "DevOps & SRE", path: "/best-devops-trainer-in-noida" },
   { name: "Aditya Sharma", role: "Cloud & DevOps", path: "/best-cloud-devops-trainer-in-noida" },
   { name: "Sagar Sir", role: "Digital Marketing", path: "/best-digital-marketing-trainer-in-noida" },
-  { name: "Meghesh Kumar", role: "Cyber Security", path: "/best-cyber-security-trainer-in-noida" },
-  { name: "Niti Gupta Mam", role: "Personal Development", path: "/best-personal-development-trainer-in-noida" },
+  { name: "Niti Gupta", role: "Personal Development", path: "/best-personal-development-trainer-in-noida" },
   { name: "Saba Hussain", role: "Data Science", path: "/best-data-science-trainer-in-noida" },
   { name: "Saba Hussain", role: "Data Analytics", path: "/best-data-analytics-trainer-in-noida" },
 ];

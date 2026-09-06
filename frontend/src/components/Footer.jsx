@@ -16,7 +16,6 @@ const RESOURCES = [
   { label: "Tech Blog", href: "/blog/" },
   { label: "Career Roadmaps", href: "/roadmap/" },
   { label: "Career Guidance", href: "/career-guidance/" },
-  { label: "CyberHooks Partnership", href: "/cyberhooks/" },
   { label: "Privacy Policy", href: "/privacy-policy/" },
 ];
 

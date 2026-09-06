@@ -1,4 +1,4 @@
-const BLOG_DATA = [
+﻿const BLOG_DATA = [
   {
     id: "what-is-artificial-intelligence",
     title: "What is Artificial Intelligence? A 2026 Guide | NexxTechs",
@@ -11,7 +11,7 @@ const BLOG_DATA = [
     content: `
       <p>What is Artificial Intelligence? In today’s technology-driven world, understanding what is artificial intelligence? has become essential for students, professionals, and businesses. Artificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think, learn, and make decisions.</p>
       
-      <p>From voice assistants to self-driving cars, AI is transforming industries rapidly. If you’re planning to build a future-ready career, learning AI through a professional artificial intelligence course in Delhi at Cyberhooks (a NexxTechs collaborator) can help you gain practical skills and real-world experience.</p>
+      <p>From voice assistants to self-driving cars, AI is transforming industries rapidly. If you’re planning to build a future-ready career, learning AI through a professional artificial intelligence course in Delhi at NexxTechs can help you gain practical skills and real-world experience.</p>
       
       <h2>Artificial Intelligence Meaning</h2>
       <p>The Artificial Intelligence meaning revolves around enabling machines to perform tasks that typically require human intelligence.</p>
@@ -129,7 +129,7 @@ const BLOG_DATA = [
       <h2>What is Data Science?</h2>
       <p>In today’s data-driven world, understanding what is data science is essential for students, professionals, and businesses alike. Data science is a multidisciplinary field that uses scientific methods, statistical analysis, and advanced technologies to extract insights from structured and unstructured data.</p>
       
-      <p>With the rise of AI, machine learning, and big data, data science has become one of the most in-demand career fields in 2026. If you want to build practical skills and start your journey, enrolling in a professional data science course in Delhi at Cyberhooks can help you gain real-world experience and industry-ready knowledge.</p>
+      <p>With the rise of AI, machine learning, and big data, data science has become one of the most in-demand career fields in 2026. If you want to build practical skills and start your journey, enrolling in a professional data science course in Delhi at NexxTechs can help you gain real-world experience and industry-ready knowledge.</p>
 
       <h2>Data Science Meaning</h2>
       <p>Data science is the process of collecting, analyzing, and interpreting large volumes of data to make informed decisions.</p>
@@ -262,7 +262,7 @@ const BLOG_DATA = [
 
       <h2>Student Reviews & Testimonials</h2>
       <blockquote>
-        <p>⭐ Rahul Gupta (Delhi): "I searched what is data science and joined Cyberhooks. The training is practical and easy to understand."</p>
+        <p>⭐ Rahul Gupta (Delhi): "I searched what is data science and joined NexxTechs. The training is practical and easy to understand."</p>
       </blockquote>
       <blockquote>
         <p>⭐ Neha Sharma (Janakpuri): "Best institute for data science. The course helped me switch my career."</p>
@@ -276,11 +276,11 @@ const BLOG_DATA = [
       <p><strong>Q2: Is data science a good career?</strong><br/>Yes, it is one of the most in-demand and high-paying careers globally.</p>
       <p><strong>Q3: Do I need coding for data science?</strong><br/>Basic programming knowledge is required, especially in Python or R.</p>
       <p><strong>Q4: How long does it take to learn data science?</strong><br/>It usually takes 4–6 months with proper training and practice.</p>
-      <p><strong>Q5: Which course is best for data science in Delhi?</strong><br/>Cyberhooks offers one of the best data science courses with practical training and placement support.</p>
+      <p><strong>Q5: Which course is best for data science in Delhi?</strong><br/>NexxTechs offers one of the best data science courses with practical training and placement support.</p>
 
       <h2>Conclusion</h2>
       <p>Now that you understand what is data science, its lifecycle, techniques, and career opportunities, it’s clear that this field offers immense growth potential.</p>
-      <p>With increasing demand for data-driven decision making, skilled professionals are highly valued across industries. If you want to build a successful career, enrolling in a professional data science course in Delhi is the best step forward. Cyberhooks provides hands-on training, expert guidance, and career support to help you succeed.</p>
+      <p>With increasing demand for data-driven decision making, skilled professionals are highly valued across industries. If you want to build a successful career, enrolling in a professional data science course in Delhi is the best step forward. NexxTechs provides hands-on training, expert guidance, and career support to help you succeed.</p>
       <p>Start your journey today!</p>
       <p>Explore our full range of professional courses and start your tech career today — visit <a href="/courses/" class="text-[#84CC16] hover:underline font-bold">NexxTechs Courses</a>.</p>
       <p><em>This comprehensive guide was brought to you by <strong>NexxTechs</strong>. Join us to become a data science expert in 2026.</em></p>
@@ -298,7 +298,7 @@ const BLOG_DATA = [
     content: `
       <p>In today’s digital era, understanding how to become an ethical hacker in 2026 is one of the most searched career paths among students and IT professionals. With cyber threats growing rapidly, ethical hackers are in high demand to protect systems, networks, and sensitive data from cyber attacks.</p>
 
-      <p>If you’re planning to build a career in cybersecurity, this guide will walk you through the complete ethical hacking career roadmap, including skills, certifications, salary, and the best way to start. For hands-on training, you can enroll in a professional ethical hacking course at Cyberhooks.</p>
+      <p>If you’re planning to build a career in cybersecurity, this guide will walk you through the complete ethical hacking career roadmap, including skills, certifications, salary, and the best way to start. For hands-on training, you can enroll in a professional ethical hacking course at NexxTechs.</p>
 
       <h2>What is Ethical Hacking?</h2>
       <p>Ethical hacking is the practice of testing and securing systems by identifying vulnerabilities before malicious hackers exploit them.</p>
@@ -405,7 +405,7 @@ const BLOG_DATA = [
         <li>Certification support</li>
         <li>Placement assistance</li>
       </ul>
-      <p>Joining an ethical hacking course in Delhi at Cyberhooks ensures practical learning and career support.</p>
+      <p>Joining an ethical hacking course in Delhi at NexxTechs ensures practical learning and career support.</p>
 
       <h2>Tools You Must Learn</h2>
       <p>To become an ethical hacker, you should master these tools:</p>
@@ -430,7 +430,7 @@ const BLOG_DATA = [
 
       <h2>Student Reviews & Testimonials</h2>
       <blockquote>
-        <p>⭐ Rahul Sharma (Delhi): "I wanted to know how to become an ethical hacker in 2026, and Cyberhooks gave me the perfect roadmap."</p>
+        <p>⭐ Rahul Sharma (Delhi): "I wanted to know how to become an ethical hacker in 2026, and NexxTechs gave me the perfect roadmap."</p>
       </blockquote>
       <blockquote>
         <p>⭐ Neha Kapoor (Janakpuri): "Best ethical hacking course with practical training. Highly recommended!"</p>
@@ -444,12 +444,12 @@ const BLOG_DATA = [
       <p><strong>Q2: Do I need coding for ethical hacking?</strong><br/>Basic coding helps, but it is not mandatory for beginners.</p>
       <p><strong>Q3: Is ethical hacking a good career?</strong><br/>Yes, it is one of the most in-demand and high-paying careers.</p>
       <p><strong>Q4: Can non-IT students become ethical hackers?</strong><br/>Yes, anyone can start with proper training and practice.</p>
-      <p><strong>Q5: Which course is best for ethical hacking in Delhi?</strong><br/>Cyberhooks offers one of the best ethical hacking courses with practical training.</p>
+      <p><strong>Q5: Which course is best for ethical hacking in Delhi?</strong><br/>NexxTechs offers one of the best ethical hacking courses with practical training.</p>
 
       <h2>Conclusion</h2>
       <p>Now that you understand how to become an ethical hacker in 2026, it’s clear that this field offers excellent career opportunities, high salary, and global demand.</p>
       <p>By following the right ethical hacking career roadmap and gaining practical experience, you can build a successful career in cybersecurity.</p>
-      <p>If you want expert guidance and hands-on training, enrolling in a professional ethical hacking course is the best step forward. Cyberhooks provides everything you need to become a skilled ethical hacker.</p>
+      <p>If you want expert guidance and hands-on training, enrolling in a professional ethical hacking course is the best step forward. NexxTechs provides everything you need to become a skilled ethical hacker.</p>
       <p>Explore our full range of professional courses and start your tech career today — visit <a href="/courses/" class="text-[#84CC16] hover:underline font-bold">NexxTechs Courses</a>.</p>
       <p><em>This comprehensive guide was brought to you by <strong>NexxTechs</strong>. Start your journey today!</em></p>
     `
@@ -466,7 +466,7 @@ const BLOG_DATA = [
     content: `
       <p>In today’s digital world, knowing the Top 10 Cyber Security Tools is essential for anyone interested in cybersecurity. From protecting networks to testing vulnerabilities, these tools help professionals detect and prevent cyber threats effectively.</p>
       
-      <p>Whether you’re a beginner or an aspiring expert, understanding the best cyber security tools will give you a strong foundation in this field. If you want to learn how to use these tools practically, you can enroll in a professional cybersecurity course in Delhi at Cyberhooks.</p>
+      <p>Whether you’re a beginner or an aspiring expert, understanding the best cyber security tools will give you a strong foundation in this field. If you want to learn how to use these tools practically, you can enroll in a professional cybersecurity course in Delhi at NexxTechs.</p>
 
       <h2>What Are Cyber Security Tools?</h2>
       <p>Cyber security tools are software programs used to protect systems, networks, and data from cyber threats such as hacking, malware, phishing, and unauthorized access.</p>
@@ -600,7 +600,7 @@ const BLOG_DATA = [
         <li>Work on real-world scenarios</li>
         <li>Join structured training</li>
       </ul>
-      <p>A professional cybersecurity course in Delhi at Cyberhooks provides hands-on training on all these tools.</p>
+      <p>A professional cybersecurity course in Delhi at NexxTechs provides hands-on training on all these tools.</p>
 
       <h2>Who Should Learn These Tools?</h2>
       <ul>
@@ -614,7 +614,7 @@ const BLOG_DATA = [
 
       <h2>Student Reviews & Testimonials</h2>
       <blockquote>
-        <p>⭐ Rohit Verma (Delhi): "I learned all these cyber security tools at Cyberhooks. The practical training is amazing."</p>
+        <p>⭐ Rohit Verma (Delhi): "I learned all these cyber security tools at NexxTechs. The practical training is amazing."</p>
       </blockquote>
       <blockquote>
         <p>⭐ Sneha Arora (Janakpuri): "Best place to learn cybersecurity tools. Trainers explain everything step by step."</p>
@@ -632,7 +632,7 @@ const BLOG_DATA = [
 
       <h2>Conclusion</h2>
       <p>Understanding the Top 10 Cyber Security Tools is essential for building a successful career in cybersecurity. These tools help you detect vulnerabilities, protect systems, and perform security testing effectively.</p>
-      <p>If you want to master these tools with hands-on training, enrolling in a professional cybersecurity course in Delhi is the best step. Cyberhooks provides practical learning, expert guidance, and career support to help you succeed.</p>
+      <p>If you want to master these tools with hands-on training, enrolling in a professional cybersecurity course in Delhi is the best step. NexxTechs provides practical learning, expert guidance, and career support to help you succeed.</p>
       <p>Explore our full range of professional courses and start your tech career today — visit <a href="/courses/" class="text-[#84CC16] hover:underline font-bold">NexxTechs Courses</a>.</p>
       <p><em>This comprehensive guide was brought to you by <strong>NexxTechs</strong>. Start your security journey today.</em></p>
     `
@@ -649,7 +649,7 @@ const BLOG_DATA = [
     content: `
       <p>In today’s digital era, building a cyber security career in India is one of the smartest choices for students and professionals. With rising cyber threats, companies are actively hiring skilled cybersecurity experts to protect their data and systems.</p>
 
-      <p>If you’re wondering how to start a cyber security career in India, this guide will help you understand the scope, career paths, salary, and the best way to get started. For practical training, you can enroll in a professional cybersecurity course in Delhi at Cyberhooks to gain real-world skills and job-ready knowledge.</p>
+      <p>If you’re wondering how to start a cyber security career in India, this guide will help you understand the scope, career paths, salary, and the best way to get started. For practical training, you can enroll in a professional cybersecurity course in Delhi at NexxTechs to gain real-world skills and job-ready knowledge.</p>
 
       <h2>What is Cyber Security Career</h2>
       <p>A cyber security career in India involves protecting digital systems, networks, and data from cyber attacks such as hacking, malware, phishing, and ransomware.</p>
@@ -787,7 +787,7 @@ const BLOG_DATA = [
 
       <h2>Student Reviews & Testimonials</h2>
       <blockquote>
-        <p>⭐ Amit Verma (Delhi): "I was confused about cyber security career in India, but Cyberhooks guided me properly. Now I’m working as a security analyst."</p>
+        <p>⭐ Amit Verma (Delhi): "I was confused about cyber security career in India, but NexxTechs guided me properly. Now I’m working as a security analyst."</p>
       </blockquote>
       <blockquote>
         <p>⭐ Pooja Sharma (Janakpuri): "Best place to start a cybersecurity career. Practical training helped me gain confidence."</p>
@@ -801,11 +801,11 @@ const BLOG_DATA = [
       <p><strong>Q2: What qualification is required for cyber security?</strong><br/>Basic computer knowledge is enough to start. Advanced roles may require certifications.</p>
       <p><strong>Q3: Can non-IT students start a cyber security career?</strong><br/>Yes, anyone can start with proper training and guidance.</p>
       <p><strong>Q4: How long does it take to build a career in cyber security?</strong><br/>It usually takes 3–6 months to learn basics and start applying for jobs.</p>
-      <p><strong>Q5: Which course is best for cyber security in Delhi?</strong><br/>Cyberhooks offers one of the best cybersecurity courses with practical training and placement support.</p>
+      <p><strong>Q5: Which course is best for cyber security in Delhi?</strong><br/>NexxTechs offers one of the best cybersecurity courses with practical training and placement support.</p>
 
       <h2>Conclusion</h2>
       <p>A cyber security career in India offers excellent growth, high salary, and global opportunities. With increasing cyber threats, the demand for skilled professionals will continue to rise.</p>
-      <p>If you want to build a successful career, the best step is to start with practical training. Cyberhooks provides a comprehensive cybersecurity course in Delhi that helps you gain real-world skills and job-ready expertise.</p>
+      <p>If you want to build a successful career, the best step is to start with practical training. NexxTechs provides a comprehensive cybersecurity course in Delhi that helps you gain real-world skills and job-ready expertise.</p>
       <p>Explore our full range of professional courses and start your tech career today — visit <a href="/courses/" class="text-[#84CC16] hover:underline font-bold">NexxTechs Courses</a>.</p>
       <p><em>This comprehensive guide was brought to you by <strong>NexxTechs</strong>. Navigate the booming tech landscape with our industry roadmaps.</em></p>
     `
@@ -813,3 +813,4 @@ const BLOG_DATA = [
 ];
 
 export default BLOG_DATA;
+

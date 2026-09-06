@@ -59,11 +59,6 @@ const ROUTES = [
     description: "Follow our step-by-step career roadmaps for Data Science, DevOps, Full Stack, and Cyber Security. Plan your tech career successfully with NexxTechs Delhi.",
   },
   {
-    path: "/cyberhooks",
-    title: "CyberHooks Partnership – Cyber Security & AI Training",
-    description: "Explore NexxTechs strategic partnership with CyberHooks for advanced Cyber Security, Ethical Hacking, and AI courses. Get industry-certified in Delhi now.",
-  },
-  {
     path: "/career-guidance",
     title: "Free IT Career Guidance & Counseling | NexxTechs",
     description: "Get free IT career counseling from NexxTechs experts. Receive personalized guidance to choose the right tech course and accelerate your career in New Delhi.",

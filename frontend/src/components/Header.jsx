@@ -11,7 +11,6 @@ const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Courses", href: "/courses/" },
   { label: "Placement", href: "/placement/" },
-  { label: "Collaborator", href: "/cyberhooks/" },
   { label: "Roadmap", href: "/roadmap/" },
   { label: "Blog", href: "/blog/" },
 ];
@@ -117,7 +116,6 @@ export default function Header() {
     { label: "Home", href: "/nexxtechs-noida" },
     { label: "Courses", href: "/courses" }, // Wait, should this be /courses-noida? They don't have a /courses-noida page, just /courses
     { label: "Placement", href: "/placement/" },
-    { label: "Collaborator", href: "/cyberhooks/" },
     { label: "Roadmap", href: "/roadmap/" },
     { label: "Blog", href: "/blog/" },
   ] : NAV_LINKS;

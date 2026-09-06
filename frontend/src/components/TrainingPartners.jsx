@@ -6,12 +6,6 @@ const TrainingPartners = () => {
   const navigate = useNavigate();
   const partners = [
     {
-      name: "CyberHooks Academy",
-      desc: "Strategic collaborator for advanced Cyber Security and AI training programs, bridging the gap between learning and industry.",
-      image: "/assets/logo/cyberrhookssss.png",
-      slug: "/cyberhooks"
-    },
-    {
       name: "EC-Council",
       desc: "EC-Council offers globally recognized cybersecurity certifications, including CEH, CND, and ECIH, to help professionals advance in the field.",
       image: "/training-partners/eccouncil.jpg",

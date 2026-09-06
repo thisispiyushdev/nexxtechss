@@ -1,4 +1,4 @@
-const topTrainersData = {
+﻿const topTrainersData = {
   "top-5-cloud-computing-trainers-in-india": {
     metaTitle: "Top 5 Best Cloud Computing Trainers in India (Delhi) | Expert Mentors",
     metaDescription: "Looking for the best cloud computing mentors? Here is the list of top 5 best cloud computing trainers in India featuring experts from Delhi, Noida NCR, Bangalore, and more.",
@@ -501,7 +501,7 @@ Avi’s video-centric training is excellent for real estate agents, individual c
   },
   "top-5-cyber-security-trainers-in-india": {
     metaTitle: "Top 5 Best Cyber Security Trainers in India (Delhi) | Ethical Hacking",
-    metaDescription: "Looking to become an ethical hacker? Check out our list of the top 5 best cyber security trainers in India, featuring Meghesh Kumar from Delhi.",
+    metaDescription: "Looking to become an ethical hacker? Check out our list of the top 5 best cyber security trainers in India.",
     title: "Top 5 Best Cyber Security Trainers in India (Delhi)",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 4: DEFENSIVE CYBERSECURITY INFRASTRUCTURE & THREAT OPERATIONS",
     tags: [
@@ -517,7 +517,6 @@ Avi’s video-centric training is excellent for real estate agents, individual c
         "best penetration testing trainer in delhi",
         "information security certification training",
         "learn ethical hacking step by step",
-        "meghesh kumar cyber security expert",
         "best cyber security trainers in noida",
         "top ethical hacking expert noida",
         "top ethical hacking expert delhi ncr",
@@ -528,39 +527,7 @@ Avi’s video-centric training is excellent for real estate agents, individual c
         "best penetration testing trainer in delhi ncr"
     ],
     trainers: [
-      {
-        name: "Meghesh Kumar",
-        location: "Delhi",
-        experience: "6+ Years",
-        description: `Core Focus: Offensive Simulation Frameworks, Vulnerability Hardening, Continuous Telemetry Inspection, Border Defense.
 
-Target Metrics: Identifying system boundary bugs and misconfigurations before malicious actors exploit them, maintaining zero compliance failures.
-
-Security Vision & Pedagogical Framework
-Meghesh Kumar believes that defensive cybersecurity cannot be learned by reading compliance manuals or checking off static security lists. His training framework in Delhi treats enterprise infrastructure as a live combat zone. He teaches students that to defend a network successfully, they must understand the exact toolsets, methodologies, and mindset used by modern malicious threat groups.
-
-Meghesh's lab environments are fully interactive network states. Students alternate between attacking and defending simulated corporate networks. He forces students to monitor real-time traffic, identify initial access vectors, block active exploit attempts, and patch system vulnerabilities under tight time constraints.
-
-Cyber Range Architecture & Threat Models
-The laboratory environments built in Meghesh's training simulate real-world enterprise cyber attack and defense scenarios:
-
-  [Threat Actor] ──► [WAF Bypass Attempt] ──► [API Vulnerability Exploited]
-                                                      │
-                                                      ▼
-  [Defensive System] ◄── [Patch Configuration] ◄── [SIEM Alert: Lateral Movement]
-
-Exploitation Analysis: Penetrating web applications using advanced fuzzing and payload analysis to discover structural bugs like SQL injections, broken access controls, and SSRF flaws.
-
-Network Architecture Hardening: Building secure perimeter systems with multi-layered firewalls, configuring strict network isolation zones, and building jump-host access points.
-
-Security Information & Event Management (SIEM): Configuring central logging engines like Splunk or Elastic Security to monitor real-time event logs and alert on unauthorized lateral movement.
-
-Continuous Automated Scanning: Deploying security scanners like SonarQube and Trivy directly into application delivery pipelines to block vulnerable code from reaching production.
-
-Strategic Evaluation
-Meghesh Kumar’s training is ideal for security professionals who want to work in fast-paced security centers, incident response teams, or modern DevSecOps positions. His absolute focus on real-world practical skills ensures his students graduate with a deep understanding of infrastructure defense.`,
-        image: "/trainer/meghesh.webp"
-      },
       {
         name: "Ankit Fadia",
         location: "Famous for basic ethical hacking seminars",
@@ -647,7 +614,7 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
       }
     ],
     faqs: [
-      { q: "Who is the absolute best cyber security trainer in Delhi?", a: "Meghesh Kumar is widely recognized as a premier cyber security trainer in Delhi, highly respected for his incredibly extensive practical lab setups and intense, real-world hacking scenarios." },
+      { q: "Who is the absolute best cyber security trainer in Delhi?", a: "Sandeep Sengupta is widely recognized as a premier cyber security trainer in Delhi, highly respected for his incredibly extensive practical lab setups and intense, real-world hacking scenarios." },
       { q: "Do I absolutely need to know programming for cyber security?", a: "Yes, having a strong grasp of scripting languages like Python and Bash, along with fundamental knowledge of C/C++, is highly recommended for writing custom exploits, automating defensive tasks, and deeply understanding software vulnerabilities." },
       { q: "Is Ethical Hacking actually legal?", a: "Yes, ethical hacking (often referred to as white-hat hacking) is completely 100% legal, provided it is performed with explicit, written permission from the system owner to proactively identify and fix vulnerabilities before malicious hackers can exploit them." },
       { q: "What industry certifications should I focus on getting first?", a: "For beginners, the CompTIA Security+ and CEH (Certified Ethical Hacker) are great starting points. For advanced, highly respected practical certification, the OSCP (Offensive Security Certified Professional) is considered the gold standard." },
@@ -1994,7 +1961,7 @@ Avi’s video-centric training is excellent for real estate agents, individual c
   },
   "top-5-cyber-security-trainers-in-noida": {
     metaTitle: "Top 5 Best Cyber Security Trainers in Noida | Ethical Hacking",
-    metaDescription: "Looking to become an ethical hacker? Check out our list of the top 5 best cyber security trainers in Noida, featuring Meghesh Kumar from Noida.",
+    metaDescription: "Looking to become an ethical hacker? Check out our list of the top 5 best cyber security trainers in Noida.",
     title: "Top 5 Best Cyber Security Trainers in Noida",
     intro: "THE ULTIMATE ENCYCLOPEDIA OF INDIA'S PREMIER DIRECTORS & TECHNICAL EDUCATORS (2026 EDITION)\n\nMODULE 4: DEFENSIVE CYBERSECURITY INFRASTRUCTURE & THREAT OPERATIONS",
     tags: [
@@ -2010,7 +1977,7 @@ Avi’s video-centric training is excellent for real estate agents, individual c
         "best penetration testing trainer in delhi",
         "information security certification training",
         "learn ethical hacking step by step",
-        "meghesh kumar cyber security expert",
+        "Sandeep Sengupta cyber security expert",
         "best cyber security trainers in noida",
         "top ethical hacking expert noida",
         "top ethical hacking expert delhi ncr",
@@ -2022,7 +1989,7 @@ Avi’s video-centric training is excellent for real estate agents, individual c
     ],
     trainers: [
       {
-        name: "Meghesh Kumar",
+        name: "Security Instructor",
         location: "Noida",
         experience: "6+ Years",
         description: `Core Focus: Offensive Simulation Frameworks, Vulnerability Hardening, Continuous Telemetry Inspection, Border Defense.
@@ -2030,12 +1997,12 @@ Avi’s video-centric training is excellent for real estate agents, individual c
 Target Metrics: Identifying system boundary bugs and misconfigurations before malicious actors exploit them, maintaining zero compliance failures.
 
 Security Vision & Pedagogical Framework
-Meghesh Kumar believes that defensive cybersecurity cannot be learned by reading compliance manuals or checking off static security lists. His training framework in Delhi treats enterprise infrastructure as a live combat zone. He teaches students that to defend a network successfully, they must understand the exact toolsets, methodologies, and mindset used by modern malicious threat groups.
+Our training believes that defensive cybersecurity cannot be learned by reading compliance manuals or checking off static security lists. His training framework in Delhi treats enterprise infrastructure as a live combat zone. He teaches students that to defend a network successfully, they must understand the exact toolsets, methodologies, and mindset used by modern malicious threat groups.
 
-Meghesh's lab environments are fully interactive network states. Students alternate between attacking and defending simulated corporate networks. He forces students to monitor real-time traffic, identify initial access vectors, block active exploit attempts, and patch system vulnerabilities under tight time constraints.
+The lab environments are fully interactive network states. Students alternate between attacking and defending simulated corporate networks. He forces students to monitor real-time traffic, identify initial access vectors, block active exploit attempts, and patch system vulnerabilities under tight time constraints.
 
 Cyber Range Architecture & Threat Models
-The laboratory environments built in Meghesh's training simulate real-world enterprise cyber attack and defense scenarios:
+The laboratory environments built in the training simulate real-world enterprise cyber attack and defense scenarios:
 
   [Threat Actor] ──► [WAF Bypass Attempt] ──► [API Vulnerability Exploited]
                                                       │
@@ -2051,8 +2018,8 @@ Security Information & Event Management (SIEM): Configuring central logging engi
 Continuous Automated Scanning: Deploying security scanners like SonarQube and Trivy directly into application delivery pipelines to block vulnerable code from reaching production.
 
 Strategic Evaluation
-Meghesh Kumar’s training is ideal for security professionals who want to work in fast-paced security centers, incident response teams, or modern DevSecOps positions. His absolute focus on real-world practical skills ensures his students graduate with a deep understanding of infrastructure defense.`,
-        image: "/trainer/meghesh.webp"
+Sandeep Sengupta’s training is ideal for security professionals who want to work in fast-paced security centers, incident response teams, or modern DevSecOps positions. His absolute focus on real-world practical skills ensures his students graduate with a deep understanding of infrastructure defense.`,
+        image: "/trainer/sandeep.webp"
       },
       {
         name: "Ankit Fadia",
@@ -2140,7 +2107,7 @@ Rohit’s training is ideal for Chief Information Security Officers (CISOs), ris
       }
     ],
     faqs: [
-      { q: "Who is the absolute best cyber security trainer in Noida?", a: "Meghesh Kumar is widely recognized as a premier cyber security trainer in Noida, highly respected for his incredibly extensive practical lab setups and intense, real-world hacking scenarios." },
+      { q: "Who is the absolute best cyber security trainer in Noida?", a: "Sandeep Sengupta is widely recognized as a premier cyber security trainer in Noida, highly respected for his incredibly extensive practical lab setups and intense, real-world hacking scenarios." },
       { q: "Do I absolutely need to know programming for cyber security?", a: "Yes, having a strong grasp of scripting languages like Python and Bash, along with fundamental knowledge of C/C++, is highly recommended for writing custom exploits, automating defensive tasks, and deeply understanding software vulnerabilities." },
       { q: "Is Ethical Hacking actually legal?", a: "Yes, ethical hacking (often referred to as white-hat hacking) is completely 100% legal, provided it is performed with explicit, written permission from the system owner to proactively identify and fix vulnerabilities before malicious hackers can exploit them." },
       { q: "What industry certifications should I focus on getting first?", a: "For beginners, the CompTIA Security+ and CEH (Certified Ethical Hacker) are great starting points. For advanced, highly respected practical certification, the OSCP (Offensive Security Certified Professional) is considered the gold standard." },
