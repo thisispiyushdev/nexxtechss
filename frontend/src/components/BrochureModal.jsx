@@ -67,7 +67,7 @@ export default function BrochureModal({ isOpen, onClose, courseName, brochureUrl
       // Prepare WhatsApp URL and redirect
       const branchName = isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi";
       const msg = `Brochure Download Lead:%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0AEmail: ${encodeURIComponent(form.email)}%0ACourse: ${encodeURIComponent(courseName)}%0ABranch: ${encodeURIComponent(branchName)}`;
-      const waPhone = isNoida ? "919217179764" : "919217179762";
+      const waPhone = isNoida ? "917987059430" : "919217179762";
       const waUrl = `https://wa.me/${waPhone}?text=${msg}`;
       
       window.open(waUrl, "_blank");

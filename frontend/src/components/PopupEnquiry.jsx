@@ -107,7 +107,7 @@ export default function PopupEnquiry() {
         if (isWhatsApp) {
           const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
           const msg = `New Enquiry Lead (Popup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
-          const waPhone = isNoida ? "919217179764" : "919217179762";
+          const waPhone = isNoida ? "917987059430" : "919217179762";
           window.open(`https://wa.me/${waPhone}?text=${msg}`, "_blank");
         }
       } else {
@@ -118,7 +118,7 @@ export default function PopupEnquiry() {
       if (isWhatsApp) {
         const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
         const msg = `New Enquiry Lead (Popup Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
-        const waPhone = isNoida ? "919217179764" : "919217179762";
+        const waPhone = isNoida ? "917987059430" : "919217179762";
         window.open(`https://wa.me/${waPhone}?text=${msg}`, "_blank");
         setError("Note: Enquiry submitted via WhatsApp only.");
       } else {

@@ -10,7 +10,7 @@ const WhatsAppIcon = ({ className }) => (
 export default function FloatingButtons() {
   const location = useLocation();
   const isNoida = location.pathname.includes('noida');
-  const phoneNumber = isNoida ? "+919217179764" : "+919217179762";
+  const phoneNumber = isNoida ? "+917987059430" : "+919217179762";
 
   return (
     <div className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-50 flex flex-col gap-3 md:gap-4" data-testid="floating-buttons">

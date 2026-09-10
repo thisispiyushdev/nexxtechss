@@ -81,7 +81,7 @@ export default function SEOHead({
                 "postalCode": location.pathname.includes('noida') ? "201301" : "110018",
                 "addressCountry": "IN"
               },
-              "telephone": location.pathname.includes('noida') ? "+919217179764" : "+919217179762",
+              "telephone": location.pathname.includes('noida') ? "+917987059430" : "+919217179762",
               "email": "info@nexxtechs.com",
               "sameAs": [
                 "https://www.instagram.com/nexxtechs.institute",
@@ -108,7 +108,7 @@ export default function SEOHead({
                 "latitude": location.pathname.includes('noida') ? "28.5833" : "28.6417",
                 "longitude": location.pathname.includes('noida') ? "77.3167" : "77.0684"
               },
-              "telephone": location.pathname.includes('noida') ? "+919217179764" : "+919217179762",
+              "telephone": location.pathname.includes('noida') ? "+917987059430" : "+919217179762",
               "email": "info@nexxtechs.com",
               "url": "https://www.nexxtechs.com",
               "openingHoursSpecification": {

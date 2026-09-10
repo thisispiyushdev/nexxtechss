@@ -238,7 +238,7 @@ export default function EnquiryForm({
                 </div>
                 <div>
                   <div className="font-bold text-[#111827] dark:text-white text-base group-hover:text-[#84CC16] transition-colors tracking-wide">Call With Counselors</div>
-                  <div className="text-[#4B5563] dark:text-gray-400 text-sm font-medium mt-1">+91 9217179762<br/>+91 9217179764</div>
+                  <div className="text-[#4B5563] dark:text-gray-400 text-sm font-medium mt-1">+91 9217179762<br/>+91 7987059430</div>
                 </div>
               </a>
 

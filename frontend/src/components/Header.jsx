@@ -17,8 +17,8 @@ const NAV_LINKS = [
 
 const CONTACT_INFO = {
   noida: {
-    phone: "+91 9217179764",
-    phoneLink: "tel:+919217179764",
+    phone: "+91 7987059430",
+    phoneLink: "tel:+917987059430",
     email: "info@nexxtechs.com",
     emailLink: "mailto:info@nexxtechs.com",
     address: "B-136 Upper, Ground floor, Sector 2, Noida",

@@ -24,8 +24,8 @@ export default function Footer() {
   const location = useLocation();
   const isNoida = location.pathname.includes('noida');
   const contactInfo = isNoida ? {
-    phone: "+91 9217179764",
-    phoneLink: "tel:+919217179764"
+    phone: "+91 7987059430",
+    phoneLink: "tel:+917987059430"
   } : {
     phone: "+91 9217179762",
     phoneLink: "tel:+919217179762"

@@ -133,7 +133,7 @@ export default function PrivacyPolicy() {
                 </a>
                 <div className="flex items-center gap-3">
                   <Phone className="text-[#84CC16]" />
-                  <span>+91 9217179762 / 9217179764</span>
+                  <span>+91 9217179762 / 7987059430</span>
                 </div>
               </div>
             </section>
