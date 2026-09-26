@@ -39,9 +39,69 @@ const ROUTES = [
     description: "Nexxtechs is the No.1 Training Company in Delhi with top-notch IT training programs and industry experts. Providing Placement, Certification and affordable fees.",
   },
   {
-    path: "/courses",
-    title: "Explore Top IT & Tech Courses in Delhi | NexxTechs",
-    description: "Browse 50+ industry-focused IT training courses at NexxTechs Vikaspuri. Master Web Dev, Data Science, Cyber Security & AI with live projects. Enroll today!",
+    path: "/services",
+    title: "Enterprise IT & AI Development Services | Nexxtechs",
+    description: "Explore enterprise AI consulting, RAG development, AI agents, web & mobile app development, SaaS, cloud, DevOps, and performance marketing services.",
+  },
+  {
+    path: "/services/ai-consulting",
+    title: "AI Consulting Services for Business Automation & Growth | Nexxtechs",
+    description: "Build a practical AI roadmap with strategy, use-case discovery, automation, governance, and implementation guidance from Nexxtechs.",
+  },
+  {
+    path: "/services/rag-development",
+    title: "RAG Development Services for Secure Enterprise AI Search | Nexxtechs",
+    description: "Build reliable RAG applications that connect LLMs with your private documents, databases, knowledge bases, and business systems.",
+  },
+  {
+    path: "/services/ai-agents",
+    title: "AI Agent Development Services for Business Automation | Nexxtechs",
+    description: "Design and build AI agents that plan tasks, use business tools, execute workflows, and operate with human oversight.",
+  },
+  {
+    path: "/services/web-development",
+    title: "Custom Web Development Services for Fast, SEO-Ready Websites | Nexxtechs",
+    description: "Build fast, responsive, scalable websites and web applications with modern frontend, backend, API, SEO, and performance practices.",
+  },
+  {
+    path: "/services/mobile-app-development",
+    title: "Mobile App Development Services for iOS & Android | Nexxtechs",
+    description: "Build scalable mobile applications with modern UX, secure APIs, performance optimization, offline support, and reliable deployment.",
+  },
+  {
+    path: "/services/saas-development",
+    title: "SaaS Development Services for Scalable Multi-Tenant Products | Nexxtechs",
+    description: "Launch secure SaaS products with multi-tenant architecture, subscriptions, billing, APIs, dashboards, and scalable cloud infrastructure.",
+  },
+  {
+    path: "/services/cloud-services",
+    title: "Cloud Consulting & Migration Services for AWS, Azure and GCP | Nexxtechs",
+    description: "Design, migrate, secure, and optimize cloud infrastructure across AWS, Azure, and Google Cloud for scalable applications.",
+  },
+  {
+    path: "/services/devops-ci-cd",
+    title: "DevOps & CI/CD Services for Faster, Safer Software Delivery | Nexxtechs",
+    description: "Automate build, test, security, and deployment workflows with CI/CD, Docker, Kubernetes, infrastructure as code, and cloud DevOps.",
+  },
+  {
+    path: "/services/vulnerability-assessment",
+    title: "Vulnerability Assessment & Security Testing Services | Nexxtechs",
+    description: "Identify and prioritize security weaknesses across web applications, APIs, networks, and cloud environments with structured vulnerability assessment.",
+  },
+  {
+    path: "/services/social-media-marketing",
+    title: "Social Media Marketing Services for Brand Growth & Engagement | Nexxtechs",
+    description: "Build a consistent social media presence with strategy, content systems, creative assets, community engagement, and performance reporting.",
+  },
+  {
+    path: "/services/performance-marketing",
+    title: "Performance Marketing Services for Leads, Sales & Measurable Growth | Nexxtechs",
+    description: "Plan, launch, track, and optimize paid campaigns across search and social platforms with conversion-focused landing pages and analytics.",
+  },
+  {
+    path: "/services/ui-ux-design",
+    title: "UI/UX Design Services for Web, Mobile & SaaS Products | Nexxtechs",
+    description: "Design intuitive digital products with user research, information architecture, wireframes, high-fidelity UI, prototypes, and design systems.",
   },
   {
     path: "/placement",
@@ -310,9 +370,13 @@ async function prerenderRoutes() {
 
     const normalizedPath = route.path.endsWith("/") ? route.path : `${route.path}/`;
 
+    const keywords = route.keywords || "AI consulting services, RAG development, AI agents, custom web development, React Next.js development, mobile app development, SaaS development, cloud consulting services, AWS Azure GCP services, DevOps CI CD consulting, vulnerability assessment security, social media marketing agency, performance marketing agency, UI UX design agency, IT services company Delhi NCR, IT company Noida";
+
     const seoTags = `
       <title data-rh="true">${route.title}</title>
       <meta data-rh="true" name="description" content="${route.description}" />
+      <meta data-rh="true" name="keywords" content="${keywords}" />
+      <meta data-rh="true" name="publisher" content="NexxTechs" />
       <link data-rh="true" rel="canonical" href="${BASE_URL}${normalizedPath}" />
       <meta data-rh="true" property="og:url" content="${BASE_URL}${normalizedPath}" />
       <meta data-rh="true" property="og:title" content="${route.title}" />

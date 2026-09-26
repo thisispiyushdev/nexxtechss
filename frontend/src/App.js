@@ -1,4 +1,5 @@
 import React, { Suspense, lazy, useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/context/ThemeContext";
@@ -80,6 +81,9 @@ const SagarDigitalMarketingTrainerPageNoida = lazy(() => import("@/pages/SagarDi
 const NitiPersonalDevelopmentTrainerPageNoida = lazy(() => import("@/pages/NitiPersonalDevelopmentTrainerPageNoida"));
 const SabaDataScienceTrainerPageNoida = lazy(() => import("@/pages/SabaDataScienceTrainerPageNoida"));
 const SabaDataAnalyticsTrainerPageNoida = lazy(() => import("@/pages/SabaDataAnalyticsTrainerPageNoida"));
+const ServicesPage = lazy(() => import("@/pages/ServicesPage"));
+const ServiceDetailPage = lazy(() => import("@/pages/ServiceDetailPage"));
+const ServiceEnquiryPage = lazy(() => import("@/pages/ServiceEnquiryPage"));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
 // Basic loading fallback
@@ -210,6 +214,66 @@ function PublicLayout({ children }) {
   );
 }
 
+function AnimatedRoutes() {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/service-enquiry" element={<ServiceEnquiryPage />} />
+        <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
+        <Route path="/service-enquiry" element={<ServiceEnquiryPage />} />
+        <Route path="/placement" element={<PlacementPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
+        <Route path="/roadmap" element={<RoadmapPage />} />
+        <Route path="/career-guidance" element={<CareerGuidancePage />} />
+        <Route path="/tag/:tagSlug" element={<TagPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/best-devops-trainer-in-delhi" element={<AdityaDevopsTrainerPage />} />
+        <Route path="/best-cloud-computing-trainer-in-delhi" element={<AdityaCloudTrainerPage />} />
+        <Route path="/best-cloud-devops-trainer-in-delhi" element={<AdityaCloudDevopsTrainerPage />} />
+        <Route path="/best-digital-marketing-trainer-in-delhi" element={<SagarDigitalMarketingTrainerPage />} />
+        <Route path="/best-personal-development-trainer-in-delhi" element={<NitiPersonalDevelopmentTrainerPage />} />
+        <Route path="/best-data-science-trainer-in-delhi" element={<SabaDataScienceTrainerPage />} />
+        <Route path="/best-data-analytics-trainer-in-delhi" element={<SabaDataAnalyticsTrainerPage />} />
+        <Route path="/best-devops-trainer-in-noida" element={<AdityaDevopsTrainerPageNoida />} />
+        <Route path="/best-cloud-computing-trainer-in-noida" element={<AdityaCloudTrainerPageNoida />} />
+        <Route path="/best-cloud-devops-trainer-in-noida" element={<AdityaCloudDevopsTrainerPageNoida />} />
+        <Route path="/best-digital-marketing-trainer-in-noida" element={<SagarDigitalMarketingTrainerPageNoida />} />
+        <Route path="/best-personal-development-trainer-in-noida" element={<NitiPersonalDevelopmentTrainerPageNoida />} />
+        <Route path="/best-data-science-trainer-in-noida" element={<SabaDataScienceTrainerPageNoida />} />
+        <Route path="/best-data-analytics-trainer-in-noida" element={<SabaDataAnalyticsTrainerPageNoida />} />
+        <Route path="/course/:slug" element={<CourseDetail />} />
+        <Route path="/top-5-cloud-computing-trainers-in-india" element={<TopTrainersPage />} />
+        <Route path="/top-5-devops-trainers-in-india" element={<TopTrainersPage />} />
+        <Route path="/top-5-digital-marketing-trainers-in-india" element={<TopTrainersPage />} />
+        <Route path="/top-5-cyber-security-trainers-in-india" element={<TopTrainersPage />} />
+        <Route path="/top-5-graphic-design-trainers-in-india" element={<TopTrainersPage />} />
+        <Route path="/top-5-personal-development-trainers-in-india" element={<TopTrainersPage />} />
+        <Route path="/top-5-data-science-trainers-in-india" element={<TopTrainersPage />} />
+        <Route path="/top-5-data-analytics-trainers-in-india" element={<TopTrainersPage />} />
+        
+        <Route path="/top-5-cloud-computing-trainers-in-noida" element={<TopTrainersPage />} />
+        <Route path="/top-5-devops-trainers-in-noida" element={<TopTrainersPage />} />
+        <Route path="/top-5-digital-marketing-trainers-in-noida" element={<TopTrainersPage />} />
+        <Route path="/top-5-cyber-security-trainers-in-noida" element={<TopTrainersPage />} />
+        <Route path="/top-5-graphic-design-trainers-in-noida" element={<TopTrainersPage />} />
+        <Route path="/top-5-personal-development-trainers-in-noida" element={<TopTrainersPage />} />
+        <Route path="/top-5-data-science-trainers-in-noida" element={<TopTrainersPage />} />
+        <Route path="/top-5-data-analytics-trainers-in-noida" element={<TopTrainersPage />} />
+        <Route path="/nexxtechs-noida" element={<NoidaInstitutePage />} />
+
+        {/* Catch-all 404 Route */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 function App() {
   useEffect(() => {
     // Clear chunk reload flag on successful mount
@@ -228,54 +292,7 @@ function App() {
             {/* Public routes — with full site layout */}
             <Route path="/*" element={
               <PublicLayout>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/courses" element={<CoursesPage />} />
-                  <Route path="/placement" element={<PlacementPage />} />
-                  <Route path="/blog" element={<BlogPage />} />
-                  <Route path="/blog/:id" element={<BlogPost />} />
-                  <Route path="/roadmap" element={<RoadmapPage />} />
-                  <Route path="/career-guidance" element={<CareerGuidancePage />} />
-                  <Route path="/tag/:tagSlug" element={<TagPage />} />
-                  <Route path="/contact" element={<ContactPage />} />
-                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                  <Route path="/best-devops-trainer-in-delhi" element={<AdityaDevopsTrainerPage />} />
-                  <Route path="/best-cloud-computing-trainer-in-delhi" element={<AdityaCloudTrainerPage />} />
-                  <Route path="/best-cloud-devops-trainer-in-delhi" element={<AdityaCloudDevopsTrainerPage />} />
-                  <Route path="/best-digital-marketing-trainer-in-delhi" element={<SagarDigitalMarketingTrainerPage />} />
-                  <Route path="/best-personal-development-trainer-in-delhi" element={<NitiPersonalDevelopmentTrainerPage />} />
-                  <Route path="/best-data-science-trainer-in-delhi" element={<SabaDataScienceTrainerPage />} />
-                  <Route path="/best-data-analytics-trainer-in-delhi" element={<SabaDataAnalyticsTrainerPage />} />
-                  <Route path="/best-devops-trainer-in-noida" element={<AdityaDevopsTrainerPageNoida />} />
-                  <Route path="/best-cloud-computing-trainer-in-noida" element={<AdityaCloudTrainerPageNoida />} />
-                  <Route path="/best-cloud-devops-trainer-in-noida" element={<AdityaCloudDevopsTrainerPageNoida />} />
-                  <Route path="/best-digital-marketing-trainer-in-noida" element={<SagarDigitalMarketingTrainerPageNoida />} />
-                  <Route path="/best-personal-development-trainer-in-noida" element={<NitiPersonalDevelopmentTrainerPageNoida />} />
-                  <Route path="/best-data-science-trainer-in-noida" element={<SabaDataScienceTrainerPageNoida />} />
-                  <Route path="/best-data-analytics-trainer-in-noida" element={<SabaDataAnalyticsTrainerPageNoida />} />
-                  <Route path="/course/:slug" element={<CourseDetail />} />
-                  <Route path="/top-5-cloud-computing-trainers-in-india" element={<TopTrainersPage />} />
-                  <Route path="/top-5-devops-trainers-in-india" element={<TopTrainersPage />} />
-                  <Route path="/top-5-digital-marketing-trainers-in-india" element={<TopTrainersPage />} />
-                  <Route path="/top-5-cyber-security-trainers-in-india" element={<TopTrainersPage />} />
-                  <Route path="/top-5-graphic-design-trainers-in-india" element={<TopTrainersPage />} />
-                  <Route path="/top-5-personal-development-trainers-in-india" element={<TopTrainersPage />} />
-                  <Route path="/top-5-data-science-trainers-in-india" element={<TopTrainersPage />} />
-                  <Route path="/top-5-data-analytics-trainers-in-india" element={<TopTrainersPage />} />
-                  
-                  <Route path="/top-5-cloud-computing-trainers-in-noida" element={<TopTrainersPage />} />
-                  <Route path="/top-5-devops-trainers-in-noida" element={<TopTrainersPage />} />
-                  <Route path="/top-5-digital-marketing-trainers-in-noida" element={<TopTrainersPage />} />
-                  <Route path="/top-5-cyber-security-trainers-in-noida" element={<TopTrainersPage />} />
-                  <Route path="/top-5-graphic-design-trainers-in-noida" element={<TopTrainersPage />} />
-                  <Route path="/top-5-personal-development-trainers-in-noida" element={<TopTrainersPage />} />
-                  <Route path="/top-5-data-science-trainers-in-noida" element={<TopTrainersPage />} />
-                  <Route path="/top-5-data-analytics-trainers-in-noida" element={<TopTrainersPage />} />
-                  <Route path="/nexxtechs-noida" element={<NoidaInstitutePage />} />
-
-                  {/* Catch-all 404 Route */}
-                  <Route path="*" element={<NotFoundPage />} />
-                </Routes>
+                <AnimatedRoutes />
               </PublicLayout>
             } />
           </Routes>

@@ -46,7 +46,7 @@ const TrainingPartners = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 max-w-6xl mx-auto">
           {partners.map((partner, index) => (
             <div 
               key={index} 
@@ -64,7 +64,7 @@ const TrainingPartners = () => {
                 <ResponsiveImage 
                   src={partner.image} 
                   alt={`${partner.name} - NexxTechs Training Partner`} 
-                  className="w-full h-full object-contain p-2 md:p-3"
+                  className="w-full h-full object-contain p-6 md:p-8"
                   pexelsOptions={{ w: 300, h: 200, fit: 'inside' }}
                 />
                 {(partner.slug || partner.link) && (

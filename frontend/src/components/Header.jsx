@@ -10,6 +10,7 @@ const LOGO_DARK_URL = "/assets/logo_white_small.webp";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Courses", href: "/courses/" },
+  { label: "Services", href: "/services" },
   { label: "Placement", href: "/placement/" },
   { label: "Roadmap", href: "/roadmap/" },
   { label: "Blog", href: "/blog/" },
@@ -100,25 +101,104 @@ const NOIDA_MEGA_MENU_DATA = {
   ]
 };
 
+const SERVICES_MEGA_MENU_DATA = {
+  "AI & Automation": [
+    { title: "AI Consulting", type: "Strategy, Roadmap & ROI", link: "/services/ai-consulting" },
+    { title: "RAG Development", type: "GPT-4o + LangChain", link: "/services/rag-development" },
+    { title: "AI Agents", type: "Agentic Workflows", link: "/services/ai-agents" },
+    { title: "LLM Integration", type: "Claude, Gemini, Llama", link: "/services/llm-integration" },
+    { title: "Voice AI", type: "Voice Bots, Call Agents", link: "/services/voice-ai" },
+    { title: "CRM Automation", type: "HubSpot, Salesforce AI", link: "/services/crm-automation" },
+    { title: "MCP Development", type: "Model Context Protocol", link: "/services/mcp-development" },
+    { title: "ML & Predictions", type: "Custom Models", link: "/services/ml-predictions" },
+    { title: "Document AI", type: "OCR & Processing", link: "/services/document-ai" },
+    { title: "AI Chatbot", type: "Support & Lead Gen", link: "/services/ai-chatbot" },
+    { title: "WhatsApp AI", type: "WhatsApp Business API", link: "/services/whatsapp-ai" },
+  ],
+  "Development": [
+    { title: "Web Development", type: "React, Django, Next.js", link: "/services/web-development" },
+    { title: "Mobile Apps", type: "Android, iOS, Flutter", link: "/services/mobile-apps" },
+    { title: "React Native Apps", type: "One Codebase", link: "/services/react-native" },
+    { title: "SaaS Development", type: "Multi-Tenant Platforms", link: "/services/saas-development" },
+    { title: "API Integration", type: "REST, GraphQL", link: "/services/api-integration" },
+    { title: "Python Development", type: "AI, ML, Data Pipelines", link: "/services/python-development" },
+    { title: "FastAPI Development", type: "High-Performance APIs", link: "/services/fastapi" },
+    { title: "LangChain Development", type: "RAG Chains, Agents", link: "/services/langchain" },
+    { title: "LangGraph Development", type: "Multi-Agent Workflows", link: "/services/langgraph" },
+    { title: "Django Development", type: "Admin-Heavy Web Apps", link: "/services/django" },
+  ],
+  "Cloud & IT": [
+    { title: "Cloud Services", type: "AWS EC2, S3, Lambda", link: "/services/cloud-services" },
+    { title: "DevOps & CI/CD", type: "GitHub Actions, Docker", link: "/services/devops" },
+    { title: "Software Development", type: "Custom Systems", link: "/services/software-development" },
+    { title: "Networking", type: "Architecture & Security", link: "/services/networking" },
+    { title: "IT Staffing", type: "AI & Dev Talent", link: "/services/it-staffing" },
+  ],
+  "Website Designing": [
+    { title: "Website Designing", type: "Custom Design Services", link: "/services/website-designing" },
+    { title: "Static Website Design", type: "Simple Brochure Sites", link: "/services/static-website" },
+    { title: "Dynamic Website Design", type: "CMS-Driven Sites", link: "/services/dynamic-website" },
+    { title: "Responsive Website", type: "Mobile-First Design", link: "/services/responsive-website" },
+    { title: "Business Website", type: "Professional Sites", link: "/services/business-website" },
+    { title: "Corporate Website", type: "Enterprise-Grade", link: "/services/corporate-website" },
+    { title: "Portfolio Website", type: "Showcase Case Studies", link: "/services/portfolio-website" },
+    { title: "Landing Page Design", type: "High-Converting Pages", link: "/services/landing-page" },
+    { title: "Ecommerce Website", type: "Online Stores That Sell", link: "/services/ecommerce" },
+  ]
+};
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeDomain, setActiveDomain] = useState("Data Science & AI");
-  const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const [activeMegaMenuLabel, setActiveMegaMenuLabel] = useState(null);
+  const [activeDomain, setActiveDomain] = useState(null);
   const { dark, toggle } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const isNoida = location.pathname.includes('noida');
-  const contactInfo = isNoida ? CONTACT_INFO.noida : CONTACT_INFO.default;
+  const isServicePage = location.pathname.includes('service');
+  const contactInfo = isNoida || isServicePage ? CONTACT_INFO.noida : CONTACT_INFO.default;
 
-  const activeMegaMenuData = isNoida ? NOIDA_MEGA_MENU_DATA : MEGA_MENU_DATA;
-  const activeNavLinks = isNoida ? [
-    { label: "Home", href: "/nexxtechs-noida" },
-    { label: "Courses", href: "/courses" }, // Wait, should this be /courses-noida? They don't have a /courses-noida page, just /courses
-    { label: "Placement", href: "/placement/" },
-    { label: "Roadmap", href: "/roadmap/" },
-    { label: "Blog", href: "/blog/" },
-  ] : NAV_LINKS;
+  const activeCoursesMegaMenuData = isNoida ? NOIDA_MEGA_MENU_DATA : MEGA_MENU_DATA;
+
+  const NAV_LINKS_ENHANCED = NAV_LINKS.map(link => {
+    if (link.label === "Courses") {
+      return { ...link, isMegaMenu: true, megaMenuData: activeCoursesMegaMenuData };
+    }
+    return link;
+  });
+
+  let activeNavLinks;
+  if (isServicePage) {
+    activeNavLinks = [
+      { 
+        label: "Our Services", 
+        href: "/services",
+        isMegaMenu: true,
+        megaMenuData: SERVICES_MEGA_MENU_DATA
+      },
+      { 
+        label: "Industrial Training", 
+        isSimpleDropdown: true,
+        options: [
+          { label: "Nexxtechs Noida", href: "/nexxtechs-noida" },
+          { label: "Nexxtechs Delhi", href: "/" }
+        ]
+      },
+      { label: "Enquiry", href: "/service-enquiry" }
+    ];
+  } else if (isNoida) {
+    activeNavLinks = [
+      { label: "Home", href: "/nexxtechs-noida" },
+      { label: "Courses", href: "/courses", isMegaMenu: true, megaMenuData: activeCoursesMegaMenuData },
+      { label: "Services", href: "/services" },
+      { label: "Placement", href: "/placement/" },
+      { label: "Roadmap", href: "/roadmap/" },
+      { label: "Blog", href: "/blog/" },
+    ];
+  } else {
+    activeNavLinks = NAV_LINKS_ENHANCED;
+  }
 
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 20);
@@ -131,7 +211,7 @@ export default function Header() {
 
   useEffect(() => {
     setMobileOpen(false);
-    setMegaMenuOpen(false);
+    setActiveMegaMenuLabel(null);
   }, [location]);
 
   return (
@@ -187,27 +267,35 @@ export default function Header() {
             {activeNavLinks.map((link) => {
               const isActive = location.pathname === link.href;
 
-              if (link.label === "Courses") {
+              if (link.isMegaMenu) {
+                const isThisMegaMenuOpen = activeMegaMenuLabel === link.label;
+                const menuData = link.megaMenuData;
+                const currentDomain = activeDomain || Object.keys(menuData)[0];
+                const domainData = menuData[currentDomain] || [];
+
                 return (
                   <div 
                     key={link.label} 
                     className="relative h-full flex items-center"
-                    onMouseEnter={() => setMegaMenuOpen(true)}
-                    onMouseLeave={() => setMegaMenuOpen(false)}
+                    onMouseEnter={() => {
+                      setActiveMegaMenuLabel(link.label);
+                      setActiveDomain(Object.keys(menuData)[0]);
+                    }}
+                    onMouseLeave={() => setActiveMegaMenuLabel(null)}
                   >
                     <Link
                       to={link.href}
                       className={`flex items-center gap-1 px-3 py-2 text-[15px] font-semibold transition-colors rounded-lg ${
-                        isActive || megaMenuOpen ? "text-[#84CC16]" : dark ? "text-gray-200 hover:text-[#84CC16]" : "text-[#111827] hover:text-[#84CC16]"
+                        isActive || isThisMegaMenuOpen ? "text-[#84CC16]" : dark ? "text-gray-200 hover:text-[#84CC16]" : "text-[#111827] hover:text-[#84CC16]"
                       }`}
                     >
                       {link.label}
-                      <ChevronDown size={14} className={`transition-transform duration-300 ${megaMenuOpen ? "rotate-180" : ""}`} />
+                      <ChevronDown size={14} className={`transition-transform duration-300 ${isThisMegaMenuOpen ? "rotate-180" : ""}`} />
                     </Link>
 
                     {/* Mega Menu Dropdown */}
                     <div className={`absolute top-[90%] left-1/2 -translate-x-1/2 w-[900px] border rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden flex z-[100] ${
-                      megaMenuOpen 
+                      isThisMegaMenuOpen 
                         ? "opacity-100 visible translate-y-0" 
                         : "opacity-0 invisible translate-y-2"
                     } ${
@@ -220,34 +308,34 @@ export default function Header() {
                       }`}>
                         <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4 px-2">Domain</div>
                         <ul className="space-y-1">
-                          {Object.keys(activeMegaMenuData).map(domain => (
+                          {Object.keys(menuData).map(domain => (
                             <li 
                               key={domain}
                               onMouseEnter={() => setActiveDomain(domain)}
                               onClick={() => setActiveDomain(domain)}
                               className={`flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer transition-all ${
-                                activeDomain === domain 
+                                currentDomain === domain 
                                   ? dark ? "bg-white/5 text-[#84CC16] font-bold" : "bg-white text-[#84CC16] font-bold shadow-sm"
                                   : dark ? "text-gray-400 hover:text-white hover:bg-white/5" : "text-gray-500 hover:text-[#111827] hover:bg-white"
                               }`}
                             >
                               <span className="text-[13px]">{domain}</span>
-                              <ChevronRight size={12} className={activeDomain === domain ? "opacity-100" : "opacity-0"} />
+                              <ChevronRight size={12} className={currentDomain === domain ? "opacity-100" : "opacity-0"} />
                             </li>
                           ))}
                         </ul>
                       </div>
 
-                      {/* Right Content - Courses */}
+                      {/* Right Content - Courses/Services */}
                       <div className="w-3/4 p-10">
-                        <div className="text-xs font-bold text-[#84CC16] uppercase tracking-widest mb-6">Explore Courses</div>
+                        <div className="text-xs font-bold text-[#84CC16] uppercase tracking-widest mb-6">Explore {link.label}</div>
                         <div className="grid grid-cols-2 gap-x-8 gap-y-3">
-                          {activeMegaMenuData[activeDomain].map((course, idx) => (
+                          {domainData.map((item, idx) => (
                             <Link 
                               key={idx} 
-                              to={course.link || "/courses"}
+                              to={item.link || "/"}
                               onClick={() => {
-                                setMegaMenuOpen(false);
+                                setActiveMegaMenuLabel(null);
                                 window.scrollTo(0, 0);
                               }}
                               className={`flex items-start gap-3 p-3 rounded-2xl transition-all duration-300 group/course border border-transparent ${
@@ -260,8 +348,8 @@ export default function Header() {
                               <div>
                                 <div className={`font-bold text-sm mb-1 group-hover/course:text-[#84CC16] transition-colors ${
                                   dark ? "text-white" : "text-[#111827]"
-                                }`}>{course.title}</div>
-                                <div className="text-gray-400 text-[11px] font-medium">{course.type}</div>
+                                }`}>{item.title}</div>
+                                <div className="text-gray-400 text-[11px] font-medium">{item.type}</div>
                               </div>
                             </Link>
                           ))}
@@ -272,10 +360,53 @@ export default function Header() {
                 );
               }
 
+              if (link.isSimpleDropdown) {
+                return (
+                  <div 
+                    key={link.label} 
+                    className="relative h-full flex items-center group"
+                  >
+                    <button
+                      className={`flex items-center gap-1 px-3 py-2 text-[15px] font-semibold transition-colors rounded-lg ${
+                        dark ? "text-gray-200 hover:text-[#84CC16]" : "text-[#111827] hover:text-[#84CC16]"
+                      }`}
+                    >
+                      {link.label}
+                      <ChevronDown size={14} className="transition-transform duration-300 group-hover:rotate-180" />
+                    </button>
+
+                    {/* Simple Dropdown */}
+                    <div className={`absolute top-[80%] left-0 w-48 border rounded-xl shadow-xl transition-all duration-300 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 flex flex-col py-2 z-[100] ${
+                      dark ? "bg-[#1a1d27] border-white/10 shadow-black/40" : "bg-white border-gray-100"
+                    }`}>
+                      {link.options.map((opt, idx) => (
+                        <Link 
+                          key={idx}
+                          to={opt.href}
+                          className={`px-4 py-2 text-sm font-semibold transition-colors ${
+                            dark ? "text-gray-300 hover:text-[#84CC16] hover:bg-white/5" : "text-gray-700 hover:text-[#84CC16] hover:bg-gray-50"
+                          }`}
+                        >
+                          {opt.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={link.label}
                   to={link.href}
+                  onClick={(e) => {
+                    if (link.href.startsWith('#')) {
+                      e.preventDefault();
+                      document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  target={link.label === "Services" ? "_blank" : undefined}
+                  rel={link.label === "Services" ? "noopener noreferrer" : undefined}
                   className={`px-3 py-2 text-[15px] font-semibold transition-colors rounded-lg ${
                     isActive ? "text-[#84CC16]" : dark ? "text-gray-200 hover:text-[#84CC16]" : "text-[#111827] hover:text-[#84CC16]"
                   }`}
@@ -313,11 +444,42 @@ export default function Header() {
         } ${dark ? "bg-[#0f1117] border-t border-white/5" : "bg-white border-t border-gray-100"}`}>
           <div className="px-6 py-6 flex flex-col gap-2 h-full overflow-y-auto">
             <div className="text-[10px] font-black text-[#84CC16] uppercase tracking-[0.2em] mb-2 px-4">Navigation</div>
-            {activeNavLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.href}
-                onClick={() => setMobileOpen(false)}
+            {activeNavLinks.map((link) => {
+              if (link.isSimpleDropdown) {
+                return (
+                  <div key={link.label} className="flex flex-col border-b border-gray-100 dark:border-white/5">
+                    <div className="px-5 py-3.5 text-base font-bold text-gray-400 uppercase text-[11px] tracking-wider">
+                      {link.label}
+                    </div>
+                    {link.options.map((opt, idx) => (
+                      <Link
+                        key={idx}
+                        to={opt.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={`flex items-center pl-8 pr-5 py-3 text-sm font-bold transition-all ${
+                          dark ? "text-gray-300 hover:bg-white/5" : "text-[#111827] hover:bg-gray-50"
+                        }`}
+                      >
+                        {opt.label}
+                      </Link>
+                    ))}
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  target={link.label === "Services" && !isServicePage ? "_blank" : undefined}
+                  rel={link.label === "Services" && !isServicePage ? "noopener noreferrer" : undefined}
+                  onClick={(e) => {
+                    setMobileOpen(false);
+                    if (link.href.startsWith('#')) {
+                      e.preventDefault();
+                      document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                 className={`flex items-center justify-between px-5 py-3.5 text-base font-bold rounded-xl transition-all ${
                   location.pathname === link.href 
                     ? "text-[#84CC16] bg-[#84CC16]/5 border border-[#84CC16]/20" 
@@ -327,7 +489,8 @@ export default function Header() {
                 <span>{link.label}</span>
                 <ChevronRight size={18} className={location.pathname === link.href ? "opacity-100" : "opacity-30"} />
               </Link>
-            ))}
+              );
+            })}
             
             <div className="mt-6 pt-6 border-t border-gray-100 dark:border-white/5 space-y-4">
               <Button 

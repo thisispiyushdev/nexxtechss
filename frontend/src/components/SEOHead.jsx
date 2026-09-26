@@ -9,6 +9,8 @@ const DEFAULT_OG_IMAGE = "/assets/logo_white.webp";
 /**
  * SEOHead – Reusable component for per-page SEO meta tags.
  */
+const DEFAULT_KEYWORDS = "AI consulting services, enterprise AI consulting, RAG development, AI agent development, custom web development, React Next.js development, mobile app development, SaaS development, cloud consulting services, AWS Azure GCP services, DevOps CI CD consulting, vulnerability assessment security, social media marketing agency, performance marketing agency, UI UX design agency, IT services company Delhi NCR, IT company Noida";
+
 export default function SEOHead({
   title,
   description,
@@ -20,23 +22,17 @@ export default function SEOHead({
 }) {
   const location = useLocation();
 
-  // Automatically resolve the path: use the explicitly provided canonical prop if available,
-  // otherwise fallback to the current pathname from React Router.
   const activePath = canonical !== undefined ? canonical : location.pathname;
-
-  // Enforce trailing slash normalization to match standard static host behavior
   const normalizedCanonical = activePath.endsWith("/") ? activePath : `${activePath}/`;
-
   const fullUrl = `${BASE_URL}${normalizedCanonical}`;
-
-  // Rely on react-helmet-async for SEO tags to prevent duplication
 
   return (
     <Helmet>
       {/* Primary Meta Tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
-      {keywords && <meta name="keywords" content={keywords} />}
+      <meta name="keywords" content={keywords || DEFAULT_KEYWORDS} />
+      <meta name="publisher" content="NexxTechs" />
       <link rel="canonical" href={fullUrl} />
 
       {/* Open Graph */}

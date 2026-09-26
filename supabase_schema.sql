@@ -258,3 +258,25 @@ ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending';
 ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS counselor_id UUID;
 ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS transferred_from TEXT;
 ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS branch TEXT;
+
+-- Table for Enterprise Service Enquiries
+CREATE TABLE IF NOT EXISTS public.service_enquiries (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    service_interested TEXT NOT NULL,
+    message TEXT,
+    branch TEXT DEFAULT 'Noida Sector 2 (+91 7987059430)',
+    status TEXT DEFAULT 'pending',
+    source_url TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE public.service_enquiries ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Allow public service enquiry inserts" ON public.service_enquiries;
+CREATE POLICY "Allow public service enquiry inserts" ON public.service_enquiries FOR INSERT TO public WITH CHECK (true);
+DROP POLICY IF EXISTS "Allow authenticated service enquiry select" ON public.service_enquiries;
+CREATE POLICY "Allow authenticated service enquiry select" ON public.service_enquiries FOR SELECT TO authenticated USING (true);
+
