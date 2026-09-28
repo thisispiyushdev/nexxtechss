@@ -9,6 +9,8 @@ import {
 import SEOHead from "@/components/SEOHead";
 import PageTransition from "@/components/PageTransition";
 import { servicesData, serviceAliases } from '@/data/servicesData';
+import axios from "axios";
+import { API_ROOT } from "@/lib/apiConfig";
 
 const categoryIcons = {
   "AI & Automation": <Cpu className="w-5 h-5 text-[#84CC16]" />,
@@ -53,6 +55,7 @@ const ServiceDetailPage = () => {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
   // Normalize slug using alias if present
@@ -67,8 +70,26 @@ const ServiceDetailPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    try {
+      await axios.post(`${API_ROOT}/service-enquiry`, {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        service_interested: service.title,
+        message: formData.message,
+        branch: 'Noida Sector 2 (+91 7987059430)',
+        source_url: window.location.pathname
+      });
+    } catch (err) {
+      console.error("Failed to save service detail enquiry to database:", err);
+    } finally {
+      setLoading(false);
+    }
+
     const phone = "+917987059430";
     const text = `Hello Nexxtechs Team,%0A%0AI am interested in your *${service.title}* service.%0A%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*Phone:* ${formData.phone}%0A*Requirements:* ${formData.message}`;
     window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${text}`, '_blank');
@@ -264,10 +285,11 @@ const ServiceDetailPage = () => {
 
                     <button
                       type="submit"
-                      className="w-full bg-[#84CC16] hover:bg-[#65A30D] text-black font-bold py-3.5 rounded-xl text-sm tracking-wider uppercase inline-flex items-center justify-center transition-all shadow-md shadow-[#84CC16]/20"
+                      disabled={loading}
+                      className="w-full bg-[#84CC16] hover:bg-[#65A30D] text-black font-bold py-3.5 rounded-xl text-sm tracking-wider uppercase inline-flex items-center justify-center transition-all shadow-md shadow-[#84CC16]/20 disabled:opacity-50"
                     >
                       <Send className="w-4 h-4 mr-2" />
-                      Submit & Chat on WhatsApp
+                      {loading ? "Submitting..." : "Submit & Chat on WhatsApp"}
                     </button>
                   </form>
                 )}

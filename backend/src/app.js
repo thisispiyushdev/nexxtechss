@@ -3,6 +3,7 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 
 import enquiryRoutes from "./routes/enquiryRoutes.js";
+import serviceEnquiryRoutes from "./routes/serviceEnquiryRoutes.js";
 import brochureRoutes from "./routes/brochureRoutes.js";
 import roadmapRoutes from "./routes/roadmapRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
@@ -82,6 +83,8 @@ app.use("/api", (req, res, next) => {
 app.use("/api/enquiry", enquiryRoutes);
 // Kept for backward compatibility with older verson of app.
 app.use("/api/enquiries", enquiryRoutes);
+app.use("/api/service-enquiry", serviceEnquiryRoutes);
+app.use("/api/service-enquiries", serviceEnquiryRoutes);
 
 app.use("/api/brochure-download", brochureRoutes);
 app.use("/api/brochure-leads", brochureRoutes);

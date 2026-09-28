@@ -9,6 +9,8 @@ import {
 import SEOHead from "@/components/SEOHead";
 import PageTransition from "@/components/PageTransition";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
+import { API_ROOT } from "@/lib/apiConfig";
 
 const heroImages = [
   "/servicepage/h1.webp",
@@ -308,6 +310,7 @@ const ServicesPage = () => {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -324,8 +327,26 @@ const ServicesPage = () => {
     setEnquiryForm({ ...enquiryForm, [e.target.name]: e.target.value });
   };
 
-  const handleEnquirySubmit = (e) => {
+  const handleEnquirySubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    try {
+      await axios.post(`${API_ROOT}/service-enquiry`, {
+        name: enquiryForm.name,
+        phone: enquiryForm.phone,
+        email: enquiryForm.email,
+        service_interested: enquiryForm.service,
+        message: enquiryForm.message,
+        branch: 'Noida Sector 2 (+91 7987059430)',
+        source_url: window.location.pathname
+      });
+    } catch (err) {
+      console.error("Failed to save service enquiry from ServicesPage to database:", err);
+    } finally {
+      setLoading(false);
+    }
+
     const phoneNum = "917987059430";
     const text = `Hello Nexxtechs Team,%0A%0AI have a *Service Enquiry* from Services Page:%0A%0A*Name:* ${enquiryForm.name}%0A*Phone:* ${enquiryForm.phone}%0A*Email:* ${enquiryForm.email}%0A*Service Interested:* ${enquiryForm.service}%0A*Requirements:* ${enquiryForm.message || 'N/A'}`;
     
@@ -849,10 +870,11 @@ const ServicesPage = () => {
                   {/* SUBMIT BUTTON */}
                   <button
                     type="submit"
-                    className="w-full bg-[#84CC16] hover:bg-[#65A30D] text-black font-bold py-4 rounded-xl text-sm tracking-wider uppercase inline-flex items-center justify-center transition-all shadow-lg shadow-[#84CC16]/20"
+                    disabled={loading}
+                    className="w-full bg-[#84CC16] hover:bg-[#65A30D] text-black font-bold py-4 rounded-xl text-sm tracking-wider uppercase inline-flex items-center justify-center transition-all shadow-lg shadow-[#84CC16]/20 disabled:opacity-50"
                   >
                     <Send className="w-4 h-4 mr-2" />
-                    Submit Service Enquiry
+                    {loading ? "Submitting..." : "Submit Service Enquiry"}
                   </button>
                 </form>
               )}

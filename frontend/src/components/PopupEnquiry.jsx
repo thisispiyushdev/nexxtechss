@@ -122,8 +122,19 @@ export default function PopupEnquiry() {
     setError("");
     setLoading(true);
     try {
-      const payload = { ...form, branch: enquiryType === 'service' ? `Service Page: ${window.location.pathname}` : `${form.branch} | Page: ${window.location.pathname}` };
-      const response = await axios.post(`${API}/enquiry`, payload);
+      const endpoint = enquiryType === 'service' ? `${API}/service-enquiry` : `${API}/enquiry`;
+      const payload = enquiryType === 'service'
+        ? {
+            name: form.name,
+            phone: form.phone,
+            email: form.email || `${form.name.toLowerCase().replace(/\s+/g, '')}@lead.com`,
+            service_interested: form.course_interested,
+            branch: `Service Page: ${window.location.pathname}`,
+            source_url: window.location.pathname
+          }
+        : { ...form, branch: `${form.branch} | Page: ${window.location.pathname}` };
+        
+      const response = await axios.post(endpoint, payload);
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
         if (isWhatsApp || enquiryType === 'service') {
