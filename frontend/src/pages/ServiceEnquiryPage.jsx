@@ -77,7 +77,7 @@ const ServiceEnquiryPage = () => {
         canonical="/service-enquiry"
       />
       
-      <div className="bg-white dark:bg-[#070C17] text-gray-900 dark:text-slate-100 min-h-screen pt-4 pb-20 transition-colors duration-300">
+      <div className="bg-white dark:bg-[#070C17] text-gray-900 dark:text-slate-100 min-h-screen pt-4 pb-20 transition-colors duration-300 relative service-check-bg">
         
         {/* TOP SECTION HEADER */}
         <div className="max-w-[1440px] mx-auto px-4 md:px-8 text-center pt-8 pb-10">

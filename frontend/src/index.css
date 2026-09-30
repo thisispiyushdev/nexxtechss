@@ -205,6 +205,44 @@ html:not(.dark)::after {
   mask-image: radial-gradient(ellipse 85% 65% at 50% 20%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 80%);
 }
 
+/* ====== Dedicated Service Page Check Design (Tech Dot-Grid & Crosshair Check Pattern) ====== */
+.service-check-bg {
+  position: relative;
+}
+
+.service-check-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Dark theme service check pattern: subtle lime tech grid with crosshair dot intersections */
+html.dark .service-check-bg::before {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(132, 204, 22, 0.35) 1.5px, transparent 0),
+    linear-gradient(to right, rgba(132, 204, 22, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(132, 204, 22, 0.12) 1px, transparent 1px);
+  background-size: 32px 32px, 32px 32px, 32px 32px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 18%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 45%, transparent 85%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 18%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 45%, transparent 85%);
+}
+
+/* Light theme service check pattern: sharp dark slate grid with lime intersection nodes */
+html:not(.dark) .service-check-bg::before {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(132, 204, 22, 0.5) 1.5px, transparent 0),
+    linear-gradient(to right, rgba(15, 23, 42, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px, 32px 32px, 32px 32px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 18%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 85%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 18%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 85%);
+}
+
 /* Make body transparent so the html gradient shows through */
 html.dark body,
 html:not(.dark) body {

@@ -456,8 +456,8 @@ const ServicesPage = () => {
       </section>
 
       {/* SEO-SUPPORTING SECTION BELOW HERO */}
-      <section className="py-10 bg-white dark:bg-[#070C17]">
-        <div className="container mx-auto px-4 text-center max-w-4xl space-y-3">
+      <section className="py-10 bg-white dark:bg-[#070C17] relative service-check-bg">
+        <div className="container mx-auto px-4 text-center max-w-4xl space-y-3 relative z-10">
           <h2 className="text-xl md:text-3xl font-extrabold text-gray-900 dark:text-white leading-tight">
             Trusted Technology & Digital Engineering Services in <span className="text-[#84CC16]">Delhi NCR & Across India</span>
           </h2>
@@ -468,7 +468,7 @@ const ServicesPage = () => {
       </section>
 
       {/* Services Tabs & Cards Section */}
-      <section className="py-20 bg-white dark:bg-[#070C17]">
+      <section className="py-20 bg-white dark:bg-[#070C17] relative service-check-bg">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 space-y-3">
             <span className="text-xs font-mono text-[#84CC16] font-bold uppercase tracking-widest">OUR CORE SERVICES</span>

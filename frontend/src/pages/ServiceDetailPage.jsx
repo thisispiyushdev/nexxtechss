@@ -109,7 +109,7 @@ const ServiceDetailPage = () => {
       />
       
       {/* Container with ZERO top padding to eliminate space below fixed header */}
-      <div className="bg-white dark:bg-[#070C17] text-gray-900 dark:text-slate-100 min-h-screen pt-0 pb-20 transition-colors duration-300">
+      <div className="bg-white dark:bg-[#070C17] text-gray-900 dark:text-slate-100 min-h-screen pt-0 pb-20 transition-colors duration-300 relative service-check-bg">
         
         {/* FLUSH BREADCRUMB BAR - REMOVED TOP GAP */}
         <div className="border-b border-gray-100 dark:border-slate-800/80 bg-white dark:bg-[#070C17] py-2.5 mb-6">
