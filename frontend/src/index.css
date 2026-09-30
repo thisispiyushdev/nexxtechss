@@ -146,7 +146,7 @@ html.dark::before {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
   background:
     radial-gradient(ellipse 80% 50% at 15% 85%, rgba(132, 204, 22, 0.07) 0%, transparent 50%),
@@ -167,12 +167,42 @@ html:not(.dark)::before {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
   background:
     radial-gradient(ellipse 80% 50% at 15% 85%, rgba(132, 204, 22, 0.05) 0%, transparent 50%),
     radial-gradient(ellipse 60% 40% at 85% 15%, rgba(132, 204, 22, 0.04) 0%, transparent 50%),
     linear-gradient(180deg, #f8faf5 0%, #f0f4ec 40%, #eef2f7 100%);
+}
+
+/* Check / Grid Pattern Background with smooth fading transparency mask */
+html::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+html.dark::after {
+  background-size: 44px 44px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 20%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 80%);
+  mask-image: radial-gradient(ellipse 85% 65% at 50% 20%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 80%);
+}
+
+html:not(.dark)::after {
+  background-size: 44px 44px;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 20%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 80%);
+  mask-image: radial-gradient(ellipse 85% 65% at 50% 20%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 80%);
 }
 
 /* Make body transparent so the html gradient shows through */
