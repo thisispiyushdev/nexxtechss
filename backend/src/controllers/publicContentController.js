@@ -156,7 +156,7 @@ export const getActiveBanner = async (req, res, next) => {
       .from('promotional_banners')
       .select('*')
       .eq('is_active', true)
-      .eq('target_page', targetPage)
+      .ilike('target_page', targetPage)
       .or('start_date.is.null,start_date.lte.now()')
       .or('end_date.is.null,end_date.gte.now()')
       .order('created_at', { ascending: false })
