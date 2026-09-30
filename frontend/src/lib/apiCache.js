@@ -5,7 +5,7 @@
  * - Deduplicates concurrent requests to the same endpoint
  * - Components get data instantly from cache on re-renders
  */
-import axios from "axios";
+
 
 import { API_ROOT } from "./apiConfig";
 
@@ -55,11 +55,12 @@ export async function cachedFetch(url, options = {}) {
   const separator = url.includes('?') ? '&' : '?';
   const fetchUrl = `${url}${separator}cb=${Math.floor(Date.now() / 300000)}`;
   
-  const fetchPromise = axios.get(fetchUrl, {
-    timeout: 8000,
+  const fetchPromise = fetch(fetchUrl, {
+    signal: AbortSignal.timeout ? AbortSignal.timeout(8000) : undefined,
     ...options,
-  }).then(res => {
-    const data = res.data;
+  }).then(async res => {
+    if (!res.ok) throw new Error("Network response was not ok");
+    const data = await res.json();
     const entry = { data, timestamp: Date.now() };
     
     // Store in memory cache

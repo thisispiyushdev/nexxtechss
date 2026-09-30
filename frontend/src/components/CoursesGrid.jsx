@@ -8,11 +8,6 @@ import BrochureModal from "./BrochureModal";
 import { Button } from "../components/ui/button";
 import { cachedFetch, API } from "@/lib/apiCache";
 import ResponsiveImage from "./ResponsiveImage";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 // Brochure mapping - add more courses here as brochures are uploaded
 const BROCHURES = {
@@ -97,18 +92,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
     return () => observer.disconnect();
   }, []);
 
-  useGSAP(() => {
-    gsap.from(".courses-heading-animate", {
-      scrollTrigger: {
-        trigger: ".courses-heading-animate",
-        start: "top 85%",
-      },
-      y: 50,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out"
-    });
-  }, { scope: sectionRef });
+
 
   const openBrochure = (courseName) => {
     setBrochureModal({ open: true, course: courseName, url: BROCHURES[courseName] });
@@ -124,7 +108,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
       >
         <div className="max-w-[1440px] mx-auto px-6 md:px-12">
           {/* Section Header */}
-          <div className="text-center mb-16 courses-heading-animate">
+          <div className={`text-center mb-16 transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
             <span className="inline-block text-xs tracking-[0.2em] uppercase font-bold text-[#4B5563] dark:text-gray-500 mb-4">
               Our Programs
             </span>
@@ -314,7 +298,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
         )}
 
         {showMoreButton && (
-          <div className="mt-16 flex justify-center courses-heading-animate">
+          <div className={`mt-16 flex justify-center transition-all duration-1000 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
             <Button
               onClick={() => navigate('/courses')}
               className="px-10 h-14 rounded-full bg-[#84CC16] text-black font-bold text-lg hover:bg-[#65a30d] transition-all shadow-[0_0_20px_rgba(132,204,22,0.3)] hover:shadow-[0_0_30px_rgba(132,204,22,0.5)] hover:-translate-y-1 flex items-center"

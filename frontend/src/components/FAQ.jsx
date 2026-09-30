@@ -1,10 +1,5 @@
 import { useState, useRef } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const FAQ_DATA = [
   {
@@ -53,8 +48,7 @@ export default function FAQ({ faqData = FAQ_DATA }) {
   const [openIndex, setOpenIndex] = useState(null);
   const containerRef = useRef(null);
 
-  // Removed entrance animations to ensure items are always rendered and visible
-  useGSAP(() => {}, { scope: containerRef });
+
 
   return (
     <section id="faq" ref={containerRef} className="py-24 bg-transparent transition-colors duration-300">

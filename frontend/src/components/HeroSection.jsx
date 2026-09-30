@@ -5,7 +5,7 @@ import { Input } from "../components/ui/input";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "../components/ui/select";
-import axios from "axios";
+
 import { API_ROOT } from "../lib/apiConfig";
 
 const API = API_ROOT;
@@ -46,8 +46,12 @@ export default function HeroSection() {
     setError(""); setLoading(true);
     try {
       const payload = { ...form, branch: `${form.branch} | Page: ${window.location.pathname}` };
-      const response = await axios.post(`${API}/enquiry`, payload);
-      if (response.status === 201 || response.status === 200) {
+      const response = await fetch(`${API}/enquiry`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (response.ok) {
         setSubmitted(true);
         setForm({ name: "", phone: "", course_interested: "", branch: "Nexxtechs Delhi" });
       } else { throw new Error("Backend storage failed"); }
