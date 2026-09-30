@@ -21,17 +21,17 @@ const COMPANY_LOGOS = [
 
 export default function CourseHiringPartners() {
   return (
-    <section className="py-16 bg-transparent border-t border-white/5 overflow-hidden flex justify-center">
-      <div className="w-full max-w-4xl px-6">
-        <h3 className="text-xl md:text-2xl font-bold text-white mb-10 text-center">
+    <section className="py-16 bg-transparent border-t border-gray-100 dark:border-white/5 overflow-hidden flex justify-center w-full">
+      <div className="w-full max-w-[1440px] px-4 md:px-8">
+        <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-10 text-center">
           3+ years of <span className="text-[#84CC16]">transforming careers</span>
         </h3>
         
         {/* Double Marquee Container */}
         <div className="relative w-full flex flex-col gap-8 group overflow-hidden py-2">
           {/* Fading Edges */}
-          <div className="absolute top-0 left-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-white dark:from-[#050505] to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute top-0 right-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-white dark:from-[#050505] to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute top-0 left-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-[#f8faf5] dark:from-[#0a0c10] to-transparent z-10 pointer-events-none opacity-80"></div>
+          <div className="absolute top-0 right-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-[#f8faf5] dark:from-[#0a0c10] to-transparent z-10 pointer-events-none opacity-80"></div>
           
           {/* First Row (Left to Right) */}
           <div className="flex w-max animate-scroll">
@@ -41,7 +41,7 @@ export default function CourseHiringPartners() {
                 href={company.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center min-w-[120px] md:min-w-[140px] h-16 md:h-20 mx-2 px-4 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-2xl hover:border-[#84CC16]/50 shadow-sm hover:shadow-lg transition-all duration-300 group/link"
+                className="flex items-center justify-center min-w-[120px] md:min-w-[140px] h-16 md:h-20 mx-2 px-4 bg-white/60 dark:bg-white/5 border border-gray-200/60 dark:border-white/5 rounded-2xl hover:border-[#84CC16]/50 shadow-sm hover:shadow-lg transition-all duration-300 group/link"
               >
                 <img
                   src={`https://logo.clearbit.com/${company.domain}?size=256`}

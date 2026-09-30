@@ -44,11 +44,13 @@ export default function AdminDashboard() {
   const TABS = [
     ...(isCoreAdmin ? [
       { id: "leads", label: "All Leads", icon: ClipboardList, desc: "All Enquiries" },
+      { id: "service_leads", label: "Service Enquiries", icon: ClipboardList, desc: "Service Page Enquiries" },
       { id: "delhi_leads", label: "Delhi Leads", icon: ClipboardList, desc: "Delhi Enquiries" },
       { id: "noida_leads", label: "Noida Leads", icon: ClipboardList, desc: "Noida Enquiries" },
       { id: "nexxtechs_info_leads", label: "Leads from nexxtechs.info", icon: ClipboardList, desc: "Website Leads" },
     ] : [
       { id: "leads", label: (role === "noida_counselor" || role === "noida_receptionist") ? "Noida Leads" : "Delhi Leads", icon: ClipboardList, desc: "Assigned enquiries" },
+      { id: "service_leads", label: "Service Enquiries", icon: ClipboardList, desc: "Service Page Enquiries" },
       { id: "nexxtechs_info_leads", label: "Leads from nexxtechs.info", icon: ClipboardList, desc: "Website Leads" }
     ]),
     ...(isCoreAdmin ? [
@@ -245,6 +247,12 @@ export default function AdminDashboard() {
         result = result.filter(l => (l.branch || "").toLowerCase().includes("delhi"));
       } else if (activeTab === "noida_leads") {
         result = result.filter(l => (l.branch || "").toLowerCase().includes("noida"));
+      } else if (activeTab === "service_leads") {
+        result = result.filter(l => l.source_table === "service_enquiries" || (l.source || "").toLowerCase().includes("service"));
+      }
+    } else {
+      if (activeTab === "service_leads") {
+        result = result.filter(l => l.source_table === "service_enquiries" || (l.source || "").toLowerCase().includes("service"));
       }
     }
     
@@ -256,15 +264,16 @@ export default function AdminDashboard() {
       result = result.filter(l => {
         const src = (l.source || "").toLowerCase();
         if (leadCategory === "enquiry") return src === "enquiry";
+        if (leadCategory === "service") return src === "service enquiry" || l.source_table === "service_enquiries";
         if (leadCategory === "brochure") return src === "brochure download";
-        if (leadCategory === "contact") return src !== "enquiry" && src !== "brochure download";
+        if (leadCategory === "contact") return src !== "enquiry" && src !== "brochure download" && src !== "service enquiry";
         return true;
       });
     }
 
     if (search) {
       const q = search.toLowerCase();
-      const keys = ["name", "phone", "email", "course", "source", "branch"];
+      const keys = ["name", "phone", "email", "course", "service_interested", "source", "branch", "message"];
       result = result.filter(item => keys.some(k => String(item[k] || "").toLowerCase().includes(q)));
     }
 
@@ -373,7 +382,7 @@ export default function AdminDashboard() {
               </div>
               
               {/* Show filters for leads tabs */}
-              {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads" || activeTab === "nexxtechs_info_leads") && (
+              {(activeTab === "leads" || activeTab === "service_leads" || activeTab === "delhi_leads" || activeTab === "noida_leads" || activeTab === "nexxtechs_info_leads") && (
                 <div className="flex flex-wrap sm:flex-nowrap gap-2">
                   <select 
                     value={leadCategory} 
@@ -381,7 +390,8 @@ export default function AdminDashboard() {
                     className="flex-1 sm:flex-none px-3 py-3 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 shadow-sm transition-all cursor-pointer"
                   >
                     <option value="all">All Categories</option>
-                    <option value="enquiry">Enquiries</option>
+                    <option value="service">Service Enquiries</option>
+                    <option value="enquiry">Course Enquiries</option>
                     <option value="brochure">Brochures</option>
                     <option value="contact">Contact</option>
                   </select>
@@ -422,7 +432,7 @@ export default function AdminDashboard() {
 
           {/* Active View */}
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {(activeTab === "leads" || activeTab === "delhi_leads" || activeTab === "noida_leads" || activeTab === "nexxtechs_info_leads") && <LeadsTable leads={getProcessedLeads()} onDelete={handleDelete} onTransfer={handleTransfer} onBulkTransfer={handleBulkTransfer} onBulkDelete={handleBulkDelete} onStatusChange={handleStatusChange} onAssign={setAssignTarget} isCoreAdmin={isCoreAdmin} role={role} users={data.users} />}
+            {(activeTab === "leads" || activeTab === "service_leads" || activeTab === "delhi_leads" || activeTab === "noida_leads" || activeTab === "nexxtechs_info_leads") && <LeadsTable leads={getProcessedLeads()} onDelete={handleDelete} onTransfer={handleTransfer} onBulkTransfer={handleBulkTransfer} onBulkDelete={handleBulkDelete} onStatusChange={handleStatusChange} onAssign={setAssignTarget} isCoreAdmin={isCoreAdmin} role={role} users={data.users} />}
             {activeTab === "placements" && isCoreAdmin && <PlacementsTab reviews={filtered(data.reviews, ["name","company","role"])} stats={data.stats} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "blogs" && isCoreAdmin && <BlogsTable blogs={filtered(data.blogs, ["title","category"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "courses" && isCoreAdmin && <CoursesTable courses={filtered(data.courses, ["title","slug"])} onDelete={handleDelete} onEdit={openEditModal} />}
@@ -631,11 +641,16 @@ function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, onBulkDelete,
               <div className="flex flex-col">
                 <span className="font-bold">{l.phone}</span>
                 <span className="text-xs text-slate-400 font-medium">{l.email || "No email"}</span>
+                {l.message && (
+                  <span className="text-[11px] text-slate-500 italic mt-1 max-w-[200px] truncate" title={l.message}>
+                    "{l.message}"
+                  </span>
+                )}
               </div>
             </Td>
             <Td>
-              <span className="px-2 py-1 bg-slate-100 rounded-md text-xs font-bold text-slate-600">
-                {l.course || l.course_interested || "General"}
+              <span className="px-2 py-1 bg-slate-100 rounded-md text-xs font-bold text-slate-700">
+                {l.service_interested || l.course || l.course_interested || "General"}
               </span>
             </Td>
             <Td>
@@ -664,9 +679,11 @@ function LeadsTable({ leads, onDelete, onTransfer, onBulkTransfer, onBulkDelete,
               <span className={cn(
                 "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider",
                 l.source === "Enquiry" ? "bg-blue-100 text-blue-700" : 
-                l.source === "Brochure Download" ? "bg-purple-100 text-purple-700" : "bg-amber-100 text-amber-700"
+                l.source === "Brochure Download" ? "bg-purple-100 text-purple-700" :
+                (l.source === "Service Enquiry" || l.source_table === "service_enquiries") ? "bg-emerald-100 text-emerald-800 border border-emerald-200" :
+                "bg-amber-100 text-amber-700"
               )}>
-                {l.source}
+                {l.source === "Service Enquiry" || l.source_table === "service_enquiries" ? "Service Enquiry" : l.source}
               </span>
             </Td>
             <Td>

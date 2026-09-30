@@ -51,6 +51,25 @@ ALTER TABLE public.roadmap_leads ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Allow public inserts" ON public.roadmap_leads;
 CREATE POLICY "Allow public inserts" ON public.roadmap_leads FOR INSERT TO public WITH CHECK (true);
 
+-- Table for Service Enquiries
+CREATE TABLE IF NOT EXISTS public.service_enquiries (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    service_interested TEXT NOT NULL,
+    message TEXT,
+    branch TEXT DEFAULT 'Noida Sector 2 (+91 7987059430)',
+    status TEXT DEFAULT 'pending',
+    source_url TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE public.service_enquiries ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Allow public inserts" ON public.service_enquiries;
+CREATE POLICY "Allow public inserts" ON public.service_enquiries FOR INSERT TO public WITH CHECK (true);
+
 -- ============================================================
 -- ADMIN PANEL TABLES (Added for content management)
 -- ============================================================

@@ -275,8 +275,8 @@ const PlacementSuccess = () => {
             </p>
           </div>
           <div className="relative w-full flex overflow-hidden group py-4">
-            <div className="absolute top-0 left-0 bottom-0 w-8 md:w-12 bg-gradient-to-r from-white dark:from-[#0a0c13] to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute top-0 right-0 bottom-0 w-8 md:w-12 bg-gradient-to-l from-white dark:from-[#0a0c13] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 left-0 bottom-0 w-8 md:w-12 bg-gradient-to-r from-[#f8faf5] dark:from-[#0a0c10] to-transparent z-10 pointer-events-none opacity-80"></div>
+            <div className="absolute top-0 right-0 bottom-0 w-8 md:w-12 bg-gradient-to-l from-[#f8faf5] dark:from-[#0a0c10] to-transparent z-10 pointer-events-none opacity-80"></div>
             <div className="flex w-max animate-scroll">
               {[...COMPANY_LOGOS, ...COMPANY_LOGOS].map((company, i) => (
                 <a
