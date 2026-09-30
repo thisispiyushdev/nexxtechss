@@ -50,7 +50,6 @@ export default function AdminDashboard() {
       { id: "nexxtechs_info_leads", label: "Leads from nexxtechs.info", icon: ClipboardList, desc: "Website Leads" },
     ] : [
       { id: "leads", label: (role === "noida_counselor" || role === "noida_receptionist") ? "Noida Leads" : "Delhi Leads", icon: ClipboardList, desc: "Assigned enquiries" },
-      { id: "service_leads", label: "Service Enquiries", icon: ClipboardList, desc: "Service Page Enquiries" },
       { id: "nexxtechs_info_leads", label: "Leads from nexxtechs.info", icon: ClipboardList, desc: "Website Leads" }
     ]),
     ...(isCoreAdmin ? [
@@ -242,16 +241,17 @@ export default function AdminDashboard() {
   const getProcessedLeads = () => {
     let result = [...data.leads];
     
+    // Ensure non-core admins can NEVER see Service Enquiries
+    if (!isCoreAdmin) {
+      result = result.filter(l => l.source_table !== "service_enquiries" && (l.source || "").toLowerCase() !== "service enquiry");
+    }
+
     if (isCoreAdmin) {
       if (activeTab === "delhi_leads") {
         result = result.filter(l => (l.branch || "").toLowerCase().includes("delhi"));
       } else if (activeTab === "noida_leads") {
         result = result.filter(l => (l.branch || "").toLowerCase().includes("noida"));
       } else if (activeTab === "service_leads") {
-        result = result.filter(l => l.source_table === "service_enquiries" || (l.source || "").toLowerCase().includes("service"));
-      }
-    } else {
-      if (activeTab === "service_leads") {
         result = result.filter(l => l.source_table === "service_enquiries" || (l.source || "").toLowerCase().includes("service"));
       }
     }
@@ -264,7 +264,7 @@ export default function AdminDashboard() {
       result = result.filter(l => {
         const src = (l.source || "").toLowerCase();
         if (leadCategory === "enquiry") return src === "enquiry";
-        if (leadCategory === "service") return src === "service enquiry" || l.source_table === "service_enquiries";
+        if (leadCategory === "service") return isCoreAdmin && (src === "service enquiry" || l.source_table === "service_enquiries");
         if (leadCategory === "brochure") return src === "brochure download";
         if (leadCategory === "contact") return src !== "enquiry" && src !== "brochure download" && src !== "service enquiry";
         return true;
@@ -390,7 +390,7 @@ export default function AdminDashboard() {
                     className="flex-1 sm:flex-none px-3 py-3 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 shadow-sm transition-all cursor-pointer"
                   >
                     <option value="all">All Categories</option>
-                    <option value="service">Service Enquiries</option>
+                    {isCoreAdmin && <option value="service">Service Enquiries</option>}
                     <option value="enquiry">Course Enquiries</option>
                     <option value="brochure">Brochures</option>
                     <option value="contact">Contact</option>

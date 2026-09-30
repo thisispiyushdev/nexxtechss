@@ -7,18 +7,19 @@ import db from "../config/db.js";
  */
 export const getAllLeads = async (req, res, next) => {
   try {
+    const isCoreAdmin = req.admin && req.admin.role === "core";
+
     let eqQuery = db.from("enquiries").select("*").order("created_at", { ascending: false });
     let brQuery = db.from("brochure_leads").select("*").order("created_at", { ascending: false });
     let rdQuery = db.from("roadmap_leads").select("*").order("created_at", { ascending: false });
     let ldQuery = db.from("leads").select("*").order("created_at", { ascending: false });
-    let seQuery = db.from("service_enquiries").select("*").order("created_at", { ascending: false });
+    let seQuery = isCoreAdmin ? db.from("service_enquiries").select("*").order("created_at", { ascending: false }) : Promise.resolve({ data: [], error: null });
 
     if (req.admin && (req.admin.role === "noida_counselor" || req.admin.role === "noida_receptionist")) {
       eqQuery = eqQuery.ilike("branch", "%Noida%");
       brQuery = brQuery.ilike("branch", "%Noida%");
       rdQuery = rdQuery.ilike("branch", "%Noida%");
       ldQuery = ldQuery.ilike("preferred_location", "%Noida%");
-      seQuery = seQuery.ilike("branch", "%Noida%");
     }
     
     if (req.admin && (req.admin.role === "counselor" || req.admin.role === "receptionist")) {
@@ -26,7 +27,6 @@ export const getAllLeads = async (req, res, next) => {
       brQuery = brQuery.ilike("branch", "%Delhi%");
       rdQuery = rdQuery.ilike("branch", "%Delhi%");
       ldQuery = ldQuery.ilike("preferred_location", "%Delhi%");
-      seQuery = seQuery.ilike("branch", "%Delhi%");
     }
 
     // Fetch from all tables in parallel
@@ -96,8 +96,8 @@ export const getAllLeads = async (req, res, next) => {
       });
     }
 
-    // Merge service enquiries table
-    if (!serviceEnquiriesRes.error && serviceEnquiriesRes.data) {
+    // Merge service enquiries table (ONLY FOR CORE ADMIN)
+    if (isCoreAdmin && !serviceEnquiriesRes.error && serviceEnquiriesRes.data) {
       serviceEnquiriesRes.data.forEach((item) => {
         leads.push({
           ...item,
