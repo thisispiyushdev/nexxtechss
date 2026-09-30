@@ -4,6 +4,7 @@ import SEOHead from "@/components/SEOHead";
 import NoidaEnquiryBanner from "@/components/NoidaEnquiryBanner";
 import NoidaHeroSection from "@/components/NoidaHeroSection";
 import EnquiryForm from "@/components/EnquiryForm";
+import PromoBanner from "@/components/PromoBanner";
 
 // Lazy load other components to maintain performance
 const NoidaWhyChooseUs = lazy(() => import("@/components/NoidaSEOContent").then(module => ({ default: module.NoidaWhyChooseUs })));
@@ -55,6 +56,8 @@ export default function NoidaInstitutePage() {
         keywords="Nexxtechs Noida, IT training institute Noida, computer institute Noida, software training institute Noida, data science course Noida, data science institute Noida, data analytics course Noida, artificial intelligence course Noida, generative AI course Noida, machine learning course Noida, cloud computing course Noida, AWS course Noida, DevOps course Noida, cybersecurity course Noida, ethical hacking course Noida, Java full stack course Noida, web development course Noida, Python course Noida, digital marketing course Noida, UI UX design course Noida"
       />
       
+      <PromoBanner />
+
       {/* First Section: Hero Section */}
       <NoidaHeroSection />
 
@@ -105,7 +108,7 @@ export default function NoidaInstitutePage() {
         <NoidaTestimonials />
       </Suspense>
       <Suspense fallback={null}>
-        <EnquiryForm />
+        <NoidaEnquiryBanner />
       </Suspense>
       <Suspense fallback={null}>
         <FAQ faqData={NOIDA_FAQ_DATA} />
