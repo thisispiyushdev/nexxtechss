@@ -390,7 +390,7 @@ const ServicesPage = () => {
           {/* Dark Overlay */}
           <div className="absolute inset-0 bg-black/65 dark:bg-black/75"></div>
           {/* Bottom Gradient Overlay */}
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white dark:from-[#070C17] to-transparent"></div>
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-transparent to-transparent"></div>
         </div>
 
         {/* Text Content */}
@@ -456,7 +456,7 @@ const ServicesPage = () => {
       </section>
 
       {/* SEO-SUPPORTING SECTION BELOW HERO */}
-      <section className="py-10 bg-white dark:bg-[#070C17] relative service-check-bg">
+      <section className="py-10 bg-transparent">
         <div className="container mx-auto px-4 text-center max-w-4xl space-y-3 relative z-10">
           <h2 className="text-xl md:text-3xl font-extrabold text-gray-900 dark:text-white leading-tight">
             Trusted Technology & Digital Engineering Services in <span className="text-[#84CC16]">Delhi NCR & Across India</span>
@@ -468,7 +468,7 @@ const ServicesPage = () => {
       </section>
 
       {/* Services Tabs & Cards Section */}
-      <section className="py-20 bg-white dark:bg-[#070C17] relative service-check-bg">
+      <section className="py-20 bg-transparent">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 space-y-3">
             <span className="text-xs font-mono text-[#84CC16] font-bold uppercase tracking-widest">OUR CORE SERVICES</span>
@@ -559,7 +559,7 @@ const ServicesPage = () => {
       </section>
 
       {/* Our Process Section */}
-      <section className="py-20 bg-white dark:bg-[#070C17]">
+      <section className="py-20 bg-transparent">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 space-y-3">
             <span className="text-xs font-mono text-[#84CC16] font-bold uppercase tracking-widest">HOW WE WORK</span>
@@ -587,7 +587,7 @@ const ServicesPage = () => {
       </section>
 
       {/* Tools & Technology Section */}
-      <section className="py-20 bg-white dark:bg-[#070C17]">
+      <section className="py-20 bg-transparent">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 space-y-3">
             <span className="text-xs font-mono text-[#84CC16] font-bold uppercase tracking-widest">ENTERPRISE TECH STACK</span>
@@ -635,13 +635,13 @@ const ServicesPage = () => {
       </section>
 
       {/* Partner Companies Section */}
-      <section className="py-12 bg-white dark:bg-[#070C17] overflow-hidden">
+      <section className="py-12 bg-transparent overflow-hidden">
         <div className="w-full text-center">
           <p className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-widest mb-8">Trusted Technology Integrations</p>
           
           <div className="relative flex overflow-x-hidden group">
-            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white dark:from-[#070C17] to-transparent z-10"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white dark:from-[#070C17] to-transparent z-10"></div>
+            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-transparent to-transparent z-10"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-transparent to-transparent z-10"></div>
             
             <motion.div
               className="flex items-center gap-12 md:gap-24 px-6 md:px-12 w-max"
@@ -728,7 +728,7 @@ const ServicesPage = () => {
 
 
       {/* EMBEDDED DEDICATED SERVICE ENQUIRY SECTION AT THE BOTTOM OF SERVICES PAGE */}
-      <section className="py-20 bg-white dark:bg-[#070C17]" id="bottom-service-enquiry">
+      <section className="py-20 bg-transparent" id="bottom-service-enquiry">
         <div className="max-w-[1440px] mx-auto px-4 md:px-8">
           <div className="text-center mb-14 space-y-3">
             <span className="px-3.5 py-1.5 rounded-full bg-[#84CC16]/10 text-[#84CC16] text-xs font-mono font-bold uppercase tracking-wider border border-[#84CC16]/30">
@@ -953,7 +953,7 @@ const ServicesPage = () => {
       </section>
 
       {/* STRETCHED WIDE FREQUENTLY ASKED QUESTIONS SECTION (BELOW ENQUIRY FORM) */}
-      <section className="py-16 md:py-20 bg-white dark:bg-[#070C17]">
+      <section className="py-16 md:py-20 bg-transparent">
         <div className="w-full max-w-[1440px] mx-auto px-2 md:px-6">
           <div className="text-center mb-12 space-y-3">
             <span className="px-3.5 py-1.5 rounded-full bg-[#84CC16]/10 text-[#84CC16] text-xs font-mono font-bold uppercase tracking-wider border border-[#84CC16]/30">

@@ -109,10 +109,10 @@ const ServiceDetailPage = () => {
       />
       
       {/* Container with ZERO top padding to eliminate space below fixed header */}
-      <div className="bg-white dark:bg-[#070C17] text-gray-900 dark:text-slate-100 min-h-screen pt-0 pb-20 transition-colors duration-300 relative service-check-bg">
+      <div className="bg-transparent text-gray-900 dark:text-slate-100 min-h-screen pt-0 pb-20 transition-colors duration-300">
         
         {/* FLUSH BREADCRUMB BAR - REMOVED TOP GAP */}
-        <div className="border-b border-gray-100 dark:border-slate-800/80 bg-white dark:bg-[#070C17] py-2.5 mb-6">
+        <div className="border-b border-gray-100 dark:border-slate-800/80 bg-transparent py-2.5 mb-6">
           <div className="max-w-[1440px] mx-auto px-4 md:px-6 xl:px-8 flex items-center justify-between text-sm">
             <Link 
               to="/services" 
