@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, ChevronRight, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "../components/ui/button";
@@ -152,6 +152,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMegaMenuLabel, setActiveMegaMenuLabel] = useState(null);
   const [activeDomain, setActiveDomain] = useState(null);
+  const hoverTimerRef = useRef(null);
   const { dark, toggle } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
@@ -200,8 +201,29 @@ export default function Header() {
     activeNavLinks = NAV_LINKS_ENHANCED;
   }
 
+  const handleMouseEnterNav = (label, menuData) => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    hoverTimerRef.current = setTimeout(() => {
+      setActiveMegaMenuLabel(label);
+      setActiveDomain(Object.keys(menuData)[0]);
+    }, 120);
+  };
+
+  const handleMouseLeaveNav = () => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    hoverTimerRef.current = setTimeout(() => {
+      setActiveMegaMenuLabel(null);
+    }, 150);
+  };
+
+  const handleMenuKeepOpen = () => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+  };
+
   const handleScroll = useCallback(() => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
     setScrolled(window.scrollY > 20);
+    setActiveMegaMenuLabel(null);
   }, []);
 
   useEffect(() => {
@@ -210,6 +232,7 @@ export default function Header() {
   }, [handleScroll]);
 
   useEffect(() => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
     setMobileOpen(false);
     setActiveMegaMenuLabel(null);
   }, [location]);
@@ -277,11 +300,8 @@ export default function Header() {
                   <div 
                     key={link.label} 
                     className="relative h-full flex items-center"
-                    onMouseEnter={() => {
-                      setActiveMegaMenuLabel(link.label);
-                      setActiveDomain(Object.keys(menuData)[0]);
-                    }}
-                    onMouseLeave={() => setActiveMegaMenuLabel(null)}
+                    onMouseEnter={() => handleMouseEnterNav(link.label, menuData)}
+                    onMouseLeave={handleMouseLeaveNav}
                   >
                     <Link
                       to={link.href}
@@ -294,10 +314,13 @@ export default function Header() {
                     </Link>
 
                     {/* Mega Menu Dropdown */}
-                    <div className={`absolute top-[90%] left-1/2 -translate-x-1/2 w-[900px] border rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden flex z-[100] ${
+                    <div 
+                      onMouseEnter={handleMenuKeepOpen}
+                      onMouseLeave={handleMouseLeaveNav}
+                      className={`absolute top-[90%] left-1/2 -translate-x-1/2 w-[900px] border rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden flex z-[100] ${
                       isThisMegaMenuOpen 
-                        ? "opacity-100 visible translate-y-0" 
-                        : "opacity-0 invisible translate-y-2"
+                        ? "opacity-100 visible translate-y-0 pointer-events-auto" 
+                        : "opacity-0 invisible translate-y-2 pointer-events-none"
                     } ${
                       dark ? "bg-[#1a1d27] border-white/10 shadow-black/40" : "bg-white border-gray-100 shadow-xl"
                     }`}>
@@ -376,7 +399,7 @@ export default function Header() {
                     </button>
 
                     {/* Simple Dropdown */}
-                    <div className={`absolute top-[80%] left-0 w-48 border rounded-xl shadow-xl transition-all duration-300 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 flex flex-col py-2 z-[100] ${
+                    <div className={`absolute top-[80%] left-0 w-48 border rounded-xl shadow-xl transition-all duration-300 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto flex flex-col py-2 z-[100] ${
                       dark ? "bg-[#1a1d27] border-white/10 shadow-black/40" : "bg-white border-gray-100"
                     }`}>
                       {link.options.map((opt, idx) => (
