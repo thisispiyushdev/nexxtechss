@@ -65,7 +65,14 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (!loading && !isAuthenticated) navigate("/admin");
-  }, [loading, isAuthenticated, navigate]);
+    if (!isCoreAdmin && (activeTab === "service_leads" || activeTab === "delhi_leads" || activeTab === "noida_leads" || activeTab === "placements" || activeTab === "blogs" || activeTab === "courses" || activeTab === "banners" || activeTab === "noida_banners" || activeTab === "team")) {
+      if (role !== "receptionist" && role !== "noida_receptionist" && activeTab === "team") {
+        setActiveTab("leads");
+      } else if (!isCoreAdmin && activeTab !== "team") {
+        setActiveTab("leads");
+      }
+    }
+  }, [loading, isAuthenticated, navigate, isCoreAdmin, role, activeTab]);
 
   const showToast = (msg, type = "success") => {
     setToast({ msg, type });
