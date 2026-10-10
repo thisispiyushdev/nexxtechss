@@ -8,16 +8,16 @@ import { ArrowRight, BookOpen, Map, Users } from "lucide-react";
 export default function ContactPage() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const isNoida = searchParams.get("branch") === "noida";
+  const isNoida = location.pathname.includes("noida") || searchParams.get("branch") === "noida";
 
   return (
     <PageTransition>
       <SEOHead
         title={isNoida ? "Contact Us – NexxTechs IT Training Noida" : "Contact Us – NexxTechs IT Training Vikaspuri Delhi"}
         description={isNoida ? "Contact NexxTechs for course inquiries, free counseling, and enrollment. Visit us at B-136 Upper, Ground floor, Sector 2, Noida or call +91 7987059430." : "Contact NexxTechs for course inquiries, free counseling, and enrollment. Visit us at B-54 Krishna Park, Vikaspuri, New Delhi 110018 or call +91 9217179762."}
-        canonical={isNoida ? "/contact?branch=noida" : "/contact"}
+        canonical={isNoida ? "/contact-noida" : "/contact"}
       />
-      <Breadcrumbs items={[{ name: "Contact Us", path: isNoida ? "/contact?branch=noida" : "/contact" }]} />
+      <Breadcrumbs items={[{ name: "Contact Us", path: isNoida ? "/contact-noida" : "/contact" }]} />
       <div className="min-h-screen">
         <EnquiryForm defaultBranch={isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi"} />
 

@@ -233,6 +233,7 @@ function AnimatedRoutes() {
       <Route path="/career-guidance" element={<CareerGuidancePage />} />
       <Route path="/tag/:tagSlug" element={<TagPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/contact-noida" element={<ContactPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/best-devops-trainer-in-delhi" element={<AdityaDevopsTrainerPage />} />
       <Route path="/best-cloud-computing-trainer-in-delhi" element={<AdityaCloudTrainerPage />} />

@@ -262,7 +262,7 @@ export default function Footer() {
                 {QUICK_LINKS.map((link) => (
                   <li key={link.label}>
                     <Link
-                      to={link.href}
+                      to={link.label === "Contact" ? (isNoida ? "/contact-noida" : "/contact/") : link.href}
                       onClick={scrollToTop}
                       className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
                     >

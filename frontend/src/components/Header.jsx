@@ -448,7 +448,7 @@ export default function Header() {
 
 
             <Button
-              onClick={() => navigate(isNoida ? "/contact?branch=noida" : "/contact/")}
+              onClick={() => navigate(isNoida ? "/contact-noida" : "/contact/")}
               className="hidden sm:inline-flex bg-[#84CC16] text-black font-bold rounded-xl px-8 py-6 hover:bg-[#65A30D] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(132,204,22,0.4)]"
             >
               Enquire Now
@@ -522,7 +522,7 @@ export default function Header() {
             
             <div className="mt-6 pt-6 border-t border-gray-100 dark:border-white/5 space-y-4">
               <Button 
-                onClick={() => { setMobileOpen(false); navigate(isNoida ? "/contact?branch=noida" : "/contact/"); }} 
+                onClick={() => { setMobileOpen(false); navigate(isNoida ? "/contact-noida" : "/contact/"); }} 
                 className="w-full bg-[#84CC16] text-black font-bold rounded-xl py-6 text-base shadow-lg shadow-[#84CC16]/20 hover:bg-[#65A30D] transition-colors"
               >
                 Enquire Now

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { 
@@ -315,6 +315,8 @@ const ServicesPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const isNoida = location.pathname.includes('noida');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -713,7 +715,7 @@ const ServicesPage = () => {
                 </Link>
                 
                 <Link
-                  to="/contact"
+                  to={isNoida ? "/contact-noida" : "/contact"}
                   className="w-full sm:w-auto px-8 py-3.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs tracking-wider uppercase rounded-xl inline-flex items-center justify-center transition-all"
                 >
                   Book Free Demo Session
