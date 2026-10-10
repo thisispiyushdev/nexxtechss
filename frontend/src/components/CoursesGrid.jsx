@@ -113,7 +113,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
               Our Programs
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl tracking-tight font-bold text-[#111827] dark:text-white mb-4">
-              Explore Our <span className="gradient-text">Courses</span>
+              Explore Our <span className="gradient-text">{isNoida ? "Noida Courses" : "Courses"}</span>
             </h2>
             <p className="text-base text-[#4B5563] dark:text-gray-400 max-w-2xl mx-auto mb-10">
               Industry-aligned curriculum designed to make you job-ready from day one
@@ -300,7 +300,7 @@ export default function CoursesGrid({ layout = "grid", limit = null, showMoreBut
         {showMoreButton && (
           <div className={`mt-16 flex justify-center transition-all duration-1000 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
             <Button
-              onClick={() => navigate('/courses')}
+              onClick={() => navigate(isNoida ? '/courses-noida' : '/courses')}
               className="px-10 h-14 rounded-full bg-[#84CC16] text-black font-bold text-lg hover:bg-[#65a30d] transition-all shadow-[0_0_20px_rgba(132,204,22,0.3)] hover:shadow-[0_0_30px_rgba(132,204,22,0.5)] hover:-translate-y-1 flex items-center"
             >
               Explore All Courses

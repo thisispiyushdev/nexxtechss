@@ -100,25 +100,29 @@ export default function CourseDetail() {
   const [openModule, setOpenModule] = useState(0);
   const [brochureOpen, setBrochureOpen] = useState(false);
   const [demoPopupOpen, setDemoPopupOpen] = useState(false);
-  const [demoForm, setDemoForm] = useState({ name: "", phone: "", course_interested: slug || "", branch: "Nexxtechs Delhi" });
+  const [demoForm, setDemoForm] = useState({ name: "", phone: "", course_interested: slug || "", branch: slug.endsWith('-noida') ? "Nexxtechs Noida" : "Nexxtechs Delhi" });
   const [demoLoading, setDemoLoading] = useState(false);
   const [demoSubmitted, setDemoSubmitted] = useState(false);
   const [demoError, setDemoError] = useState("");
 
+  const isNoida = slug.endsWith('-noida');
+  const baseSlug = isNoida ? slug.replace('-noida', '') : slug;
+
   // Start with static data, then try API
-  const staticCourse = COURSES_DATA.find((c) => c.slug === slug);
-  const [course, setCourse] = useState(staticCourse);
-  const certImages = CERTIFICATION_IMAGES[slug] || CERTIFICATION_IMAGES["web-development"];
+  const staticCourse = COURSES_DATA.find((c) => c.slug === baseSlug);
+  const [course, setCourse] = useState(staticCourse ? (isNoida ? { ...staticCourse, title: staticCourse.title + " in Noida" } : staticCourse) : undefined);
+  const certImages = CERTIFICATION_IMAGES[baseSlug] || CERTIFICATION_IMAGES["web-development"];
 
   useEffect(() => {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000);
 
-    axios.get(`${API}/content/courses/${slug}`, { signal: controller.signal })
+    axios.get(`${API}/content/courses/${baseSlug}`, { signal: controller.signal })
       .then(res => {
         if (res.data) {
           setCourse({
             ...res.data,
+            title: isNoida ? res.data.title + " in Noida" : res.data.title,
             batchTimings: res.data.batch_timings || res.data.batchTimings || [],
             trendingTools: res.data.trending_tools || res.data.trendingTools || [],
             brochureUrl: res.data.brochure_url || res.data.brochureUrl || "",
@@ -132,14 +136,14 @@ export default function CourseDetail() {
 
   useEffect(() => {
     // Reset to static data immediately when slug changes for instant feedback
-    const newStaticCourse = COURSES_DATA.find((c) => c.slug === slug);
-    setCourse(newStaticCourse);
+    const newStaticCourse = COURSES_DATA.find((c) => c.slug === baseSlug);
+    setCourse(newStaticCourse ? (isNoida ? { ...newStaticCourse, title: newStaticCourse.title + " in Noida" } : newStaticCourse) : undefined);
     
     window.scrollTo(0, 0);
     
     setDemoPopupOpen(false);
     setDemoSubmitted(false);
-    setDemoForm({ name: "", phone: "", course_interested: newStaticCourse?.title || "", branch: "Nexxtechs Delhi" });
+    setDemoForm({ name: "", phone: "", course_interested: newStaticCourse?.title || "", branch: isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi" });
     
     const timer = setTimeout(() => {
       setDemoPopupOpen(true);
@@ -211,10 +215,11 @@ export default function CourseDetail() {
         description: baseSeo.description.replace(/Delhi|Vikaspuri|Janakpuri/gi, 'Noida')
       };
     }
-    return {
+    const standardSeo = COURSE_SEO[baseSlug] || {
       title: `${course.title} Course in Delhi | NexxTechs Vikaspuri`,
       description: `Learn ${course.title} at NexxTechs Vikaspuri Delhi. ${course.duration} course with 100% placement assistance, real-world projects & industry certification. Enroll today!`
     };
+    return standardSeo;
   })();
 
   return (
@@ -269,7 +274,7 @@ export default function CourseDetail() {
           }}
         />
         <Breadcrumbs items={[
-          { name: "Courses", path: "/courses" },
+          { name: isNoida ? "Courses Noida" : "Courses", path: isNoida ? "/courses-noida" : "/courses" },
           { name: course.title, path: `/course/${slug}` }
         ]} />
         {/* Hero Banner */}
@@ -595,9 +600,9 @@ export default function CourseDetail() {
               Explore More <span className="text-[#84CC16]">Courses</span>
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-              {COURSES_DATA.filter(c => c.slug !== slug).slice(0, 4).map(rc => (
-                <a key={rc.slug} href={`/course/${rc.slug}`} className="group bg-[#F9FAFB] dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl p-5 hover:border-[#84CC16]/40 transition-all duration-300 hover:-translate-y-1">
-                  <h3 className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-[#84CC16] transition-colors mb-2">{rc.title}</h3>
+              {COURSES_DATA.filter(c => c.slug !== baseSlug).slice(0, 4).map(rc => (
+                <a key={rc.slug} href={`/course/${isNoida ? rc.slug + '-noida' : rc.slug}`} className="group bg-[#F9FAFB] dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl p-5 hover:border-[#84CC16]/40 transition-all duration-300 hover:-translate-y-1">
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-[#84CC16] transition-colors mb-2">{isNoida ? rc.title + " in Noida" : rc.title}</h3>
                   <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">{rc.tagline}</p>
                   <span className="text-xs font-bold text-[#84CC16]">Explore Course →</span>
                 </a>

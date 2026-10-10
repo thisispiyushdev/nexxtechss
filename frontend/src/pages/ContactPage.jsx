@@ -2,10 +2,14 @@ import EnquiryForm from "../components/EnquiryForm";
 import PageTransition from "../components/PageTransition";
 import SEOHead from "../components/SEOHead";
 import Breadcrumbs from "../components/Breadcrumbs";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, BookOpen, Map, Users } from "lucide-react";
 
 export default function ContactPage() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const isNoida = searchParams.get("branch") === "noida";
+
   return (
     <PageTransition>
       <SEOHead
@@ -15,7 +19,7 @@ export default function ContactPage() {
       />
       <Breadcrumbs items={[{ name: "Contact Us", path: "/contact" }]} />
       <div className="min-h-screen">
-        <EnquiryForm />
+        <EnquiryForm defaultBranch={isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi"} />
 
         {/* Internal Links Section */}
         <section className="py-16 bg-transparent">

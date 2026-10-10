@@ -363,6 +363,8 @@ export default function Footer() {
                 <li>
                   <Link
                     to="/nexxtechs-noida"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={scrollToTop}
                     className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
                   >

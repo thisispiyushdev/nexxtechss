@@ -50,7 +50,7 @@ export default function EnquiryForm({
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const location = useLocation();
-  const isNoidaContext = location.pathname.includes('noida') || location.pathname.startsWith('/services');
+  const isNoidaContext = location.pathname.includes('noida') || location.pathname.startsWith('/services') || location.search.includes('branch=noida');
 
   const handleSubmit = async (e) => {
     e.preventDefault();

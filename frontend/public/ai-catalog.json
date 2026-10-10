@@ -1,6 +1,8 @@
 {
-  "name": "NexxTechs",
-  "version": "1.0.0",
-  "description": "Best IT Training Institute in Vikaspuri, Delhi",
-  "endpoints": []
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Nexxtech",
+    "identifier": "did:web:nexxtech.com"
+  },
+  "entries": []
 }

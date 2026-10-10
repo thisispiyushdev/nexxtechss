@@ -182,7 +182,7 @@ export default function Header() {
         label: "Industrial Training", 
         isSimpleDropdown: true,
         options: [
-          { label: "Nexxtechs Noida", href: "/nexxtechs-noida" },
+          { label: "Nexxtechs Noida", href: "/nexxtechs-noida", target: "_blank" },
           { label: "Nexxtechs Delhi", href: "/" }
         ]
       },
@@ -191,7 +191,7 @@ export default function Header() {
   } else if (isNoida) {
     activeNavLinks = [
       { label: "Home", href: "/nexxtechs-noida" },
-      { label: "Courses", href: "/courses", isMegaMenu: true, megaMenuData: activeCoursesMegaMenuData },
+      { label: "Courses", href: "/courses-noida", isMegaMenu: true, megaMenuData: activeCoursesMegaMenuData },
       { label: "Services", href: "/services" },
       { label: "Placement", href: "/placement/" },
       { label: "Roadmap", href: "/roadmap/" },
@@ -406,6 +406,8 @@ export default function Header() {
                         <Link 
                           key={idx}
                           to={opt.href}
+                          target={opt.target}
+                          rel={opt.target === "_blank" ? "noopener noreferrer" : undefined}
                           className={`px-4 py-2 text-sm font-semibold transition-colors ${
                             dark ? "text-gray-300 hover:text-[#84CC16] hover:bg-white/5" : "text-gray-700 hover:text-[#84CC16] hover:bg-gray-50"
                           }`}
@@ -445,7 +447,7 @@ export default function Header() {
 
 
             <Button
-              onClick={() => navigate("/contact/")}
+              onClick={() => navigate(isNoida ? "/contact?branch=noida" : "/contact/")}
               className="hidden sm:inline-flex bg-[#84CC16] text-black font-bold rounded-xl px-8 py-6 hover:bg-[#65A30D] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(132,204,22,0.4)]"
             >
               Enquire Now
@@ -478,6 +480,8 @@ export default function Header() {
                       <Link
                         key={idx}
                         to={opt.href}
+                        target={opt.target}
+                        rel={opt.target === "_blank" ? "noopener noreferrer" : undefined}
                         onClick={() => setMobileOpen(false)}
                         className={`flex items-center pl-8 pr-5 py-3 text-sm font-bold transition-all ${
                           dark ? "text-gray-300 hover:bg-white/5" : "text-[#111827] hover:bg-gray-50"
@@ -517,7 +521,7 @@ export default function Header() {
             
             <div className="mt-6 pt-6 border-t border-gray-100 dark:border-white/5 space-y-4">
               <Button 
-                onClick={() => { setMobileOpen(false); navigate("/contact/"); }} 
+                onClick={() => { setMobileOpen(false); navigate(isNoida ? "/contact?branch=noida" : "/contact/"); }} 
                 className="w-full bg-[#84CC16] text-black font-bold rounded-xl py-6 text-base shadow-lg shadow-[#84CC16]/20 hover:bg-[#65A30D] transition-colors"
               >
                 Enquire Now

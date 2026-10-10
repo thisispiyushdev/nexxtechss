@@ -55,6 +55,7 @@ const ComparisonSection = lazy(() => import("@/components/ComparisonSection"));
 // Lazy load pages
 const CourseDetail = lazy(() => import("@/pages/CourseDetail"));
 const CoursesPage = lazy(() => import("@/pages/CoursesPage"));
+const CoursesPageNoida = lazy(() => import("@/pages/CoursesPageNoida"));
 const PlacementPage = lazy(() => import("@/pages/PlacementPage"));
 const BlogPage = lazy(() => import("@/pages/BlogPage"));
 const RoadmapPage = lazy(() => import("@/pages/RoadmapPage"));
@@ -220,6 +221,7 @@ function AnimatedRoutes() {
     <Routes location={location} key={location.pathname}>
       <Route path="/" element={<HomePage />} />
       <Route path="/courses" element={<CoursesPage />} />
+      <Route path="/courses-noida" element={<CoursesPageNoida />} />
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/services/service-enquiry" element={<ServiceEnquiryPage />} />
       <Route path="/services/:serviceId" element={<ServiceDetailPage />} />

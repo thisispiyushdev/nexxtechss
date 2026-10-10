@@ -62,7 +62,7 @@ export default function PopupEnquiry() {
   const location = useLocation();
   const isNoida = location.pathname.includes('noida');
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: "Nexxtechs Delhi" });
+  const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
