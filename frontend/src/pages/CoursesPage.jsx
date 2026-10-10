@@ -7,13 +7,14 @@ import COURSES_DATA from "../data/coursesData";
 
 export default function CoursesPage() {
   // ItemList schema for Google to understand our course catalog
+  const baseCourses = COURSES_DATA.filter(c => !c.slug.endsWith('-noida'));
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "IT Training Courses at NexxTechs",
     "description": "Explore 50+ industry-focused IT training courses at NexxTechs Vikaspuri Delhi",
-    "numberOfItems": COURSES_DATA.length,
-    "itemListElement": COURSES_DATA.map((course, index) => ({
+    "numberOfItems": baseCourses.length,
+    "itemListElement": baseCourses.map((course, index) => ({
       "@type": "ListItem",
       "position": index + 1,
       "name": course.title,

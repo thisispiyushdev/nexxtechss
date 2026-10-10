@@ -228,6 +228,9 @@ If you are searching for the best full stack institute in Delhi, best full stack
       { name: "Module 5: Advanced Interaction & Motion Design", topics: ["Micro-interactions & Meaningful Motion", "Advanced Prototyping (Smart Animate)", "Framer for High-Fidelity Interactive Prototypes", "Lottie Animations & After Effects Basics", "State Changes & Feedback Loops"] },
       { name: "Module 6: Testing, Analytics & Portfolio", topics: ["Usability Testing & A/B Testing", "Heatmaps & User Tracking (Hotjar/Clarity)", "Iterative Design & Feedback Implementation", "Creating Case Studies for Portfolios", "Behance/Dribbble Profile Optimization", "Freelancing & Client Pitching"] },
     ],
+    aboutContent: `Nexxtechs Institute offers one of the best UI/UX Design courses in Delhi for creative individuals, aspiring designers, and developers looking to master user research, wireframing, high-fidelity UI prototyping, and design systems. The course covers Figma, Framer, Adobe XD, Design Thinking, Visual Hierarchy, and Usability Testing with real client projects.
+
+If you are searching for the best UI/UX design institute in Delhi, best UI/UX design institute in Janakpuri, best UI/UX design institute in Vikaspuri, UI/UX course in Delhi, Figma training near me, or product design classes in Janakpuri, Nexxtechs Institute offers complete practical training with portfolio building and placement support.`
   },
   {
     slug: "graphic-design",
@@ -296,6 +299,9 @@ Our advanced digital marketing course focuses on practical learning, website ran
       { name: "Module 5: Microservices & Event-Driven Architecture", topics: ["Microservices Design Patterns", "Service Discovery (Eureka) & API Gateway", "Resilience4j & Circuit Breaker", "Apache Kafka for Event-Driven Systems", "Distributed Tracing (Sleuth/Zipkin)", "Redis for Caching & Session Management"] },
       { name: "Module 6: React Frontend & Full Stack Integration", topics: ["React Fundamentals & Hooks", "State Management (Redux/Context)", "Axios Interceptors & API Integration", "Form Handling & Validation", "Securing Frontend Apps", "Full Stack Project Deployment (AWS/Docker)"] },
     ],
+    aboutContent: `Nexxtechs Institute offers the best Java Full Stack Development course in Delhi designed for students, engineering graduates, and developers who want to master enterprise backend and modern frontend technologies. The course covers Core Java, Spring Boot 3, Hibernate, Microservices, REST APIs, React 19, MySQL, Docker, and AWS deployment with real-world enterprise projects.
+
+If you are searching for the best Java full stack institute in Delhi, best Java institute in Janakpuri, best Java course in Vikaspuri, Spring Boot training in Delhi, Java developer classes near me, or full stack Java course in Janakpuri, Nexxtechs Institute provides hands-on industry training with 100% placement assistance.`
   },
   {
     slug: "sap-masterclass",
@@ -339,6 +345,9 @@ If you are searching for the best SAP institute in Delhi, best SAP institute in 
       { name: "Module 5: Authentication & Security", topics: ["Passwords Hashing (Bcrypt)", "JSON Web Tokens (JWT)", "Cookies vs LocalStorage", "Role-Based Access Control (RBAC)", "OAuth Integration (Google/GitHub Login)", "Preventing XSS & CSRF Attacks"] },
       { name: "Module 6: Real-time Features & Deployment", topics: ["WebSockets & Socket.io implementation", "Building a Real-time Chat App", "Payment Gateway Integration (Stripe/Razorpay)", "Deploying Frontend to Vercel", "Deploying Backend to Render/Heroku", "MongoDB Atlas Cloud Setup"] },
     ],
+    aboutContent: `Nexxtechs Institute offers a comprehensive MERN Stack Development course in Delhi designed for developers looking to build scalable full-stack web applications. Learn MongoDB, Express.js, React.js, and Node.js with live real-time projects, state management with Redux Toolkit, JWT authentication, and cloud deployment.
+
+If you are searching for the best MERN stack institute in Delhi, best React course in Janakpuri, best Node.js institute in Vikaspuri, MERN stack developer course in Delhi, JavaScript full stack classes near me, or MERN training in Janakpuri, Nexxtechs Institute provides complete hands-on training with career mentoring and placement support.`
   },
   {
     slug: "dsa-with-java",
@@ -359,6 +368,9 @@ If you are searching for the best SAP institute in Delhi, best SAP institute in 
       { name: "Module 5: Advanced Algorithms & DP", topics: ["Dynamic Programming concepts", "Knapsack, LCS, LIS problems", "Greedy Algorithms", "Trie Data Structure", "Shortest Path (Dijkstra)", "Rolling Hash (Rabin Karp)"] },
       { name: "Module 6: Interview Strategy & System Design Basics", topics: ["How to approach unknown problems", "Writing clean, production-ready code", "Communicating trade-offs", "High-level System Design concepts", "Load Balancing & Caching", "Database Scaling Basics"] },
     ],
+    aboutContent: `Nexxtechs Institute offers one of the best Data Structures & Algorithms (DSA) with Java courses in Delhi. Master the Java Collections Framework, algorithmic problem-solving patterns, recursion, dynamic programming, graphs, and system design fundamentals to crack technical interviews at top tech companies and MNCs.
+
+If you are searching for the best DSA with Java institute in Delhi, best coding classes in Janakpuri, best data structures course in Vikaspuri, Java DSA interview preparation in Delhi, or competitive programming training near me, Nexxtechs Institute provides rigorous mentoring and mock interview sessions.`
   },
   {
     slug: "gen-ai",
@@ -410,16 +422,33 @@ COURSES_DATA.forEach((course) => {
   course.brochureUrl = BROCHURES[course.slug] || null;
 });
 
+const replaceLocationForNoida = (text) => {
+  if (!text) return "";
+  return text
+    .replace(/in Delhi/g, "in Noida")
+    .replace(/in Janakpuri/g, "in Noida Sector 2")
+    .replace(/in Vikaspuri/g, "in Noida NCR")
+    .replace(/Janakpuri/g, "Sector 2, Noida")
+    .replace(/Vikaspuri, New Delhi/g, "Sector 2, Noida")
+    .replace(/Vikaspuri Delhi/g, "Sector 2, Noida")
+    .replace(/Vikaspuri/g, "Sector 2, Noida")
+    .replace(/New Delhi/g, "Noida")
+    .replace(/Delhi NCR/g, "Noida NCR")
+    .replace(/Delhi/g, "Noida");
+};
+
 const NOIDA_COURSES = COURSES_DATA.map(course => ({
   ...course,
   slug: course.slug + "-noida",
   title: course.title + " in Noida",
-  tagline: course.tagline + " (Noida)",
-  aboutContent: course.aboutContent ? course.aboutContent.replace(/Delhi/g, "Noida").replace(/Janakpuri/g, "Sector 2, Noida").replace(/Vikaspuri/g, "Sector 2, Noida") : "",
+  tagline: course.tagline ? replaceLocationForNoida(course.tagline) + " (Noida)" : "(Noida)",
+  overview: replaceLocationForNoida(course.overview),
+  aboutContent: replaceLocationForNoida(course.aboutContent),
+  highlights: Array.isArray(course.highlights) ? course.highlights.map(replaceLocationForNoida) : course.highlights,
   brochureUrl: course.brochureUrl
 }));
 
 const FINAL_COURSES_DATA = [...COURSES_DATA, ...NOIDA_COURSES];
 
 export default FINAL_COURSES_DATA;
-export { BROCHURES };
+export { BROCHURES, replaceLocationForNoida };

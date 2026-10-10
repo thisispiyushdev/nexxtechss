@@ -214,6 +214,22 @@ const ROUTES = [
     title: "Best DSA with Java Course | NexxTechs",
     description: "Learn Data Structures & Algorithms with Java at NexxTechs. Prepare for technical interviews with coding practice & projects.",
   },
+  {
+    path: "/courses",
+    title: "Explore Top IT & Tech Courses in Delhi | NexxTechs",
+    description: "Browse 50+ industry-focused IT training courses at NexxTechs Vikaspuri Delhi. Master Web Dev, Data Science, Cyber Security & AI with live projects. Enroll today!",
+  },
+  {
+    path: "/courses-noida",
+    title: "Explore Top IT & Tech Courses in Noida | NexxTechs",
+    description: "Browse 50+ industry-focused IT training courses at NexxTechs Sector 2, Noida. Master Web Dev, Data Science, Cyber Security & AI with live projects. Enroll today!",
+    keywords: "Nexxtechs Noida, IT training institute Noida, computer institute Noida, software training institute Noida, data science course Noida, data science institute Noida, data analytics course Noida, artificial intelligence course Noida, generative AI course Noida, machine learning course Noida, cloud computing course Noida, AWS course Noida, DevOps course Noida, cybersecurity course Noida, ethical hacking course Noida, Java full stack course Noida, web development course Noida, Python course Noida, digital marketing course Noida, UI UX design course Noida"
+  },
+  {
+    path: "/course/gen-ai",
+    title: "Generative AI Course in Delhi | NexxTechs",
+    description: "Learn Generative AI, Large Language Models, Prompt Engineering & build AI applications from scratch with NexxTechs in Delhi.",
+  },
   // Blog posts
   {
     path: "/blog/what-is-artificial-intelligence",
@@ -254,8 +270,8 @@ for (const route of ROUTES) {
   if (route.path.startsWith("/course/")) {
     noidaRoutes.push({
       path: route.path + "-noida",
-      title: route.title.replace(/Delhi|Vikaspuri/g, "Noida"),
-      description: route.description.replace(/Delhi|Vikaspuri/g, "Noida"),
+      title: route.title.replace(/in Delhi|in Vikaspuri|in Janakpuri/gi, "in Noida").replace(/Delhi|Vikaspuri|Janakpuri/g, "Noida"),
+      description: route.description.replace(/in Delhi|in Vikaspuri|in Janakpuri/gi, "in Noida").replace(/Delhi|Vikaspuri|Janakpuri/g, "Noida"),
       keywords: "Nexxtechs Noida, IT training institute Noida, computer institute Noida, software training institute Noida, data science course Noida, data science institute Noida, data analytics course Noida, artificial intelligence course Noida, generative AI course Noida, machine learning course Noida, cloud computing course Noida, AWS course Noida, DevOps course Noida, cybersecurity course Noida, ethical hacking course Noida, Java full stack course Noida, web development course Noida, Python course Noida, digital marketing course Noida, UI UX design course Noida"
     });
   }

@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Plus } from "lucide-react";
 import SEOHead from "./SEOHead";
 
-export default function CourseFAQ({ faqs, courseTitle }) {
+export default function CourseFAQ({ faqs, courseTitle, isNoida }) {
   const [openIndex, setOpenIndex] = useState(null);
+
+  const isNoidaContext = isNoida || courseTitle?.toLowerCase().includes('noida') || (typeof window !== 'undefined' && window.location.pathname.includes('noida'));
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -35,7 +37,7 @@ export default function CourseFAQ({ faqs, courseTitle }) {
             Frequently Asked <span className="text-[#84CC16]">Questions</span>
           </h2>
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg md:text-xl">
-            Everything you need to know about <span className="text-[#84CC16] font-bold">{courseTitle}</span> course at NexxTechs Vikaspuri, Delhi
+            Everything you need to know about <span className="text-[#84CC16] font-bold">{courseTitle}</span> course at NexxTechs {isNoidaContext ? 'Sector 2, Noida' : 'Vikaspuri, Delhi'}
           </p>
         </div>
 

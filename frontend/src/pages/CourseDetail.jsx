@@ -7,7 +7,7 @@ import {
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import BrochureModal from "../components/BrochureModal";
-import COURSES_DATA from "../data/coursesData";
+import COURSES_DATA, { replaceLocationForNoida } from "../data/coursesData";
 import { Input } from "../components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../components/ui/dialog";
@@ -94,6 +94,44 @@ const COURSE_SEO = {
   }
 };
 
+const locationReplacer = (text, isNoidaLoc) => {
+  if (!text || !isNoidaLoc) return text || "";
+  return text
+    .replace(/in Delhi/g, "in Noida")
+    .replace(/in Janakpuri/g, "in Noida Sector 2")
+    .replace(/in Vikaspuri/g, "in Noida NCR")
+    .replace(/Janakpuri/g, "Sector 2, Noida")
+    .replace(/Vikaspuri, New Delhi/g, "Sector 2, Noida")
+    .replace(/Vikaspuri Delhi/g, "Sector 2, Noida")
+    .replace(/Vikaspuri/g, "Sector 2, Noida")
+    .replace(/New Delhi/g, "Noida")
+    .replace(/Delhi NCR/g, "Noida NCR")
+    .replace(/Delhi/g, "Noida");
+};
+
+const formatCourse = (rawCourse, isNoidaLoc) => {
+  if (!rawCourse) return undefined;
+  if (!isNoidaLoc) return rawCourse;
+
+  const titleWithNoida = rawCourse.title?.includes("in Noida")
+    ? rawCourse.title
+    : `${rawCourse.title} in Noida`;
+
+  return {
+    ...rawCourse,
+    title: titleWithNoida,
+    tagline: locationReplacer(rawCourse.tagline, true),
+    overview: locationReplacer(rawCourse.overview, true),
+    aboutContent: locationReplacer(rawCourse.aboutContent, true),
+    highlights: Array.isArray(rawCourse.highlights)
+      ? rawCourse.highlights.map(h => locationReplacer(h, true))
+      : rawCourse.highlights,
+    batchTimings: rawCourse.batch_timings || rawCourse.batchTimings || [],
+    trendingTools: rawCourse.trending_tools || rawCourse.trendingTools || [],
+    brochureUrl: rawCourse.brochure_url || rawCourse.brochureUrl || "",
+  };
+};
+
 export default function CourseDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -109,8 +147,8 @@ export default function CourseDetail() {
   const baseSlug = isNoida ? slug.replace('-noida', '') : slug;
 
   // Start with static data, then try API
-  const staticCourse = COURSES_DATA.find((c) => c.slug === baseSlug);
-  const [course, setCourse] = useState(staticCourse ? (isNoida ? { ...staticCourse, title: staticCourse.title + " in Noida" } : staticCourse) : undefined);
+  const staticCourse = COURSES_DATA.find((c) => c.slug === (isNoida ? slug : baseSlug)) || COURSES_DATA.find((c) => c.slug === baseSlug);
+  const [course, setCourse] = useState(formatCourse(staticCourse, isNoida));
   const certImages = CERTIFICATION_IMAGES[baseSlug] || CERTIFICATION_IMAGES["web-development"];
 
   useEffect(() => {
@@ -120,37 +158,31 @@ export default function CourseDetail() {
     axios.get(`${API}/content/courses/${baseSlug}`, { signal: controller.signal })
       .then(res => {
         if (res.data) {
-          setCourse({
-            ...res.data,
-            title: isNoida ? res.data.title + " in Noida" : res.data.title,
-            batchTimings: res.data.batch_timings || res.data.batchTimings || [],
-            trendingTools: res.data.trending_tools || res.data.trendingTools || [],
-            brochureUrl: res.data.brochure_url || res.data.brochureUrl || "",
-          });
+          setCourse(formatCourse(res.data, isNoida));
         }
       })
       .catch(() => {}); // keep static fallback
 
     return () => { clearTimeout(timeout); controller.abort(); };
-  }, [slug]);
+  }, [slug, isNoida, baseSlug]);
 
   useEffect(() => {
     // Reset to static data immediately when slug changes for instant feedback
-    const newStaticCourse = COURSES_DATA.find((c) => c.slug === baseSlug);
-    setCourse(newStaticCourse ? (isNoida ? { ...newStaticCourse, title: newStaticCourse.title + " in Noida" } : newStaticCourse) : undefined);
+    const newStaticCourse = COURSES_DATA.find((c) => c.slug === (isNoida ? slug : baseSlug)) || COURSES_DATA.find((c) => c.slug === baseSlug);
+    setCourse(formatCourse(newStaticCourse, isNoida));
     
     window.scrollTo(0, 0);
     
     setDemoPopupOpen(false);
     setDemoSubmitted(false);
-    setDemoForm({ name: "", phone: "", course_interested: newStaticCourse?.title || "", branch: isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi" });
+    setDemoForm({ name: "", phone: "", course_interested: (isNoida ? `${newStaticCourse?.title} in Noida` : newStaticCourse?.title) || "", branch: isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi" });
     
     const timer = setTimeout(() => {
       setDemoPopupOpen(true);
     }, 1500);
     
     return () => clearTimeout(timer);
-  }, [slug]);
+  }, [slug, isNoida, baseSlug]);
 
   const handleDemoSubmit = async (e) => {
     e.preventDefault();
@@ -242,18 +274,18 @@ export default function CourseDetail() {
           jsonLd={{
             "@context": "https://schema.org",
             "@type": "Course",
-            "name": `${course.title} Training in Delhi`,
+            "name": isNoida ? (course.title.includes("in Noida") ? `${course.title} Training` : `${course.title} Training in Noida`) : `${course.title} Training in Delhi`,
             "description": course.overview || course.tagline,
             "url": `https://www.nexxtechs.com/course/${slug}`,
             "provider": {
               "@type": "Organization",
-              "name": "NexxTechs",
+              "name": isNoida ? "NexxTechs Noida" : "NexxTechs",
               "sameAs": "https://www.nexxtechs.com",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": slug.endsWith('-noida') ? "B-136 Upper, Ground floor, B Block, Sector 2" : "B-54 Krishna Park",
-                "addressLocality": slug.endsWith('-noida') ? "Noida" : "Vikaspuri, New Delhi",
-                "postalCode": slug.endsWith('-noida') ? "201301" : "110018",
+                "streetAddress": isNoida ? "B-136 Upper, Ground floor, B Block, Sector 2" : "B-54 Krishna Park",
+                "addressLocality": isNoida ? "Noida" : "Vikaspuri, New Delhi",
+                "postalCode": isNoida ? "201301" : "110018",
                 "addressCountry": "IN"
               }
             },
@@ -269,7 +301,7 @@ export default function CourseDetail() {
             "hasCourseInstance": {
               "@type": "CourseInstance",
               "courseMode": "Blended",
-              "instructor": { "@type": "Organization", "name": "NexxTechs" }
+              "instructor": { "@type": "Organization", "name": isNoida ? "NexxTechs Noida" : "NexxTechs" }
             }
           }}
         />
@@ -343,7 +375,7 @@ export default function CourseDetail() {
               <div className="flex flex-col gap-6">
                 {course.image && (
                   <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl group bg-white">
-                    <ResponsiveImage src={course.image} alt={`${course.title} Course in Delhi | NexxTechs IT Training Institute Vikaspuri`} width={600} height={400} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700" />
+                    <ResponsiveImage src={course.image} alt={isNoida ? `${course.title} Course in Noida | NexxTechs IT Training Institute Sector 2 Noida` : `${course.title} Course in Delhi | NexxTechs IT Training Institute Vikaspuri`} width={600} height={400} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700" />
                   </div>
                 )}
                 <div className="grid grid-cols-2 gap-4">
@@ -510,8 +542,8 @@ export default function CourseDetail() {
                     <Phone size={16} className="mr-2" /> Enquire Now
                   </Button>
 
-                  <a href="tel:+919217179762" className="block text-center text-sm text-[#4B5563] dark:text-gray-400 hover:text-[#84CC16] transition-colors">
-                    Or call: +91 9217179762
+                  <a href={isNoida ? "tel:+917987059430" : "tel:+919217179762"} className="block text-center text-sm text-[#4B5563] dark:text-gray-400 hover:text-[#84CC16] transition-colors">
+                    Or call: {isNoida ? "+91 7987059430" : "+91 9217179762"}
                   </a>
 
                   {/* Batch Timings */}
@@ -554,14 +586,14 @@ export default function CourseDetail() {
               <div className="animate-marquee flex gap-6 py-4 whitespace-nowrap shrink-0 min-w-full pr-6">
                 {certImages.concat(certImages).map((img, i) => (
                   <div key={i} className="flex-none w-[220px] md:w-[280px] h-[160px] md:h-[200px] rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#84CC16]/50 dark:hover:border-[#84CC16]/50 transition-all duration-300 hover:scale-105 bg-[#F9FAFB] dark:bg-white/5 flex items-center justify-center p-3">
-                    <img src={img} alt={`${course.title} Certification from NexxTechs IT Training Institute Delhi`} width={280} height={200} className="max-w-full max-h-full object-contain rounded-lg mix-blend-multiply dark:mix-blend-normal" loading="lazy" />
+                    <img src={img} alt={isNoida ? `${course.title} Certification from NexxTechs IT Training Institute Noida` : `${course.title} Certification from NexxTechs IT Training Institute Delhi`} width={280} height={200} className="max-w-full max-h-full object-contain rounded-lg mix-blend-multiply dark:mix-blend-normal" loading="lazy" />
                   </div>
                 ))}
               </div>
               <div className="animate-marquee flex gap-6 py-4 whitespace-nowrap shrink-0 min-w-full pr-6" aria-hidden="true">
                 {certImages.concat(certImages).map((img, i) => (
                   <div key={`second-${i}`} className="flex-none w-[220px] md:w-[280px] h-[160px] md:h-[200px] rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#84CC16]/50 dark:hover:border-[#84CC16]/50 transition-all duration-300 hover:scale-105 bg-[#F9FAFB] dark:bg-white/5 flex items-center justify-center p-3">
-                    <img src={img} alt={`${course.title} Certification from NexxTechs IT Training Institute Delhi`} width={280} height={200} className="max-w-full max-h-full object-contain rounded-lg mix-blend-multiply dark:mix-blend-normal" loading="lazy" />
+                    <img src={img} alt={isNoida ? `${course.title} Certification from NexxTechs IT Training Institute Noida` : `${course.title} Certification from NexxTechs IT Training Institute Delhi`} width={280} height={200} className="max-w-full max-h-full object-contain rounded-lg mix-blend-multiply dark:mix-blend-normal" loading="lazy" />
                   </div>
                 ))}
               </div>
@@ -576,8 +608,8 @@ export default function CourseDetail() {
 
               const faqs = [
                 // 3 General FAQs
-                { q: `What is the fee for ${course.title} course at NexxTechs?`, a: `The fee for our ${course.title} course is competitive and includes study material, lab access, project work, and certification. Contact us at +91 9217179762 or visit our Vikaspuri Delhi campus for exact pricing and ongoing offers.` },
-                { q: `Is placement guaranteed after completing ${course.title}?`, a: `NexxTechs provides 100% placement assistance with a 95% placement rate. We have tie-ups with 500+ companies including MNCs. Our dedicated placement cell helps with resume building, mock interviews, and interview scheduling.` },
+                { q: `What is the fee for ${course.title} course at NexxTechs?`, a: isNoida ? `The fee for our ${course.title} course is competitive and includes study material, lab access, project work, and certification. Contact us at +91 7987059430 or visit our Sector 2 Noida campus for exact pricing and ongoing offers.` : `The fee for our ${course.title} course is competitive and includes study material, lab access, project work, and certification. Contact us at +91 9217179762 or visit our Vikaspuri Delhi campus for exact pricing and ongoing offers.` },
+                { q: `Is placement guaranteed after completing ${course.title}?`, a: `NexxTechs provides 100% placement assistance with a 95% placement rate. We have tie-ups with 500+ companies including MNCs in ${isNoida ? 'Noida, Delhi NCR,' : 'Delhi NCR'} and across India. Our dedicated placement cell helps with resume building, mock interviews, and interview scheduling.` },
                 { q: `Do I get a certificate after completing ${course.title}?`, a: `Yes! You receive an industry-recognized certification upon course completion. Our certifications are valued by top employers across India and globally.` },
                 // 3 Technical FAQs
                 { q: `What topics are covered in the ${course.title} course syllabus?`, a: `Our ${course.title} course covers ${course.modules?.length || 6}+ comprehensive modules including ${topModules.join(', ')}${course.modules?.length > 3 ? ' and more' : ''}. Each module includes hands-on projects, real-world case studies, and assessments to ensure deep understanding.` },
@@ -590,7 +622,7 @@ export default function CourseDetail() {
                 { q: `What are the prerequisites for joining this course?`, a: `Our courses are designed to be beginner-friendly. While a basic understanding of computers is helpful, we teach everything from scratch. No prior coding or technical background is required for most of our programs.` },
               ];
 
-              return <CourseFAQ faqs={faqs} courseTitle={course.title} />;
+              return <CourseFAQ faqs={faqs} courseTitle={course.title} isNoida={isNoida} />;
             })()}
 
         {/* Related Courses & Cross-Links */}
@@ -600,7 +632,7 @@ export default function CourseDetail() {
               Explore More <span className="text-[#84CC16]">Courses</span>
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-              {COURSES_DATA.filter(c => c.slug !== baseSlug).slice(0, 4).map(rc => (
+              {COURSES_DATA.filter(c => c.slug !== baseSlug && !c.slug.endsWith('-noida')).slice(0, 4).map(rc => (
                 <Link key={rc.slug} to={`/course/${isNoida ? rc.slug + '-noida' : rc.slug}`} className="group bg-[#F9FAFB] dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl p-5 hover:border-[#84CC16]/40 transition-all duration-300 hover:-translate-y-1">
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-[#84CC16] transition-colors mb-2">{isNoida ? rc.title + " in Noida" : rc.title}</h3>
                   <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">{rc.tagline}</p>
