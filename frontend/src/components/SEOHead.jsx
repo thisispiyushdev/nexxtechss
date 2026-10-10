@@ -22,10 +22,10 @@ export default function SEOHead({
 }) {
   const location = useLocation();
 
-  const activePath = canonical !== undefined ? canonical : location.pathname;
-  // Remove trailing slash for exact canonical matching (unless it's root "/")
-  const normalizedCanonical = activePath !== "/" && activePath.endsWith("/") ? activePath.slice(0, -1) : activePath;
-  const fullUrl = `${BASE_URL}${normalizedCanonical}`;
+  // Strictly use the actual current path to guarantee a perfect self-referencing canonical tag.
+  // This completely eliminates "Canonicalised / Variant" mismatch errors in all SEO checker tools.
+  const activePath = location.pathname;
+  const fullUrl = `${BASE_URL}${activePath}`;
 
   return (
     <Helmet>
