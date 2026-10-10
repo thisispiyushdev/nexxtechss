@@ -281,9 +281,9 @@ export default function CourseDetail() {
         <section className="bg-[#0A0A0A] text-white py-16 md:py-20">
           <div className="max-w-[1440px] mx-auto px-6 md:px-12">
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate(isNoida ? "/courses-noida" : "/courses")}
               className="flex items-center gap-2 text-gray-400 hover:text-[#84CC16] transition-colors mb-8 text-sm"
-              data-testid="back-to-home"
+              data-testid="back-to-courses"
             >
               <ArrowLeft size={16} /> Back to All Courses
             </button>
@@ -601,11 +601,11 @@ export default function CourseDetail() {
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
               {COURSES_DATA.filter(c => c.slug !== baseSlug).slice(0, 4).map(rc => (
-                <a key={rc.slug} href={`/course/${isNoida ? rc.slug + '-noida' : rc.slug}`} className="group bg-[#F9FAFB] dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl p-5 hover:border-[#84CC16]/40 transition-all duration-300 hover:-translate-y-1">
+                <Link key={rc.slug} to={`/course/${isNoida ? rc.slug + '-noida' : rc.slug}`} className="group bg-[#F9FAFB] dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl p-5 hover:border-[#84CC16]/40 transition-all duration-300 hover:-translate-y-1">
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-[#84CC16] transition-colors mb-2">{isNoida ? rc.title + " in Noida" : rc.title}</h3>
                   <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">{rc.tagline}</p>
                   <span className="text-xs font-bold text-[#84CC16]">Explore Course →</span>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
