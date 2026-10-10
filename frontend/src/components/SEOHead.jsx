@@ -23,7 +23,8 @@ export default function SEOHead({
   const location = useLocation();
 
   const activePath = canonical !== undefined ? canonical : location.pathname;
-  const normalizedCanonical = activePath.endsWith("/") ? activePath : `${activePath}/`;
+  // Remove trailing slash for exact canonical matching (unless it's root "/")
+  const normalizedCanonical = activePath !== "/" && activePath.endsWith("/") ? activePath.slice(0, -1) : activePath;
   const fullUrl = `${BASE_URL}${normalizedCanonical}`;
 
   return (
