@@ -231,7 +231,7 @@ export default function EnquiryForm({
 
             <div className="space-y-5">
               <a
-                href="tel:+919217179762"
+                href={isNoidaContext ? "tel:+917987059430" : "tel:+919217179762"}
                 className="flex items-center gap-5 p-6 bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-[24px] hover:border-[#84CC16]/50 hover:shadow-2xl hover:shadow-[#84CC16]/10 hover:-translate-y-1 transition-all duration-500 cursor-pointer group relative overflow-hidden"
                 data-testid="contact-phone"
               >
@@ -263,7 +263,7 @@ export default function EnquiryForm({
               </a>
 
               <a
-                href={addressLink}
+                href={isNoidaContext ? "https://www.google.com/maps/search/B-136+Sector+2+Noida" : addressLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-5 p-6 bg-white dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-[24px] hover:border-[#84CC16]/50 hover:shadow-2xl hover:shadow-[#84CC16]/10 hover:-translate-y-1 transition-all duration-500 cursor-pointer group relative overflow-hidden"

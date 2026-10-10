@@ -156,7 +156,8 @@ export default function Header() {
   const { dark, toggle } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
-  const isNoida = location.pathname.includes('noida');
+  const searchParams = new URLSearchParams(location.search);
+  const isNoida = location.pathname.includes('noida') || searchParams.get('branch') === 'noida';
   const isServicePage = location.pathname.includes('service');
   const contactInfo = isNoida || isServicePage ? CONTACT_INFO.noida : CONTACT_INFO.default;
 

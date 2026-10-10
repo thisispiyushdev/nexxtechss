@@ -13,11 +13,11 @@ export default function ContactPage() {
   return (
     <PageTransition>
       <SEOHead
-        title="Contact Us – NexxTechs IT Training Vikaspuri Delhi"
-        description="Contact NexxTechs for course inquiries, free counseling, and enrollment. Visit us at B-54 Krishna Park, Vikaspuri, New Delhi 110018 or call +91 9217179762."
-        canonical="/contact"
+        title={isNoida ? "Contact Us – NexxTechs IT Training Noida" : "Contact Us – NexxTechs IT Training Vikaspuri Delhi"}
+        description={isNoida ? "Contact NexxTechs for course inquiries, free counseling, and enrollment. Visit us at B-136 Upper, Ground floor, Sector 2, Noida or call +91 7987059430." : "Contact NexxTechs for course inquiries, free counseling, and enrollment. Visit us at B-54 Krishna Park, Vikaspuri, New Delhi 110018 or call +91 9217179762."}
+        canonical={isNoida ? "/contact?branch=noida" : "/contact"}
       />
-      <Breadcrumbs items={[{ name: "Contact Us", path: "/contact" }]} />
+      <Breadcrumbs items={[{ name: "Contact Us", path: isNoida ? "/contact?branch=noida" : "/contact" }]} />
       <div className="min-h-screen">
         <EnquiryForm defaultBranch={isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi"} />
 
