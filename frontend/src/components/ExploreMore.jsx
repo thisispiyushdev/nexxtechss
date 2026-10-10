@@ -29,7 +29,11 @@ export default function ExploreMore() {
           {EXPLORE_LINKS.map((link, idx) => (
             <Link
               key={idx}
-              to={link.label === "Contact Us" ? (isNoida ? "/contact-noida" : "/contact/") : link.href}
+              to={
+                link.label === "Contact Us" ? (isNoida ? "/contact-noida" : "/contact/") :
+                link.label === "Career Roadmaps" ? (isNoida ? "/roadmap-noida" : "/roadmap") :
+                link.href
+              }
               onClick={scrollToTop}
               className="group flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-700 dark:text-gray-300 text-sm font-medium hover:bg-[#84CC16] hover:text-black hover:border-[#84CC16] dark:hover:bg-[#84CC16] dark:hover:text-black dark:hover:border-[#84CC16] transition-all duration-300 shadow-sm dark:shadow-none"
             >

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PageTransition from "../components/PageTransition";
 import COURSES_DATA from "../data/coursesData";
 import { 
@@ -60,6 +60,8 @@ export default function RoadmapPage() {
 
   const listRef = useRef(null);
   const detailRef = useRef(null);
+  const location = useLocation();
+  const isNoida = location.pathname.includes('noida');
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -109,15 +111,17 @@ export default function RoadmapPage() {
       const response = await axios.post(`${API}/enquiry`, form);
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
+        const phoneNo = isNoida ? "917987059430" : "919217179762";
         const msg = `New Roadmap Discussion Request (Blogs Page):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}`;
-        window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
+        window.open(`https://wa.me/${phoneNo}?text=${msg}`, "_blank");
       } else {
         throw new Error("Backend storage failed");
       }
     } catch (err) {
       console.error("Backend error:", err);
+      const phoneNo = isNoida ? "917987059430" : "919217179762";
       const msg = `New Roadmap Discussion Request (Blogs Page Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}`;
-      window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
+      window.open(`https://wa.me/${phoneNo}?text=${msg}`, "_blank");
       setError("Note: Enquiry submitted via WhatsApp only.");
       setSubmitted(true);
     } finally {
@@ -691,11 +695,10 @@ export default function RoadmapPage() {
     <PageTransition>
       <div className="min-h-screen bg-transparent pb-20 font-sans transition-colors duration-300">
         <SEOHead
-          title="Career Roadmaps for IT & Tech Careers | NexxTechs"
-          description="Follow our step-by-step career roadmaps for Data Science, DevOps, Full Stack, and Cyber Security. Plan your tech career successfully with NexxTechs Delhi."
-          canonical="/roadmap"
+          title={isNoida ? "Career Roadmaps for IT & Tech Careers in Noida | NexxTechs Noida" : "Career Roadmaps for IT & Tech Careers | NexxTechs"}
+          description={isNoida ? "Follow our step-by-step career roadmaps for Data Science, DevOps, Full Stack, and Cyber Security. Plan your tech career successfully with NexxTechs Noida." : "Follow our step-by-step career roadmaps for Data Science, DevOps, Full Stack, and Cyber Security. Plan your tech career successfully with NexxTechs Delhi."}
         />
-        <Breadcrumbs items={[{ name: "Roadmaps", path: "/roadmap" }]} />
+        <Breadcrumbs items={[{ name: "Roadmaps", path: isNoida ? "/roadmap-noida" : "/roadmap" }]} />
         {selectedCourse ? renderDetailView() : renderListView()}
       </div>
 

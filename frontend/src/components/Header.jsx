@@ -12,7 +12,7 @@ const NAV_LINKS = [
   { label: "Courses", href: "/courses/" },
   { label: "Services", href: "/services" },
   { label: "Placement", href: "/placement/" },
-  { label: "Roadmap", href: "/roadmap/" },
+  { label: "Roadmap", href: "/roadmap" },
   { label: "Blog", href: "/blog/" },
 ];
 
@@ -195,7 +195,7 @@ export default function Header() {
       { label: "Courses", href: "/courses-noida", isMegaMenu: true, megaMenuData: activeCoursesMegaMenuData },
       { label: "Services", href: "/services" },
       { label: "Placement", href: "/placement/" },
-      { label: "Roadmap", href: "/roadmap/" },
+      { label: "Roadmap", href: isNoida ? "/roadmap-noida" : "/roadmap" },
       { label: "Blog", href: "/blog/" },
     ];
   } else {

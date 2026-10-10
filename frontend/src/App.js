@@ -230,6 +230,7 @@ function AnimatedRoutes() {
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/blog/:id" element={<BlogPost />} />
       <Route path="/roadmap" element={<RoadmapPage />} />
+      <Route path="/roadmap-noida" element={<RoadmapPage />} />
       <Route path="/career-guidance" element={<CareerGuidancePage />} />
       <Route path="/tag/:tagSlug" element={<TagPage />} />
       <Route path="/contact" element={<ContactPage />} />

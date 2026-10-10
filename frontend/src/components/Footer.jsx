@@ -336,7 +336,7 @@ export default function Footer() {
                 {RESOURCES.map((link) => (
                   <li key={link.label}>
                     <Link
-                      to={link.href}
+                      to={link.label === "Career Roadmaps" ? (isNoida ? "/roadmap-noida" : "/roadmap") : link.href}
                       onClick={scrollToTop}
                       className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors block"
                     >
