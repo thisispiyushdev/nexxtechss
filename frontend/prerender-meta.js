@@ -17,7 +17,7 @@ const BASE_URL = "https://www.nexxtechs.com";
 
 function fetchJson(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, (res) => {
+    const req = https.get(url, { timeout: 4000 }, (res) => {
       let data = "";
       res.on("data", (chunk) => data += chunk);
       res.on("end", () => {
@@ -27,7 +27,11 @@ function fetchJson(url) {
           reject(e);
         }
       });
-    }).on("error", (err) => reject(err));
+    });
+    req.on("timeout", () => {
+      req.destroy(new Error("Request timed out"));
+    });
+    req.on("error", (err) => reject(err));
   });
 }
 
@@ -288,17 +292,16 @@ ROUTES.push({
 
 // Add Trainer Pages
 const TRAINERS = [
-  "devops", "cloud-computing", "full-stack", "data-science", "cyber-security", "digital-marketing", "ui-ux", "graphic-design"
+  "devops", "cloud-computing", "full-stack", "data-science", "cyber-security", "digital-marketing", "ui-ux"
 ];
 const TRAINER_NAMES = {
   "devops": "Aditya Sharma",
   "cloud-computing": "Rahul Verma",
   "full-stack": "Vikram Singh",
   "data-science": "Priya Sharma",
-  "cyber-security": "Amit Kumar",
+  "cyber-security": "Aditya Sharma",
   "digital-marketing": "Sagar",
-  "ui-ux": "Neha Gupta",
-  "graphic-design": "Karan Singh"
+  "ui-ux": "Neha Gupta"
 };
 const TRAINER_TITLES = {
   "devops": "DevOps",
@@ -307,8 +310,7 @@ const TRAINER_TITLES = {
   "data-science": "Data Science",
   "cyber-security": "Cyber Security",
   "digital-marketing": "Digital Marketing",
-  "ui-ux": "UI/UX Design",
-  "graphic-design": "Graphic Design"
+  "ui-ux": "UI/UX Design"
 };
 
 for (const t of TRAINERS) {
