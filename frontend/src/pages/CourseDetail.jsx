@@ -28,69 +28,136 @@ import { API_ROOT } from "../lib/apiConfig";
 const API = API_ROOT;
 
 const COURSE_SEO = {
+  // Delhi Branch Courses (Vikaspuri & Janakpuri, Delhi)
   "java-full-stack": {
-    title: "Best Java Full Stack Course in Delhi | Nexxtechs",
-    description: "Join the best Java Full Stack Development Course in Delhi at Nexxtechs. Learn Java, Spring Boot, React & projects in just 6 months."
+    title: "Java Full Stack Development Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Join the best Java Full Stack Development Course in Vikaspuri & Janakpuri, Delhi at Nexxtechs. Learn Java, Spring Boot, React & live projects in 6 months with 100% placement."
   },
   "python-full-stack": {
-    title: "Best Full-Stack Web Development training institute in Delhi",
-    description: "Join the best Full Stack Web Development training institute in Delhi at Nexxtechs. Learn MERN, frontend, backend & live projects."
+    title: "Python Full Stack Development Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Join the best Python Full Stack Web Development training institute in Vikaspuri & Janakpuri, Delhi at Nexxtechs. Master Python, Django, React, REST APIs & live projects."
   },
   "mern-stack": {
-    title: "MERN Stack Development Course in Delhi | NexxTechs",
-    description: "Learn MongoDB, Express, React & Node.js with live projects at NexxTechs. Join the best MERN Stack Development Course in Delhi."
+    title: "MERN Stack Development Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Learn MongoDB, Express, React & Node.js with live projects at NexxTechs. Join the top-rated MERN Stack Development Course in Vikaspuri & Janakpuri, Delhi."
   },
   "data-science": {
-    title: "Master Data Science & GenAI Course in Delhi | NexxTechs",
-    description: "Master Data Science, Machine Learning & Generative AI with practical training at NexxTechs, Delhi. Learn with real-world projects."
+    title: "Master Data Science & GenAI Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Master Data Science, Machine Learning & Generative AI with practical training at NexxTechs Vikaspuri & Janakpuri, Delhi. Learn with real-world enterprise projects."
   },
   "data-analytics": {
-    title: "Top Data Analytics Course in Delhi | NexxTechs",
-    description: "Join NexxTechs Data Analytics Course in Delhi and learn Excel, SQL, Power BI & analytics skills through practical training."
+    title: "Top Data Analytics Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Join NexxTechs Data Analytics Course in Vikaspuri & Janakpuri, Delhi and master Excel, SQL, Power BI, Tableau & Python analytics with 100% job placement support."
   },
   "cloud-computing": {
-    title: "Cloud Computing Course in Delhi | NexxTechs",
-    description: "Learn AWS, Azure & GCP with hands-on training at NexxTechs. Build cloud computing skills with real-time projects in Delhi."
+    title: "Cloud Computing Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Learn AWS, Azure & GCP with hands-on labs at NexxTechs. Build cloud computing and architecture skills with real-time projects in Vikaspuri & Janakpuri, Delhi."
   },
   "cyber-security": {
-    title: "Best Cyber Security Course in Delhi | NexxTechs",
-    description: "Master ethical hacking, network security & cyber defense with NexxTechs Cyber Security course in Delhi. Practical learning included."
+    title: "Best Cyber Security Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Master ethical hacking, network defense & cyber forensics with NexxTechs Cyber Security course in Vikaspuri & Janakpuri, Delhi. CEH-aligned practical training."
   },
   "gen-ai": {
-    title: "Generative AI Course in Delhi | NexxTechs",
-    description: "Learn Generative AI, Large Language Models, Prompt Engineering & build AI applications from scratch with NexxTechs in Delhi."
+    title: "Generative AI Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Learn Generative AI, LLMs, Prompt Engineering, RAG & build AI applications from scratch with NexxTechs in Vikaspuri & Janakpuri, Delhi."
   },
   "devops": {
-    title: "DevOps Engineering Course in Delhi | NexxTechs",
-    description: "Learn Docker, Kubernetes, Jenkins & CI/CD tools with practical DevOps training at NexxTechs in Delhi. Build industry-ready skills."
+    title: "DevOps Engineering Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Learn Docker, Kubernetes, Jenkins, Terraform & CI/CD tools with practical DevOps training at NexxTechs in Vikaspuri & Janakpuri, Delhi. Build industry-ready skills."
   },
   "web-development": {
-    title: "Full Stack Web Development Course | NexxTechs",
-    description: "Become a Full Stack Web Developer with practical frontend & backend training at NexxTechs. Learn MERN with live projects."
+    title: "Full Stack Web Development Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Become a Full Stack Web Developer with hands-on frontend & backend training at NexxTechs Vikaspuri & Janakpuri, Delhi. Master HTML, CSS, JavaScript, React & Node.js."
   },
   "ui-ux-design": {
-    title: "Best UI/UX Design Course in Delhi | NexxTechs",
-    description: "Learn UI/UX design, wireframing, prototyping & Figma tools at NexxTechs. Build creative design skills with practical projects."
+    title: "Best UI/UX Design Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Learn UI/UX design, wireframing, prototyping & Figma tools at NexxTechs. Build creative portfolio designs with live projects in Vikaspuri & Janakpuri, Delhi."
   },
   "graphic-design": {
-    title: "Best Graphic Design Course in Delhi | NexxTechs",
-    description: "Master Photoshop, Illustrator & CorelDRAW with NexxTechs Graphic Design training in Delhi. Learn through live creative projects."
+    title: "Best Graphic Design Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Master Photoshop, Illustrator & CorelDRAW with NexxTechs Graphic Design training in Vikaspuri & Janakpuri, Delhi. Learn through live creative agency projects."
   },
   "digital-marketing": {
-    title: "Digital Marketing Course in Delhi | NexxTechs",
-    description: "Learn SEO, Google Ads, Meta Ads & social media marketing with practical Digital Marketing training at NexxTechs Delhi."
+    title: "Digital Marketing Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Learn SEO, Google Ads, Meta Ads & social media performance marketing with practical training at NexxTechs Vikaspuri & Janakpuri, Delhi."
   },
   "sap-masterclass": {
-    title: "SAP Course in Delhi (FICO, MM & S/4HANA)",
-    description: "Join SAP training at NexxTechs and learn FICO, MM & S/4HANA modules with practical sessions and industry-focused projects."
+    title: "SAP Course in Vikaspuri & Janakpuri, Delhi (FICO, MM & S/4HANA) | NexxTechs",
+    description: "Join SAP training at NexxTechs and learn FICO, MM & S/4HANA modules with practical ERP sessions in Vikaspuri & Janakpuri, Delhi."
   },
   "dsa": {
-    title: "DSA Course in Python & C++ | NexxTechs",
-    description: "Master Data Structures & Algorithms in Python and C++ for coding interviews, placements & FAANG preparation at NexxTechs."
+    title: "DSA Course in Python & C++ in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Master Data Structures & Algorithms in Python and C++ for coding interviews, placements & FAANG preparation at NexxTechs Vikaspuri, Delhi."
   },
   "dsa-with-java": {
-    title: "Best DSA with Java Course | NexxTechs",
-    description: "Learn Data Structures & Algorithms with Java at NexxTechs. Prepare for technical interviews with coding practice & projects."
+    title: "Best DSA with Java Course in Vikaspuri & Janakpuri, Delhi | NexxTechs",
+    description: "Learn Data Structures & Algorithms with Java at NexxTechs. Prepare for top product tech interviews with extensive coding practice in Vikaspuri, Delhi."
+  },
+
+  // Noida Sector 2 Branch Courses
+  "java-full-stack-noida": {
+    title: "Java Full Stack Development Course in Noida Sector 2 | NexxTechs",
+    description: "Join the best Java Full Stack Development Course in Noida Sector 2 at Nexxtechs. Learn Java, Spring Boot, React & live projects with 100% placement."
+  },
+  "python-full-stack-noida": {
+    title: "Python Full Stack Development Course in Noida Sector 2 | NexxTechs",
+    description: "Join the best Python Full Stack Web Development training institute in Noida Sector 2 at Nexxtechs. Master Python, Django, React, REST APIs & live projects."
+  },
+  "mern-stack-noida": {
+    title: "MERN Stack Development Course in Noida Sector 2 | NexxTechs",
+    description: "Learn MongoDB, Express, React & Node.js with live projects at NexxTechs. Join the top MERN Stack Development Course in Noida Sector 2."
+  },
+  "data-science-noida": {
+    title: "Master Data Science & GenAI Course in Noida Sector 2 | NexxTechs",
+    description: "Master Data Science, Machine Learning & Generative AI with hands-on training at NexxTechs Noida Sector 2. Build real-world enterprise projects."
+  },
+  "data-analytics-noida": {
+    title: "Top Data Analytics Course in Noida Sector 2 | NexxTechs",
+    description: "Join NexxTechs Data Analytics Course in Noida Sector 2 and master Excel, SQL, Power BI, Tableau & Python analytics with placement support."
+  },
+  "cloud-computing-noida": {
+    title: "Cloud Computing Course in Noida Sector 2 | NexxTechs",
+    description: "Learn AWS, Azure & GCP with hands-on labs at NexxTechs. Build cloud computing skills with real-time projects in Noida Sector 2."
+  },
+  "cyber-security-noida": {
+    title: "Best Cyber Security Course in Noida Sector 2 | NexxTechs",
+    description: "Master ethical hacking, network defense & cyber forensics with NexxTechs Cyber Security course in Noida Sector 2. CEH-aligned practical training."
+  },
+  "gen-ai-noida": {
+    title: "Generative AI Course in Noida Sector 2 | NexxTechs",
+    description: "Learn Generative AI, Large Language Models, Prompt Engineering & build AI applications from scratch with NexxTechs in Noida Sector 2."
+  },
+  "devops-noida": {
+    title: "DevOps Engineering Course in Noida Sector 2 | NexxTechs",
+    description: "Learn Docker, Kubernetes, Jenkins & CI/CD tools with practical DevOps training at NexxTechs in Noida Sector 2. Build industry-ready skills."
+  },
+  "web-development-noida": {
+    title: "Full Stack Web Development Course in Noida Sector 2 | NexxTechs",
+    description: "Become a Full Stack Web Developer with hands-on frontend & backend training at NexxTechs Noida Sector 2. Master HTML, CSS, JavaScript, React & Node.js."
+  },
+  "ui-ux-design-noida": {
+    title: "Best UI/UX Design Course in Noida Sector 2 | NexxTechs",
+    description: "Learn UI/UX design, wireframing, prototyping & Figma tools at NexxTechs. Build creative design skills with practical projects in Noida Sector 2."
+  },
+  "graphic-design-noida": {
+    title: "Best Graphic Design Course in Noida Sector 2 | NexxTechs",
+    description: "Master Photoshop, Illustrator & CorelDRAW with NexxTechs Graphic Design training in Noida Sector 2. Learn through live creative agency projects."
+  },
+  "digital-marketing-noida": {
+    title: "Digital Marketing Course in Noida Sector 2 | NexxTechs",
+    description: "Learn SEO, Google Ads, Meta Ads & social media performance marketing with practical training at NexxTechs Noida Sector 2."
+  },
+  "sap-masterclass-noida": {
+    title: "SAP Course in Noida Sector 2 (FICO, MM & S/4HANA) | NexxTechs",
+    description: "Join SAP training at NexxTechs and learn FICO, MM & S/4HANA modules with practical ERP sessions in Noida Sector 2."
+  },
+  "dsa-noida": {
+    title: "DSA Course in Python & C++ in Noida Sector 2 | NexxTechs",
+    description: "Master Data Structures & Algorithms in Python and C++ for coding interviews, placements & FAANG preparation at NexxTechs Noida Sector 2."
+  },
+  "dsa-with-java-noida": {
+    title: "Best DSA with Java Course in Noida Sector 2 | NexxTechs",
+    description: "Learn Data Structures & Algorithms with Java at NexxTechs. Prepare for top technical interviews with coding practice in Noida Sector 2."
   }
 };
 
@@ -239,17 +306,19 @@ export default function CourseDetail() {
     if (slug.endsWith('-noida')) {
       const baseSlug = slug.replace('-noida', '');
       const baseSeo = COURSE_SEO[baseSlug] || {
-        title: `${course.title} Course in Delhi | NexxTechs Vikaspuri`,
-        description: `Learn ${course.title} at NexxTechs Vikaspuri Delhi. ${course.duration} course with 100% placement assistance, real-world projects & industry certification. Enroll today!`
+        title: `${course.title} Course in Noida Sector 2 | NexxTechs`,
+        description: `Learn ${course.title} at NexxTechs Noida Sector 2. ${course.duration} course with 100% placement assistance, real-world projects & industry certification.`
       };
       return {
-        title: baseSeo.title.replace(/Delhi|Vikaspuri|Janakpuri/gi, 'Noida'),
-        description: baseSeo.description.replace(/Delhi|Vikaspuri|Janakpuri/gi, 'Noida')
+        title: baseSeo.title.includes("in Noida Sector 2") 
+          ? baseSeo.title 
+          : baseSeo.title.replace(/in Vikaspuri & Janakpuri, Delhi|in Vikaspuri|in Janakpuri|in Delhi/gi, "in Noida Sector 2"),
+        description: baseSeo.description.replace(/Vikaspuri & Janakpuri, Delhi|Vikaspuri, Delhi|Delhi/gi, "Noida Sector 2")
       };
     }
     const standardSeo = COURSE_SEO[baseSlug] || {
-      title: `${course.title} Course in Delhi | NexxTechs Vikaspuri`,
-      description: `Learn ${course.title} at NexxTechs Vikaspuri Delhi. ${course.duration} course with 100% placement assistance, real-world projects & industry certification. Enroll today!`
+      title: `${course.title} Course in Vikaspuri & Janakpuri, Delhi | NexxTechs`,
+      description: `Learn ${course.title} at NexxTechs Vikaspuri & Janakpuri, Delhi. ${course.duration} course with 100% placement assistance, real-world projects & industry certification. Enroll today!`
     };
     return standardSeo;
   })();

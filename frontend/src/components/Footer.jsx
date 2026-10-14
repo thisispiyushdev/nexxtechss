@@ -1,6 +1,5 @@
 import { Phone, Mail, MapPin, ArrowUp, ArrowRight, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { externalLinks } from "../data/externalLinks";
 const LOGO_URL = "/assets/logo_white.webp";
 
 const QUICK_LINKS = [
@@ -408,29 +407,7 @@ export default function Footer() {
           </div>
         )}
 
-        {/* External Technology Documentations & References */}
-        <div className="pt-8 pb-4">
-          <details className="group">
-            <summary className="text-sm font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:text-[#84CC16] transition-colors flex items-center justify-center gap-2 select-none">
-              External Technology Resources
-            </summary>
-            <div className="mt-6 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-              <div className="flex flex-wrap gap-x-4 gap-y-2 justify-center">
-                {externalLinks.map((link, idx) => (
-                  <a
-                    key={idx}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] text-gray-400 hover:text-[#84CC16] whitespace-nowrap"
-                  >
-                    {link.title}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </details>
-        </div>
+
 
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">

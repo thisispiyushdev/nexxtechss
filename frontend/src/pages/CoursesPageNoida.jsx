@@ -52,8 +52,8 @@ export default function CoursesPageNoida() {
   return (
     <PageTransition>
       <SEOHead
-        title="Explore Top IT & Tech Courses in Noida | NexxTechs"
-        description="Browse 50+ industry-focused IT training courses at NexxTechs Sector 2, Noida. Master Web Dev, Data Science, Cyber Security & AI with live projects. Enroll today!"
+        title="Top IT Training Courses in Noida Sector 2 | NexxTechs"
+        description="Browse 50+ industry-focused IT training courses at NexxTechs Noida Sector 2. Master Web Dev, Data Science, Cyber Security & AI with live projects. Enroll today!"
         canonical="/courses-noida"
         jsonLd={itemListSchema}
       />

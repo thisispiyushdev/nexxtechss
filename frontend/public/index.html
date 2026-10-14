@@ -2,7 +2,7 @@
 <html lang="en" class="dark">
     <head>
         <script>
-            if (window.location.hostname === 'nexxtechs.com') {
+            if (['nexxtechs.com', 'nexxtechs.in', 'www.nexxtechs.in', 'nexxtechs.info', 'www.nexxtechs.info'].includes(window.location.hostname)) {
                 window.location.replace('https://www.nexxtechs.com' + window.location.pathname + window.location.search + window.location.hash);
             }
         </script>
@@ -48,8 +48,9 @@
         
         <!-- Preload critical logo -->
 
-        
-        <link rel="icon" type="image/jpeg" href="%PUBLIC_URL%/logo.jpeg" />
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/favicon.ico" />
+        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
 
         <link rel="alternate" type="text/markdown" href="/llms.txt" />
 

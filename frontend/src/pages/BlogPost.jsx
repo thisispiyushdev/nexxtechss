@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { 
   Facebook, Twitter, Linkedin, MessageCircle, 
   Instagram, Share2, ChevronRight, User, Calendar, 
-  Folder, ArrowLeft, Clock, ArrowRight, BookOpen
+  Folder, ArrowLeft, Clock, ArrowRight, BookOpen, Sparkles
 } from "lucide-react";
 import PageTransition from "../components/PageTransition";
 import BLOG_DATA from "../data/blogData";
@@ -133,26 +133,68 @@ export default function BlogPost() {
   ];
 
   let relatedCourse = null;
+  let isNoidaBlog = false;
+  let courseTargetSlug = 'web-development';
+  let hasFirstP = false;
+  let firstPart = '';
+  let remainingPart = '';
+
   if (blog) {
+    isNoidaBlog = Boolean(blog.id?.includes('noida') || blog.title?.toLowerCase().includes('noida'));
+
     const blogKeywords = {
-      'artificial-intelligence': ['data-science'],
+      'web-development': ['web-development'],
+      'web-dev': ['web-development'],
+      'full-stack': ['web-development', 'mern-stack', 'java-full-stack', 'python-full-stack'],
+      'frontend': ['web-development'],
+      'backend': ['web-development'],
+      'mern': ['mern-stack'],
+      'artificial-intelligence': ['data-science', 'gen-ai'],
       'cyber-security': ['cyber-security'],
-      'data-science': ['data-science', 'data-analytics'],
-      'ethical-hacker': ['cyber-security'],
+      'security-operations': ['cyber-security'],
+      'ethical-hack': ['cyber-security'],
       'cyber-security-tools': ['cyber-security'],
       'cyber-security-career': ['cyber-security'],
+      'data-science': ['data-science', 'data-analytics'],
+      'data-analytics': ['data-analytics'],
+      'power-bi': ['data-analytics'],
+      'tableau': ['data-analytics'],
+      'cloud-computing': ['cloud-computing'],
+      'aws': ['cloud-computing'],
+      'azure': ['cloud-computing'],
+      'devops': ['devops'],
+      'digital-marketing': ['digital-marketing'],
+      'ui-ux': ['ui-ux-design'],
+      'graphic-design': ['graphic-design'],
+      'sap': ['sap-masterclass'],
+      'dsa': ['dsa', 'dsa-with-java'],
     };
+
     const matchedSlugs = new Set();
     Object.entries(blogKeywords).forEach(([keyword, slugs]) => {
-      if (blog.id?.includes(keyword) || blog.title?.toLowerCase().includes(keyword.replace('-', ' '))) {
+      if (blog.id?.includes(keyword) || blog.title?.toLowerCase().includes(keyword.replace(/-/g, ' '))) {
         slugs.forEach(s => matchedSlugs.add(s));
       }
     });
     if (matchedSlugs.size === 0) {
       matchedSlugs.add('web-development');
     }
-    // Pick exactly ONE related course as requested by SEO
+    // Pick matching course
     relatedCourse = COURSES_DATA.find(c => matchedSlugs.has(c.slug)) || COURSES_DATA[0];
+    const baseCourseSlug = relatedCourse?.slug || 'web-development';
+    courseTargetSlug = isNoidaBlog ? `${baseCourseSlug}-noida` : baseCourseSlug;
+
+    // Check for 1st paragraph to place high-converting CTA
+    if (blog.content) {
+      const pEnd = blog.content.indexOf('</p>');
+      if (pEnd !== -1 && pEnd < blog.content.length - 10) {
+        hasFirstP = true;
+        firstPart = blog.content.substring(0, pEnd + 4);
+        remainingPart = blog.content.substring(pEnd + 4);
+      } else {
+        firstPart = blog.content;
+      }
+    }
   }
 
   return (
@@ -297,6 +339,56 @@ export default function BlogPost() {
                     <div className="h-4 bg-gray-200 dark:bg-white/10 rounded-full w-5/6"></div>
                   </div>
                 </div>
+              ) : hasFirstP ? (
+                <>
+                  <article 
+                    className={`prose md:prose-lg max-w-none w-full break-words overflow-hidden dark:prose-invert blog-article ${dark ? 'prose-headings:text-white prose-p:text-gray-400 prose-li:text-gray-400' : 'prose-headings:text-gray-900 prose-p:text-gray-600'}`}
+                    dangerouslySetInnerHTML={{ __html: firstPart }}
+                  />
+
+                  {/* High-Converting Highlighted CTA Box After 1st Paragraph */}
+                  <div className="my-8 p-6 md:p-8 rounded-3xl bg-gradient-to-br from-[#84CC16]/15 via-black/80 to-[#111827] border-2 border-[#84CC16]/40 shadow-xl shadow-[#84CC16]/10 relative overflow-hidden not-prose">
+                    <div className="absolute top-0 right-0 w-56 h-56 bg-[#84CC16]/10 rounded-full blur-3xl pointer-events-none" />
+                    
+                    <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                      <div className="space-y-2 max-w-xl">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#84CC16]/20 border border-[#84CC16]/40 text-[#84CC16] text-xs font-bold uppercase tracking-wider">
+                          <Sparkles size={13} className="text-[#84CC16]" /> Recommended Industry Program
+                        </div>
+                        <h3 className="text-xl md:text-2xl font-black text-gray-900 dark:text-white leading-tight">
+                          Master {relatedCourse?.title || "Full Stack Web Development"} with NexxTechs
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                          Live Industry Projects • 100% Placement Assistance • {isNoidaBlog ? "Sector 2, Noida Branch" : "Vikaspuri & Janakpuri, Delhi Branch"}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap sm:flex-nowrap gap-3 shrink-0">
+                        <Link
+                          to={`/course/${courseTargetSlug}`}
+                          className="px-6 py-3.5 rounded-full bg-[#84CC16] hover:bg-[#65A30D] text-black font-extrabold text-sm transition-all duration-200 shadow-lg shadow-[#84CC16]/25 hover:shadow-none flex items-center justify-center gap-2 group"
+                        >
+                          <span>Enroll in Batch</span>
+                          <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                        <Link
+                          to={`/course/${courseTargetSlug}#curriculum`}
+                          className="px-6 py-3.5 rounded-full bg-white/10 dark:bg-white/5 hover:bg-white/20 text-gray-900 dark:text-white border border-gray-300 dark:border-white/15 font-bold text-sm transition-all duration-200 flex items-center justify-center gap-2"
+                        >
+                          <BookOpen size={15} />
+                          <span>View Syllabus</span>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+
+                  {remainingPart && (
+                    <article 
+                      className={`prose md:prose-lg max-w-none w-full break-words overflow-hidden dark:prose-invert blog-article ${dark ? 'prose-headings:text-white prose-p:text-gray-400 prose-li:text-gray-400' : 'prose-headings:text-gray-900 prose-p:text-gray-600'}`}
+                      dangerouslySetInnerHTML={{ __html: remainingPart }}
+                    />
+                  )}
+                </>
               ) : (
                 <article 
                   className={`prose md:prose-lg max-w-none w-full break-words overflow-hidden dark:prose-invert blog-article ${dark ? 'prose-headings:text-white prose-p:text-gray-400 prose-li:text-gray-400' : 'prose-headings:text-gray-900 prose-p:text-gray-600'}`}
@@ -311,7 +403,7 @@ export default function BlogPost() {
                     <BookOpen size={18} className="text-[#84CC16]" /> Recommended Course
                   </h3>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
-                    <Link to={`/course/${relatedCourse.slug}`} className="group block bg-[#F9FAFB] dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl p-5 hover:border-[#84CC16]/40 transition-all duration-300 hover:-translate-y-1">
+                    <Link to={`/course/${courseTargetSlug}`} className="group block bg-[#F9FAFB] dark:bg-[#151515] border border-gray-200 dark:border-white/5 rounded-2xl p-5 hover:border-[#84CC16]/40 transition-all duration-300 hover:-translate-y-1">
                       <h4 className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-[#84CC16] transition-colors mb-2">{relatedCourse.title}</h4>
                       <p className="text-xs text-[#4B5563] dark:text-gray-400 line-clamp-2 mb-3">{relatedCourse.tagline}</p>
                       <span className="text-xs font-bold text-[#84CC16] flex items-center gap-1">

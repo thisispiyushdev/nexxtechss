@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useState, useEffect } from "react";
 
 import "@/App.css";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/context/ThemeContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -220,6 +220,7 @@ function AnimatedRoutes() {
   return (
     <Routes location={location} key={location.pathname}>
       <Route path="/" element={<HomePage />} />
+      <Route path="/index.html" element={<Navigate to="/" replace />} />
       <Route path="/courses" element={<CoursesPage />} />
       <Route path="/courses-noida" element={<CoursesPageNoida />} />
       <Route path="/services" element={<ServicesPage />} />
