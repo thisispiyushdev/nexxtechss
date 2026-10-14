@@ -263,6 +263,7 @@ function AnimatedRoutes() {
       <Route path="/top-5-devops-trainers-in-noida" element={<TopTrainersPage />} />
       <Route path="/top-5-digital-marketing-trainers-in-noida" element={<TopTrainersPage />} />
       <Route path="/top-5-cyber-security-trainers-in-noida" element={<TopTrainersPage />} />
+      <Route path="/best-cyber-security-trainer-in-noida" element={<TopTrainersPage />} />
       <Route path="/top-5-personal-development-trainers-in-noida" element={<TopTrainersPage />} />
       <Route path="/top-5-data-science-trainers-in-noida" element={<TopTrainersPage />} />
       <Route path="/top-5-data-analytics-trainers-in-noida" element={<TopTrainersPage />} />

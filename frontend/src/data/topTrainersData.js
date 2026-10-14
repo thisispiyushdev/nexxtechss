@@ -561,7 +561,7 @@ Continuous Automated DevSecOps Scanning: Embedding security scanners like SonarQ
 
 Strategic Evaluation
 Aditya Sharma’s cyber security masterclass is ideal for ambitious security professionals aiming for high-impact roles in Security Operations Centers (SOC), penetration testing, incident response teams, and enterprise Cloud Security Architecture. His relentless emphasis on real-world hands-on combat readiness ensures his students graduate with production-grade defense capabilities.`,
-        image: "/trainer/Aditya.webp"
+        image: "/trainer/Aditya-cybersecurity.webp"
       },
       {
         name: "Ankit Fadia",
@@ -1190,7 +1190,8 @@ His cybersecurity program focuses heavily on realistic threat models and hands-o
 - **Incident Response & Digital Forensics**: Investigating log sources, analyzing packet captures using Wireshark, identifying security gaps, and building post-incident reports.
 - **SIEM & Security Operations**: Deploying security information and event management systems, configuring real-time alerts, and threat hunting.
 
-Aditya's teaching philosophy treats cybersecurity as a practical combat discipline. Students are challenged with real-world vulnerability scenarios and CTF (Capture the Flag) exercises to build combat-ready cybersecurity skills.`
+Aditya's teaching philosophy treats cybersecurity as a practical combat discipline. Students are challenged with real-world vulnerability scenarios and CTF (Capture the Flag) exercises to build combat-ready cybersecurity skills.`,
+        image: "/trainer/Aditya-cybersecurity.webp"
       },
       {
         name: "Karan Mehta",
@@ -1822,7 +1823,7 @@ His cybersecurity program focuses heavily on realistic threat models and hands-o
 - **SIEM & Security Operations**: Deploying security information and event management systems, configuring real-time alerts, and threat hunting.
 
 Aditya's teaching philosophy treats cybersecurity as a practical combat discipline. Students are challenged with real-world vulnerability scenarios and CTF (Capture the Flag) exercises to build combat-ready cybersecurity skills.`,
-        image: "/trainer/Aditya.webp"
+        image: "/trainer/Aditya-cybersecurity.webp"
       },
       {
         name: "Ankit Fadia",
