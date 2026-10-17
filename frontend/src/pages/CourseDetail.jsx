@@ -24,6 +24,8 @@ import CoursePlacementStats from "../components/CoursePlacementStats";
 import CourseProjects from "../components/CourseProjects";
 import CourseFAQ from "../components/CourseFAQ";
 import { API_ROOT } from "../lib/apiConfig";
+import MathCaptcha, { useMathCaptcha } from "../components/common/MathCaptcha";
+import PhoneInputWithCountry, { validatePhone } from "../components/common/PhoneInputWithCountry";
 
 const API = API_ROOT;
 
@@ -206,9 +208,19 @@ export default function CourseDetail() {
   const [brochureOpen, setBrochureOpen] = useState(false);
   const [demoPopupOpen, setDemoPopupOpen] = useState(false);
   const [demoForm, setDemoForm] = useState({ name: "", phone: "", course_interested: slug || "", branch: slug.endsWith('-noida') ? "Nexxtechs Noida" : "Nexxtechs Delhi" });
+  const [demoCountryCode, setDemoCountryCode] = useState("+91");
   const [demoLoading, setDemoLoading] = useState(false);
   const [demoSubmitted, setDemoSubmitted] = useState(false);
   const [demoError, setDemoError] = useState("");
+
+  const {
+    problem: mathProblem,
+    userAnswer: mathAnswer,
+    setUserAnswer: setMathAnswer,
+    error: mathError,
+    refreshProblem: refreshMathProblem,
+    validateCaptcha,
+  } = useMathCaptcha();
 
   const isNoida = slug.endsWith('-noida');
   const baseSlug = isNoida ? slug.replace('-noida', '') : slug;
@@ -244,9 +256,10 @@ export default function CourseDetail() {
     setDemoSubmitted(false);
     setDemoForm({ name: "", phone: "", course_interested: (isNoida ? `${newStaticCourse?.title} in Noida` : newStaticCourse?.title) || "", branch: isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi" });
     
+    // Popup form after 15 seconds
     const timer = setTimeout(() => {
       setDemoPopupOpen(true);
-    }, 1500);
+    }, 15000);
     
     return () => clearTimeout(timer);
   }, [slug, isNoida, baseSlug]);
@@ -254,24 +267,34 @@ export default function CourseDetail() {
   const handleDemoSubmit = async (e) => {
     e.preventDefault();
     if (!demoForm.name || !demoForm.phone) {
-      setDemoError("Please fill all fields");
+      setDemoError("Please fill all required fields");
       return;
     }
     if (!/^[A-Za-z\s]+$/.test(demoForm.name)) {
       setDemoError("Name should only contain letters");
       return;
     }
-    if (!/^\d+$/.test(demoForm.phone)) {
-      setDemoError("Phone number should only contain numbers");
+
+    // Phone validation according to country / postal dial code
+    const phoneVal = validatePhone(demoForm.phone, demoCountryCode);
+    if (!phoneVal.isValid) {
+      setDemoError(phoneVal.error);
       return;
     }
+
+    // Math captcha validation (client-side only, not stored in DB)
+    if (!validateCaptcha()) {
+      return;
+    }
+
     setDemoError("");
     setDemoLoading(true);
     try {
-      const payload = { ...demoForm, branch: `${demoForm.branch} | Page: ${window.location.pathname}` };
+      const payload = { ...demoForm, phone: phoneVal.cleanPhone, branch: `${demoForm.branch} | Page: ${window.location.pathname}` };
       const response = await axios.post(`${API}/enquiry`, payload);
       if (response.status === 201 || response.status === 200) {
         setDemoSubmitted(true);
+        refreshMathProblem();
       } else {
         throw new Error("Backend storage failed");
       }
@@ -753,16 +776,12 @@ export default function CourseDetail() {
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-2">Phone Number</label>
-                <Input
-                  type="tel"
-                  placeholder="Enter your mobile number"
-                  value={demoForm.phone}
-                  onChange={(e) => setDemoForm({ ...demoForm, phone: e.target.value })}
-                  className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20"
-                />
-              </div>
+              <PhoneInputWithCountry
+                phone={demoForm.phone}
+                onChangePhone={(val) => setDemoForm({ ...demoForm, phone: val })}
+                countryCode={demoCountryCode}
+                onChangeCountryCode={setDemoCountryCode}
+              />
 
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-2">Branch</label>
@@ -779,6 +798,15 @@ export default function CourseDetail() {
                   </SelectContent>
                 </Select>
               </div>
+
+              {/* Random math sum question - mandatory but not stored in DB */}
+              <MathCaptcha
+                problem={mathProblem}
+                value={mathAnswer}
+                onChange={setMathAnswer}
+                error={mathError}
+                onRefresh={refreshMathProblem}
+              />
 
               {demoError && <p className="text-red-500 text-xs font-medium mt-1">{demoError}</p>}
               {demoSubmitted && demoError && <p className="text-[#84CC16] text-xs font-medium mt-1">Request successfully redirected.</p>}

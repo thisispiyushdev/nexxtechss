@@ -11,6 +11,8 @@ import PageTransition from "@/components/PageTransition";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { API_ROOT } from "@/lib/apiConfig";
+import MathCaptcha, { useMathCaptcha } from "@/components/common/MathCaptcha";
+import PhoneInputWithCountry, { validatePhone } from "@/components/common/PhoneInputWithCountry";
 
 const heroImages = [
   "/servicepage/h1.webp",
@@ -309,8 +311,19 @@ const ServicesPage = () => {
     service: SERVICE_OPTIONS[0],
     message: ''
   });
+  const [countryCode, setCountryCode] = useState("+91");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const {
+    problem: mathProblem,
+    userAnswer: mathAnswer,
+    setUserAnswer: setMathAnswer,
+    error: mathError,
+    refreshProblem: refreshMathProblem,
+    validateCaptcha,
+  } = useMathCaptcha();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -331,12 +344,35 @@ const ServicesPage = () => {
 
   const handleEnquirySubmit = async (e) => {
     e.preventDefault();
+    if (!enquiryForm.name || !enquiryForm.phone || !enquiryForm.email) {
+      setError("Please fill all required fields");
+      return;
+    }
+
+    if (!/^[A-Za-z\s]+$/.test(enquiryForm.name)) {
+      setError("Name should only contain letters");
+      return;
+    }
+
+    // Phone validation according to country / postal dial code
+    const phoneVal = validatePhone(enquiryForm.phone, countryCode);
+    if (!phoneVal.isValid) {
+      setError(phoneVal.error);
+      return;
+    }
+
+    // Math captcha validation (client-side only, not stored in DB)
+    if (!validateCaptcha()) {
+      return;
+    }
+
+    setError("");
     setLoading(true);
 
     try {
       await axios.post(`${API_ROOT}/service-enquiry`, {
         name: enquiryForm.name,
-        phone: enquiryForm.phone,
+        phone: phoneVal.cleanPhone,
         email: enquiryForm.email,
         service_interested: enquiryForm.service,
         message: enquiryForm.message,
@@ -350,10 +386,11 @@ const ServicesPage = () => {
     }
 
     const phoneNum = "917987059430";
-    const text = `Hello Nexxtechs Team,%0A%0AI have a *Service Enquiry* from Services Page:%0A%0A*Name:* ${enquiryForm.name}%0A*Phone:* ${enquiryForm.phone}%0A*Email:* ${enquiryForm.email}%0A*Service Interested:* ${enquiryForm.service}%0A*Requirements:* ${enquiryForm.message || 'N/A'}`;
+    const text = `Hello Nexxtechs Team,%0A%0AI have a *Service Enquiry* from Services Page:%0A%0A*Name:* ${enquiryForm.name}%0A*Phone:* ${phoneVal.fullPhone}%0A*Email:* ${enquiryForm.email}%0A*Service Interested:* ${enquiryForm.service}%0A*Requirements:* ${enquiryForm.message || 'N/A'}`;
     
     window.open(`https://wa.me/${phoneNum}?text=${text}`, '_blank');
     setSubmitted(true);
+    refreshMathProblem();
   };
 
   const handleQuickInquiryClick = (serviceTitle) => {
@@ -805,17 +842,14 @@ const ServicesPage = () => {
                   {/* PHONE & EMAIL GRID */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono font-bold text-gray-700 dark:text-slate-300 mb-1.5 uppercase">
-                        PHONE / WHATSAPP NUMBER *
-                      </label>
-                      <input
-                        type="tel"
-                        name="phone"
+                      <PhoneInputWithCountry
+                        label="PHONE / WHATSAPP NUMBER *"
+                        countryCode={countryCode}
+                        onCountryCodeChange={(code) => setCountryCode(code)}
+                        phoneNumber={enquiryForm.phone}
+                        onPhoneNumberChange={(num) => setEnquiryForm({ ...enquiryForm, phone: num })}
                         required
-                        value={enquiryForm.phone}
-                        onChange={handleEnquiryChange}
-                        placeholder="+91 7987059430"
-                        className="w-full bg-gray-50 dark:bg-[#070C17] border border-gray-300 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all"
+                        className="bg-gray-50 dark:bg-[#070C17] border-gray-300 dark:border-slate-700"
                       />
                     </div>
 
@@ -868,6 +902,21 @@ const ServicesPage = () => {
                       className="w-full bg-gray-50 dark:bg-[#070C17] border border-gray-300 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all resize-none"
                     ></textarea>
                   </div>
+
+                  {/* MANDATORY MATH CAPTCHA QUESTION */}
+                  <MathCaptcha
+                    problem={mathProblem}
+                    userAnswer={mathAnswer}
+                    onAnswerChange={(val) => setMathAnswer(val)}
+                    onRefresh={refreshMathProblem}
+                    error={mathError}
+                  />
+
+                  {error && (
+                    <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-500 text-xs font-medium text-center">
+                      {error}
+                    </div>
+                  )}
 
                   {/* SUBMIT BUTTON */}
                   <button

@@ -1,6 +1,13 @@
+User-agent: Googlebot-Image
+Allow: /
+Allow: /favicon*
+Allow: /*.png
+Allow: /*.ico
+
 User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /admin/dashboard
 
 Sitemap: https://www.nexxtechs.com/sitemap.xml
+

@@ -6,6 +6,8 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import axios from "axios";
 import { API_ROOT } from "../lib/apiConfig";
+import MathCaptcha, { useMathCaptcha } from "./common/MathCaptcha";
+import PhoneInputWithCountry, { validatePhone } from "./common/PhoneInputWithCountry";
 
 const API = API_ROOT;
 
@@ -13,15 +15,23 @@ export default function BrochureModal({ isOpen, onClose, courseName, brochureUrl
   const location = useLocation();
   const isNoida = location.pathname.includes('noida');
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
+  const [countryCode, setCountryCode] = useState("+91");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-
+  const {
+    problem: mathProblem,
+    userAnswer: mathAnswer,
+    setUserAnswer: setMathAnswer,
+    error: mathError,
+    refreshProblem: refreshMathProblem,
+    validateCaptcha,
+  } = useMathCaptcha();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.phone || !form.email) {
-      setError("Please fill all fields");
+      setError("Please fill all required fields");
       return;
     }
 
@@ -31,9 +41,10 @@ export default function BrochureModal({ isOpen, onClose, courseName, brochureUrl
       return;
     }
 
-    // Phone validation: Only numbers
-    if (!/^\d+$/.test(form.phone)) {
-      setError("Phone number should only contain numbers");
+    // Phone validation according to country / postal dial code
+    const phoneVal = validatePhone(form.phone, countryCode);
+    if (!phoneVal.isValid) {
+      setError(phoneVal.error);
       return;
     }
 
@@ -41,12 +52,20 @@ export default function BrochureModal({ isOpen, onClose, courseName, brochureUrl
       setError("Please enter a valid email");
       return;
     }
+
+    // Math captcha validation (client-side only, not stored in DB)
+    if (!validateCaptcha()) {
+      return;
+    }
+
     setError("");
     setLoading(true);
     try {
       // Attempt to store data in Supabase backend
       const response = await axios.post(`${API}/brochure-download`, {
-        ...form,
+        name: form.name,
+        phone: phoneVal.cleanPhone,
+        email: form.email,
         course: courseName,
         branch: isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi"
       });
@@ -66,7 +85,7 @@ export default function BrochureModal({ isOpen, onClose, courseName, brochureUrl
       
       // Prepare WhatsApp URL and redirect
       const branchName = isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi";
-      const msg = `Brochure Download Lead:%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0AEmail: ${encodeURIComponent(form.email)}%0ACourse: ${encodeURIComponent(courseName)}%0ABranch: ${encodeURIComponent(branchName)}`;
+      const msg = `Brochure Download Lead:%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}%0AEmail: ${encodeURIComponent(form.email)}%0ACourse: ${encodeURIComponent(courseName)}%0ABranch: ${encodeURIComponent(branchName)}`;
       const waPhone = isNoida ? "917987059430" : "919217179762";
       const waUrl = `https://wa.me/${waPhone}?text=${msg}`;
       
@@ -141,17 +160,12 @@ export default function BrochureModal({ isOpen, onClose, courseName, brochureUrl
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-[#111827] dark:text-gray-300 mb-1.5">Phone Number</label>
-              <Input
-                type="tel"
-                placeholder="Enter your phone number"
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className="rounded-xl border-gray-200/80 dark:border-gray-700 bg-[#F9FAFB]/80 dark:bg-[#0f1117]/80 text-[#111827] dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all"
-                data-testid="brochure-phone-input"
-              />
-            </div>
+            <PhoneInputWithCountry
+              phone={form.phone}
+              onChangePhone={(val) => setForm({ ...form, phone: val })}
+              countryCode={countryCode}
+              onChangeCountryCode={setCountryCode}
+            />
 
             <div>
               <label className="block text-sm font-medium text-[#111827] dark:text-gray-300 mb-1.5">Email Address</label>
@@ -164,6 +178,15 @@ export default function BrochureModal({ isOpen, onClose, courseName, brochureUrl
                 data-testid="brochure-email-input"
               />
             </div>
+
+            {/* Random math sum question - mandatory but not stored in DB */}
+            <MathCaptcha
+              problem={mathProblem}
+              value={mathAnswer}
+              onChange={setMathAnswer}
+              error={mathError}
+              onRefresh={refreshMathProblem}
+            />
 
             {error && (
               <p className="text-red-500 text-sm" data-testid="brochure-error">{error}</p>

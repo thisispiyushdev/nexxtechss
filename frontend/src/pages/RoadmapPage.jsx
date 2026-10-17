@@ -17,6 +17,8 @@ import axios from "axios";
 import SEOHead from "../components/SEOHead";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { API_ROOT } from "../lib/apiConfig";
+import MathCaptcha, { useMathCaptcha } from "../components/common/MathCaptcha";
+import PhoneInputWithCountry, { validatePhone } from "../components/common/PhoneInputWithCountry";
 
 const API = API_ROOT;
 
@@ -51,6 +53,7 @@ const uniformPalette = {
 export default function RoadmapPage() {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [demoPopupOpen, setDemoPopupOpen] = useState(false);
+  const [countryCode, setCountryCode] = useState("+91");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -63,10 +66,20 @@ export default function RoadmapPage() {
   const location = useLocation();
   const isNoida = location.pathname.includes('noida');
 
+  const {
+    problem: mathProblem,
+    userAnswer: mathAnswer,
+    setUserAnswer: setMathAnswer,
+    error: mathError,
+    refreshProblem: refreshMathProblem,
+    validateCaptcha,
+  } = useMathCaptcha();
+
   useEffect(() => {
+    // Popup form after 15 seconds
     const timer = setTimeout(() => {
       setDemoPopupOpen(true);
-    }, 1500);
+    }, 15000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -90,7 +103,7 @@ export default function RoadmapPage() {
   const handleEnquirySubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.phone || !form.course_interested) {
-      setError("Please fill all fields");
+      setError("Please fill all required fields");
       return;
     }
 
@@ -99,8 +112,15 @@ export default function RoadmapPage() {
       return;
     }
 
-    if (!/^\d+$/.test(form.phone)) {
-      setError("Phone number should only contain numbers");
+    // Phone validation according to country / postal dial code
+    const phoneVal = validatePhone(form.phone, countryCode);
+    if (!phoneVal.isValid) {
+      setError(phoneVal.error);
+      return;
+    }
+
+    // Math captcha validation (client-side only, not stored in DB)
+    if (!validateCaptcha()) {
       return;
     }
 
@@ -108,11 +128,16 @@ export default function RoadmapPage() {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${API}/enquiry`, form);
+      const response = await axios.post(`${API}/enquiry`, {
+        ...form,
+        phone: phoneVal.cleanPhone,
+        branch: isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi"
+      });
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
+        refreshMathProblem();
         const phoneNo = isNoida ? "917987059430" : "919217179762";
-        const msg = `New Roadmap Discussion Request (Blogs Page):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}`;
+        const msg = `New Roadmap Discussion Request (Blogs Page):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}%0ACourse: ${encodeURIComponent(form.course_interested)}`;
         window.open(`https://wa.me/${phoneNo}?text=${msg}`, "_blank");
       } else {
         throw new Error("Backend storage failed");
@@ -120,7 +145,7 @@ export default function RoadmapPage() {
     } catch (err) {
       console.error("Backend error:", err);
       const phoneNo = isNoida ? "917987059430" : "919217179762";
-      const msg = `New Roadmap Discussion Request (Blogs Page Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}`;
+      const msg = `New Roadmap Discussion Request (Blogs Page Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}%0ACourse: ${encodeURIComponent(form.course_interested)}`;
       window.open(`https://wa.me/${phoneNo}?text=${msg}`, "_blank");
       setError("Note: Enquiry submitted via WhatsApp only.");
       setSubmitted(true);
@@ -736,17 +761,12 @@ export default function RoadmapPage() {
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-2">Phone Number</label>
-                <Input
-                  type="tel"
-                  required
-                  placeholder="Enter your mobile number"
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20"
-                />
-              </div>
+              <PhoneInputWithCountry
+                phone={form.phone}
+                onChangePhone={(val) => setForm({ ...form, phone: val })}
+                countryCode={countryCode}
+                onChangeCountryCode={setCountryCode}
+              />
 
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-2">Course Interested In</label>
@@ -766,6 +786,15 @@ export default function RoadmapPage() {
                   </SelectContent>
                 </Select>
               </div>
+
+              {/* Random math sum question - mandatory but not stored in DB */}
+              <MathCaptcha
+                problem={mathProblem}
+                value={mathAnswer}
+                onChange={setMathAnswer}
+                error={mathError}
+                onRefresh={refreshMathProblem}
+              />
 
               {error && <p className="text-red-500 text-xs font-medium mt-1">{error}</p>}
               {submitted && error && <p className="text-[#84CC16] text-xs font-medium mt-1">Request captured, redirecting...</p>}

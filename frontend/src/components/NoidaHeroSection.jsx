@@ -7,6 +7,8 @@ import {
 } from "../components/ui/select";
 import axios from "axios";
 import { API_ROOT } from "../lib/apiConfig";
+import MathCaptcha, { useMathCaptcha } from "./common/MathCaptcha";
+import PhoneInputWithCountry, { validatePhone } from "./common/PhoneInputWithCountry";
 
 const API = API_ROOT;
 
@@ -35,26 +37,59 @@ export default function NoidaHeroSection() {
   const containerRef = useRef(null);
   const statsRef = useRef(null);
   const gsapLoaded = useRef(false);
+  const [countryCode, setCountryCode] = useState("+91");
   const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: "Nexxtechs Noida" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
+  const {
+    problem: mathProblem,
+    userAnswer: mathAnswer,
+    setUserAnswer: setMathAnswer,
+    error: mathError,
+    refreshProblem: refreshMathProblem,
+    validateCaptcha,
+  } = useMathCaptcha();
+
   const handleEnquirySubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.phone || !form.course_interested || !form.branch) { setError("Please fill all fields"); return; }
-    setError(""); setLoading(true);
+    if (!form.name || !form.phone || !form.course_interested || !form.branch) {
+      setError("Please fill all required fields");
+      return;
+    }
+
+    // Phone validation according to country / postal dial code
+    const phoneVal = validatePhone(form.phone, countryCode);
+    if (!phoneVal.isValid) {
+      setError(phoneVal.error);
+      return;
+    }
+
+    // Math captcha validation
+    if (!validateCaptcha()) {
+      return;
+    }
+
+    setError("");
+    setLoading(true);
     try {
-      const payload = { ...form, branch: `${form.branch} | Page: ${window.location.pathname}` };
+      const payload = { ...form, phone: phoneVal.cleanPhone, branch: `${form.branch} | Page: ${window.location.pathname}` };
       const response = await axios.post(`${API}/enquiry`, payload);
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
         setForm({ name: "", phone: "", course_interested: "", branch: "Nexxtechs Noida" });
-      } else { throw new Error("Backend storage failed"); }
+        refreshMathProblem();
+      } else {
+        throw new Error("Backend storage failed");
+      }
     } catch (err) {
       console.error("Backend error:", err);
-      setError("Failed to submit enquiry. Please try again."); setSubmitted(true);
-    } finally { setLoading(false); }
+      setError("Failed to submit enquiry. Please try again.");
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const scrollTo = (id) => { const el = document.querySelector(id); if (el) el.scrollIntoView({ behavior: "smooth" }); };
@@ -165,8 +200,22 @@ export default function NoidaHeroSection() {
                     <p className="text-sm text-[#4B5563] dark:text-gray-400">Tell us what you want to learn, and our tech counselors will guide you.</p>
                   </div>
                   <form onSubmit={handleEnquirySubmit} className="space-y-4">
-                    <div><Input type="text" placeholder="Full Name" aria-label="Full Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]" /></div>
-                    <div><Input type="tel" placeholder="Phone Number" aria-label="Phone Number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]" /></div>
+                    <div>
+                      <Input
+                        type="text"
+                        placeholder="Full Name"
+                        aria-label="Full Name"
+                        value={form.name}
+                        onChange={(e) => setForm({ ...form, name: e.target.value })}
+                        className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]"
+                      />
+                    </div>
+                    <PhoneInputWithCountry
+                      phone={form.phone}
+                      onChangePhone={(val) => setForm({ ...form, phone: val })}
+                      countryCode={countryCode}
+                      onChangeCountryCode={setCountryCode}
+                    />
                     <div>
                       <Select value={form.course_interested} onValueChange={(val) => setForm({ ...form, course_interested: val })}>
                         <SelectTrigger aria-label="Course Interested" title="Course Interested" className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16]">
@@ -189,6 +238,16 @@ export default function NoidaHeroSection() {
                         </SelectContent>
                       </Select>
                     </div>
+
+                    {/* Random math sum question - mandatory but not stored in DB */}
+                    <MathCaptcha
+                      problem={mathProblem}
+                      value={mathAnswer}
+                      onChange={setMathAnswer}
+                      error={mathError}
+                      onRefresh={refreshMathProblem}
+                    />
+
                     {error && <p className="text-red-500 text-xs font-medium">{error}</p>}
                     {submitted && error && <p className="text-[#84CC16] text-xs font-medium">Request redirected to WhatsApp.</p>}
                     <Button type="submit" disabled={loading} className="w-full bg-[#84CC16] text-black font-bold rounded-xl py-6 mt-2 text-base hover:bg-[#65A30D] transition-all duration-300">

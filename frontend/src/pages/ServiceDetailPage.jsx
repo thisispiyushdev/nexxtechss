@@ -11,6 +11,8 @@ import PageTransition from "@/components/PageTransition";
 import { servicesData, serviceAliases } from '@/data/servicesData';
 import axios from "axios";
 import { API_ROOT } from "@/lib/apiConfig";
+import MathCaptcha, { useMathCaptcha } from "@/components/common/MathCaptcha";
+import PhoneInputWithCountry, { validatePhone } from "@/components/common/PhoneInputWithCountry";
 
 const categoryIcons = {
   "AI & Automation": <Cpu className="w-5 h-5 text-[#84CC16]" />,
@@ -54,9 +56,20 @@ const ServiceDetailPage = () => {
     phone: '',
     message: ''
   });
+  const [countryCode, setCountryCode] = useState("+91");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
+
+  const {
+    problem: mathProblem,
+    userAnswer: mathAnswer,
+    setUserAnswer: setMathAnswer,
+    error: mathError,
+    refreshProblem: refreshMathProblem,
+    validateCaptcha,
+  } = useMathCaptcha();
 
   // Normalize slug using alias if present
   const resolvedSlug = serviceAliases[serviceId] || serviceId;
@@ -72,12 +85,35 @@ const ServiceDetailPage = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.name || !formData.email || !formData.phone) {
+      setError("Please fill all required fields");
+      return;
+    }
+
+    if (!/^[A-Za-z\s]+$/.test(formData.name)) {
+      setError("Name should only contain letters");
+      return;
+    }
+
+    // Phone validation according to country / postal dial code
+    const phoneVal = validatePhone(formData.phone, countryCode);
+    if (!phoneVal.isValid) {
+      setError(phoneVal.error);
+      return;
+    }
+
+    // Math captcha validation (client-side only, not stored in DB)
+    if (!validateCaptcha()) {
+      return;
+    }
+
+    setError("");
     setLoading(true);
 
     try {
       await axios.post(`${API_ROOT}/service-enquiry`, {
         name: formData.name,
-        phone: formData.phone,
+        phone: phoneVal.cleanPhone,
         email: formData.email,
         service_interested: service.title,
         message: formData.message,
@@ -91,9 +127,10 @@ const ServiceDetailPage = () => {
     }
 
     const phone = "+917987059430";
-    const text = `Hello Nexxtechs Team,%0A%0AI am interested in your *${service.title}* service.%0A%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*Phone:* ${formData.phone}%0A*Requirements:* ${formData.message}`;
+    const text = `Hello Nexxtechs Team,%0A%0AI am interested in your *${service.title}* service.%0A%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*Phone:* ${phoneVal.fullPhone}%0A*Requirements:* ${formData.message}`;
     window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${text}`, '_blank');
     setSubmitted(true);
+    refreshMathProblem();
   };
 
   // Fallback title formatter
@@ -243,32 +280,29 @@ const ServiceDetailPage = () => {
                       />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-xs font-mono font-semibold text-gray-700 dark:text-slate-300 mb-1">EMAIL ADDRESS *</label>
-                        <input
-                          type="email"
-                          name="email"
-                          required
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          placeholder="john@company.com"
-                          className="w-full bg-gray-50 dark:bg-[#070C17] border border-gray-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all"
-                        />
-                      </div>
+                    <div>
+                      <label className="block text-xs font-mono font-semibold text-gray-700 dark:text-slate-300 mb-1">EMAIL ADDRESS *</label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="john@company.com"
+                        className="w-full bg-gray-50 dark:bg-[#070C17] border border-gray-300 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all"
+                      />
+                    </div>
 
-                      <div>
-                        <label className="block text-xs font-mono font-semibold text-gray-700 dark:text-slate-300 mb-1">PHONE / WHATSAPP *</label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          required
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          placeholder="+91 7987059430"
-                          className="w-full bg-gray-50 dark:bg-[#070C17] border border-gray-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all"
-                        />
-                      </div>
+                    <div>
+                      <PhoneInputWithCountry
+                        label="PHONE / WHATSAPP *"
+                        countryCode={countryCode}
+                        onCountryCodeChange={(code) => setCountryCode(code)}
+                        phoneNumber={formData.phone}
+                        onPhoneNumberChange={(num) => setFormData({ ...formData, phone: num })}
+                        required
+                        className="bg-gray-50 dark:bg-[#070C17] border-gray-300 dark:border-slate-700"
+                      />
                     </div>
 
                     <div>
@@ -282,6 +316,21 @@ const ServiceDetailPage = () => {
                         className="w-full bg-gray-50 dark:bg-[#070C17] border border-gray-300 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all resize-none"
                       ></textarea>
                     </div>
+
+                    {/* MANDATORY MATH CAPTCHA QUESTION */}
+                    <MathCaptcha
+                      problem={mathProblem}
+                      userAnswer={mathAnswer}
+                      onAnswerChange={(val) => setMathAnswer(val)}
+                      onRefresh={refreshMathProblem}
+                      error={mathError}
+                    />
+
+                    {error && (
+                      <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-500 text-xs font-medium text-center">
+                        {error}
+                      </div>
+                    )}
 
                     <button
                       type="submit"

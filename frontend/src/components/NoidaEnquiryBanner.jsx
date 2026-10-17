@@ -11,6 +11,8 @@ import {
 } from "../components/ui/select";
 import axios from "axios";
 import { API_ROOT } from "../lib/apiConfig";
+import MathCaptcha, { useMathCaptcha } from "./common/MathCaptcha";
+import PhoneInputWithCountry, { validatePhone } from "./common/PhoneInputWithCountry";
 
 const API = API_ROOT;
 
@@ -46,11 +48,21 @@ export default function NoidaEnquiryBanner({
   compact = false
 }) {
   const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: defaultBranch });
+  const [countryCode, setCountryCode] = useState("+91");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [banners, setBanners] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const {
+    problem: mathProblem,
+    userAnswer: mathAnswer,
+    setUserAnswer: setMathAnswer,
+    error: mathError,
+    refreshProblem: refreshMathProblem,
+    validateCaptcha,
+  } = useMathCaptcha();
 
   useEffect(() => {
     const fetchBanners = async () => {
@@ -80,7 +92,7 @@ export default function NoidaEnquiryBanner({
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.phone || !form.course_interested || !form.branch) {
-      setError("Please fill all fields");
+      setError("Please fill all required fields");
       return;
     }
     
@@ -90,9 +102,15 @@ export default function NoidaEnquiryBanner({
       return;
     }
 
-    // Phone validation: Only numbers
-    if (!/^\d+$/.test(form.phone)) {
-      setError("Phone number should only contain numbers");
+    // Phone validation according to country / postal dial code (exactly 10 digits for India)
+    const phoneVal = validatePhone(form.phone, countryCode);
+    if (!phoneVal.isValid) {
+      setError(phoneVal.error);
+      return;
+    }
+
+    // Mandatory Math Captcha validation (client-side only, not stored in DB)
+    if (!validateCaptcha()) {
       return;
     }
 
@@ -100,11 +118,15 @@ export default function NoidaEnquiryBanner({
     setLoading(true);
     try {
       // Attempt to store data in Supabase backend
-      const response = await axios.post(`${API}/enquiry`, form);
+      const response = await axios.post(`${API}/enquiry`, {
+        ...form,
+        phone: phoneVal.cleanPhone,
+      });
       
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
         setForm({ name: "", phone: "", course_interested: "", branch: defaultBranch });
+        refreshMathProblem();
       } else {
         throw new Error("Backend storage failed");
       }
@@ -216,17 +238,12 @@ export default function NoidaEnquiryBanner({
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#4B5563] dark:text-gray-400 mb-2.5">Phone Number</label>
-                    <Input
-                      type="tel"
-                      placeholder="Enter your phone number"
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      className="w-full rounded-2xl border-gray-200 bg-gray-50 dark:bg-[#1A1A1A] dark:border-transparent dark:text-white px-5 py-4 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all text-base"
-                      data-testid="enquiry-phone-input"
-                    />
-                  </div>
+                  <PhoneInputWithCountry
+                    phone={form.phone}
+                    onChangePhone={(val) => setForm({ ...form, phone: val })}
+                    countryCode={countryCode}
+                    onChangeCountryCode={setCountryCode}
+                  />
 
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-[#4B5563] dark:text-gray-400 mb-2.5">Course Interested</label>
@@ -267,6 +284,15 @@ export default function NoidaEnquiryBanner({
                       </SelectContent>
                     </Select>
                   </div>
+
+                  {/* Random math sum question - mandatory but not stored in DB */}
+                  <MathCaptcha
+                    problem={mathProblem}
+                    value={mathAnswer}
+                    onChange={setMathAnswer}
+                    error={mathError}
+                    onRefresh={refreshMathProblem}
+                  />
 
                   {error && (
                     <p className="text-red-500 text-sm font-medium bg-red-500/10 p-3 rounded-lg" data-testid="enquiry-error">{error}</p>

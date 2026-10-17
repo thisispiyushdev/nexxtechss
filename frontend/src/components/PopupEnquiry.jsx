@@ -19,6 +19,8 @@ import {
 } from "../components/ui/dialog";
 import axios from "axios";
 import { API_ROOT } from "../lib/apiConfig";
+import MathCaptcha, { useMathCaptcha } from "./common/MathCaptcha";
+import PhoneInputWithCountry, { validatePhone } from "./common/PhoneInputWithCountry";
 
 const API = API_ROOT;
 
@@ -62,6 +64,7 @@ export default function PopupEnquiry() {
   const location = useLocation();
   const isNoida = location.pathname.includes('noida');
   const [open, setOpen] = useState(false);
+  const [countryCode, setCountryCode] = useState("+91");
   const [form, setForm] = useState({ name: "", phone: "", course_interested: "", branch: isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -70,12 +73,23 @@ export default function PopupEnquiry() {
   const [isWhatsApp, setIsWhatsApp] = useState(false);
   const [enquiryType, setEnquiryType] = useState('course'); // 'course' or 'service'
 
+  const {
+    problem: mathProblem,
+    userAnswer: mathAnswer,
+    setUserAnswer: setMathAnswer,
+    error: mathError,
+    refreshProblem: refreshMathProblem,
+    validateCaptcha,
+  } = useMathCaptcha();
+
   useEffect(() => {
-    // Show popup after 8 seconds instead of 500ms to avoid blocking initial paint
-    const timer = setTimeout(() => {
-      if(window.location.pathname.includes('/services')) return; // Avoid auto popup on services page
-      setOpen(true);
-    }, 8000);
+    if (submitted) return;
+
+    // Show popup every 15 seconds if not closed and not on /services
+    const interval = setInterval(() => {
+      if (window.location.pathname.includes('/services')) return;
+      setOpen((prev) => (submitted ? false : true));
+    }, 15000);
 
     const handleOpenPopup = (e) => {
       if (e && e.detail) {
@@ -95,15 +109,15 @@ export default function PopupEnquiry() {
     window.addEventListener("openPopupEnquiry", handleOpenPopup);
 
     return () => {
-      clearTimeout(timer);
+      clearInterval(interval);
       window.removeEventListener("openPopupEnquiry", handleOpenPopup);
     };
-  }, []);
+  }, [submitted]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.phone || !form.course_interested || (enquiryType !== 'service' && !form.branch)) {
-      setError("Please fill all fields");
+      setError("Please fill all required fields");
       return;
     }
 
@@ -113,9 +127,15 @@ export default function PopupEnquiry() {
       return;
     }
 
-    // Phone validation: Only numbers
-    if (!/^\d+$/.test(form.phone)) {
-      setError("Phone number should only contain numbers");
+    // Phone validation according to country / postal dial code (exactly 10 digits for India)
+    const phoneVal = validatePhone(form.phone, countryCode);
+    if (!phoneVal.isValid) {
+      setError(phoneVal.error);
+      return;
+    }
+
+    // Mandatory Math Captcha validation (client-side only, not stored in DB)
+    if (!validateCaptcha()) {
       return;
     }
 
@@ -126,13 +146,13 @@ export default function PopupEnquiry() {
       const payload = enquiryType === 'service'
         ? {
             name: form.name,
-            phone: form.phone,
+            phone: phoneVal.cleanPhone,
             email: form.email || `${form.name.toLowerCase().replace(/\s+/g, '')}@lead.com`,
             service_interested: form.course_interested,
             branch: `Service Page: ${window.location.pathname}`,
             source_url: window.location.pathname
           }
-        : { ...form, branch: `${form.branch} | Page: ${window.location.pathname}` };
+        : { ...form, phone: phoneVal.cleanPhone, branch: `${form.branch} | Page: ${window.location.pathname}` };
         
       const response = await axios.post(endpoint, payload);
       if (response.status === 201 || response.status === 200) {
@@ -140,8 +160,8 @@ export default function PopupEnquiry() {
         if (isWhatsApp || enquiryType === 'service') {
           const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
           const msg = enquiryType === 'service' 
-            ? `New Service Lead:%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0AService: ${encodeURIComponent(form.course_interested)}${offerText}`
-            : `New Enquiry Lead (Popup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
+            ? `New Service Lead:%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}%0AService: ${encodeURIComponent(form.course_interested)}${offerText}`
+            : `New Enquiry Lead (Popup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
           const waPhone = enquiryType === 'service' ? "917987059430" : (isNoida ? "917987059430" : "919217179762");
           window.open(`https://wa.me/${waPhone}?text=${msg}`, "_blank");
         }
@@ -153,8 +173,8 @@ export default function PopupEnquiry() {
       if (isWhatsApp || enquiryType === 'service') {
         const offerText = bannerTitle ? `%0AOffer: ${encodeURIComponent(bannerTitle)}` : "";
         const msg = enquiryType === 'service' 
-            ? `New Service Lead (Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0AService: ${encodeURIComponent(form.course_interested)}${offerText}`
-            : `New Enquiry Lead (Popup Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
+            ? `New Service Lead (Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}%0AService: ${encodeURIComponent(form.course_interested)}${offerText}`
+            : `New Enquiry Lead (Popup Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
         const waPhone = enquiryType === 'service' ? "917987059430" : (isNoida ? "917987059430" : "919217179762");
         window.open(`https://wa.me/${waPhone}?text=${msg}`, "_blank");
         setError("Note: Enquiry submitted via WhatsApp only.");
@@ -215,16 +235,12 @@ export default function PopupEnquiry() {
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-2">Phone Number</label>
-              <Input
-                type="tel"
-                placeholder="Enter your mobile number"
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20"
-              />
-            </div>
+            <PhoneInputWithCountry
+              phone={form.phone}
+              onChangePhone={(val) => setForm({ ...form, phone: val })}
+              countryCode={countryCode}
+              onChangeCountryCode={setCountryCode}
+            />
 
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-2">
@@ -268,6 +284,15 @@ export default function PopupEnquiry() {
                 </Select>
               </div>
             )}
+
+            {/* Random math sum question - mandatory but not stored in DB */}
+            <MathCaptcha
+              problem={mathProblem}
+              value={mathAnswer}
+              onChange={setMathAnswer}
+              error={mathError}
+              onRefresh={refreshMathProblem}
+            />
 
             {error && <p className="text-red-500 text-xs font-medium mt-1">{error}</p>}
             {submitted && error && <p className="text-[#84CC16] text-xs font-medium mt-1">Request successfully redirected.</p>}

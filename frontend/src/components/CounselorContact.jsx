@@ -4,19 +4,31 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import axios from "axios";
 import { API_ROOT } from "../lib/apiConfig";
+import MathCaptcha, { useMathCaptcha } from "./common/MathCaptcha";
+import PhoneInputWithCountry, { validatePhone } from "./common/PhoneInputWithCountry";
 
 const API = API_ROOT;
 
 export default function CounselorContact() {
   const [form, setForm] = useState({ name: "", phone: "" });
+  const [countryCode, setCountryCode] = useState("+91");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
+  const {
+    problem: mathProblem,
+    userAnswer: mathAnswer,
+    setUserAnswer: setMathAnswer,
+    error: mathError,
+    refreshProblem: refreshMathProblem,
+    validateCaptcha,
+  } = useMathCaptcha();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.phone) {
-      setError("Please fill all fields");
+      setError("Please fill all required fields");
       return;
     }
 
@@ -26,9 +38,15 @@ export default function CounselorContact() {
       return;
     }
 
-    // Phone validation: Only numbers
-    if (!/^\d+$/.test(form.phone)) {
-      setError("Phone number should only contain numbers");
+    // Phone validation according to country / postal dial code
+    const phoneVal = validatePhone(form.phone, countryCode);
+    if (!phoneVal.isValid) {
+      setError(phoneVal.error);
+      return;
+    }
+
+    // Math captcha validation (client-side only, not stored in DB)
+    if (!validateCaptcha()) {
       return;
     }
 
@@ -36,22 +54,23 @@ export default function CounselorContact() {
     setLoading(true);
     
     // We send 'Career Counseling' as the course interested
-    const payload = { ...form, course_interested: "Career Counseling" };
+    const payload = { ...form, phone: phoneVal.cleanPhone, course_interested: "Career Counseling", branch: "Nexxtechs Delhi" };
     
     try {
       const response = await axios.post(`${API}/enquiry`, payload);
       
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
-        const msg = `New Career Counseling Lead:%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}`;
+        const msg = `New Career Counseling Lead:%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}`;
         window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
         setForm({ name: "", phone: "" });
+        refreshMathProblem();
       } else {
         throw new Error("Backend storage failed");
       }
     } catch (err) {
       console.error("Backend error:", err);
-      const msg = `New Career Counseling Lead (Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}`;
+      const msg = `New Career Counseling Lead (Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}`;
       window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
       
       setError("Note: Enquiry submitted via WhatsApp. Database storage unavailable.");
@@ -120,16 +139,21 @@ export default function CounselorContact() {
                       className="rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#1a1d27] dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20"
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-[#111827] dark:text-gray-200 mb-2">Phone Number</label>
-                    <Input
-                      type="tel"
-                      placeholder="Enter your phone number"
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      className="rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#1a1d27] dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20"
-                    />
-                  </div>
+                  <PhoneInputWithCountry
+                    phone={form.phone}
+                    onChangePhone={(val) => setForm({ ...form, phone: val })}
+                    countryCode={countryCode}
+                    onChangeCountryCode={setCountryCode}
+                  />
+
+                  {/* Random math sum question - mandatory but not stored in DB */}
+                  <MathCaptcha
+                    problem={mathProblem}
+                    value={mathAnswer}
+                    onChange={setMathAnswer}
+                    error={mathError}
+                    onRefresh={refreshMathProblem}
+                  />
                   
                   {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
                   
