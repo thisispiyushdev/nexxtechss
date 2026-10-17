@@ -117,11 +117,11 @@ export default function StudentProjects() {
           {/* Decorative background element */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#84CC16]/10 to-transparent opacity-50"></div>
           
-          <div className="relative w-full aspect-video md:aspect-[4/3] rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-[#333]">
+          <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-[#333] bg-black/30">
             <ResponsiveImage 
               src={selectedProject.url} 
               alt={selectedProject.alt} 
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
+              className="w-full h-full object-contain sm:object-cover hover:scale-105 transition-transform duration-700" 
             />
           </div>
         </div>
@@ -183,22 +183,23 @@ export default function StudentProjects() {
             <div
               key={project.title}
               onClick={() => setSelectedProject(project)}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer project-card shadow-md aspect-[4/5] sm:aspect-square md:aspect-auto"
+              className="group relative rounded-2xl overflow-hidden cursor-pointer project-card shadow-md aspect-[16/10] bg-gray-950 border border-gray-200 dark:border-white/10"
               style={{ willChange: "transform, opacity" }}
               data-testid={`project-card-${i}`}
             >
               <ResponsiveImage
                 src={project.url}
                 alt={project.alt}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                pexelsOptions={{ w: 600, h: 600, fit: 'crop' }}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               {/* Overlay */}
-              <div className="absolute inset-0 bg-[#0A0A0A]/0 group-hover:bg-[#0A0A0A]/70 transition-all duration-300 flex items-end">
-                <div className="p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <h4 className="text-white font-bold text-lg">{project.title}</h4>
-                  <p className="text-gray-300 text-sm mb-2">by {project.student}</p>
-                  <span className="text-[#84CC16] text-xs font-semibold">Click to view details</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent flex items-end p-4 sm:p-5 transition-all duration-300">
+                <div className="w-full">
+                  <h4 className="text-white font-bold text-sm sm:text-base line-clamp-1">{project.title}</h4>
+                  <div className="flex items-center justify-between mt-1 text-xs">
+                    <span className="text-gray-300 font-medium">by {project.student}</span>
+                    <span className="text-[#84CC16] font-semibold text-[11px] sm:text-xs">View details &rarr;</span>
+                  </div>
                 </div>
               </div>
             </div>

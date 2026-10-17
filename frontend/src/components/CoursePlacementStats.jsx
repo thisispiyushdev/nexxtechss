@@ -43,22 +43,22 @@ export default function CoursePlacementStats() {
         </div>
 
         {/* Highlighted Banner Box */}
-        <div className="bg-white dark:bg-[#0A0A0A] border border-gray-100 dark:border-white/10 rounded-[3rem] p-8 md:p-12 mb-16 relative overflow-hidden group shadow-2xl">
+        <div className="bg-white dark:bg-[#0A0A0A] border border-gray-100 dark:border-white/10 rounded-2xl sm:rounded-3xl md:rounded-[3rem] p-6 sm:p-8 md:p-12 mb-16 relative overflow-hidden group shadow-2xl">
           <div className="absolute inset-0 bg-gradient-to-br from-[#84CC16]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
           
           <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
             {/* Image side */}
             <div className="relative">
-              <div className="aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
+              <div className="aspect-[16/10] sm:aspect-[4/3] rounded-2xl sm:rounded-[2rem] overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl">
                 <ResponsiveImage 
-                  src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=800" 
-                  alt="Student Success" 
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                  src="/campus/campus-10.webp" 
+                  alt="Nexxtechs Student Success & Placements" 
+                  className="w-full h-full object-cover transition-all duration-700 hover:scale-105"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-[#84CC16] p-6 rounded-3xl shadow-[0_20px_40px_-10px_#84CC1660] hidden md:block transform rotate-3">
-                <div className="text-black font-black text-3xl leading-none">5000+</div>
-                <div className="text-black/70 text-[10px] font-bold uppercase tracking-widest mt-1">Students Placed</div>
+              <div className="absolute -bottom-3 -right-2 sm:-bottom-5 sm:-right-4 md:-bottom-6 md:-right-6 bg-[#84CC16] p-3 sm:p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-[0_20px_40px_-10px_#84CC1660] transform rotate-2 sm:rotate-3 z-10">
+                <div className="text-black font-black text-xl sm:text-2xl md:text-3xl leading-none">5000+</div>
+                <div className="text-black/80 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest mt-0.5 sm:mt-1">Students Placed</div>
               </div>
             </div>
 
