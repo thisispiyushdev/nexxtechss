@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { 
   ExternalLink, 
-  X, 
   ChevronLeft, 
   ChevronRight,
   Calendar,
   ArrowRight
 } from "lucide-react";
-import CampusPlaybookGallery, { PLAYBOOK_SLIDES } from "./CampusPlaybookGallery";
+import CampusPlaybookGallery from "./CampusPlaybookGallery";
 
 export const FEATURED_CAMPUS_ITEMS = [
   {
@@ -77,9 +76,6 @@ export default function OurCampusSection({ currentBranch = "all" }) {
   const [activeThumbIndex, setActiveThumbIndex] = useState(0);
   const [thumbPage, setThumbPage] = useState(0);
 
-  // Lightbox Modal state
-  const [lightboxData, setLightboxData] = useState(null); // { slides: [], index: 0 }
-
   // Determine branch-specific courses link
   const isNoida = currentBranch === "noida" || location.pathname.includes("noida");
   const coursesLink = isNoida ? "/courses-noida" : "/courses";
@@ -88,32 +84,6 @@ export default function OurCampusSection({ currentBranch = "all" }) {
   const thumbsPerPage = 4;
   const currentThumbs = FEATURED_CAMPUS_ITEMS.slice(thumbPage * thumbsPerPage, (thumbPage + 1) * thumbsPerPage);
   const activeFeatured = FEATURED_CAMPUS_ITEMS[activeThumbIndex] || FEATURED_CAMPUS_ITEMS[0];
-
-  const openLightbox = (index, slides = FEATURED_CAMPUS_ITEMS) => {
-    setLightboxData({ slides, index });
-  };
-
-  const closeLightbox = () => {
-    setLightboxData(null);
-  };
-
-  const nextLightboxPhoto = (e) => {
-    if (e) e.stopPropagation();
-    if (!lightboxData) return;
-    setLightboxData((prev) => ({
-      ...prev,
-      index: (prev.index + 1) % prev.slides.length
-    }));
-  };
-
-  const prevLightboxPhoto = (e) => {
-    if (e) e.stopPropagation();
-    if (!lightboxData) return;
-    setLightboxData((prev) => ({
-      ...prev,
-      index: (prev.index - 1 + prev.slides.length) % prev.slides.length
-    }));
-  };
 
   return (
     <section id="our-campus" className="py-16 md:py-24 bg-white dark:bg-[#0c0d12] transition-colors duration-300 relative overflow-hidden">
@@ -131,10 +101,7 @@ export default function OurCampusSection({ currentBranch = "all" }) {
           
           {/* Left: Featured Large Image Box - Clean without overlays */}
           <div className="lg:col-span-7">
-            <div 
-              onClick={() => openLightbox(activeThumbIndex, FEATURED_CAMPUS_ITEMS)}
-              className="group relative aspect-[16/10] w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-gray-100 dark:bg-gray-800 border border-gray-200/90 dark:border-white/10 shadow-md cursor-pointer transition-all duration-300 hover:shadow-xl"
-            >
+            <div className="relative aspect-[16/10] w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-gray-100 dark:bg-gray-800 border border-gray-200/90 dark:border-white/10 shadow-md">
               <motion.img
                 key={activeFeatured.src}
                 src={activeFeatured.src}
@@ -142,7 +109,7 @@ export default function OurCampusSection({ currentBranch = "all" }) {
                 initial={{ opacity: 0.4, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-105"
               />
             </div>
           </div>
@@ -235,129 +202,58 @@ export default function OurCampusSection({ currentBranch = "all" }) {
       {/* (NO olive background, NO side margins - stretches edge-to-edge)*/}
       {/* ============================================================== */}
       <div className="w-full relative z-10 px-0 overflow-hidden my-4 md:my-8">
-        <CampusPlaybookGallery 
-          onImageClick={(index, slides) => openLightbox(index, slides)}
-        />
+        <CampusPlaybookGallery />
       </div>
 
       {/* ============================================================== */}
       {/* SECTION 3: IN-PERSON CAMPUS TOUR & VISIT BOOKING CARD          */}
+      {/* (Clean transparent background - no heavy black gradient box)  */}
       {/* ============================================================== */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 relative z-10 mt-12 md:mt-16">
-        <div className="p-7 sm:p-9 md:p-11 bg-gradient-to-r from-black via-gray-950 to-gray-900 text-white rounded-3xl relative overflow-hidden border border-white/10 shadow-2xl">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#84CC16]/20 rounded-full blur-[100px] pointer-events-none" />
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 relative z-10 mt-10 md:mt-14 pt-8 md:pt-10 border-t border-gray-200/80 dark:border-white/10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8">
           
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="space-y-3 text-center lg:text-left max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#84CC16]/20 text-[#84CC16] text-xs font-mono font-bold tracking-wider">
-                <Calendar size={13} />
-                <span>EXPERIENCE IN PERSON</span>
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
-                Book a Free Campus Tour &amp; Counselor Session
-              </h3>
-              <p className="text-sm text-gray-300 leading-relaxed">
-                Visit our Vikaspuri (Delhi) or Sector 2 (Noida) training hubs. Meet our senior instructors, experience our live multi-monitor labs, and get 1-on-1 career counseling before enrolling.
-              </p>
+          <div className="space-y-3 text-center lg:text-left max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#84CC16]/10 text-[#65A30D] dark:text-[#84CC16] border border-[#84CC16]/20 text-xs font-mono font-bold tracking-wider">
+              <Calendar size={13} />
+              <span>EXPERIENCE IN PERSON</span>
             </div>
-
-            <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3.5 shrink-0">
-              <button
-                onClick={() => window.dispatchEvent(new CustomEvent("openPopupEnquiry"))}
-                className="px-7 py-3.5 bg-[#84CC16] hover:bg-[#65A30D] text-black font-mono font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg cursor-pointer hover:scale-105 active:scale-95"
-              >
-                Schedule Campus Visit
-              </button>
-              <a
-                href="https://www.google.com/maps/search/B-54+Krishna+Park+Vikaspuri+New+Delhi+110018"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-mono font-bold text-xs uppercase tracking-wider rounded-xl transition-colors inline-flex items-center gap-2"
-              >
-                <span>Delhi Location</span>
-                <ExternalLink size={13} />
-              </a>
-              <a
-                href="https://www.google.com/maps/search/B-136+Sector+2+Noida+Uttar+Pradesh+201301"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-mono font-bold text-xs uppercase tracking-wider rounded-xl transition-colors inline-flex items-center gap-2"
-              >
-                <span>Noida Location</span>
-                <ExternalLink size={13} />
-              </a>
-            </div>
+            <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-gray-900 dark:text-white">
+              Book a Free Campus Tour &amp; Counselor Session
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              Visit our Vikaspuri (Delhi) or Sector 2 (Noida) training hubs. Meet our senior instructors, experience our live multi-monitor labs, and get 1-on-1 career counseling before enrolling.
+            </p>
           </div>
+
+          <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3.5 shrink-0">
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("openPopupEnquiry"))}
+              className="px-7 py-3.5 bg-[#84CC16] hover:bg-[#65A30D] text-black font-mono font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md cursor-pointer hover:scale-105 active:scale-95"
+            >
+              Schedule Campus Visit
+            </button>
+            <a
+              href="https://www.google.com/maps/search/B-54+Krishna+Park+Vikaspuri+New+Delhi+110018"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-3.5 bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-800 dark:text-white border border-gray-300 dark:border-white/15 font-mono font-bold text-xs uppercase tracking-wider rounded-xl transition-colors inline-flex items-center gap-2"
+            >
+              <span>Delhi Location</span>
+              <ExternalLink size={13} />
+            </a>
+            <a
+              href="https://www.google.com/maps/search/B-136+Sector+2+Noida+Uttar+Pradesh+201301"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-3.5 bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-800 dark:text-white border border-gray-300 dark:border-white/15 font-mono font-bold text-xs uppercase tracking-wider rounded-xl transition-colors inline-flex items-center gap-2"
+            >
+              <span>Noida Location</span>
+              <ExternalLink size={13} />
+            </a>
+          </div>
+
         </div>
       </div>
-
-      {/* ============================================================== */}
-      {/* FULL-SCREEN LIGHTBOX MODAL                                     */}
-      {/* ============================================================== */}
-      <AnimatePresence>
-        {lightboxData !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeLightbox}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-8 select-none"
-          >
-            {/* Close Button */}
-            <button
-              onClick={closeLightbox}
-              className="absolute top-5 right-5 sm:top-6 sm:right-6 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-50 cursor-pointer border border-white/20"
-              aria-label="Close Lightbox"
-            >
-              <X size={22} />
-            </button>
-
-            {/* Navigation Buttons */}
-            <button
-              onClick={nextLightboxPhoto}
-              className="absolute right-3 sm:right-6 md:right-10 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-50 cursor-pointer border border-white/20"
-              aria-label="Next Photo"
-            >
-              <ChevronRight size={26} />
-            </button>
-
-            <button
-              onClick={prevLightboxPhoto}
-              className="absolute left-3 sm:left-6 md:left-10 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-50 cursor-pointer border border-white/20"
-              aria-label="Previous Photo"
-            >
-              <ChevronLeft size={26} />
-            </button>
-
-            {/* Content Container */}
-            <div 
-              onClick={(e) => e.stopPropagation()} 
-              className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center"
-            >
-              <div className="relative w-full max-h-[72vh] flex items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-black/40">
-                <img
-                  src={lightboxData.slides[lightboxData.index].src}
-                  alt={lightboxData.slides[lightboxData.index].title}
-                  className="max-w-full max-h-[72vh] object-contain rounded-2xl"
-                />
-              </div>
-
-              {/* Caption Bar */}
-              <div className="w-full mt-4 text-center space-y-1.5 px-4">
-                <h4 className="text-base sm:text-lg md:text-xl font-bold text-white">
-                  {lightboxData.slides[lightboxData.index].title}
-                </h4>
-                {lightboxData.slides[lightboxData.index].description && (
-                  <p className="text-xs sm:text-sm text-gray-300 max-w-2xl mx-auto">
-                    {lightboxData.slides[lightboxData.index].description}
-                  </p>
-                )}
-              </div>
-            </div>
-
-          </motion.div>
-        )}
-      </AnimatePresence>
 
     </section>
   );

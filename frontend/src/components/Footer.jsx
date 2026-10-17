@@ -8,7 +8,6 @@ const QUICK_LINKS = [
   { label: "Our Campuses", href: "/#our-campus" },
   { label: "Industrial Training", href: "/courses/" },
   { label: "Placements", href: "/placement/" },
-  { label: "Founder: Aditya Sharma", href: "/aditya-sharma" },
   { label: "Blog", href: "/blog/" },
   { label: "Career Guidance", href: "/career-guidance/" },
   { label: "Contact", href: "/contact/" },
@@ -16,7 +15,6 @@ const QUICK_LINKS = [
 
 const RESOURCES = [
   { label: "Our Campuses", href: "/#our-campus" },
-  { label: "Aditya Sharma (CEO & Founder)", href: "/aditya-sharma" },
   { label: "Tech Blog", href: "/blog/" },
   { label: "Career Roadmaps", href: "/roadmap/" },
   { label: "Career Guidance", href: "/career-guidance/" },
@@ -259,7 +257,7 @@ export default function Footer() {
             </div>
 
             {/* Quick Links */}
-            <div className="md:col-span-1">
+            <div className="lg:col-span-1 md:col-span-2">
               <h4 className="font-bold text-white text-base mb-5">Quick Links</h4>
               <ul className="space-y-3">
                 {QUICK_LINKS.map((link) => (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Play, Pause, Maximize2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 
 // Optimized sequence: starts with campus-7 (center), campus-4 (left), campus-6 (right) matching reference Image 2
 export const PLAYBOOK_SLIDES = [
@@ -333,9 +333,7 @@ export default function CampusPlaybookGallery({ onImageClick }) {
                 <div
                   key={slide.id}
                   onClick={() => {
-                    if (isCenter) {
-                      if (onImageClick) onImageClick(index, PLAYBOOK_SLIDES);
-                    } else {
+                    if (!isCenter) {
                       setCurrentIndex(index);
                     }
                   }}
@@ -351,16 +349,6 @@ export default function CampusPlaybookGallery({ onImageClick }) {
                       className="w-full h-full object-cover select-none"
                       draggable={false}
                     />
-
-                    {/* View Fullscreen Indicator on Center Card Hover */}
-                    {isCenter && (
-                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-20">
-                        <div className="px-4 py-2 rounded-full bg-black/80 backdrop-blur-md border border-white/30 text-white text-xs font-mono font-medium flex items-center gap-2 shadow-xl">
-                          <Maximize2 size={13} className="text-[#84CC16]" />
-                          <span>View Fullscreen</span>
-                        </div>
-                      </div>
-                    )}
                   </div>
 
                   {/* Corner Camera Viewfinder Brackets - Framing the outside of the center card */}

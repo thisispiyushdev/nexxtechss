@@ -48,59 +48,58 @@ export default function FAQ({ faqData = FAQ_DATA }) {
   const [openIndex, setOpenIndex] = useState(null);
   const containerRef = useRef(null);
 
-
-
   return (
-    <section id="faq" ref={containerRef} className="py-24 bg-transparent transition-colors duration-300">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#84CC16]/10 border border-[#84CC16]/20 text-[#65A30D] dark:text-[#84CC16] text-xs font-bold tracking-widest uppercase mb-4">
+    <section id="faq" ref={containerRef} className="py-12 md:py-16 bg-transparent transition-colors duration-300">
+      <div className="max-w-5xl mx-auto px-5 sm:px-6">
+        <div className="text-center mb-8 md:mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#84CC16]/10 border border-[#84CC16]/20 text-[#65A30D] dark:text-[#84CC16] text-xs font-bold tracking-widest uppercase mb-3">
             Common Questions
           </div>
-          <h2 className="text-3xl md:text-5xl font-black text-[#111827] dark:text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#111827] dark:text-white mb-2">
             Frequently Asked <span className="text-[#84CC16]">Questions</span>
           </h2>
-          <p className="text-[#4B5563] dark:text-gray-400">Everything you need to know about our training programs and career support.</p>
+          <p className="text-xs sm:text-sm text-[#4B5563] dark:text-gray-400">Everything you need to know about our training programs and career support.</p>
         </div>
 
-        <div className="space-y-4">
+        {/* Concise FAQ List with compact internal padding */}
+        <div className="space-y-2.5 sm:space-y-3">
           {faqData.map((faq, i) => (
             <div 
               key={i} 
-              className={`faq-item border rounded-2xl overflow-hidden transition-all duration-300 ${
+              className={`faq-item border rounded-xl overflow-hidden transition-all duration-200 ${
                 openIndex === i 
-                  ? "border-[#84CC16] bg-white dark:bg-[#1a1d27] shadow-xl shadow-[#84CC16]/5" 
-                  : "border-gray-300 dark:border-white/5 bg-white dark:bg-white/5 hover:border-gray-400 dark:hover:border-white/10"
+                  ? "border-[#84CC16] bg-white dark:bg-[#1a1d27] shadow-md shadow-[#84CC16]/5" 
+                  : "border-gray-200 dark:border-white/5 bg-white dark:bg-white/5 hover:border-gray-300 dark:hover:border-white/10"
               }`}
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between p-6 text-left group"
+                className="w-full flex items-center justify-between py-3 px-4 sm:py-3.5 sm:px-5 text-left group cursor-pointer"
               >
-                <div className="flex items-center gap-4">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                <div className="flex items-center gap-3">
+                  <div className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 transition-colors ${
                     openIndex === i ? "bg-[#84CC16] text-black" : "bg-gray-100 dark:bg-white/5 text-gray-500"
                   }`}>
-                    <HelpCircle size={18} />
+                    <HelpCircle size={15} />
                   </div>
-                  <span className={`font-extrabold text-xl transition-colors ${
+                  <span className={`font-bold text-sm sm:text-base transition-colors ${
                     openIndex === i ? "text-[#111827] dark:text-white" : "text-[#111827] dark:text-gray-300 group-hover:text-black dark:group-hover:text-white"
                   }`}>
                     {faq.question}
                   </span>
                 </div>
                 <ChevronDown 
-                  size={20} 
-                  className={`text-gray-400 transition-transform duration-300 ${openIndex === i ? "rotate-180 text-[#84CC16]" : ""}`} 
+                  size={18} 
+                  className={`text-gray-400 shrink-0 transition-transform duration-300 ${openIndex === i ? "rotate-180 text-[#84CC16]" : ""}`} 
                 />
               </button>
               
               <div 
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  openIndex === i ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                  openIndex === i ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
-                <div className="px-6 pb-6 pt-2 ml-12 text-[#4B5563] dark:text-gray-400 leading-relaxed">
+                <div className="px-4 pb-3.5 pt-1 sm:px-5 sm:pb-4 ml-10 text-xs sm:text-sm text-[#4B5563] dark:text-gray-400 leading-relaxed">
                   {faq.answer}
                 </div>
               </div>
