@@ -193,16 +193,16 @@ export default function PopupEnquiry() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="w-[95vw] sm:w-full sm:max-w-[600px] max-h-[85dvh] overflow-y-auto bg-white dark:bg-[#1a1d27] border border-gray-100 dark:border-white/5 rounded-2xl p-6 shadow-2xl">
-        <DialogHeader className="mb-2">
-          <DialogTitle className="text-2xl md:text-4xl font-black text-[#111827] dark:text-white">
+      <DialogContent className="w-[92vw] sm:w-full sm:max-w-[480px] max-h-[90dvh] sm:max-h-[88dvh] overflow-y-auto overflow-x-hidden bg-white dark:bg-[#1a1d27] border border-gray-100 dark:border-white/5 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl overscroll-contain">
+        <DialogHeader className="mb-1 sm:mb-2 pr-7 sm:pr-8 text-left">
+          <DialogTitle className="text-xl sm:text-2xl md:text-3xl font-black text-[#111827] dark:text-white leading-tight">
             {enquiryType === 'service' ? (
               <>Service <span className="text-[#84CC16]">Quick Enquiry</span></>
             ) : (
               <>Kickstart Your <span className="text-[#84CC16]">Career</span></>
             )}
           </DialogTitle>
-          <DialogDescription className="text-base md:text-lg text-[#4B5563] dark:text-gray-400">
+          <DialogDescription className="text-xs sm:text-sm text-[#4B5563] dark:text-gray-400 mt-1 leading-snug">
             {enquiryType === 'service' 
               ? "Let us know how we can help your business grow with our technical expertise." 
               : "Tell us what you want to learn, and our tech counselors will guide you."}
@@ -210,28 +210,28 @@ export default function PopupEnquiry() {
         </DialogHeader>
 
         {submitted && !error ? (
-          <div className="text-center py-8">
-            <div className="w-16 h-16 rounded-full bg-[#F4FCE3] flex items-center justify-center mx-auto mb-4">
-              <CheckCircle size={32} className="text-[#84CC16]" />
+          <div className="text-center py-6 sm:py-8">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#F4FCE3] flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <CheckCircle size={28} className="text-[#84CC16]" />
             </div>
-            <h3 className="text-2xl font-bold text-[#111827] dark:text-white mb-2">Awesome!</h3>
-            <p className="text-[#4B5563] dark:text-gray-400">We will connect with you shortly.</p>
+            <h3 className="text-xl sm:text-2xl font-bold text-[#111827] dark:text-white mb-1.5 sm:mb-2">Awesome!</h3>
+            <p className="text-xs sm:text-sm text-[#4B5563] dark:text-gray-400">We will connect with you shortly.</p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+          <form onSubmit={handleSubmit} className="space-y-2.5 sm:space-y-3 mt-2 sm:mt-3 w-full min-w-0 pb-1 sm:pb-2">
             {bannerTitle && (
-              <div className="bg-[#84CC16]/10 border border-[#84CC16]/20 p-3 rounded-xl mb-4 text-[#111827] dark:text-white text-sm font-semibold text-center shadow-inner">
+              <div className="bg-[#84CC16]/10 border border-[#84CC16]/20 p-2.5 rounded-xl mb-3 text-[#111827] dark:text-white text-xs font-semibold text-center shadow-inner">
                 Applying for Offer: <span className="text-[#84CC16] font-black">{bannerTitle}</span>
               </div>
             )}
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-2">Full Name</label>
+              <label className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-1 sm:mb-1.5">Full Name</label>
               <Input
                 type="text"
                 placeholder="Enter your name"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20"
+                className="h-10 sm:h-11 rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-3.5 sm:px-4 py-2 text-xs sm:text-sm focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all"
               />
             </div>
 
@@ -243,14 +243,14 @@ export default function PopupEnquiry() {
             />
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-2">
+              <label className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-1 sm:mb-1.5">
                 {enquiryType === 'service' ? "Service Interested" : "Course Interested"}
               </label>
               <Select
                 value={form.course_interested}
                 onValueChange={(val) => setForm({ ...form, course_interested: val })}
               >
-                <SelectTrigger className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20">
+                <SelectTrigger className="h-10 sm:h-11 rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-3.5 sm:px-4 py-2 text-xs sm:text-sm focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all">
                   <SelectValue placeholder={enquiryType === 'service' ? "Select a service" : "What do you want to learn?"} />
                 </SelectTrigger>
                 <SelectContent>
@@ -269,12 +269,12 @@ export default function PopupEnquiry() {
 
             {enquiryType !== 'service' && (
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-2">Institute Branch</label>
+                <label className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 mb-1 sm:mb-1.5">Institute Branch</label>
                 <Select
                   value={form.branch}
                   onValueChange={(val) => setForm({ ...form, branch: val })}
                 >
-                  <SelectTrigger className="rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20">
+                  <SelectTrigger className="h-10 sm:h-11 rounded-xl border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-3.5 sm:px-4 py-2 text-xs sm:text-sm focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 transition-all">
                     <SelectValue placeholder="Select your branch" />
                   </SelectTrigger>
                   <SelectContent>
@@ -300,10 +300,10 @@ export default function PopupEnquiry() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#84CC16] text-black font-bold rounded-xl py-6 mt-4 text-base hover:bg-[#65A30D] transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50"
+              className="w-full bg-[#84CC16] text-black font-bold rounded-xl h-11 sm:h-12 py-2.5 sm:py-3 mt-3 sm:mt-4 text-sm sm:text-base hover:bg-[#65A30D] transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 shadow-md shadow-[#84CC16]/20 disabled:opacity-50 flex items-center justify-center cursor-pointer"
             >
               {loading ? "Submitting..." : (enquiryType === 'service' ? "Send Inquiry" : "Book Free Demo")}
-              <Send size={16} className="ml-2" />
+              <Send size={15} className="ml-2" />
             </Button>
           </form>
         )}

@@ -93,7 +93,7 @@ export default function MathCaptcha({
     <div className={`space-y-1.5 ${className}`}>
       <div className="flex items-center justify-between">
         <label
-          className={`block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 ${labelClassName}`}
+          className={`block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 ${labelClassName}`}
         >
           Solve: <span className="font-bold text-[#111827] dark:text-white">{problem.question} = ?</span>
         </label>
@@ -102,7 +102,7 @@ export default function MathCaptcha({
             type="button"
             onClick={onRefresh}
             title="Get another question"
-            className="text-gray-400 hover:text-[#84CC16] transition-colors p-1 flex items-center gap-1 text-xs"
+            className="text-gray-400 hover:text-[#84CC16] transition-colors p-1 flex items-center gap-1 text-xs shrink-0"
           >
             <RotateCcw size={12} />
             <span className="text-[10px]">New</span>
@@ -114,7 +114,7 @@ export default function MathCaptcha({
         placeholder="Enter answer"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-full rounded-xl border border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-4 py-3 text-sm focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 focus:outline-none transition-all placeholder:text-gray-400 ${inputClassName}`}
+        className={`w-full min-w-0 h-10 sm:h-11 rounded-xl border border-gray-200 bg-[#F9FAFB] dark:bg-[#0f1117] dark:border-gray-700 dark:text-white px-3.5 sm:px-4 py-2 text-xs sm:text-sm focus:border-[#84CC16] focus:ring-2 focus:ring-[#84CC16]/20 focus:outline-none transition-all placeholder:text-gray-400 ${inputClassName}`}
       />
       {error && <p className="text-red-500 text-xs font-medium mt-1">{error}</p>}
     </div>

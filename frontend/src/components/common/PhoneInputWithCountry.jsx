@@ -88,13 +88,13 @@ export default function PhoneInputWithCountry({
           {label} {required && "*"}
         </label>
       )}
-      <div className="flex items-center rounded-xl border border-gray-200 dark:border-gray-700 bg-[#F9FAFB] dark:bg-[#0f1117] overflow-hidden focus-within:border-[#84CC16] focus-within:ring-2 focus-within:ring-[#84CC16]/20 transition-all">
+      <div className="flex items-center rounded-xl border border-gray-200 dark:border-gray-700 bg-[#F9FAFB] dark:bg-[#0f1117] overflow-hidden focus-within:border-[#84CC16] focus-within:ring-2 focus-within:ring-[#84CC16]/20 transition-all h-10 sm:h-11 w-full min-w-0">
         {/* Country code selector */}
-        <div className="flex items-center pl-3 pr-1 py-2.5 bg-gray-100/70 dark:bg-white/5 border-r border-gray-200 dark:border-gray-700/60">
+        <div className="flex items-center pl-2.5 sm:pl-3 pr-1 py-1.5 sm:py-2 bg-gray-100/70 dark:bg-white/5 border-r border-gray-200 dark:border-gray-700/60 shrink-0">
           <select
             value={countryCode}
             onChange={(e) => onChangeCountryCode && onChangeCountryCode(e.target.value)}
-            className="bg-transparent border-0 text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-200 focus:outline-none cursor-pointer pr-1"
+            className="bg-transparent border-0 text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-200 focus:outline-none cursor-pointer pr-1 max-w-[110px] sm:max-w-none"
             title="Country / Postal Calling Code"
           >
             {COUNTRY_CODES.map((c) => (
@@ -119,10 +119,10 @@ export default function PhoneInputWithCountry({
           value={phone}
           onChange={handlePhoneChange}
           placeholder={placeholder || defaultPlaceholder}
-          className={`flex-1 bg-transparent border-0 px-4 py-3 text-sm text-[#111827] dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-0 ${inputClassName}`}
+          className={`flex-1 min-w-0 bg-transparent border-0 px-3 sm:px-4 py-2 text-xs sm:text-sm text-[#111827] dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-0 ${inputClassName}`}
         />
         {phone && (
-          <span className="text-[10px] text-gray-400 dark:text-gray-500 pr-3 font-mono">
+          <span className="text-[10px] text-gray-400 dark:text-gray-500 pr-2.5 sm:pr-3 font-mono shrink-0">
             {phone.length}/{expectedDigits}
           </span>
         )}
