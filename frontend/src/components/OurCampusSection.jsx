@@ -1,18 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Building2, 
-  MapPin, 
-  Wifi, 
-  Monitor, 
-  Users, 
-  Sparkles, 
   ExternalLink, 
   X, 
   ChevronLeft, 
   ChevronRight,
-  Maximize2,
   Calendar,
   ArrowRight
 } from "lucide-react";
@@ -78,13 +71,18 @@ export const FEATURED_CAMPUS_ITEMS = [
 ];
 
 export default function OurCampusSection({ currentBranch = "all" }) {
-  const navigate = useNavigate();
-  // State for the top featured section (Image 1 mockup)
+  const location = useLocation();
+
+  // State for the top featured section
   const [activeThumbIndex, setActiveThumbIndex] = useState(0);
   const [thumbPage, setThumbPage] = useState(0);
 
   // Lightbox Modal state
   const [lightboxData, setLightboxData] = useState(null); // { slides: [], index: 0 }
+
+  // Determine branch-specific courses link
+  const isNoida = currentBranch === "noida" || location.pathname.includes("noida");
+  const coursesLink = isNoida ? "/courses-noida" : "/courses";
 
   // 4 thumbnails visible at a time
   const thumbsPerPage = 4;
@@ -118,208 +116,135 @@ export default function OurCampusSection({ currentBranch = "all" }) {
   };
 
   return (
-    <section id="our-campus" className="py-20 md:py-28 bg-white dark:bg-[#0c0d12] transition-colors duration-300 relative overflow-hidden">
+    <section id="our-campus" className="py-16 md:py-24 bg-white dark:bg-[#0c0d12] transition-colors duration-300 relative overflow-hidden">
       
       {/* Background ambient lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-[#84CC16]/8 to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-[#84CC16]/6 to-transparent pointer-events-none" />
 
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 relative z-10">
-
-        {/* ============================================================== */}
-        {/* SECTION 1: TOP "OUR CAMPUS" SECTION (EXACT MOCKUP FROM IMAGE 1) */}
-        {/* ============================================================== */}
-        <div className="mb-14 md:mb-20">
+      {/* ============================================================== */}
+      {/* SECTION 1: TOP "OUR CAMPUS" SECTION (MATCHING USER WIREFRAME)  */}
+      {/* ============================================================== */}
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 relative z-10 mb-10 md:mb-16">
+        
+        {/* Top Two-Column Grid: Featured Image (Left) + Text & Button (Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Top Two-Column Grid: Featured Image (Left) + Text & Button (Right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            {/* Left: Featured Large Image Box */}
-            <div className="lg:col-span-7">
-              <div 
-                onClick={() => openLightbox(activeThumbIndex, FEATURED_CAMPUS_ITEMS)}
-                className="group relative aspect-[16/10] sm:aspect-[16/10] w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-gray-100 dark:bg-gray-800 border border-gray-200/90 dark:border-white/10 shadow-lg cursor-pointer transition-all duration-300 hover:shadow-xl"
-              >
-                <motion.img
-                  key={activeFeatured.src}
-                  src={activeFeatured.src}
-                  alt={activeFeatured.title}
-                  initial={{ opacity: 0.4, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
-
-                {/* Ambient vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-                {/* Location Badge */}
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-white text-xs font-mono font-medium border border-white/20 shadow-md">
-                    <MapPin size={12} className="text-[#84CC16]" />
-                    {activeFeatured.location}
-                  </span>
-                </div>
-
-                {/* Zoom indicator on hover */}
-                <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="w-9 h-9 rounded-full bg-white/90 dark:bg-black/80 backdrop-blur-md text-gray-900 dark:text-white flex items-center justify-center shadow-lg">
-                    <Maximize2 size={16} />
-                  </div>
-                </div>
-
-                {/* Bottom title on featured image */}
-                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-10 text-white">
-                  <h3 className="text-base sm:text-xl font-bold drop-shadow-md">
-                    {activeFeatured.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray-200 line-clamp-1 mt-1 drop-shadow-sm font-normal">
-                    {activeFeatured.description}
-                  </p>
-                </div>
-              </div>
+          {/* Left: Featured Large Image Box - Clean without overlays */}
+          <div className="lg:col-span-7">
+            <div 
+              onClick={() => openLightbox(activeThumbIndex, FEATURED_CAMPUS_ITEMS)}
+              className="group relative aspect-[16/10] w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-gray-100 dark:bg-gray-800 border border-gray-200/90 dark:border-white/10 shadow-md cursor-pointer transition-all duration-300 hover:shadow-xl"
+            >
+              <motion.img
+                key={activeFeatured.src}
+                src={activeFeatured.src}
+                alt={activeFeatured.title}
+                initial={{ opacity: 0.4, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
             </div>
-
-            {/* Right: Title, Description & Action Button */}
-            <div className="lg:col-span-5 flex flex-col justify-center space-y-5 lg:pl-4">
-              
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#84CC16]/10 border border-[#84CC16]/20 text-[#65A30D] dark:text-[#84CC16] text-xs font-mono font-bold uppercase tracking-widest w-fit">
-                <Building2 size={13} />
-                <span>NEXXTECHS CAMPUS</span>
-              </div>
-
-              {/* Bold Clean Heading matching Image 1 */}
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-gray-900 dark:text-white leading-[1.12]">
-                Our Campus
-              </h2>
-
-              {/* Description Paragraph */}
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-normal">
-                Step inside our industry-grade training centers designed for real-world tech mastery. From high-compute multi-monitor workstation labs and dedicated cloud testbeds to personalized faculty doubt desks, our Delhi and Noida campuses give you the immersive environment needed to launch high-paying tech careers.
-              </p>
-
-              {/* Quick Facility Bullets */}
-              <div className="grid grid-cols-2 gap-3 pt-2 text-xs font-mono text-gray-700 dark:text-gray-300">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
-                  <span>150+ Lab Workstations</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
-                  <span>1 Gbps Fiber Dual ISP</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
-                  <span>1-on-1 Faculty Mentoring</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
-                  <span>Delhi &amp; Noida Branches</span>
-                </div>
-              </div>
-
-              {/* Action Button: Lime green pill with 3D bottom bevel matching Image 1 */}
-              <div className="pt-3">
-                <Link
-                  to="/all-courses"
-                  className="inline-flex items-center justify-center px-8 py-3.5 sm:py-4 bg-[#bef264] hover:bg-[#b0ec4e] active:translate-y-1 text-black font-extrabold text-sm sm:text-base rounded-2xl shadow-[0_4px_0_0_#4d7c0f] hover:shadow-[0_2px_0_0_#4d7c0f] transition-all duration-150 cursor-pointer tracking-wide"
-                >
-                  <span>Explore All Courses</span>
-                  <ArrowRight size={18} className="ml-2.5 stroke-[2.5]" />
-                </Link>
-              </div>
-
-            </div>
-
           </div>
 
-          {/* Bottom Row of 4 Thumbnails (Exact Layout from Image 1) */}
-          <div className="mt-8 md:mt-10">
-            <div className="flex items-center justify-between mb-3 text-xs font-mono text-gray-500 dark:text-gray-400">
-              <span>CLICK THUMBNAIL TO PREVIEW LABS</span>
-              {FEATURED_CAMPUS_ITEMS.length > thumbsPerPage && (
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setThumbPage((prev) => (prev > 0 ? prev - 1 : 1))}
-                    className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer"
-                    aria-label="Previous set"
-                  >
-                    <ChevronLeft size={16} />
-                  </button>
-                  <span>
-                    Set {thumbPage + 1} of {Math.ceil(FEATURED_CAMPUS_ITEMS.length / thumbsPerPage)}
-                  </span>
-                  <button
-                    onClick={() => setThumbPage((prev) => (prev < 1 ? prev + 1 : 0))}
-                    className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer"
-                    aria-label="Next set"
-                  >
-                    <ChevronRight size={16} />
-                  </button>
-                </div>
-              )}
+          {/* Right: Title, Description & Action Button */}
+          <div className="lg:col-span-5 flex flex-col justify-center space-y-6 lg:pl-4">
+            
+            {/* Bold Clean Heading */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-gray-900 dark:text-white leading-[1.12]">
+              Our Campus
+            </h2>
+
+            {/* Description Paragraph */}
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-normal">
+              Step inside our industry-grade training centers designed for real-world tech mastery. From high-compute multi-monitor workstation labs and dedicated cloud testbeds to personalized faculty doubt desks, our Delhi and Noida campuses give you the immersive environment needed to launch high-paying tech careers.
+            </p>
+
+            {/* Action Button: Links to Delhi courses or Noida courses based on active branch */}
+            <div className="pt-2">
+              <Link
+                to={coursesLink}
+                className="inline-flex items-center justify-center px-8 py-3.5 sm:py-4 bg-[#bef264] hover:bg-[#b0ec4e] active:translate-y-1 text-black font-extrabold text-sm sm:text-base rounded-2xl shadow-[0_4px_0_0_#4d7c0f] hover:shadow-[0_2px_0_0_#4d7c0f] transition-all duration-150 cursor-pointer tracking-wide"
+              >
+                <span>Explore All Courses</span>
+                <ArrowRight size={18} className="ml-2.5 stroke-[2.5]" />
+              </Link>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4 md:gap-6">
-              {currentThumbs.map((item, localIdx) => {
-                const globalIndex = thumbPage * thumbsPerPage + localIdx;
-                const isSelected = globalIndex === activeThumbIndex;
-
-                return (
-                  <div
-                    key={item.id}
-                    onClick={() => setActiveThumbIndex(globalIndex)}
-                    className={`group relative aspect-[4/3] rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden bg-gray-100 dark:bg-gray-800 cursor-pointer transition-all duration-200 ${
-                      isSelected
-                        ? "ring-4 ring-[#84CC16] scale-[1.02] shadow-md border-transparent"
-                        : "border border-gray-200 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/30 hover:shadow-md"
-                    }`}
-                  >
-                    <img
-                      src={item.src}
-                      alt={item.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
-
-                    {/* Active check pill */}
-                    {isSelected && (
-                      <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-[#84CC16] text-black font-mono font-bold text-[10px] shadow">
-                        Active
-                      </div>
-                    )}
-
-                    {/* Title label */}
-                    <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-3 sm:left-3 sm:right-3 text-white">
-                      <p className="text-[11px] sm:text-xs font-bold line-clamp-1">
-                        {item.title}
-                      </p>
-                      <p className="text-[10px] text-gray-300 line-clamp-1 font-mono">
-                        {item.location.split("(")[0]}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
           </div>
 
         </div>
 
-        {/* ============================================================== */}
-        {/* SECTION 2: CAMPUS PLAYBOOK GALLERY (EXACT 3D WIREFRAME FROM IMAGE 2) */}
-        {/* "and just beyond that i want an gallery play book like this"      */}
-        {/* ============================================================== */}
+        {/* Bottom Row of 4 Thumbnails (Clean without "Active" tag or text overlay) */}
+        <div className="mt-8 md:mt-10">
+          {FEATURED_CAMPUS_ITEMS.length > thumbsPerPage && (
+            <div className="flex items-center justify-end mb-3 text-xs font-mono text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setThumbPage((prev) => (prev > 0 ? prev - 1 : 1))}
+                  className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+                  aria-label="Previous set"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <span>
+                  Set {thumbPage + 1} of {Math.ceil(FEATURED_CAMPUS_ITEMS.length / thumbsPerPage)}
+                </span>
+                <button
+                  onClick={() => setThumbPage((prev) => (prev < 1 ? prev + 1 : 0))}
+                  className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+                  aria-label="Next set"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4 md:gap-6">
+            {currentThumbs.map((item, localIdx) => {
+              const globalIndex = thumbPage * thumbsPerPage + localIdx;
+              const isSelected = globalIndex === activeThumbIndex;
+
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => setActiveThumbIndex(globalIndex)}
+                  className={`group relative aspect-[4/3] rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden bg-gray-100 dark:bg-gray-800 cursor-pointer transition-all duration-200 ${
+                    isSelected
+                      ? "ring-4 ring-[#84CC16] scale-[1.02] shadow-md border-transparent"
+                      : "border border-gray-200 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/30 hover:shadow-md"
+                  }`}
+                >
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
+
+      {/* ============================================================== */}
+      {/* SECTION 2: FULL-WIDTH CAMPUS PLAYBOOK GALLERY                  */}
+      {/* (NO olive background, NO side margins - stretches edge-to-edge)*/}
+      {/* ============================================================== */}
+      <div className="w-full relative z-10 px-0 overflow-hidden my-4 md:my-8">
         <CampusPlaybookGallery 
           onImageClick={(index, slides) => openLightbox(index, slides)}
         />
+      </div>
 
-        {/* ============================================================== */}
-        {/* SECTION 3: IN-PERSON CAMPUS TOUR & VISIT BOOKING CARD          */}
-        {/* ============================================================== */}
-        <div className="mt-12 md:mt-16 p-7 sm:p-9 md:p-11 bg-gradient-to-r from-black via-gray-950 to-gray-900 text-white rounded-3xl relative overflow-hidden border border-white/10 shadow-2xl">
+      {/* ============================================================== */}
+      {/* SECTION 3: IN-PERSON CAMPUS TOUR & VISIT BOOKING CARD          */}
+      {/* ============================================================== */}
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 relative z-10 mt-12 md:mt-16">
+        <div className="p-7 sm:p-9 md:p-11 bg-gradient-to-r from-black via-gray-950 to-gray-900 text-white rounded-3xl relative overflow-hidden border border-white/10 shadow-2xl">
           <div className="absolute top-0 right-0 w-96 h-96 bg-[#84CC16]/20 rounded-full blur-[100px] pointer-events-none" />
           
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
@@ -364,11 +289,10 @@ export default function OurCampusSection({ currentBranch = "all" }) {
             </div>
           </div>
         </div>
-
       </div>
 
       {/* ============================================================== */}
-      {/* FULL-SCREEN LIGHTBOX MODAL (USED BY BOTH SECTION 1 AND 2)     */}
+      {/* FULL-SCREEN LIGHTBOX MODAL                                     */}
       {/* ============================================================== */}
       <AnimatePresence>
         {lightboxData !== null && (
@@ -390,19 +314,19 @@ export default function OurCampusSection({ currentBranch = "all" }) {
 
             {/* Navigation Buttons */}
             <button
-              onClick={prevLightboxPhoto}
-              className="absolute left-3 sm:left-6 md:left-10 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-50 cursor-pointer border border-white/20"
-              aria-label="Previous Photo"
-            >
-              <ChevronLeft size={26} />
-            </button>
-
-            <button
               onClick={nextLightboxPhoto}
               className="absolute right-3 sm:right-6 md:right-10 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-50 cursor-pointer border border-white/20"
               aria-label="Next Photo"
             >
               <ChevronRight size={26} />
+            </button>
+
+            <button
+              onClick={prevLightboxPhoto}
+              className="absolute left-3 sm:left-6 md:left-10 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-50 cursor-pointer border border-white/20"
+              aria-label="Previous Photo"
+            >
+              <ChevronLeft size={26} />
             </button>
 
             {/* Content Container */}
@@ -420,12 +344,6 @@ export default function OurCampusSection({ currentBranch = "all" }) {
 
               {/* Caption Bar */}
               <div className="w-full mt-4 text-center space-y-1.5 px-4">
-                <div className="inline-flex items-center gap-2 text-xs font-mono text-[#84CC16]">
-                  <MapPin size={12} />
-                  <span>{lightboxData.slides[lightboxData.index].location}</span>
-                  <span>•</span>
-                  <span>{lightboxData.index + 1} of {lightboxData.slides.length}</span>
-                </div>
                 <h4 className="text-base sm:text-lg md:text-xl font-bold text-white">
                   {lightboxData.slides[lightboxData.index].title}
                 </h4>

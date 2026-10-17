@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Play, Pause, Maximize2, Sparkles, MapPin } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Pause, Maximize2 } from "lucide-react";
 
 // Optimized sequence: starts with campus-7 (center), campus-4 (left), campus-6 (right) matching reference Image 2
 export const PLAYBOOK_SLIDES = [
@@ -287,12 +287,12 @@ export default function CampusPlaybookGallery({ onImageClick }) {
   const activeSlide = PLAYBOOK_SLIDES[currentIndex];
 
   return (
-    <div className="w-full my-12 md:my-16">
+    <div className="w-full my-6 md:my-10 px-0">
       {/* 
-        Olive green container matching user's reference Image 2:
-        Color: #46552a with soft radial ambient glow,
+        Clean transparent full-width container (no olive background, no side margins):
+        Seamlessly flows with the page theme.
         3D cover flow perspective,
-        white viewfinder corner brackets framing the center card,
+        viewfinder corner brackets framing center card,
         dark translucent circular navigation buttons.
       */}
       <div
@@ -300,32 +300,25 @@ export default function CampusPlaybookGallery({ onImageClick }) {
         onMouseLeave={() => setIsHovered(false)}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        className="relative w-full rounded-3xl md:rounded-[2.5rem] text-white py-14 md:py-24 px-4 sm:px-6 md:px-12 overflow-hidden shadow-2xl select-none"
-        style={{
-          backgroundColor: "#46552a",
-          backgroundImage: "radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.22) 100%)"
-        }}
+        className="relative w-full text-gray-900 dark:text-white py-6 md:py-12 px-0 overflow-hidden select-none"
       >
-        {/* Soft Ambient Light Glow */}
-        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[700px] h-52 bg-white/10 blur-[110px] rounded-full pointer-events-none" />
-
         {/* 3D Cover Flow Carousel Deck */}
         <div className="relative w-full h-[280px] sm:h-[360px] md:h-[440px] lg:h-[480px] flex items-center justify-center">
           
-          {/* Circular Left Arrow Button (placed over left cards as in Image 2) */}
+          {/* Circular Left Arrow Button */}
           <button
             onClick={handlePrev}
             aria-label="Previous Slide"
-            className="absolute left-3 sm:left-8 md:left-16 lg:left-24 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-black/60 hover:bg-black/90 active:scale-95 text-white backdrop-blur-md flex items-center justify-center border border-white/20 shadow-2xl transition-all duration-200 z-40 cursor-pointer hover:border-white/50"
+            className="absolute left-3 sm:left-8 md:left-16 lg:left-24 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-black/75 hover:bg-black active:scale-95 text-white backdrop-blur-md flex items-center justify-center border border-white/20 shadow-2xl transition-all duration-200 z-40 cursor-pointer"
           >
             <ChevronLeft size={26} className="stroke-[2.5]" />
           </button>
 
-          {/* Circular Right Arrow Button (placed over right cards as in Image 2) */}
+          {/* Circular Right Arrow Button */}
           <button
             onClick={handleNext}
             aria-label="Next Slide"
-            className="absolute right-3 sm:right-8 md:right-16 lg:right-24 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-black/60 hover:bg-black/90 active:scale-95 text-white backdrop-blur-md flex items-center justify-center border border-white/20 shadow-2xl transition-all duration-200 z-40 cursor-pointer hover:border-white/50"
+            className="absolute right-3 sm:right-8 md:right-16 lg:right-24 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-black/75 hover:bg-black active:scale-95 text-white backdrop-blur-md flex items-center justify-center border border-white/20 shadow-2xl transition-all duration-200 z-40 cursor-pointer"
           >
             <ChevronRight size={26} className="stroke-[2.5]" />
           </button>
@@ -350,7 +343,7 @@ export default function CampusPlaybookGallery({ onImageClick }) {
                   className="absolute w-[270px] sm:w-[380px] md:w-[480px] lg:w-[540px] aspect-[16/10] rounded-xl sm:rounded-2xl md:rounded-3xl cursor-pointer group"
                 >
                   {/* Photo with rounded container & subtle shadow */}
-                  <div className="relative w-full h-full rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl bg-black/20">
+                  <div className="relative w-full h-full rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl bg-black/10">
                     <img
                       src={slide.src}
                       alt={slide.title}
@@ -359,31 +352,28 @@ export default function CampusPlaybookGallery({ onImageClick }) {
                       draggable={false}
                     />
 
-                    {/* Subtle Top & Bottom Gradient Vignette */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 pointer-events-none" />
-
                     {/* View Fullscreen Indicator on Center Card Hover */}
                     {isCenter && (
-                      <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-20">
+                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-20">
                         <div className="px-4 py-2 rounded-full bg-black/80 backdrop-blur-md border border-white/30 text-white text-xs font-mono font-medium flex items-center gap-2 shadow-xl">
-                          <Maximize2 size={13} className="text-[#d4ff00]" />
+                          <Maximize2 size={13} className="text-[#84CC16]" />
                           <span>View Fullscreen</span>
                         </div>
                       </div>
                     )}
                   </div>
 
-                  {/* Corner Camera Viewfinder Brackets - Framing the outside of the center card exactly as in Image 2 */}
+                  {/* Corner Camera Viewfinder Brackets - Framing the outside of the center card */}
                   {isCenter && (
                     <div className="absolute -inset-2.5 sm:-inset-3.5 md:-inset-4 pointer-events-none z-30">
                       {/* Top-Left Bracket */}
-                      <span className="absolute top-0 left-0 w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 border-t-2 border-l-2 border-white drop-shadow-md" />
+                      <span className="absolute top-0 left-0 w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 border-t-2 border-l-2 border-gray-900 dark:border-white drop-shadow-md" />
                       {/* Top-Right Bracket */}
-                      <span className="absolute top-0 right-0 w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 border-t-2 border-r-2 border-white drop-shadow-md" />
+                      <span className="absolute top-0 right-0 w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 border-t-2 border-r-2 border-gray-900 dark:border-white drop-shadow-md" />
                       {/* Bottom-Left Bracket */}
-                      <span className="absolute bottom-0 left-0 w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 border-b-2 border-l-2 border-white drop-shadow-md" />
+                      <span className="absolute bottom-0 left-0 w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 border-b-2 border-l-2 border-gray-900 dark:border-white drop-shadow-md" />
                       {/* Bottom-Right Bracket */}
-                      <span className="absolute bottom-0 right-0 w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 border-b-2 border-r-2 border-white drop-shadow-md" />
+                      <span className="absolute bottom-0 right-0 w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 border-b-2 border-r-2 border-gray-900 dark:border-white drop-shadow-md" />
                     </div>
                   )}
 
@@ -394,28 +384,28 @@ export default function CampusPlaybookGallery({ onImageClick }) {
         </div>
 
         {/* Bottom Playbook Controls & Caption */}
-        <div className="relative z-20 mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 max-w-4xl mx-auto pt-6 border-t border-white/15 text-xs font-mono text-white/80">
+        <div className="relative z-20 mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 max-w-4xl mx-auto px-4 pt-6 border-t border-gray-200 dark:border-white/15 text-xs font-mono text-gray-600 dark:text-gray-300">
           
           {/* Autoplay Toggle & Current Slide Info */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 flex items-center gap-2 transition-colors cursor-pointer"
+              className="px-3.5 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-white/10 dark:hover:bg-white/20 text-gray-800 dark:text-white border border-gray-200 dark:border-white/20 flex items-center gap-2 transition-colors cursor-pointer"
               title={isPlaying ? "Pause Playbook" : "Play Playbook"}
             >
               {isPlaying ? (
                 <>
-                  <Pause size={12} className="text-[#d4ff00]" />
+                  <Pause size={12} className="text-[#65A30D] dark:text-[#84CC16]" />
                   <span>Pause Playbook</span>
                 </>
               ) : (
                 <>
-                  <Play size={12} className="text-[#d4ff00]" />
+                  <Play size={12} className="text-[#65A30D] dark:text-[#84CC16]" />
                   <span>Play Playbook</span>
                 </>
               )}
             </button>
-            <span className="text-white/60">
+            <span className="text-gray-500 dark:text-white/60">
               {currentIndex + 1} of {totalSlides}
             </span>
           </div>
@@ -428,8 +418,8 @@ export default function CampusPlaybookGallery({ onImageClick }) {
                 onClick={() => setCurrentIndex(dotIdx)}
                 className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                   dotIdx === currentIndex
-                    ? "w-7 bg-[#d4ff00]"
-                    : "w-2 bg-white/30 hover:bg-white/60"
+                    ? "w-7 bg-black dark:bg-[#84CC16]"
+                    : "w-2 bg-gray-300 dark:bg-white/30 hover:bg-gray-400 dark:hover:bg-white/60"
                 }`}
                 aria-label={`Go to slide ${dotIdx + 1}`}
               />
@@ -437,9 +427,9 @@ export default function CampusPlaybookGallery({ onImageClick }) {
           </div>
 
           {/* Active slide title & location */}
-          <div className="hidden sm:inline-flex items-center gap-2 text-[#d4ff00] font-semibold">
+          <div className="hidden sm:inline-flex items-center gap-2 text-[#65A30D] dark:text-[#84CC16] font-semibold">
             <span>●</span>
-            <span className="text-white font-medium">{activeSlide.title}</span>
+            <span className="text-gray-800 dark:text-white font-medium">{activeSlide.title}</span>
           </div>
 
         </div>
