@@ -21,7 +21,7 @@ export default function TextRevealAnimation() {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative w-full overflow-hidden bg-transparent py-24 md:py-32 cursor-default"
+      className="relative w-full overflow-hidden bg-transparent py-4 md:py-6 cursor-default"
       data-testid="text-reveal-section"
     >
       <div className="max-w-[1440px] mx-auto px-6 relative z-10 flex justify-center items-center w-full h-full">

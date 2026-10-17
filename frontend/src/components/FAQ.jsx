@@ -49,7 +49,7 @@ export default function FAQ({ faqData = FAQ_DATA }) {
   const containerRef = useRef(null);
 
   return (
-    <section id="faq" ref={containerRef} className="py-12 md:py-16 bg-transparent transition-colors duration-300">
+    <section id="faq" ref={containerRef} className="pt-4 md:pt-6 pb-12 md:pb-16 bg-transparent transition-colors duration-300">
       <div className="max-w-5xl mx-auto px-5 sm:px-6">
         <div className="text-center mb-8 md:mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#84CC16]/10 border border-[#84CC16]/20 text-[#65A30D] dark:text-[#84CC16] text-xs font-bold tracking-widest uppercase mb-3">

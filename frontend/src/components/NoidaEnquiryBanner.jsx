@@ -43,7 +43,7 @@ export default function NoidaEnquiryBanner({
   addressText = "B-54 Krishna Park, Vikaspuri,<br/>New Delhi - 110018",
   addressLink = "https://www.google.com/maps/search/B-54+Krishna+Park+Vikaspuri+New+Delhi+110018",
   defaultBranch = "Nexxtechs Delhi",
-  className = "py-24 md:py-32 bg-transparent",
+  className = "pt-16 md:pt-24 pb-6 md:pb-8 bg-transparent",
   buttonText = "Submit Enquiry",
   compact = false
 }) {
