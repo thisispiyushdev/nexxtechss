@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 const EXPLORE_LINKS = [
+  { label: "Our Campuses", href: "/#our-campus" },
   { label: "Tech Blog & Guides", href: "/blog/" },
   { label: "Career Roadmaps", href: "/roadmap/" },
   { label: "Career Guidance & Counseling", href: "/career-guidance/" },

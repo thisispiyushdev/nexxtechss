@@ -22,6 +22,7 @@ const PlacementSuccess = lazy(() => import("@/components/PlacementSuccess"));
 const TrainingPartners = lazy(() => import("@/components/TrainingPartners"));
 const TextRevealAnimation = lazy(() => import("@/components/TextRevealAnimation"));
 const FAQ = lazy(() => import("@/components/FAQ"));
+const OurCampusSection = lazy(() => import("@/components/OurCampusSection"));
 
 const NOIDA_FAQ_DATA = [
   {
@@ -94,6 +95,9 @@ export default function NoidaInstitutePage() {
       </Suspense>
       <Suspense fallback={null}>
         <PlacementSuccess />
+      </Suspense>
+      <Suspense fallback={null}>
+        <OurCampusSection currentBranch="noida" />
       </Suspense>
       <Suspense fallback={null}>
         <NoidaLocation />

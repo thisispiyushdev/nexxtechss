@@ -50,6 +50,7 @@ const ExploreMore = lazy(() => import("@/components/ExploreMore"));
 const TextRevealAnimation = lazy(() => import("@/components/TextRevealAnimation"));
 const FAQ = lazy(() => import("@/components/FAQ"));
 const ComparisonSection = lazy(() => import("@/components/ComparisonSection"));
+const OurCampusSection = lazy(() => import("@/components/OurCampusSection"));
 
 
 // Lazy load pages
@@ -148,6 +149,9 @@ function HomePage() {
       <DeferredRender delay={500}>
         <Suspense fallback={null}>
           <CareerTransformation />
+        </Suspense>
+        <Suspense fallback={null}>
+          <OurCampusSection />
         </Suspense>
         <Suspense fallback={null}>
           <VideoTestimonials />

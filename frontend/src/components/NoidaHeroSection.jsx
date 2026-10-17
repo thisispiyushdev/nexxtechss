@@ -9,6 +9,7 @@ import axios from "axios";
 import { API_ROOT } from "../lib/apiConfig";
 import MathCaptcha, { useMathCaptcha } from "./common/MathCaptcha";
 import PhoneInputWithCountry, { validatePhone } from "./common/PhoneInputWithCountry";
+import HeroCampusGallery from "./HeroCampusGallery";
 
 const API = API_ROOT;
 
@@ -260,6 +261,9 @@ export default function NoidaHeroSection() {
           </div>
         </div>
       </div>
+      
+      {/* Animated Campus Gallery Ribbon */}
+      <HeroCampusGallery />
     </section>
   );
 }
