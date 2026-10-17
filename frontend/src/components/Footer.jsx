@@ -7,12 +7,14 @@ const QUICK_LINKS = [
   { label: "Courses", href: "/courses/" },
   { label: "Industrial Training", href: "/courses/" },
   { label: "Placements", href: "/placement/" },
+  { label: "Founder: Aditya Sharma", href: "/aditya-sharma" },
   { label: "Blog", href: "/blog/" },
   { label: "Career Guidance", href: "/career-guidance/" },
   { label: "Contact", href: "/contact/" },
 ];
 
 const RESOURCES = [
+  { label: "Aditya Sharma (CEO & Founder)", href: "/aditya-sharma" },
   { label: "Tech Blog", href: "/blog/" },
   { label: "Career Roadmaps", href: "/roadmap/" },
   { label: "Career Guidance", href: "/career-guidance/" },

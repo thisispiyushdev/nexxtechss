@@ -68,6 +68,7 @@ const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard"));
 const TopTrainersPage = lazy(() => import("@/pages/TopTrainersPage"));
 const NoidaInstitutePage = lazy(() => import("@/pages/NoidaInstitutePage"));
 const TagPage = lazy(() => import("@/pages/TagPage"));
+const AdityaSharmaPage = lazy(() => import("@/pages/AdityaSharmaPage"));
 const AdityaDevopsTrainerPage = lazy(() => import("@/pages/AdityaDevopsTrainerPage"));
 const AdityaCloudTrainerPage = lazy(() => import("@/pages/AdityaCloudTrainerPage"));
 const SagarDigitalMarketingTrainerPage = lazy(() => import("@/pages/SagarDigitalMarketingTrainerPage"));
@@ -237,6 +238,11 @@ function AnimatedRoutes() {
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/contact-noida" element={<ContactPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/aditya-sharma" element={<AdityaSharmaPage />} />
+      <Route path="/about-founder" element={<AdityaSharmaPage />} />
+      <Route path="/aditya-sharma-ceo-founder-nexxtechs" element={<AdityaSharmaPage />} />
+      <Route path="/founder-aditya-sharma" element={<Navigate to="/aditya-sharma" replace />} />
+      <Route path="/ceo-aditya-sharma" element={<Navigate to="/aditya-sharma" replace />} />
       <Route path="/best-devops-trainer-in-delhi" element={<AdityaDevopsTrainerPage />} />
       <Route path="/best-cloud-computing-trainer-in-delhi" element={<AdityaCloudTrainerPage />} />
       <Route path="/best-cloud-devops-trainer-in-delhi" element={<AdityaCloudDevopsTrainerPage />} />

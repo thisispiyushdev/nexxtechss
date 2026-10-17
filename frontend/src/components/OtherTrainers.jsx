@@ -1,6 +1,7 @@
 import React from 'react';
 
 const delhiTrainers = [
+  { name: "Aditya Sharma", role: "CEO & Founder | Cloud & MLOps Architect", path: "/aditya-sharma" },
   { name: "Aditya Sharma", role: "Cloud Computing", path: "/best-cloud-computing-trainer-in-delhi" },
   { name: "Aditya Sharma", role: "DevOps & SRE", path: "/best-devops-trainer-in-delhi" },
   { name: "Aditya Sharma", role: "Cloud & DevOps", path: "/best-cloud-devops-trainer-in-delhi" },
@@ -12,6 +13,7 @@ const delhiTrainers = [
 ];
 
 const noidaTrainers = [
+  { name: "Aditya Sharma", role: "CEO & Founder | Cloud & MLOps Architect", path: "/aditya-sharma" },
   { name: "Aditya Sharma", role: "Cloud Computing", path: "/best-cloud-computing-trainer-in-noida" },
   { name: "Aditya Sharma", role: "DevOps & SRE", path: "/best-devops-trainer-in-noida" },
   { name: "Aditya Sharma", role: "Cloud & DevOps", path: "/best-cloud-devops-trainer-in-noida" },

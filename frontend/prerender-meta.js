@@ -230,6 +230,23 @@ const ROUTES = [
     keywords: "Nexxtechs Noida, IT training institute Noida, computer institute Noida, software training institute Noida, data science course Noida, data science institute Noida, data analytics course Noida, artificial intelligence course Noida, generative AI course Noida, machine learning course Noida, cloud computing course Noida, AWS course Noida, DevOps course Noida, cybersecurity course Noida, ethical hacking course Noida, Java full stack course Noida, web development course Noida, Python course Noida, digital marketing course Noida, UI UX design course Noida"
   },
   {
+    path: "/aditya-sharma",
+    title: "Aditya Sharma – CEO & Founder of NexxTechs | Best Cloud & MLOps Expert in Delhi NCR & India",
+    description: "Official profile of Aditya Sharma, CEO & Founder of NexxTechs. Premier Cloud Computing, DevOps & MLOps Architect in Delhi NCR, Noida & Pan-India. Connect on LinkedIn & Instagram.",
+    keywords: "Aditya Sharma, Aditya Sharma Nexxtechs, Aditya Sharma CEO, Aditya Sharma Founder Nexxtechs, Cloud MLOps expert Delhi NCR, Best Cloud trainer Delhi, Best MLOps expert India, DevOps Architect Delhi NCR, Aditya Sharma LinkedIn, aadityaa.parashar Instagram, NexxTechs founder, AWS Azure MLOps training India"
+  },
+  {
+    path: "/about-founder",
+    title: "About Our Founder – Aditya Sharma | Nexxtechs",
+    description: "Learn about Aditya Sharma, CEO and Founder of Nexxtechs. Practical industry-oriented training in Web Development, Cloud Computing, DevOps, AI and Digital Skills.",
+    keywords: "Aditya Sharma, Founder Nexxtechs, CEO Nexxtechs, About Founder Nexxtechs, Cloud DevOps MLOps Trainer Delhi, Nexxtechs Leadership"
+  },
+  {
+    path: "/aditya-sharma-ceo-founder-nexxtechs",
+    title: "Aditya Sharma – CEO & Founder of NexxTechs | Cloud & MLOps Architect",
+    description: "Learn about Aditya Sharma, CEO & Founder of NexxTechs. Leading enterprise Cloud, DevOps, and MLOps expert across Delhi NCR, Noida and India."
+  },
+  {
     path: "/course/gen-ai",
     title: "Generative AI Course in Delhi | NexxTechs",
     description: "Learn Generative AI, Large Language Models, Prompt Engineering & build AI applications from scratch with NexxTechs in Delhi.",
