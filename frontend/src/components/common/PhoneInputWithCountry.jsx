@@ -61,10 +61,12 @@ export default function PhoneInputWithCountry({
   onChangeCountryCode,
   error,
   label = "Phone Number",
+  labelClassName = "",
   placeholder,
   required = true,
   className = "",
   inputClassName = "",
+  containerClassName = "",
   id,
 }) {
   const currentCountry =
@@ -83,14 +85,16 @@ export default function PhoneInputWithCountry({
       {label && (
         <label
           htmlFor={id}
-          className="block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300"
+          className={`block text-xs font-semibold uppercase tracking-wider text-[#4B5563] dark:text-gray-300 ${labelClassName}`}
         >
           {label} {required && "*"}
         </label>
       )}
-      <div className="flex items-center rounded-xl border border-gray-200 dark:border-gray-700 bg-[#F9FAFB] dark:bg-[#0f1117] overflow-hidden focus-within:border-[#84CC16] focus-within:ring-2 focus-within:ring-[#84CC16]/20 transition-all h-10 sm:h-11 w-full min-w-0">
+      <div className={`flex items-center rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#84CC16] transition-all w-full min-w-0 ${
+        containerClassName || "border border-gray-200 dark:border-gray-700 bg-[#F9FAFB] dark:bg-[#0f1117] h-10 sm:h-11 focus-within:border-[#84CC16] focus-within:ring-[#84CC16]/20"
+      }`}>
         {/* Country code selector */}
-        <div className="flex items-center pl-2.5 sm:pl-3 pr-1 py-1.5 sm:py-2 bg-gray-100/70 dark:bg-white/5 border-r border-gray-200 dark:border-gray-700/60 shrink-0">
+        <div className="flex items-center h-full pl-2.5 sm:pl-3 pr-1 py-1.5 sm:py-2 bg-gray-100/60 dark:bg-white/5 border-r border-gray-200/50 dark:border-gray-700/60 shrink-0">
           <select
             value={countryCode}
             onChange={(e) => onChangeCountryCode && onChangeCountryCode(e.target.value)}

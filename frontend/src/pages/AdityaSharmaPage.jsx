@@ -964,105 +964,128 @@ export default function AdityaSharmaPage() {
                           </div>
                         )}
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div>
-                            <label className="block text-xs font-mono font-bold uppercase tracking-wider text-gray-700 mb-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        {/* 1. Name */}
+                        <div>
+                          <div className="h-5 mb-2 flex items-center">
+                            <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-700">
                               Your Name *
                             </label>
-                            <input
-                              type="text"
-                              required
-                              placeholder="Enter your full name"
-                              value={form.name}
-                              onChange={(e) => setForm({ ...form, name: e.target.value })}
-                              className="w-full px-4 py-3.5 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all"
-                            />
                           </div>
-
-                          <div>
-                            <PhoneInputWithCountry
-                              phone={form.phone}
-                              onChangePhone={(p) => setForm({ ...form, phone: p })}
-                              countryCode={countryCode}
-                              onChangeCountryCode={setCountryCode}
-                              className="w-full"
-                              labelClassName="text-xs font-mono font-bold uppercase tracking-wider text-gray-700 mb-2"
-                              inputClassName="px-4 py-3.5 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div>
-                            <label className="block text-xs font-mono font-bold uppercase tracking-wider text-gray-700 mb-2">
-                              Course / Interest *
-                            </label>
-                            <select
-                              value={form.course_interested}
-                              onChange={(e) => setForm({ ...form, course_interested: e.target.value })}
-                              className="w-full px-4 py-3.5 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all"
-                            >
-                              {COURSE_OPTIONS.map((c) => (
-                                <option key={c} value={c}>{c}</option>
-                              ))}
-                            </select>
-                          </div>
-
-                          <div>
-                            <label className="block text-xs font-mono font-bold uppercase tracking-wider text-gray-700 mb-2">
-                              Institute Branch *
-                            </label>
-                            <select
-                              value={form.branch}
-                              onChange={(e) => setForm({ ...form, branch: e.target.value })}
-                              className="w-full px-4 py-3.5 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all"
-                            >
-                              <option value="Nexxtechs Delhi">Nexxtechs Delhi (Vikaspuri / Janakpuri)</option>
-                              <option value="Nexxtechs Noida">Nexxtechs Noida (Sector 2)</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div>
-                            <label className="block text-xs font-mono font-bold uppercase tracking-wider text-gray-700 mb-2">
-                              Email Address (Optional)
-                            </label>
-                            <input
-                              type="email"
-                              placeholder="name@example.com"
-                              value={form.email}
-                              onChange={(e) => setForm({ ...form, email: e.target.value })}
-                              className="w-full px-4 py-3.5 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all"
-                            />
-                          </div>
-
-                          <div>
-                            {/* Anti-spam Math Captcha from standard EnquiryForm */}
-                            <MathCaptcha
-                              problem={mathProblem}
-                              value={mathAnswer}
-                              onChange={(e) => setMathAnswer(e.target.value)}
-                              error={mathError}
-                              onRefresh={refreshMathProblem}
-                              labelClassName="text-xs font-mono font-bold uppercase tracking-wider text-gray-700 mb-1"
-                              inputClassName="px-4 py-3 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all"
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="block text-xs font-mono font-bold uppercase tracking-wider text-gray-700 mb-2">
-                            Message / Requirements (Optional)
-                          </label>
-                          <textarea
-                            rows={3}
-                            placeholder="Tell us how Aditya Sharma or Nexxtechs can help you or your organization..."
-                            value={form.message}
-                            onChange={(e) => setForm({ ...form, message: e.target.value })}
-                            className="w-full px-4 py-3.5 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all resize-none"
+                          <input
+                            type="text"
+                            required
+                            placeholder="Enter your full name"
+                            value={form.name}
+                            onChange={(e) => setForm({ ...form, name: e.target.value })}
+                            className="w-full h-12 px-4 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all"
                           />
                         </div>
+
+                        {/* 2. Phone */}
+                        <div>
+                          <div className="h-5 mb-2 flex items-center">
+                            <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-700">
+                              Phone Number *
+                            </label>
+                          </div>
+                          <PhoneInputWithCountry
+                            label={false}
+                            phone={form.phone}
+                            onChangePhone={(p) => setForm({ ...form, phone: p })}
+                            countryCode={countryCode}
+                            onChangeCountryCode={setCountryCode}
+                            className="space-y-0"
+                            containerClassName="h-12 bg-gray-50/90 rounded-xl focus-within:bg-white focus-within:ring-2 focus-within:ring-[#84CC16] shadow-sm transition-all border-0"
+                            inputClassName="text-sm py-0"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        {/* 3. Course */}
+                        <div>
+                          <div className="h-5 mb-2 flex items-center">
+                            <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-700">
+                              Course / Interest *
+                            </label>
+                          </div>
+                          <select
+                            value={form.course_interested}
+                            onChange={(e) => setForm({ ...form, course_interested: e.target.value })}
+                            className="w-full h-12 px-4 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all cursor-pointer"
+                          >
+                            {COURSE_OPTIONS.map((c) => (
+                              <option key={c} value={c}>{c}</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* 4. Branch */}
+                        <div>
+                          <div className="h-5 mb-2 flex items-center">
+                            <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-700">
+                              Institute Branch *
+                            </label>
+                          </div>
+                          <select
+                            value={form.branch}
+                            onChange={(e) => setForm({ ...form, branch: e.target.value })}
+                            className="w-full h-12 px-4 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all cursor-pointer"
+                          >
+                            <option value="Nexxtechs Delhi">Nexxtechs Delhi (Vikaspuri / Janakpuri)</option>
+                            <option value="Nexxtechs Noida">Nexxtechs Noida (Sector 2)</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        {/* 5. Email */}
+                        <div>
+                          <div className="h-5 mb-2 flex items-center">
+                            <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-700">
+                              Email Address (Optional)
+                            </label>
+                          </div>
+                          <input
+                            type="email"
+                            placeholder="name@example.com"
+                            value={form.email}
+                            onChange={(e) => setForm({ ...form, email: e.target.value })}
+                            className="w-full h-12 px-4 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all"
+                          />
+                        </div>
+
+                        {/* 6. Captcha */}
+                        <div>
+                          <MathCaptcha
+                            problem={mathProblem}
+                            value={mathAnswer}
+                            onChange={(e) => setMathAnswer(e.target.value)}
+                            error={mathError}
+                            onRefresh={refreshMathProblem}
+                            className="space-y-0"
+                            headerClassName="h-5 mb-2"
+                            labelClassName="text-xs font-mono font-bold uppercase tracking-wider text-gray-700"
+                            inputClassName="h-12 px-4 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all border-0"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="h-5 mb-2 flex items-center">
+                          <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-700">
+                            Message / Requirements (Optional)
+                          </label>
+                        </div>
+                        <textarea
+                          rows={3}
+                          placeholder="Tell us how Aditya Sharma or Nexxtechs can help you or your organization..."
+                          value={form.message}
+                          onChange={(e) => setForm({ ...form, message: e.target.value })}
+                          className="w-full p-4 bg-gray-50/90 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#84CC16] text-sm text-gray-900 shadow-sm transition-all resize-none"
+                        />
+                      </div>
 
                         <motion.button
                           type="submit"
