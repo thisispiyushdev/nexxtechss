@@ -197,10 +197,12 @@ export default function AboutUsPage() {
   const LINKEDIN_ADITYA = "https://www.linkedin.com/in/aditya-sharma-538391283/";
   const INSTAGRAM_ADITYA = "https://www.instagram.com/aadityaa.parashar/";
   const LINKEDIN_NITISH = "https://in.linkedin.com/in/nitish-kaushal46";
+  const LINKEDIN_MEGHESH = "https://www.linkedin.com/in/meghesh-kumar-984333246/";
 
   // Portrait hover color states
   const [isAdityaHovered, setIsAdityaHovered] = useState(false);
   const [isNitishHovered, setIsNitishHovered] = useState(false);
+  const [isMegheshHovered, setIsMegheshHovered] = useState(false);
   const [isHeroHovered, setIsHeroHovered] = useState(false);
 
   // Gallery filter & modal
@@ -319,7 +321,7 @@ export default function AboutUsPage() {
     "name": "Nexxtechs",
     "url": isNoida ? "https://www.nexxtechs.com/about-us?branch=noida" : "https://www.nexxtechs.com/about-us",
     "logo": "https://www.nexxtechs.com/assets/logo_black.webp",
-    "description": "Nexxtechs is a premier IT and software training institute in Delhi and Noida, founded by Aditya Sharma and Nitish Kaushal. Offering industry-grade hands-on training in Cloud Computing, DevOps, Full Stack AI, Cyber Security, and Data Science.",
+    "description": "Nexxtechs is a premier IT and software training institute in Delhi and Noida, founded by Aditya Sharma, Nitish Kaushal, and Meghesh Kumar. Offering industry-grade hands-on training in Cloud Computing, DevOps, Full Stack AI, Cyber Security, and Data Science.",
     "founders": [
       {
         "@type": "Person",
@@ -333,6 +335,12 @@ export default function AboutUsPage() {
         "name": "Nitish Kaushal",
         "jobTitle": "Co-Founder & Director",
         "sameAs": [LINKEDIN_NITISH]
+      },
+      {
+        "@type": "Person",
+        "name": "Meghesh Kumar",
+        "jobTitle": "Founder & Cybersecurity Specialist",
+        "sameAs": [LINKEDIN_MEGHESH]
       }
     ],
     "address": [
@@ -362,10 +370,10 @@ export default function AboutUsPage() {
           title={isNoida 
             ? "About Nexxtechs Noida – Premier IT Training Institute Sector 2 Noida" 
             : "About Us – Best IT Training Institute in Delhi & Noida | Nexxtechs"}
-          description="Learn about Nexxtechs, premier technology training institute in Delhi NCR founded by Aditya Sharma and Nitish Kaushal. Explore our vision, founder words, industry labs, and real-world pedagogy."
+          description="Learn about Nexxtechs, premier technology training institute in Delhi NCR founded by Aditya Sharma, Nitish Kaushal, and Meghesh Kumar. Explore our vision, founder words, industry labs, and real-world pedagogy."
           canonical={isNoida ? "/about-us?branch=noida" : "/about-us"}
           ogImage="/campus/campus-1.webp"
-          keywords="About Nexxtechs, IT Training Institute Delhi, IT Training Institute Noida, Aditya Sharma Nexxtechs, Nitish Kaushal Nexxtechs, Founder Nexxtechs, Cloud Computing Institute, DevOps Training Institute, Nexxtechs Campuses"
+          keywords="About Nexxtechs, IT Training Institute Delhi, IT Training Institute Noida, Aditya Sharma Nexxtechs, Nitish Kaushal Nexxtechs, Meghesh Kumar Nexxtechs, Founder Nexxtechs, Cybersecurity Specialist, Cloud Computing Institute, DevOps Training Institute, Nexxtechs Campuses"
           jsonLd={structuredData}
         />
 
@@ -649,15 +657,15 @@ export default function AboutUsPage() {
             </p>
           </motion.div>
 
-          {/* DUAL FOUNDERS SHOWCASE: Side-by-side borderless cards with Framer Motion slide-in */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+          {/* FOUNDERS SHOWCASE: 3-column responsive grid with Framer Motion slide-in */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
             {/* ================= FOUNDER 1: ADITYA SHARMA ================= */}
             <motion.div 
-              initial={{ opacity: 0, x: -35 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -6 }}
               className="bg-gray-50/70 rounded-3xl p-7 sm:p-10 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] flex flex-col justify-between relative group transition-all duration-300 overflow-hidden"
             >
@@ -786,10 +794,10 @@ export default function AboutUsPage() {
 
             {/* ================= FOUNDER 2: NITISH KAUSHAL ================= */}
             <motion.div 
-              initial={{ opacity: 0, x: 35 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
               whileHover={{ y: -6 }}
               className="bg-gray-50/70 rounded-3xl p-7 sm:p-10 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] flex flex-col justify-between relative group transition-all duration-300 overflow-hidden"
             >
@@ -896,6 +904,118 @@ export default function AboutUsPage() {
 
             </motion.div>
 
+            {/* ================= FOUNDER 3: MEGHESH KUMAR ================= */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+              whileHover={{ y: -6 }}
+              className="bg-gray-50/70 rounded-3xl p-7 sm:p-10 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] flex flex-col justify-between relative group transition-all duration-300 overflow-hidden"
+            >
+              <div className="w-full h-1 bg-gradient-to-r from-[#84CC16] to-[#a3e635] absolute top-0 left-0" />
+              
+              <div className="space-y-6">
+                {/* Portrait with Flat Green Offset Accent Block */}
+                <div className="flex justify-center sm:justify-start">
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="relative inline-block max-w-[280px] sm:max-w-[300px] w-full group cursor-pointer"
+                    onMouseEnter={() => setIsMegheshHovered(true)}
+                    onMouseLeave={() => setIsMegheshHovered(false)}
+                  >
+                    {/* Lime offset block */}
+                    <div 
+                      className={`absolute -bottom-4 -right-4 sm:-bottom-5 sm:-right-5 w-full h-full bg-[#84CC16] rounded-2xl z-0 transition-transform duration-300 pointer-events-none ${isMegheshHovered ? "translate-x-2 translate-y-2" : ""}`} 
+                      aria-hidden="true"
+                    />
+
+                    {/* Image with grayscale hover */}
+                    <div className="relative z-10 w-full h-[320px] sm:h-[350px] overflow-hidden rounded-2xl bg-white shadow-lg">
+                      <img
+                        src="/trainer/meghesh-kumar.webp"
+                        alt="Meghesh Kumar - Founder & Cybersecurity Specialist of Nexxtechs"
+                        width={800}
+                        height={800}
+                        className="w-full h-full object-cover block [filter:grayscale(100%)] hover:[filter:grayscale(0%)] group-hover:[filter:grayscale(0%)] transition-all duration-500 cursor-pointer"
+                        loading="lazy"
+                      />
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Title & Bio */}
+                <div>
+                  <div className="text-xs font-mono font-bold tracking-[0.25em] uppercase text-[#65A30D]">
+                    FOUNDER &amp; CYBERSECURITY SPECIALIST
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1">
+                    Meghesh Kumar
+                  </h3>
+                  <div className="text-xs font-mono text-gray-500 tracking-wider uppercase mt-1">
+                    Ethical Hacking &nbsp;•&nbsp; SOC Operations &nbsp;•&nbsp; Threat Defense
+                  </div>
+                </div>
+
+                <p className="text-gray-600 text-sm sm:text-[14.5px] leading-relaxed">
+                  Meghesh Kumar is the Founder and Cybersecurity Specialist at Nexxtechs. With deep expertise spanning offensive security, penetration testing, threat hunting, and enterprise vulnerability management, he spearheads the cybersecurity curriculum and real-world defense training labs across Nexxtechs campuses.
+                </p>
+
+                <p className="text-gray-600 text-sm sm:text-[14.5px] leading-relaxed">
+                  Holding premier certifications including CEH and CCNA, Meghesh focuses on empowering students to navigate real-world attack vectors, conduct red-team simulations, and safeguard mission-critical infrastructures against modern digital threats.
+                </p>
+
+                {/* Key Domains (Borderless chips) */}
+                <div className="grid grid-cols-3 gap-2.5 pt-1 text-center">
+                  <div className="p-3 bg-white rounded-2xl shadow-sm">
+                    <div className="text-[11px] font-mono font-bold text-black uppercase">Offensive Security</div>
+                    <div className="text-[9.5px] text-gray-500 mt-0.5">CEH &amp; Pentesting</div>
+                  </div>
+                  <div className="p-3 bg-white rounded-2xl shadow-sm">
+                    <div className="text-[11px] font-mono font-bold text-black uppercase">Network Defense</div>
+                    <div className="text-[9.5px] text-gray-500 mt-0.5">CCNA &amp; SOC Ops</div>
+                  </div>
+                  <div className="p-3 bg-white rounded-2xl shadow-sm">
+                    <div className="text-[11px] font-mono font-bold text-black uppercase">Threat Hunting</div>
+                    <div className="text-[9.5px] text-gray-500 mt-0.5">SIEM &amp; Forensics</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sign-off & Social Links */}
+              <div className="pt-6 mt-6 flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <div 
+                    className="text-3xl text-gray-900 select-none tracking-wide"
+                    style={{ fontFamily: "'Dancing Script', cursive, serif" }}
+                  >
+                    Meghesh Kumar
+                  </div>
+                  <div className="text-[10px] font-mono tracking-[0.25em] uppercase text-gray-500 font-bold">
+                    FOUNDER &amp; CYBERSECURITY SPECIALIST, NEXXTECHS
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2.5">
+                  <motion.a
+                    href={LINKEDIN_MEGHESH}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.06, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-gray-800 text-xs font-mono font-semibold tracking-wider rounded-xl shadow-sm hover:shadow hover:bg-[#84CC16] hover:text-black transition-colors"
+                    aria-label="Meghesh Kumar on LinkedIn"
+                  >
+                    <Linkedin size={14} className="text-[#84CC16] group-hover:text-black" />
+                    <span>DIRECT LINKEDIN</span>
+                    <ExternalLink size={11} className="text-gray-400 group-hover:text-black" />
+                  </motion.a>
+                </div>
+              </div>
+
+            </motion.div>
+
           </div>
         </section>
 
@@ -929,18 +1049,20 @@ export default function AboutUsPage() {
                 </h2>
               </div>
 
-              {/* Dual Quote Cards (Borderless Modern Cards) */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
+              {/* Dual / Triple Quote Cards (Borderless Modern Cards) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-2">
                 
                 {/* Words from Aditya Sharma */}
-                <div className="space-y-4 p-6 sm:p-8 bg-white/5 rounded-2xl backdrop-blur-sm">
-                  <div className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
-                    <span>ADITYA SHARMA — ON PRACTICAL ENGINEERING</span>
+                <div className="space-y-4 p-6 sm:p-8 bg-white/5 rounded-2xl backdrop-blur-sm flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-wider flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
+                      <span>ADITYA SHARMA — ON PRACTICAL ENGINEERING</span>
+                    </div>
+                    <p className="text-gray-300 text-sm sm:text-base font-serif italic leading-relaxed">
+                      “Theory will never solve a production Kubernetes outage or an automated CI/CD pipeline failure. Real tech companies do not hire certificates—they hire people who can sit down at a terminal, understand distributed systems, write clean resilient code, and deploy without breaking production. At Nexxtechs, every lesson is code in production.”
+                    </p>
                   </div>
-                  <p className="text-gray-300 text-sm sm:text-base font-serif italic leading-relaxed">
-                    “Theory will never solve a production Kubernetes outage or an automated CI/CD pipeline failure. Real tech companies do not hire certificates—they hire people who can sit down at a terminal, understand distributed systems, write clean resilient code, and deploy without breaking production. At Nexxtechs, every lesson is code in production.”
-                  </p>
                   <div className="pt-2">
                     <div 
                       className="text-2xl text-white select-none"
@@ -955,14 +1077,16 @@ export default function AboutUsPage() {
                 </div>
 
                 {/* Words from Nitish Kaushal */}
-                <div className="space-y-4 p-6 sm:p-8 bg-white/5 rounded-2xl backdrop-blur-sm">
-                  <div className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
-                    <span>NITISH KAUSHAL — ON CAREER ACCELERATION</span>
+                <div className="space-y-4 p-6 sm:p-8 bg-white/5 rounded-2xl backdrop-blur-sm flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-wider flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
+                      <span>NITISH KAUSHAL — ON CAREER ACCELERATION</span>
+                    </div>
+                    <p className="text-gray-300 text-sm sm:text-base font-serif italic leading-relaxed">
+                      “Our commitment to students goes far beyond classroom training—it is about genuine career transformation. We hold daily doubt desks, simulate tough technical interviews, and connect learners directly with 350+ corporate hiring partners who value real problem-solvers. Your growth is our singular metric of success.”
+                    </p>
                   </div>
-                  <p className="text-gray-300 text-sm sm:text-base font-serif italic leading-relaxed">
-                    “Our commitment to students goes far beyond classroom training—it is about genuine career transformation. We hold daily doubt desks, simulate tough technical interviews, and connect learners directly with 350+ corporate hiring partners who value real problem-solvers. Your growth is our singular metric of success.”
-                  </p>
                   <div className="pt-2">
                     <div 
                       className="text-2xl text-white select-none"
@@ -972,6 +1096,30 @@ export default function AboutUsPage() {
                     </div>
                     <div className="text-[10px] font-mono text-[#84CC16] uppercase tracking-wider">
                       CO-FOUNDER &amp; DIRECTOR
+                    </div>
+                  </div>
+                </div>
+
+                {/* Words from Meghesh Kumar */}
+                <div className="space-y-4 p-6 sm:p-8 bg-white/5 rounded-2xl backdrop-blur-sm flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-wider flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
+                      <span>MEGHESH KUMAR — ON OFFENSIVE SECURITY &amp; DEFENSE</span>
+                    </div>
+                    <p className="text-gray-300 text-sm sm:text-base font-serif italic leading-relaxed">
+                      “In modern cybersecurity, passive textbook theory cannot stop a live zero-day breach or a stealth ransomware outbreak. Defense demands understanding the adversary—mastering packet inspection, reconnaissance, threat hunting, and defensive telemetry. At Nexxtechs, we train security engineers to think like elite ethical hackers and defend mission-critical systems with unwavering confidence.”
+                    </p>
+                  </div>
+                  <div className="pt-2">
+                    <div 
+                      className="text-2xl text-white select-none"
+                      style={{ fontFamily: "'Dancing Script', cursive, serif" }}
+                    >
+                      Meghesh Kumar
+                    </div>
+                    <div className="text-[10px] font-mono text-[#84CC16] uppercase tracking-wider">
+                      FOUNDER &amp; CYBERSECURITY SPECIALIST
                     </div>
                   </div>
                 </div>
