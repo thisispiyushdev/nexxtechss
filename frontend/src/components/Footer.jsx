@@ -4,6 +4,7 @@ const LOGO_URL = "/assets/logo_white.webp";
 
 const QUICK_LINKS = [
   { label: "Home", href: "/" },
+  { label: "About Us", href: "/about-us" },
   { label: "Courses", href: "/courses/" },
   { label: "Our Campuses", href: "/#our-campus" },
   { label: "Industrial Training", href: "/courses/" },

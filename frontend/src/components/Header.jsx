@@ -9,6 +9,7 @@ const LOGO_DARK_URL = "/assets/logo_white_small.webp";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
+  { label: "About Us", href: "/about-us" },
   { label: "Courses", href: "/courses/" },
   { label: "Services", href: "/services" },
   { label: "Placement", href: "/placement/" },
@@ -157,9 +158,19 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const isNoida = location.pathname.includes('noida') || searchParams.get('branch') === 'noida';
+  const savedBranch = typeof window !== 'undefined' ? sessionStorage.getItem('active_branch') : null;
+  const isNoida = location.pathname.includes('noida') || searchParams.get('branch') === 'noida' || (location.pathname.startsWith('/about') && savedBranch === 'noida');
   const isServicePage = location.pathname.includes('service');
   const contactInfo = isNoida || isServicePage ? CONTACT_INFO.noida : CONTACT_INFO.default;
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (location.pathname.includes('noida') || params.get('branch') === 'noida') {
+      try { sessionStorage.setItem('active_branch', 'noida'); } catch (e) {}
+    } else if (location.pathname === '/' || params.get('branch') === 'delhi') {
+      try { sessionStorage.setItem('active_branch', 'delhi'); } catch (e) {}
+    }
+  }, [location.pathname, location.search]);
 
   const activeCoursesMegaMenuData = isNoida ? NOIDA_MEGA_MENU_DATA : MEGA_MENU_DATA;
 
@@ -179,6 +190,7 @@ export default function Header() {
         isMegaMenu: true,
         megaMenuData: SERVICES_MEGA_MENU_DATA
       },
+      { label: "About Us", href: "/about-us" },
       { 
         label: "Industrial Training", 
         isSimpleDropdown: true,
@@ -192,6 +204,7 @@ export default function Header() {
   } else if (isNoida) {
     activeNavLinks = [
       { label: "Home", href: "/nexxtechs-noida" },
+      { label: "About Us", href: "/about-us?branch=noida" },
       { label: "Courses", href: "/courses-noida", isMegaMenu: true, megaMenuData: activeCoursesMegaMenuData },
       { label: "Services", href: "/services" },
       { label: "Placement", href: "/placement/" },
@@ -287,9 +300,9 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center h-full gap-4 xl:gap-8">
+          <nav className="hidden lg:flex items-center h-full gap-2 xl:gap-6">
             {activeNavLinks.map((link) => {
-              const isActive = location.pathname === link.href;
+              const isActive = location.pathname === link.href || (link.href.startsWith("/about-us") && location.pathname.startsWith("/about"));
 
               if (link.isMegaMenu) {
                 const isThisMegaMenuOpen = activeMegaMenuLabel === link.label;
@@ -306,7 +319,7 @@ export default function Header() {
                   >
                     <Link
                       to={link.href}
-                      className={`flex items-center gap-1 px-3 py-2 text-[15px] font-semibold transition-colors rounded-lg ${
+                      className={`flex items-center gap-1 px-2.5 xl:px-3 py-2 text-[14px] xl:text-[15px] font-semibold transition-colors rounded-lg ${
                         isActive || isThisMegaMenuOpen ? "text-[#84CC16]" : dark ? "text-gray-200 hover:text-[#84CC16]" : "text-[#111827] hover:text-[#84CC16]"
                       }`}
                     >
@@ -391,7 +404,7 @@ export default function Header() {
                     className="relative h-full flex items-center group"
                   >
                     <button
-                      className={`flex items-center gap-1 px-3 py-2 text-[15px] font-semibold transition-colors rounded-lg ${
+                      className={`flex items-center gap-1 px-2.5 xl:px-3 py-2 text-[14px] xl:text-[15px] font-semibold transition-colors rounded-lg ${
                         dark ? "text-gray-200 hover:text-[#84CC16]" : "text-[#111827] hover:text-[#84CC16]"
                       }`}
                     >
@@ -433,7 +446,7 @@ export default function Header() {
                   }}
                   target={link.label === "Services" ? "_blank" : undefined}
                   rel={link.label === "Services" ? "noopener noreferrer" : undefined}
-                  className={`px-3 py-2 text-[15px] font-semibold transition-colors rounded-lg ${
+                  className={`px-2.5 xl:px-3 py-2 text-[14px] xl:text-[15px] font-semibold transition-colors rounded-lg ${
                     isActive ? "text-[#84CC16]" : dark ? "text-gray-200 hover:text-[#84CC16]" : "text-[#111827] hover:text-[#84CC16]"
                   }`}
                 >
@@ -495,6 +508,7 @@ export default function Header() {
                 );
               }
 
+              const isLinkActive = location.pathname === link.href || (link.href.startsWith("/about-us") && location.pathname.startsWith("/about"));
               return (
                 <Link
                   key={link.label}
@@ -509,13 +523,13 @@ export default function Header() {
                     }
                   }}
                 className={`flex items-center justify-between px-5 py-3.5 text-base font-bold rounded-xl transition-all ${
-                  location.pathname === link.href 
+                  isLinkActive 
                     ? "text-[#84CC16] bg-[#84CC16]/5 border border-[#84CC16]/20" 
                     : dark ? "text-gray-300 hover:bg-white/5" : "text-[#111827] hover:bg-gray-50"
                 }`}
               >
                 <span>{link.label}</span>
-                <ChevronRight size={18} className={location.pathname === link.href ? "opacity-100" : "opacity-30"} />
+                <ChevronRight size={18} className={isLinkActive ? "opacity-100" : "opacity-30"} />
               </Link>
               );
             })}
