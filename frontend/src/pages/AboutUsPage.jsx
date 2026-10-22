@@ -333,7 +333,7 @@ export default function AboutUsPage() {
       {
         "@type": "Person",
         "name": "Nitish Kaushal",
-        "jobTitle": "Co-Founder & Director",
+        "jobTitle": "Founder & Director",
         "sameAs": [LINKEDIN_NITISH]
       },
       {
