@@ -1,9 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import PageTransition from "@/components/PageTransition";
 import SEOHead from "@/components/SEOHead";
-import NoidaEnquiryBanner from "@/components/NoidaEnquiryBanner";
 import NoidaHeroSection from "@/components/NoidaHeroSection";
-import EnquiryForm from "@/components/EnquiryForm";
 
 // Lazy load other components to maintain performance
 const NoidaWhyChooseUs = lazy(() => import("@/components/NoidaSEOContent").then(module => ({ default: module.NoidaWhyChooseUs })));
@@ -107,9 +105,6 @@ export default function NoidaInstitutePage() {
       </Suspense>
       <Suspense fallback={null}>
         <NoidaTestimonials />
-      </Suspense>
-      <Suspense fallback={null}>
-        <NoidaEnquiryBanner />
       </Suspense>
       <Suspense fallback={null}>
         <FAQ faqData={NOIDA_FAQ_DATA} />

@@ -29,7 +29,7 @@ export default function AdminDashboard() {
   const { isAuthenticated, loading, logout, role } = useAdminAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("leads");
-  const [data, setData] = useState({ leads: [], reviews: [], stats: [], blogs: [], courses: [], users: [], banners: [], noidaBanners: [] });
+  const [data, setData] = useState({ leads: [], reviews: [], stats: [], blogs: [], courses: [], users: [], banners: [] });
   const [fetching, setFetching] = useState(false);
   const [toast, setToast] = useState(null);
   const [modal, setModal] = useState(null);
@@ -57,7 +57,6 @@ export default function AdminDashboard() {
       { id: "blogs", label: "Blogs", icon: FileText, desc: "Blog posts" },
       { id: "courses", label: "Courses", icon: BookOpen, desc: "Course catalog" },
       { id: "banners", label: "Promo Banners", icon: Megaphone, desc: "Text Promo Banners" },
-      { id: "noida_banners", label: "Noida Banners", icon: ImageIcon, desc: "Noida Image Slider" },
       { id: "team", label: "Team", icon: Users, desc: "Manage admins" },
     ] : []),
   ];
@@ -65,7 +64,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (!loading && !isAuthenticated) navigate("/admin");
-    if (!isCoreAdmin && (activeTab === "service_leads" || activeTab === "delhi_leads" || activeTab === "noida_leads" || activeTab === "placements" || activeTab === "blogs" || activeTab === "courses" || activeTab === "banners" || activeTab === "noida_banners" || activeTab === "team")) {
+    if (!isCoreAdmin && (activeTab === "service_leads" || activeTab === "delhi_leads" || activeTab === "noida_leads" || activeTab === "placements" || activeTab === "blogs" || activeTab === "courses" || activeTab === "banners" || activeTab === "team")) {
       if (role !== "receptionist" && role !== "noida_receptionist" && activeTab === "team") {
         setActiveTab("leads");
       } else if (!isCoreAdmin && activeTab !== "team") {
@@ -87,11 +86,11 @@ export default function AdminDashboard() {
         ? adminApi.get("/users").catch(() => ({ data: [] })) 
         : Promise.resolve({ data: [] });
 
-      let reviews = [], stats = [], blogs = [], courses = [], users = [], banners = [], noidaBanners = [];
+      let reviews = [], stats = [], blogs = [], courses = [], users = [], banners = [];
       let leadsR = { data: { leads: [] } };
 
       if (isCoreAdmin) {
-        const [resolvedLeads, resolvedUsers, reviewsR, statsR, blogsR, coursesR, bannersR, noidaBannersR] = await Promise.all([
+        const [resolvedLeads, resolvedUsers, reviewsR, statsR, blogsR, coursesR, bannersR] = await Promise.all([
           leadsPromise,
           usersPromise,
           adminApi.get("/reviews").catch(() => ({ data: [] })),
@@ -99,7 +98,6 @@ export default function AdminDashboard() {
           adminApi.get("/blogs").catch(() => ({ data: [] })),
           adminApi.get("/courses").catch(() => ({ data: [] })),
           adminApi.get("/banners").catch(() => ({ data: { data: [] } })),
-          adminApi.get("/noida-banners").catch(() => ({ data: [] })),
         ]);
         leadsR = resolvedLeads;
         users = resolvedUsers.data || [];
@@ -108,7 +106,6 @@ export default function AdminDashboard() {
         blogs = blogsR.data || [];
         courses = coursesR.data || [];
         banners = bannersR.data?.data || bannersR.data || [];
-        noidaBanners = noidaBannersR.data || [];
       } else {
         const [resolvedLeads, resolvedUsers] = await Promise.all([leadsPromise, usersPromise]);
         leadsR = resolvedLeads;
@@ -117,7 +114,7 @@ export default function AdminDashboard() {
 
       setData({
         leads: leadsR.data?.leads || leadsR.data || [],
-        reviews, stats, blogs, courses, users, banners, noidaBanners
+        reviews, stats, blogs, courses, users, banners
       });
     } catch { /* handled per-request */ }
     setFetching(false);
@@ -444,7 +441,6 @@ export default function AdminDashboard() {
             {activeTab === "blogs" && isCoreAdmin && <BlogsTable blogs={filtered(data.blogs, ["title","category"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "courses" && isCoreAdmin && <CoursesTable courses={filtered(data.courses, ["title","slug"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "banners" && isCoreAdmin && <BannersTable banners={filtered(data.banners, ["title","text"])} onDelete={handleDelete} onEdit={openEditModal} />}
-            {activeTab === "noida_banners" && isCoreAdmin && <NoidaBannersTable banners={filtered(data.noidaBanners, ["title","link_url"])} onDelete={handleDelete} onEdit={openEditModal} />}
             {activeTab === "team" && (isCoreAdmin || role === "receptionist" || role === "noida_receptionist") && <TeamTable users={data.users} onDelete={handleDelete} onEdit={openEditModal} isCoreAdmin={isCoreAdmin} />}
           </div>
         </main>
@@ -523,7 +519,6 @@ export default function AdminDashboard() {
       blogs: { title: "Add Blog", type: "blog", data: { id: "", title: "", excerpt: "", keywords: "", author: "NexxTechs", date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }), category: "Our blog", read_time: "5 min read", image: "", content: "", is_active: true } },
       courses: { title: "Add Course", type: "course", data: { slug: "", title: "", tagline: "", keywords: "", image: "", duration: "", level: "", overview: "", is_popular: false, is_trending: false, is_active: true, batch_timings: [], highlights: [], trending_tools: [], modules: [], brochure_url: "", sort_order: 0 } },
       banners: { title: "Add Banner", type: "banner", data: { title: "", text: "", link_url: "", link_text: "", target_page: "home", bg_color: "#84CC16", text_color: "#000000", start_date: "", end_date: "", is_active: true } },
-      noida_banners: { title: "Add Noida Banner", type: "noida_banner", data: { title: "", image: "", link_url: "", sort_order: 0, is_active: true } },
       team: { title: "Add Admin", type: "user", data: { username: "", password: "", role: "counselor", display_name: "" } },
     };
     const t = templates[activeTab];
@@ -531,7 +526,7 @@ export default function AdminDashboard() {
   }
 
   async function openEditModal(type, item) {
-    const titles = { review: "Edit Review", blog: "Edit Blog", course: "Edit Course", stat: "Edit Stat", user: "Edit Admin", banner: "Edit Banner", noida_banner: "Edit Noida Banner" };
+    const titles = { review: "Edit Review", blog: "Edit Blog", course: "Edit Course", stat: "Edit Stat", user: "Edit Admin", banner: "Edit Banner" };
     // Format dates for input type="datetime-local" if banner
     let editData = { ...item, password: "" };
     if (type === "banner") {
@@ -1007,52 +1002,7 @@ function BannersTable({ banners, onDelete, onEdit }) {
   );
 }
 
-function NoidaBannersTable({ banners, onDelete, onEdit }) {
-  if (!banners.length) return <EmptyState label="Noida Image Banners" />;
-  return (
-    <TableContainer>
-      <thead>
-        <tr>
-          <Th>Image</Th>
-          <Th>Info</Th>
-          <Th>Order</Th>
-          <Th>Status</Th>
-          <Th></Th>
-        </tr>
-      </thead>
-      <tbody>
-        {banners.map(b => (
-          <tr key={b.id} className="hover:bg-slate-50/50 transition-colors">
-            <Td>
-              <img src={b.image} alt="Noida Banner" className="h-12 w-auto object-cover rounded-md shadow-sm border border-slate-200" />
-            </Td>
-            <Td>
-              <div className="flex flex-col">
-                <span className="text-slate-900 font-bold max-w-xs truncate">{b.title || "No Title"}</span>
-                <a href={b.link_url || "#"} target="_blank" rel="noopener noreferrer" className="text-[10px] text-lime-600 truncate max-w-xs">{b.link_url || "No Link"}</a>
-              </div>
-            </Td>
-            <Td>
-              <span className="text-xs font-bold text-slate-500 tabular-nums">#{b.sort_order}</span>
-            </Td>
-            <Td>
-              {b.is_active ? 
-                <span className="px-2 py-1 bg-emerald-50 text-emerald-600 rounded-md text-[10px] font-black uppercase">Active</span> : 
-                <span className="px-2 py-1 bg-slate-100 text-slate-400 rounded-md text-[10px] font-black uppercase">Inactive</span>
-              }
-            </Td>
-            <Td>
-              <div className="flex gap-1 justify-end">
-                <button onClick={() => onEdit("noida_banner", b)} className="p-2 text-slate-300 hover:text-lime-600 hover:bg-lime-50 rounded-lg transition-all"><Edit size={18} /></button>
-                <button onClick={() => onDelete(`/noida-banners/${b.id}`, "Noida Banner")} className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"><Trash2 size={18} /></button>
-              </div>
-            </Td>
-          </tr>
-        ))}
-      </tbody>
-    </TableContainer>
-  );
-}
+
 
 function EmptyState({ label }) {
   return (
@@ -1095,7 +1045,6 @@ function ModalForm({ modal, onSave, role: currentUserRole }) {
       blog: modal.method === "post" ? "/blogs" : `/blogs/${modal.editId}`,
       course: modal.method === "post" ? "/courses" : `/courses/${modal.editId}`,
       banner: modal.method === "post" ? "/banners" : `/banners/${modal.editId}`,
-      noida_banner: modal.method === "post" ? "/noida-banners" : `/noida-banners/${modal.editId}`,
       user: modal.method === "post" ? "/users" : `/users/${modal.editId}`,
       lead: "/leads", // not used by adminApi directly, handled above
     };
@@ -1309,15 +1258,7 @@ function ModalForm({ modal, onSave, role: currentUserRole }) {
       </div>
     );
 
-    if (modal.type === "noida_banner") return (
-      <div className="space-y-4">
-        <Field label="Banner Title (Internal reference)" value={form.title} onChange={v => set("title", v)} />
-        <Field label="Link URL (Optional, where to redirect on click)" value={form.link_url} onChange={v => set("link_url", v)} />
-        <ImageField label="Banner Image (max 150 KB, recommended aspect ratio 21:9 or 3:1)" value={form.image} onChange={v => set("image", v)} required />
-        <Field label="Sort Order" type="number" value={form.sort_order} onChange={v => set("sort_order", parseInt(v) || 0)} />
-        <CheckField label="Active" checked={form.is_active} onChange={v => set("is_active", v)} />
-      </div>
-    );
+
 
     if (modal.type === "user") return (
       <div className="space-y-5">
