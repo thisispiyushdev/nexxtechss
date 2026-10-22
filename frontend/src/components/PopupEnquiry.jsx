@@ -85,13 +85,24 @@ export default function PopupEnquiry() {
   useEffect(() => {
     if (submitted) return;
 
-    // Show popup every 15 seconds if not closed and not on /services
-    const interval = setInterval(() => {
-      if (window.location.pathname.includes('/services')) return;
-      setOpen((prev) => (submitted ? false : true));
-    }, 15000);
+    // Show popup ONCE after 15 seconds when website is opened in this session
+    let timer = null;
+    try {
+      const alreadyShown = sessionStorage.getItem("popup_enquiry_auto_shown");
+      if (!alreadyShown && !window.location.pathname.includes('/services')) {
+        timer = setTimeout(() => {
+          sessionStorage.setItem("popup_enquiry_auto_shown", "true");
+          setOpen(true);
+        }, 15000);
+      }
+    } catch (e) {
+      timer = setTimeout(() => {
+        setOpen(true);
+      }, 15000);
+    }
 
     const handleOpenPopup = (e) => {
+      try { sessionStorage.setItem("popup_enquiry_auto_shown", "true"); } catch (err) {}
       if (e && e.detail) {
         setBannerTitle(e.detail.bannerTitle || "");
         setIsWhatsApp(!!e.detail.isWhatsApp);
@@ -109,7 +120,7 @@ export default function PopupEnquiry() {
     window.addEventListener("openPopupEnquiry", handleOpenPopup);
 
     return () => {
-      clearInterval(interval);
+      if (timer) clearTimeout(timer);
       window.removeEventListener("openPopupEnquiry", handleOpenPopup);
     };
   }, [submitted]);
@@ -192,7 +203,12 @@ export default function PopupEnquiry() {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={(isOpen) => {
+      setOpen(isOpen);
+      if (!isOpen) {
+        try { sessionStorage.setItem("popup_enquiry_auto_shown", "true"); } catch (e) {}
+      }
+    }}>
       <DialogContent className="w-[92vw] sm:w-full sm:max-w-[480px] max-h-[90dvh] sm:max-h-[88dvh] overflow-y-auto overflow-x-hidden bg-white dark:bg-[#1a1d27] border border-gray-100 dark:border-white/5 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl overscroll-contain">
         <DialogHeader className="mb-1 sm:mb-2 pr-7 sm:pr-8 text-left">
           <DialogTitle className="text-xl sm:text-2xl md:text-3xl font-black text-[#111827] dark:text-white leading-tight">

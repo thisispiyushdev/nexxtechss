@@ -397,25 +397,11 @@ export default function AboutUsPage() {
               className="lg:col-span-5 space-y-6"
             >
               
-              {/* Eyebrow Label with subtle lime-green decorative markers */}
-              <motion.div variants={fadeInUp} className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 bg-[#84CC16] inline-block shrink-0 shadow-sm shadow-[#84CC16]/40" />
-                <span className="text-[11px] sm:text-xs font-mono font-bold tracking-[0.25em] uppercase text-gray-800">
-                  {isNoida ? "NEXXTECHS NOIDA CAMPUS & TECHNOLOGY HUB" : "NEXXTECHS ACADEMY & TECHNOLOGY HUB"}
-                </span>
-                <span className="w-8 h-[2px] bg-[#84CC16] inline-block" />
-              </motion.div>
-
               {/* Large Two-line Heading */}
               <motion.h1 variants={fadeInUp} className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08] text-black">
                 About Our<br />
                 <span className="text-[#84CC16]">{isNoida ? "Noida Hub" : "Institute"}</span>
               </motion.h1>
-
-              {/* Tagline */}
-              <motion.div variants={fadeInUp} className="text-xs sm:text-sm font-mono font-bold tracking-[0.3em] uppercase text-gray-500 pt-1">
-                INNOVATE &nbsp;|&nbsp; ARCHITECT &nbsp;|&nbsp; EXCEL
-              </motion.div>
 
               {/* Mission & Story Paragraphs */}
               <motion.div variants={fadeInUp} className="space-y-4 text-gray-600 text-sm sm:text-[15px] leading-relaxed pt-2">
@@ -433,8 +419,8 @@ export default function AboutUsPage() {
               <motion.div variants={fadeInUp} className="pt-2 flex flex-wrap gap-2 text-xs font-mono">
                 {isNoida ? (
                   <>
-                    <span className="px-3.5 py-1.5 bg-black text-[#84CC16] font-bold rounded-full flex items-center gap-1.5 shadow-sm">
-                      <MapPin size={13} className="text-[#84CC16]" /> Noida Campus (Sector 2) — Active Hub
+                    <span className="px-3.5 py-1.5 bg-gray-100 text-gray-800 font-semibold rounded-full flex items-center gap-1.5">
+                      <MapPin size={13} className="text-[#84CC16]" /> Noida Campus (Sector 2)
                     </span>
                     <span className="px-3.5 py-1.5 bg-gray-100 text-gray-700 rounded-full flex items-center gap-1.5">
                       <MapPin size={13} className="text-gray-400" /> Delhi Flagship (Vikaspuri)
@@ -642,12 +628,6 @@ export default function AboutUsPage() {
             className="flex flex-col md:flex-row md:items-end justify-between mb-12"
           >
             <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 bg-[#84CC16]" />
-                <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#65A30D]">
-                  INSTITUTION LEADERSHIP
-                </span>
-              </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight">
                 Meet Our <span className="text-[#84CC16]">Founders</span>
               </h2>
@@ -1024,101 +1004,90 @@ export default function AboutUsPage() {
         {/* ============================================================== */}
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pt-20 md:pt-28">
           <motion.div 
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative bg-black text-white rounded-3xl p-8 sm:p-14 lg:p-16 shadow-2xl overflow-hidden"
+            className="relative bg-gray-50/90 border border-gray-200/80 rounded-3xl p-8 sm:p-14 lg:p-16 shadow-sm overflow-hidden"
           >
-            {/* Subtle green ambient glow */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#84CC16]/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="w-full h-1.5 bg-gradient-to-r from-[#84CC16] via-[#a3e635] to-transparent absolute top-0 left-0" />
+            <div className="w-full h-1.5 bg-gradient-to-r from-[#84CC16] via-[#a3e635] to-[#84CC16] absolute top-0 left-0" />
 
             <div className="relative z-10 max-w-5xl space-y-8">
               
               {/* Header */}
               <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#84CC16] rounded-full" />
-                  <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#84CC16]">
-                    LEADERSHIP PHILOSOPHY &amp; MISSION
-                  </span>
-                </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-gray-900">
                   Words from <span className="text-[#84CC16]">Our Founders</span>
                 </h2>
               </div>
 
-              {/* Dual / Triple Quote Cards (Borderless Modern Cards) */}
+              {/* Dual / Triple Quote Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-2">
                 
                 {/* Words from Aditya Sharma */}
-                <div className="space-y-4 p-6 sm:p-8 bg-white/5 rounded-2xl backdrop-blur-sm flex flex-col justify-between">
+                <div className="space-y-4 p-6 sm:p-8 bg-white border border-gray-200/80 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
                   <div className="space-y-4">
-                    <div className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-wider flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
-                      <span>ADITYA SHARMA — ON PRACTICAL ENGINEERING</span>
+                    <div className="text-xs font-mono font-bold text-[#65A30D] uppercase tracking-wider">
+                      ADITYA SHARMA — PRACTICAL ENGINEERING
                     </div>
-                    <p className="text-gray-300 text-sm sm:text-base font-serif italic leading-relaxed">
+                    <p className="text-gray-700 text-sm sm:text-base font-serif italic leading-relaxed">
                       “Theory will never solve a production Kubernetes outage or an automated CI/CD pipeline failure. Real tech companies do not hire certificates—they hire people who can sit down at a terminal, understand distributed systems, write clean resilient code, and deploy without breaking production. At Nexxtechs, every lesson is code in production.”
                     </p>
                   </div>
                   <div className="pt-2">
                     <div 
-                      className="text-2xl text-white select-none"
+                      className="text-2xl text-gray-900 select-none"
                       style={{ fontFamily: "'Dancing Script', cursive, serif" }}
                     >
                       Aditya Sharma
                     </div>
-                    <div className="text-[10px] font-mono text-[#84CC16] uppercase tracking-wider">
+                    <div className="text-[10px] font-mono text-[#65A30D] uppercase tracking-wider font-bold">
                       FOUNDER &amp; CEO
                     </div>
                   </div>
                 </div>
 
                 {/* Words from Nitish Kaushal */}
-                <div className="space-y-4 p-6 sm:p-8 bg-white/5 rounded-2xl backdrop-blur-sm flex flex-col justify-between">
+                <div className="space-y-4 p-6 sm:p-8 bg-white border border-gray-200/80 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
                   <div className="space-y-4">
-                    <div className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-wider flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
-                      <span>NITISH KAUSHAL — ON CAREER ACCELERATION</span>
+                    <div className="text-xs font-mono font-bold text-[#65A30D] uppercase tracking-wider">
+                      NITISH KAUSHAL — CAREER ACCELERATION
                     </div>
-                    <p className="text-gray-300 text-sm sm:text-base font-serif italic leading-relaxed">
+                    <p className="text-gray-700 text-sm sm:text-base font-serif italic leading-relaxed">
                       “Our commitment to students goes far beyond classroom training—it is about genuine career transformation. We hold daily doubt desks, simulate tough technical interviews, and connect learners directly with 350+ corporate hiring partners who value real problem-solvers. Your growth is our singular metric of success.”
                     </p>
                   </div>
                   <div className="pt-2">
                     <div 
-                      className="text-2xl text-white select-none"
+                      className="text-2xl text-gray-900 select-none"
                       style={{ fontFamily: "'Dancing Script', cursive, serif" }}
                     >
                       Nitish Kaushal
                     </div>
-                    <div className="text-[10px] font-mono text-[#84CC16] uppercase tracking-wider">
+                    <div className="text-[10px] font-mono text-[#65A30D] uppercase tracking-wider font-bold">
                       CO-FOUNDER &amp; DIRECTOR
                     </div>
                   </div>
                 </div>
 
                 {/* Words from Meghesh Kumar */}
-                <div className="space-y-4 p-6 sm:p-8 bg-white/5 rounded-2xl backdrop-blur-sm flex flex-col justify-between">
+                <div className="space-y-4 p-6 sm:p-8 bg-white border border-gray-200/80 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
                   <div className="space-y-4">
-                    <div className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-wider flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
-                      <span>MEGHESH KUMAR — ON OFFENSIVE SECURITY &amp; DEFENSE</span>
+                    <div className="text-xs font-mono font-bold text-[#65A30D] uppercase tracking-wider">
+                      MEGHESH KUMAR — OFFENSIVE SECURITY &amp; DEFENSE
                     </div>
-                    <p className="text-gray-300 text-sm sm:text-base font-serif italic leading-relaxed">
+                    <p className="text-gray-700 text-sm sm:text-base font-serif italic leading-relaxed">
                       “In modern cybersecurity, passive textbook theory cannot stop a live zero-day breach or a stealth ransomware outbreak. Defense demands understanding the adversary—mastering packet inspection, reconnaissance, threat hunting, and defensive telemetry. At Nexxtechs, we train security engineers to think like elite ethical hackers and defend mission-critical systems with unwavering confidence.”
                     </p>
                   </div>
                   <div className="pt-2">
                     <div 
-                      className="text-2xl text-white select-none"
+                      className="text-2xl text-gray-900 select-none"
                       style={{ fontFamily: "'Dancing Script', cursive, serif" }}
                     >
                       Meghesh Kumar
                     </div>
-                    <div className="text-[10px] font-mono text-[#84CC16] uppercase tracking-wider">
+                    <div className="text-[10px] font-mono text-[#65A30D] uppercase tracking-wider font-bold">
                       FOUNDER &amp; CYBERSECURITY SPECIALIST
                     </div>
                   </div>
@@ -1126,29 +1095,29 @@ export default function AboutUsPage() {
 
               </div>
 
-              {/* 3 Core Tenets (Borderless Pills) */}
+              {/* 3 Core Tenets */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6">
-                <div className="space-y-1.5 p-5 bg-white/5 rounded-2xl backdrop-blur-sm">
-                  <div className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-wider">
+                <div className="space-y-1.5 p-5 bg-white border border-gray-200/70 rounded-2xl shadow-sm">
+                  <div className="text-xs font-mono font-bold text-[#65A30D] uppercase tracking-wider">
                     01. LIVE PROD CODE
                   </div>
-                  <p className="text-xs text-gray-400 leading-relaxed font-sans">
+                  <p className="text-xs text-gray-600 leading-relaxed font-sans">
                     Zero useless slide theory. Every concept is accompanied by live deployments on AWS, Docker &amp; Kubernetes.
                   </p>
                 </div>
-                <div className="space-y-1.5 p-5 bg-white/5 rounded-2xl backdrop-blur-sm">
-                  <div className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-wider">
+                <div className="space-y-1.5 p-5 bg-white border border-gray-200/70 rounded-2xl shadow-sm">
+                  <div className="text-xs font-mono font-bold text-[#65A30D] uppercase tracking-wider">
                     02. PRACTITIONER MENTORS
                   </div>
-                  <p className="text-xs text-gray-400 leading-relaxed font-sans">
+                  <p className="text-xs text-gray-600 leading-relaxed font-sans">
                     Taught directly by active Cloud Architects, DevOps Engineers, and AI Leads with decades of combined experience.
                   </p>
                 </div>
-                <div className="space-y-1.5 p-5 bg-white/5 rounded-2xl backdrop-blur-sm">
-                  <div className="text-xs font-mono font-bold text-[#84CC16] uppercase tracking-wider">
+                <div className="space-y-1.5 p-5 bg-white border border-gray-200/70 rounded-2xl shadow-sm">
+                  <div className="text-xs font-mono font-bold text-[#65A30D] uppercase tracking-wider">
                     03. OUTCOME OBSESSED
                   </div>
-                  <p className="text-xs text-gray-400 leading-relaxed font-sans">
+                  <p className="text-xs text-gray-600 leading-relaxed font-sans">
                     100% focused on interview conversion, package growth, and transforming students into day-one contributors.
                   </p>
                 </div>
@@ -1173,12 +1142,6 @@ export default function AboutUsPage() {
             className="flex flex-col md:flex-row md:items-end justify-between mb-10"
           >
             <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 bg-[#84CC16]" />
-                <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#65A30D]">
-                  LIFE AT NEXXTECHS
-                </span>
-              </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight">
                 Institute <span className="text-[#84CC16]">Photo Collage</span>
               </h2>
@@ -1339,12 +1302,6 @@ export default function AboutUsPage() {
             className="flex flex-col md:flex-row md:items-end justify-between mb-12"
           >
             <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 bg-[#84CC16]" />
-                <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#65A30D]">
-                  THE NEXXTECHS ADVANTAGE
-                </span>
-              </div>
               <h2 className="text-3xl sm:text-4xl font-black text-black tracking-tight">
                 Why Serious Learners Choose Nexxtechs
               </h2>
@@ -1470,12 +1427,6 @@ export default function AboutUsPage() {
             transition={{ duration: 0.5 }}
             className="max-w-3xl mb-12"
           >
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2.5 h-2.5 bg-[#84CC16]" />
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#65A30D]">
-                NCR TRAINING HUBS
-              </span>
-            </div>
             <h2 className="text-3xl sm:text-4xl font-black text-black tracking-tight">
               Our Physical Campuses
             </h2>
@@ -1596,13 +1547,6 @@ export default function AboutUsPage() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-5 space-y-6"
             >
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 bg-[#84CC16]" />
-                <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-gray-800">
-                  CAMPUS VISIT &amp; COUNSELING
-                </span>
-              </div>
-
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight leading-tight">
                 Book A Free <br />
                 <span className="text-[#84CC16]">Campus Tour</span>

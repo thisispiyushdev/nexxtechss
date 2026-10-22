@@ -193,6 +193,7 @@ export default function Header() {
       { label: "About Us", href: "/about-us" },
       { 
         label: "Industrial Training", 
+        href: "#",
         isSimpleDropdown: true,
         options: [
           { label: "Nexxtechs Noida", href: "/nexxtechs-noida", target: "_blank" },
@@ -302,7 +303,7 @@ export default function Header() {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center h-full gap-2 xl:gap-6">
             {activeNavLinks.map((link) => {
-              const isActive = location.pathname === link.href || (link.href.startsWith("/about-us") && location.pathname.startsWith("/about"));
+              const isActive = Boolean(link.href && (location.pathname === link.href || (link.href.startsWith("/about-us") && location.pathname.startsWith("/about"))));
 
               if (link.isMegaMenu) {
                 const isThisMegaMenuOpen = activeMegaMenuLabel === link.label;
@@ -437,9 +438,9 @@ export default function Header() {
               return (
                 <Link
                   key={link.label}
-                  to={link.href}
+                  to={link.href || "#"}
                   onClick={(e) => {
-                    if (link.href.startsWith('#')) {
+                    if (link.href?.startsWith('#')) {
                       e.preventDefault();
                       document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
                     }
@@ -508,16 +509,16 @@ export default function Header() {
                 );
               }
 
-              const isLinkActive = location.pathname === link.href || (link.href.startsWith("/about-us") && location.pathname.startsWith("/about"));
+              const isLinkActive = Boolean(link.href && (location.pathname === link.href || (link.href.startsWith("/about-us") && location.pathname.startsWith("/about"))));
               return (
                 <Link
                   key={link.label}
-                  to={link.href}
+                  to={link.href || "#"}
                   target={link.label === "Services" && !isServicePage ? "_blank" : undefined}
                   rel={link.label === "Services" && !isServicePage ? "noopener noreferrer" : undefined}
                   onClick={(e) => {
                     setMobileOpen(false);
-                    if (link.href.startsWith('#')) {
+                    if (link.href?.startsWith('#')) {
                       e.preventDefault();
                       document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
                     }
