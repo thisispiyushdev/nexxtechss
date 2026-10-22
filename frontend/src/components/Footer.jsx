@@ -6,11 +6,7 @@ const QUICK_LINKS = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us" },
   { label: "Courses", href: "/courses/" },
-  { label: "Our Campuses", href: "/#our-campus" },
-  { label: "Industrial Training", href: "/courses/" },
   { label: "Placements", href: "/placement/" },
-  { label: "Blog", href: "/blog/" },
-  { label: "Career Guidance", href: "/career-guidance/" },
   { label: "Contact", href: "/contact/" },
 ];
 
