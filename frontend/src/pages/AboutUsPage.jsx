@@ -803,7 +803,7 @@ export default function AboutUsPage() {
                     <div className="relative z-10 w-full h-[320px] sm:h-[350px] overflow-hidden rounded-2xl bg-white shadow-lg">
                       <img
                         src="/trainer/nitish-kaushal.png"
-                        alt="Nitish Kaushal - Co-Founder & Director of Nexxtechs"
+                        alt="Nitish Kaushal - Founder & Director of Nexxtechs"
                         width={421}
                         height={458}
                         className="w-full h-full object-cover scale-[1.14] origin-center block [filter:grayscale(100%)] hover:[filter:grayscale(0%)] group-hover:[filter:grayscale(0%)] transition-all duration-500 cursor-pointer"
@@ -816,7 +816,7 @@ export default function AboutUsPage() {
                 {/* Title & Bio */}
                 <div>
                   <div className="text-xs font-mono font-bold tracking-[0.25em] uppercase text-[#65A30D]">
-                    CO-FOUNDER &amp; DIRECTOR
+                    FOUNDER &amp; DIRECTOR
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1">
                     Nitish Kaushal
@@ -827,7 +827,7 @@ export default function AboutUsPage() {
                 </div>
 
                 <p className="text-gray-600 text-sm sm:text-[14.5px] leading-relaxed">
-                  Nitish Kaushal is the Co-Founder and Director of Nexxtechs. Guiding institutional growth, corporate partnerships, and operational excellence, he has been instrumental in establishing Nexxtechs as Delhi NCR’s leading career-oriented technology institute.
+                  Nitish Kaushal is the Founder and Director of Nexxtechs. Guiding institutional growth, corporate partnerships, and operational excellence, he has been instrumental in establishing Nexxtechs as Delhi NCR’s leading career-oriented technology institute.
                 </p>
 
                 <p className="text-gray-600 text-sm sm:text-[14.5px] leading-relaxed">
@@ -861,7 +861,7 @@ export default function AboutUsPage() {
                     Nitish Kaushal
                   </div>
                   <div className="text-[10px] font-mono tracking-[0.25em] uppercase text-gray-500 font-bold">
-                    CO-FOUNDER &amp; DIRECTOR, NEXXTECHS
+                    FOUNDER &amp; DIRECTOR, NEXXTECHS
                   </div>
                 </div>
 
@@ -1065,7 +1065,7 @@ export default function AboutUsPage() {
                       Nitish Kaushal
                     </div>
                     <div className="text-[10px] font-mono text-[#65A30D] uppercase tracking-wider font-bold">
-                      CO-FOUNDER &amp; DIRECTOR
+                      FOUNDER &amp; DIRECTOR
                     </div>
                   </div>
                 </div>
