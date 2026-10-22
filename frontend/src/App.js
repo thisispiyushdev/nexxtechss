@@ -6,7 +6,6 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import PromoBanner from "@/components/PromoBanner";
 import HeroSection from "@/components/HeroSection";
 import { prefetchHomepageData } from "@/lib/apiCache";
 
@@ -142,7 +141,6 @@ function HomePage() {
           }
         }}
       />
-      <PromoBanner />
       <HeroSection />
       <Suspense fallback={<div className="h-96" />}>
         <CoursesGrid limit={6} showMoreButton={true} />
@@ -192,7 +190,7 @@ function PublicLayout({ children }) {
   const isCoursePage = location.pathname.startsWith("/course");
 
   return (
-    <div className="min-h-screen bg-transparent transition-colors duration-300 relative z-0 overflow-x-hidden w-full max-w-[100vw]" data-testid="app-root">
+    <div className="min-h-screen bg-transparent transition-colors duration-300 relative z-0 overflow-x-clip w-full max-w-[100vw]" data-testid="app-root">
       <Header />
       <main className="relative z-10 w-full overflow-hidden">
         <Suspense fallback={<LoadingFallback />}>

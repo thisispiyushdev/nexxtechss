@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, ChevronRight, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { useTheme } from "../context/ThemeContext";
+import PromoBanner from "./PromoBanner";
 
 const LOGO_URL = "/assets/logo_black.webp";
 const LOGO_DARK_URL = "/assets/logo_white_small.webp";
@@ -274,16 +275,12 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Main Nav */}
+      {/* Main Nav (Scrolls with page) */}
       <header
-        className={`sticky top-0 z-[90] w-full transition-all duration-300 ${
-          scrolled
-            ? dark
-              ? "bg-[#0f1117]/85 backdrop-blur-xl shadow-md border-b border-white/10"
-              : "bg-white/85 backdrop-blur-xl shadow-sm border-b border-gray-200"
-            : dark
-              ? "bg-[#0f1117] border-b border-white/5"
-              : "bg-white border-b border-transparent"
+        className={`w-full relative z-[80] transition-all duration-300 ${
+          dark
+            ? "bg-[#0f1117] border-b border-white/5"
+            : "bg-white border-b border-gray-100"
         }`}
       >
         <div className="max-w-[1440px] mx-auto px-4 md:px-6 xl:px-8 flex items-center justify-between h-20 md:h-24">
@@ -557,6 +554,9 @@ export default function Header() {
           </div>
         </div>
       </header>
+
+      {/* Promo Announcement Banner */}
+      <PromoBanner />
     </>
   );
 }

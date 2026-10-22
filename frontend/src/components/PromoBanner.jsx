@@ -10,9 +10,16 @@ export default function PromoBanner() {
   const [loading, setLoading] = useState(true);
 
   const location = useLocation();
+  const isBannerPage = location.pathname === '/' || location.pathname === '/nexxtechs-noida';
   const page = location.pathname === '/nexxtechs-noida' ? 'noida' : 'home';
 
   useEffect(() => {
+    if (!isBannerPage) {
+      setBanner(null);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     cachedFetch(`${API}/content/banners/active?page=${page}`)
       .then((data) => {
@@ -26,9 +33,9 @@ export default function PromoBanner() {
         console.debug("Promo banner blocked or unavailable.");
       })
       .finally(() => setLoading(false));
-  }, [page]);
+  }, [page, isBannerPage]);
 
-  if (loading || !banner) return null;
+  if (!isBannerPage || loading || !banner) return null;
 
   const handleConnectClick = () => {
     if (banner.link_url && banner.link_url.startsWith('http')) {
@@ -44,7 +51,7 @@ export default function PromoBanner() {
     <aside 
       role="complementary"
       aria-label="Promotional Announcement"
-      className="relative z-[60] w-full py-2 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-500 ease-in-out overflow-hidden flex items-center selection:bg-red-500 selection:text-white"
+      className="sticky top-0 z-[90] w-full py-2 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-500 ease-in-out overflow-hidden flex items-center selection:bg-red-500 selection:text-white"
       style={{ backgroundColor: banner.bg_color || '#84CC16', color: banner.text_color || '#000000' }}
     >
       {/* Decorative Glow */}
