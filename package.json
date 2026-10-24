@@ -5,8 +5,9 @@
   "description": "Root package for running frontend and backend simultaneously",
   "scripts": {
     "postinstall": "npm --prefix frontend install --legacy-peer-deps",
-    "start": "npx -y concurrently \"npm --prefix frontend start\" \"npm --prefix backend run dev\"",
+    "start": "npx -y concurrently \"npm --prefix frontend start\" \"npm --prefix backend run dev\" \"npm --prefix server run dev\"",
     "dev": "npm start",
+    "dev:chatbot": "npm --prefix server run dev",
     "build": "npm --prefix frontend run build && node -e \"const fs=require('fs'); if(fs.existsSync('frontend/build')) { if(fs.existsSync('dist')) fs.rmSync('dist', {recursive:true, force:true}); fs.renameSync('frontend/build', 'dist'); }\""
   },
   "dependencies": {

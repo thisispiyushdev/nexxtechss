@@ -13,6 +13,7 @@ const NAV_LINKS = [
   { label: "About Us", href: "/about-us" },
   { label: "Courses", href: "/courses/" },
   { label: "Services", href: "/services" },
+  { label: "Career Launch", href: "/career-launch" },
   { label: "Placement", href: "/placement/" },
   { label: "Roadmap", href: "/roadmap" },
   { label: "Blog", href: "/blog/" },
@@ -209,6 +210,7 @@ export default function Header() {
       { label: "About Us", href: "/about-us?branch=noida" },
       { label: "Courses", href: "/courses-noida", isMegaMenu: true, megaMenuData: activeCoursesMegaMenuData },
       { label: "Services", href: "/services" },
+      { label: "Career Launch", href: "/career-launch" },
       { label: "Placement", href: "/placement/" },
       { label: "Roadmap", href: isNoida ? "/roadmap-noida" : "/roadmap" },
       { label: "Blog", href: "/blog/" },
@@ -300,7 +302,9 @@ export default function Header() {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center h-full gap-2 xl:gap-6">
             {activeNavLinks.map((link) => {
-              const isActive = Boolean(link.href && (location.pathname === link.href || (link.href.startsWith("/about-us") && location.pathname.startsWith("/about"))));
+              const currentPath = location.pathname.replace(/\/$/, "");
+              const linkPath = link.href?.replace(/\/$/, "");
+              const isActive = Boolean(link.href && (currentPath === linkPath || (link.href.startsWith("/about-us") && location.pathname.startsWith("/about"))));
 
               if (link.isMegaMenu) {
                 const isThisMegaMenuOpen = activeMegaMenuLabel === link.label;

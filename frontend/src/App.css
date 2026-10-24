@@ -226,3 +226,84 @@
 .link-underline:hover::after {
   width: 100%;
 }
+
+/* ---------- Call Now ribbon ---------- */
+.call-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #facc15;          /* Yellow */
+  color: #18181b;
+  padding: 6px 14px;
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 700;
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* the moving area */
+.ribbon-viewport {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ribbon-track {
+  display: inline-flex;
+  width: max-content;
+  animation: ribbon-scroll 22s linear infinite;
+}
+
+/* pause when mouse is over it */
+.ribbon-viewport:hover .ribbon-track {
+  animation-play-state: paused;
+}
+
+.ribbon-item {
+  padding-right: 48px;
+  font-size: 13.5px;
+  letter-spacing: 0.01em;
+}
+
+.ribbon-item a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* moves left by exactly half (one full copy of the content) = seamless loop */
+@keyframes ribbon-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* fixed button on the right */
+.call-btn {
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.08);          /* subtle translucent dark */
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  color: #111;
+  padding: 5px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.call-btn:hover {
+  background: rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .call-ribbon { padding: 5px 10px; gap: 8px; }
+  .ribbon-item { font-size: 12px; padding-right: 32px; }
+  .call-btn { padding: 4px 10px; font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ribbon-track { animation: none; }
+}

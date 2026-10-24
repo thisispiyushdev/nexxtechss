@@ -123,6 +123,11 @@ const ROUTES = [
     description: "Follow our step-by-step career roadmaps for Data Science, DevOps, Full Stack, and Cyber Security. Plan your tech career successfully with NexxTechs Delhi.",
   },
   {
+    path: "/career-launch",
+    title: "Career Launch – Find Your Best Tech Course | NexxTechs",
+    description: "Take our interactive 2-minute Career Launch quiz to discover your ideal IT career track, personalized curriculum, and 100% placement roadmap at NexxTechs.",
+  },
+  {
     path: "/career-guidance",
     title: "Free IT Career Guidance & Counseling | NexxTechs",
     description: "Get free IT career counseling from NexxTechs experts. Receive personalized guidance to choose the right tech course and accelerate your career in New Delhi.",

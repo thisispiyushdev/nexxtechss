@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 const EXPLORE_LINKS = [
   { label: "Our Campuses", href: "/#our-campus" },
+  { label: "Career Launch Quiz", href: "/career-launch" },
   { label: "Tech Blog & Guides", href: "/blog/" },
   { label: "Career Roadmaps", href: "/roadmap/" },
   { label: "Career Guidance & Counseling", href: "/career-guidance/" },
