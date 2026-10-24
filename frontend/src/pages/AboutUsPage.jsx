@@ -7,6 +7,7 @@ import axios from "axios";
 import { API_ROOT } from "../lib/apiConfig";
 import MathCaptcha, { useMathCaptcha } from "../components/common/MathCaptcha";
 import PhoneInputWithCountry, { validatePhone } from "../components/common/PhoneInputWithCountry";
+import WorkshopSection from "../components/WorkshopSection";
 import { 
   Linkedin, 
   Instagram, 
@@ -370,7 +371,7 @@ export default function AboutUsPage() {
           title={isNoida 
             ? "About Nexxtechs Noida – Premier IT Training Institute Sector 2 Noida" 
             : "About Us – Best IT Training Institute in Delhi & Noida | Nexxtechs"}
-          description="Learn about Nexxtechs, premier technology training institute in Delhi NCR founded by Aditya Sharma, Nitish Kaushal, and Meghesh Kumar. Explore our vision, founder words, industry labs, and real-world pedagogy."
+          description="Learn about Nexxtechs, premier technology training institute in Delhi NCR founded by Aditya Sharma, Nitish Kaushal, and Meghesh Kumar. Explore our vision, founder words, industry labs, hands-on technical workshops, and real-world pedagogy."
           canonical={isNoida ? "/about-us?branch=noida" : "/about-us"}
           ogImage="/campus/campus-1.webp"
           keywords="About Nexxtechs, IT Training Institute Delhi, IT Training Institute Noida, Aditya Sharma Nexxtechs, Nitish Kaushal Nexxtechs, Meghesh Kumar Nexxtechs, Founder Nexxtechs, Cybersecurity Specialist, Cloud Computing Institute, DevOps Training Institute, Nexxtechs Campuses"
@@ -1287,6 +1288,11 @@ export default function AboutUsPage() {
           </AnimatePresence>
 
         </section>
+
+        {/* ============================================================== */}
+        {/* SECTION 5.5: Live Technical Workshops & Masterclasses (Collage)*/}
+        {/* ============================================================== */}
+        <WorkshopSection />
 
         {/* ============================================================== */}
         {/* SECTION 6: Core Pillars (Borderless Modern Cards)              */}
