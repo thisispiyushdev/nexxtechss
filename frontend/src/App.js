@@ -6,10 +6,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import PromoBanner from "@/components/PromoBanner";
-import CallRibbon from "@/components/CallRibbon";
-import HeroHeadingSection from "@/components/HeroHeadingSection";
-import CoursesHeroSlider from "@/components/CoursesHeroSlider";
+import HeroSection from "@/components/HeroSection";
 import { prefetchHomepageData } from "@/lib/apiCache";
 
 // Prefetch all homepage API data in parallel IMMEDIATELY (before React mounts)
@@ -147,10 +144,7 @@ function HomePage() {
           }
         }}
       />
-      <PromoBanner />
-      <CallRibbon />
-      <HeroHeadingSection />
-      <CoursesHeroSlider />
+      <HeroSection />
       <Suspense fallback={<div className="h-96" />}>
         <CoursesGrid limit={6} showMoreButton={true} />
       </Suspense>
