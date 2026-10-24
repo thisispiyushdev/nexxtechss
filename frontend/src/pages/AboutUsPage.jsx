@@ -206,20 +206,8 @@ export default function AboutUsPage() {
   const [isMegheshHovered, setIsMegheshHovered] = useState(false);
   const [isHeroHovered, setIsHeroHovered] = useState(false);
 
-  // Gallery filter & modal
+  // Gallery filter
   const [activeCategory, setActiveCategory] = useState("all");
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-
-  // Close lightbox on Escape key
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") setSelectedPhoto(null);
-    };
-    if (selectedPhoto) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedPhoto]);
 
   // Contact / Enquiry Form State
   const [form, setForm] = useState({
@@ -1189,8 +1177,7 @@ export default function AboutUsPage() {
                   exit={{ opacity: 0, scale: 0.92 }}
                   whileHover={{ y: -6, scale: 1.02 }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className={`group relative overflow-hidden rounded-3xl bg-gray-100 shadow-sm hover:shadow-2xl cursor-pointer ${item.span || ""}`}
-                  onClick={() => setSelectedPhoto(item)}
+                  className={`group relative overflow-hidden rounded-3xl bg-gray-100 shadow-sm hover:shadow-2xl ${item.span || ""}`}
                 >
                   {/* Photo with grayscale to color hover */}
                   <div className="relative aspect-[4/3] w-full h-full min-h-[220px] overflow-hidden">
@@ -1211,11 +1198,6 @@ export default function AboutUsPage() {
                       </span>
                     </div>
 
-                    {/* Zoom Icon indicator */}
-                    <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-9 h-9 rounded-full bg-[#84CC16] text-black flex items-center justify-center shadow-lg">
-                      <ZoomIn size={16} />
-                    </div>
-
                     {/* Bottom Content overlay */}
                     <div className="absolute bottom-0 inset-x-0 p-5 z-10 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                       <div className="text-[10px] font-mono text-gray-300 flex items-center gap-1 mb-1">
@@ -1234,58 +1216,6 @@ export default function AboutUsPage() {
               ))}
             </AnimatePresence>
           </div>
-
-          {/* Lightbox Modal for Photo Zoom */}
-          <AnimatePresence>
-            {selectedPhoto && (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[99999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
-                onClick={() => setSelectedPhoto(null)}
-              >
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ type: "spring", damping: 25, stiffness: 350 }}
-                  className="relative max-w-4xl max-h-[90vh] flex flex-col w-full bg-white rounded-3xl overflow-hidden shadow-2xl"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <button
-                    onClick={() => setSelectedPhoto(null)}
-                    className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/80 text-white hover:bg-[#84CC16] hover:text-black flex items-center justify-center transition-colors cursor-pointer shadow-lg"
-                    aria-label="Close modal"
-                  >
-                    <X size={20} />
-                  </button>
-
-                  <div className="relative w-full max-h-[60vh] bg-black flex items-center justify-center overflow-hidden">
-                    <img
-                      src={selectedPhoto.src}
-                      alt={selectedPhoto.title}
-                      className="max-h-[60vh] w-auto max-w-full object-contain"
-                    />
-                  </div>
-
-                  <div className="p-6 sm:p-7 bg-white space-y-2 shrink-0">
-                    <div className="flex items-center gap-2 text-xs font-mono text-[#65A30D] font-bold uppercase tracking-wider">
-                      <span>{selectedPhoto.categoryLabel}</span>
-                      <span>•</span>
-                      <span>{selectedPhoto.location}</span>
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-black text-black">
-                      {selectedPhoto.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                      {selectedPhoto.description}
-                    </p>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
 
         </section>
 

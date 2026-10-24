@@ -1,6 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import React, { memo } from "react";
 
 // Featured NexxTechs Certificate
 const NEXXTECHS_CERTIFICATE = {
@@ -48,27 +46,6 @@ const GLOBAL_CERTIFICATES = [
 ];
 
 const CertificatesSection = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  // Close modal on ESC key
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setSelectedImage(null);
-      }
-    };
-    if (selectedImage) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedImage]);
-
   return (
     <section 
       id="certifications"
@@ -114,11 +91,7 @@ const CertificatesSection = () => {
         {/* 1. TOP: NEXXTECHS OFFICIAL CERTIFICATE                         */}
         {/* ============================================================== */}
         <div className="max-w-3xl mx-auto mb-12 sm:mb-14">
-          <div
-            onClick={() => setSelectedImage(NEXXTECHS_CERTIFICATE.image)}
-            className="group relative rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 bg-white dark:bg-[#13151f] shadow-lg hover:shadow-2xl hover:border-[#84CC16]/50 transition-all duration-300 hover:scale-[1.01] cursor-pointer"
-            title="Click to expand NexxTechs Certificate"
-          >
+          <div className="group relative rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 bg-white dark:bg-[#13151f] shadow-lg hover:shadow-xl hover:border-[#84CC16]/50 transition-all duration-300">
             <img
               src={NEXXTECHS_CERTIFICATE.image}
               alt={NEXXTECHS_CERTIFICATE.alt}
@@ -135,9 +108,7 @@ const CertificatesSection = () => {
           {GLOBAL_CERTIFICATES.map((cert) => (
             <div
               key={cert.id}
-              onClick={() => setSelectedImage(cert.image)}
-              className="group relative rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 bg-white dark:bg-[#13151f] shadow-sm hover:shadow-xl hover:border-[#84CC16]/50 transition-all duration-300 hover:scale-105 cursor-pointer flex items-center justify-center aspect-[16/11]"
-              title={`Click to expand ${cert.certName}`}
+              className="group relative rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 bg-white dark:bg-[#13151f] shadow-sm hover:shadow-lg hover:border-[#84CC16]/50 transition-all duration-300 flex items-center justify-center aspect-[16/11]"
             >
               <img
                 src={cert.image}
@@ -151,40 +122,6 @@ const CertificatesSection = () => {
 
       </div>
 
-      {/* Lightbox Preview Modal */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md cursor-zoom-out"
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="relative max-w-5xl max-h-[92vh] bg-white dark:bg-[#13151f] p-2 sm:p-4 rounded-2xl shadow-2xl border border-gray-200 dark:border-white/15 cursor-default"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setSelectedImage(null)}
-                className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 p-2 bg-white dark:bg-[#1f2230] text-gray-900 dark:text-white rounded-full shadow-xl hover:scale-110 transition-transform cursor-pointer border border-gray-200 dark:border-white/15 z-10"
-                aria-label="Close modal"
-              >
-                <X size={20} />
-              </button>
-              <img
-                src={selectedImage}
-                alt="Certificate Preview"
-                className="max-h-[82vh] w-auto max-w-full object-contain rounded-xl"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };

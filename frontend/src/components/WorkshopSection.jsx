@@ -1,19 +1,12 @@
-import React, { useState, useEffect, memo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { memo } from "react";
+import { motion } from "framer-motion";
 import { 
   Sparkles, 
   MapPin, 
   Users, 
   Terminal, 
-  ShieldCheck, 
   Zap, 
-  Award, 
-  Maximize2, 
-  X, 
-  CheckCircle2, 
-  ArrowRight,
-  Calendar,
-  Layers
+  Award
 } from "lucide-react";
 
 // 5 Real Workshop Photos with descriptive SEO metadata
@@ -99,27 +92,6 @@ const WORKSHOP_HIGHLIGHTS = [
 ];
 
 const WorkshopSection = ({ className = "" }) => {
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-
-  // Keyboard navigation for lightbox
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setSelectedPhoto(null);
-      }
-    };
-    if (selectedPhoto) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedPhoto]);
-
   return (
     <section 
       id="technical-workshops" 
@@ -212,9 +184,7 @@ const WorkshopSection = ({ className = "" }) => {
               key={photo.id}
               whileHover={{ y: -4 }}
               transition={{ duration: 0.3 }}
-              onClick={() => setSelectedPhoto(photo)}
-              className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-gray-200/80 dark:border-white/10 bg-gray-100 dark:bg-[#13151f] shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer ${photo.span}`}
-              title={`Click to expand ${photo.title}`}
+              className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-gray-200/80 dark:border-white/10 bg-gray-100 dark:bg-[#13151f] shadow-md hover:shadow-xl transition-all duration-300 ${photo.span}`}
             >
               {/* Photo Image */}
               <div className="relative w-full h-full min-h-[220px] overflow-hidden">
@@ -233,11 +203,6 @@ const WorkshopSection = ({ className = "" }) => {
                   <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-black/75 backdrop-blur-md text-[#84CC16] border border-[#84CC16]/30 shadow-sm">
                     {photo.tag}
                   </span>
-                </div>
-
-                {/* Top Right Zoom Icon */}
-                <div className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/60 group-hover:bg-[#84CC16] text-white group-hover:text-black backdrop-blur-md flex items-center justify-center transition-all duration-300 shadow-md">
-                  <Maximize2 size={15} />
                 </div>
 
                 {/* Bottom Content Overlay */}
@@ -289,66 +254,6 @@ const WorkshopSection = ({ className = "" }) => {
         </div>
 
       </div>
-
-      {/* ============================================================== */}
-      {/* HIGH-DEFINITION LIGHTBOX MODAL VIEWER                         */}
-      {/* ============================================================== */}
-      <AnimatePresence>
-        {selectedPhoto && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedPhoto(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md cursor-zoom-out"
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              transition={{ duration: 0.2 }}
-              className="relative max-w-5xl max-h-[92vh] w-full bg-white dark:bg-[#13151f] rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-white/10 cursor-default flex flex-col"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Close Button */}
-              <button
-                onClick={() => setSelectedPhoto(null)}
-                className="absolute top-4 right-4 z-20 p-2.5 bg-black/75 hover:bg-[#84CC16] text-white hover:text-black rounded-full transition-colors cursor-pointer shadow-lg"
-                aria-label="Close modal"
-              >
-                <X size={18} />
-              </button>
-
-              {/* Modal Image Box */}
-              <div className="relative w-full max-h-[65vh] bg-black flex items-center justify-center overflow-hidden">
-                <img
-                  src={selectedPhoto.src}
-                  alt={selectedPhoto.title}
-                  className="max-h-[65vh] w-auto max-w-full object-contain"
-                />
-              </div>
-
-              {/* Modal Info Footer */}
-              <div className="p-6 bg-white dark:bg-[#13151f] space-y-2 border-t border-gray-200 dark:border-white/10">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#65A30D] dark:text-[#84CC16] uppercase tracking-wider">
-                  <span>{selectedPhoto.category}</span>
-                  <span>•</span>
-                  <span>{selectedPhoto.location}</span>
-                </div>
-                
-                <h3 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">
-                  {selectedPhoto.title}
-                </h3>
-
-                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                  {selectedPhoto.description}
-                </p>
-              </div>
-
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
     </section>
   );
