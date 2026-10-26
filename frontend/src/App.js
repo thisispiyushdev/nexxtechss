@@ -63,7 +63,6 @@ const RoadmapPage = lazy(() => import("@/pages/RoadmapPage"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const CareerGuidancePage = lazy(() => import("@/pages/CareerGuidancePage"));
 const CareerLaunchPage = lazy(() => import("@/pages/CareerLaunchPage"));
-const CareerLaunchSection = lazy(() => import("@/components/CareerLaunch/CareerLaunchSection"));
 const ContactPage = lazy(() => import("@/pages/ContactPage"));
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 const AdminLogin = lazy(() => import("@/pages/admin/AdminLogin"));
@@ -171,9 +170,6 @@ function HomePage() {
           <StudentProjects />
         </Suspense>
         <Suspense fallback={null}>
-          <CareerLaunchSection isEmbedded={true} />
-        </Suspense>
-        <Suspense fallback={null}>
           <PlacementSuccess />
         </Suspense>
         <Suspense fallback={null}>
@@ -241,6 +237,7 @@ function AnimatedRoutes() {
       <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
       <Route path="/service-enquiry" element={<ServiceEnquiryPage />} />
       <Route path="/career-launch" element={<CareerLaunchPage />} />
+      <Route path="/career-launch-noida" element={<CareerLaunchPage />} />
       <Route path="/placement" element={<PlacementPage />} />
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/blog/:id" element={<BlogPost />} />

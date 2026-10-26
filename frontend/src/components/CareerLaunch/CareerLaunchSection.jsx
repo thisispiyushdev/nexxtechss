@@ -3,9 +3,14 @@ import CareerQuiz from "./CareerQuiz";
 import CourseExplorer from "./CourseExplorer";
 import { Sparkles, Share2, Phone, MessageSquare, Check, ShieldCheck, Zap, Award } from "lucide-react";
 
-export default function CareerLaunchSection({ isEmbedded = false }) {
+export default function CareerLaunchSection({ isEmbedded = false, isNoida = false }) {
   const [preset, setPreset] = useState(null);
   const [copied, setCopied] = useState(false);
+
+  const branchPhone = isNoida ? "+91 7987059430" : "+91 9217179762";
+  const branchPhoneRaw = isNoida ? "917987059430" : "919217179762";
+  const branchCity = isNoida ? "Noida Sector 2" : "Delhi & Noida";
+  const branchName = isNoida ? "Noida" : "Delhi";
 
   const handlePick = (p) => {
     // Generate new object with timestamp so effect re-triggers if same course clicked
@@ -16,7 +21,7 @@ export default function CareerLaunchSection({ isEmbedded = false }) {
     const shareData = {
       title: "Career Launch – Find Your Best Tech Course at NexxTechs",
       text: "Take this 2-minute Career Launch quiz to discover your ideal tech specialization and 100% placement roadmap!",
-      url: window.location.origin + "/career-launch",
+      url: window.location.origin + (isNoida ? "/career-launch?branch=noida" : "/career-launch"),
     };
 
     if (navigator.share) {
@@ -53,7 +58,7 @@ export default function CareerLaunchSection({ isEmbedded = false }) {
         {/* Top Header Banner */}
         <div className="text-center max-w-4xl mx-auto mb-10 md:mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#84CC16]/10 border border-[#84CC16]/30 text-[#65A30D] dark:text-[#84CC16] text-xs font-black uppercase tracking-widest mb-4">
-            <Sparkles size={14} /> Career Launch Assessment
+            <Sparkles size={14} /> Career Launch Assessment {isNoida && "• Noida Center"}
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white tracking-tight leading-tight mb-4">
@@ -78,7 +83,7 @@ export default function CareerLaunchSection({ isEmbedded = false }) {
               <Award size={14} className="text-[#84CC16]" /> 100% Placement Assistance
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 text-xs font-semibold">
-              <ShieldCheck size={14} className="text-[#84CC16]" /> Free 1-on-1 Counseling
+              <ShieldCheck size={14} className="text-[#84CC16]" /> Free 1-on-1 Counseling ({branchCity})
             </span>
 
             <button
@@ -103,7 +108,7 @@ export default function CareerLaunchSection({ isEmbedded = false }) {
         </div>
 
         {/* The Core Quiz */}
-        <CareerQuiz preset={preset} onQuizRestart={() => setPreset(null)} />
+        <CareerQuiz preset={preset} isNoida={isNoida} onQuizRestart={() => setPreset(null)} />
 
         {/* Course Explorer */}
         <CourseExplorer onPick={handlePick} />
@@ -119,21 +124,23 @@ export default function CareerLaunchSection({ isEmbedded = false }) {
                 Still Unsure Which Domain Fits You?
               </h4>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                Talk directly with our senior industry mentors in Delhi & Noida. Free counseling session.
+                Talk directly with our senior industry mentors at {branchCity}. Free counseling session.
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3 shrink-0 w-full sm:w-auto">
             <a
-              href="tel:+919217179762"
+              href={`tel:${branchPhone}`}
               className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-black dark:bg-white text-white dark:text-black font-bold text-xs uppercase tracking-wider hover:opacity-90 transition-all"
             >
               <Phone size={14} />
-              <span>+91 9217179762</span>
+              <span>{branchPhone}</span>
             </a>
             <a
-              href="https://wa.me/919217179762?text=Hi%20NexxTechs%20Team,%20I%20need%20expert%20career%20guidance%20for%20choosing%20the%20right%20course."
+              href={`https://wa.me/${branchPhoneRaw}?text=${encodeURIComponent(
+                `Hi NexxTechs ${branchName} Team, I need expert career guidance for choosing the right course.`
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#25D366] text-white font-bold text-xs uppercase tracking-wider hover:bg-[#1EBE5D] transition-all shadow-md shadow-[#25D366]/20"

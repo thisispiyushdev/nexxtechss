@@ -210,7 +210,7 @@ export default function Header() {
       { label: "About Us", href: "/about-us?branch=noida" },
       { label: "Courses", href: "/courses-noida", isMegaMenu: true, megaMenuData: activeCoursesMegaMenuData },
       { label: "Services", href: "/services" },
-      { label: "Career Launch", href: "/career-launch" },
+      { label: "Career Launch", href: "/career-launch?branch=noida" },
       { label: "Placement", href: "/placement/" },
       { label: "Roadmap", href: isNoida ? "/roadmap-noida" : "/roadmap" },
       { label: "Blog", href: "/blog/" },

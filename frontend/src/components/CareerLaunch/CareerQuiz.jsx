@@ -67,11 +67,16 @@ function validateLead({ name, phone, email }) {
   return "";
 }
 
-export default function CareerQuiz({ preset, onQuizRestart }) {
+export default function CareerQuiz({ preset, onQuizRestart, isNoida = false }) {
   const [s, setS] = useState(EMPTY_STATE);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const quizRef = useRef(null);
+
+  const branchPhone = isNoida ? "+91 7987059430" : "+91 9217179762";
+  const branchPhoneRaw = isNoida ? "917987059430" : "919217179762";
+  const branchName = isNoida ? "Noida Sector 2 Center" : "Delhi Vikaspuri Center";
+  const branchTag = isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi";
 
   // Jump into the quiz when a course is clicked in the explorer
   useEffect(() => {
@@ -139,7 +144,7 @@ export default function CareerQuiz({ preset, onQuizRestart }) {
           phone: payload.phone,
           email: payload.email,
           course_interested: payload.course_interested,
-          branch: "Delhi / Noida",
+          branch: branchTag,
           message: payload.message,
         });
       } catch (apiErr) {
@@ -559,7 +564,7 @@ export default function CareerQuiz({ preset, onQuizRestart }) {
 
             {/* Counsellor Callback Notice */}
             <div className="p-4 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
-              Our lead career counselor will reach out to you at{" "}
+              Our lead career counselor at <strong className="text-gray-900 dark:text-white font-bold">{branchName}</strong> will reach out to you at{" "}
               <strong className="text-gray-900 dark:text-white font-bold">{s.lead.phone}</strong> with
               your personalized course curriculum and batch timings.
             </div>
@@ -567,8 +572,8 @@ export default function CareerQuiz({ preset, onQuizRestart }) {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
               <a
-                href={`https://wa.me/919217179762?text=${encodeURIComponent(
-                  `Hi NexxTechs Team, I just completed the Career Launch assessment for ${activeCourseObj.name} (${currentDomain.name}). I would like to get the detailed course syllabus and fee details.`
+                href={`https://wa.me/${branchPhoneRaw}?text=${encodeURIComponent(
+                  `Hi ${branchName} Team, I just completed the Career Launch assessment for ${activeCourseObj.name} (${currentDomain.name}). I would like to get the detailed course syllabus and fee details.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -579,11 +584,11 @@ export default function CareerQuiz({ preset, onQuizRestart }) {
               </a>
 
               <a
-                href="tel:+919217179762"
+                href={`tel:${branchPhone}`}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-black dark:bg-white text-white dark:text-black font-bold text-sm hover:opacity-90 transition-all hover:-translate-y-0.5"
               >
                 <Phone size={16} />
-                <span>Call Counselor Now</span>
+                <span>Call Counselor ({branchPhone})</span>
               </a>
 
               <button

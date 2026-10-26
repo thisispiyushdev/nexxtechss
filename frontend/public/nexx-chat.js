@@ -131,8 +131,9 @@
 
     /* Body */
     ".nxc-body{flex:1;overflow-y:auto;padding:16px;background:#f8fafc;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}" +
-    ".nxc-row{display:flex;align-items:flex-end;gap:8px;max-width:92%}" +
+    ".nxc-row{display:flex;align-items:flex-end;gap:8px;max-width:92%;scroll-margin-top:12px}" +
     ".nxc-row.bot{align-self:flex-start}" +
+    ".nxc-row.user{align-self:flex-end;margin-left:auto}" +
     ".nxc-bot-avatar{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--c);object-fit:cover;flex-shrink:0;margin-bottom:2px;box-shadow:0 0 6px rgba(132,204,22,.25)}" +
     ".nxc-m{padding:11px 15px;border-radius:16px;font-size:13.5px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}" +
     ".nxc-m.bot{background:#ffffff;color:#1e293b;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #e2e8f0;flex:1}" +
@@ -425,14 +426,15 @@
       row.appendChild(miniAvatar);
       row.appendChild(m);
       body.appendChild(row);
-      scrollDown();
-      return m;
+      return row;
     } else {
+      var row = el("div", "nxc-row user");
       var m = el("div", "nxc-m user");
       m.appendChild(formatMessageText(text));
-      body.appendChild(m);
+      row.appendChild(m);
+      body.appendChild(row);
       scrollDown();
-      return m;
+      return row;
     }
   }
 
@@ -440,10 +442,23 @@
     body.scrollTop = body.scrollHeight;
   }
 
+  function scrollToElement(elem) {
+    if (!elem) return;
+    setTimeout(function () {
+      var targetTop = elem.offsetTop - 14;
+      if (targetTop < 0) targetTop = 0;
+      try {
+        body.scrollTo({ top: targetTop, behavior: "smooth" });
+      } catch (e) {
+        body.scrollTop = targetTop;
+      }
+    }, 50);
+  }
+
   // ---------- Suggestion Chips ----------
   var chipsBox = null;
 
-  function showChips() {
+  function showChips(skipScroll) {
     if (chipsBox && chipsBox.parentNode) {
       chipsBox.parentNode.removeChild(chipsBox);
     }
@@ -451,13 +466,17 @@
     CHIPS.forEach(function (c) {
       var b = el("button", "nxc-chip", c);
       b.type = "button";
-      b.addEventListener("click", function () {
+      b.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
         send(c);
       });
       chipsBox.appendChild(b);
     });
     body.appendChild(chipsBox);
-    scrollDown();
+    if (!skipScroll) {
+      scrollDown();
+    }
   }
 
   function typing(on) {
@@ -880,18 +899,20 @@
       .then(function (res) {
         typing(false);
         var reply = (res.ok && res.j && res.j.reply) ? res.j.reply : getKnowledgeReply(text);
-        addMsg("bot", reply);
+        var botRow = addMsg("bot", reply);
         history.push({ role: "assistant", content: reply });
         save();
-        showChips(); // Always re-show suggestions so user can easily tap options!
+        showChips(true); // Re-render suggestion chips without jumping to bottom
+        scrollToElement(botRow); // Stay right at the beginning of the course response!
       })
       .catch(function () {
         typing(false);
         var reply = getKnowledgeReply(text);
-        addMsg("bot", reply);
+        var botRow = addMsg("bot", reply);
         history.push({ role: "assistant", content: reply });
         save();
-        showChips();
+        showChips(true);
+        scrollToElement(botRow);
       })
       .then(function () {
         clearTimeout(timer);

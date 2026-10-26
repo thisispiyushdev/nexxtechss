@@ -9,12 +9,17 @@ import PhoneInputWithCountry, { validatePhone } from "./common/PhoneInputWithCou
 
 const API = API_ROOT;
 
-export default function CounselorContact() {
+export default function CounselorContact({ isNoida = false }) {
   const [form, setForm] = useState({ name: "", phone: "" });
   const [countryCode, setCountryCode] = useState("+91");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+
+  const branchPhone = isNoida ? "+91 7987059430" : "+91 9217179762";
+  const branchPhoneRaw = isNoida ? "917987059430" : "919217179762";
+  const branchTag = isNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi";
+  const branchCity = isNoida ? "Noida Sector 2" : "Delhi Vikaspuri";
 
   const {
     problem: mathProblem,
@@ -53,16 +58,16 @@ export default function CounselorContact() {
     setError("");
     setLoading(true);
     
-    // We send 'Career Counseling' as the course interested
-    const payload = { ...form, phone: phoneVal.cleanPhone, course_interested: "Career Counseling", branch: "Nexxtechs Delhi" };
+    // Send branch specific payload
+    const payload = { ...form, phone: phoneVal.cleanPhone, course_interested: "Career Counseling", branch: branchTag };
     
     try {
       const response = await axios.post(`${API}/enquiry`, payload);
       
       if (response.status === 201 || response.status === 200) {
         setSubmitted(true);
-        const msg = `New Career Counseling Lead:%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}`;
-        window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
+        const msg = `New Career Counseling Lead (${branchCity}):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}`;
+        window.open(`https://wa.me/${branchPhoneRaw}?text=${msg}`, "_blank");
         setForm({ name: "", phone: "" });
         refreshMathProblem();
       } else {
@@ -70,8 +75,8 @@ export default function CounselorContact() {
       }
     } catch (err) {
       console.error("Backend error:", err);
-      const msg = `New Career Counseling Lead (Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}`;
-      window.open(`https://wa.me/919217179762?text=${msg}`, "_blank");
+      const msg = `New Career Counseling Lead (Backup - ${branchCity}):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}`;
+      window.open(`https://wa.me/${branchPhoneRaw}?text=${msg}`, "_blank");
       
       setError("Note: Enquiry submitted via WhatsApp. Database storage unavailable.");
       setSubmitted(true);
@@ -92,13 +97,13 @@ export default function CounselorContact() {
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div>
               <span className="inline-block px-3 py-1 bg-[#84CC16]/20 text-[#65A30D] dark:text-[#84CC16] text-xs font-bold uppercase tracking-wider rounded-full mb-4">
-                Talk to an Expert
+                Talk to an Expert • {branchCity}
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] dark:text-white mb-4 leading-tight">
                 Get Free <span className="text-[#84CC16]">Career Counseling</span>
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">
-                Not sure which path to take? Leave your details and our expert counselor will call you directly to guide your career.
+                Not sure which path to take? Leave your details and our expert counselor at our {branchCity} center will call you directly to guide your career.
               </p>
               
               <div className="flex items-center gap-4 text-[#111827] dark:text-gray-300">
@@ -106,8 +111,8 @@ export default function CounselorContact() {
                   <Phone size={18} className="text-[#84CC16]" />
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500">Call us directly</div>
-                  <div className="font-semibold">+91 9217179762</div>
+                  <div className="text-sm text-gray-500">Call us directly ({branchCity})</div>
+                  <a href={`tel:${branchPhone}`} className="font-semibold text-gray-900 dark:text-white hover:text-[#84CC16] transition-colors">{branchPhone}</a>
                 </div>
               </div>
             </div>

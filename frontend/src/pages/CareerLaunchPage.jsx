@@ -5,28 +5,75 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import CareerLaunchSection from "../components/CareerLaunch/CareerLaunchSection";
 import WhyChooseUs from "../components/WhyChooseUs";
 import CounselorContact from "../components/CounselorContact";
-import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Map, GraduationCap } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ArrowRight, BookOpen, Map, GraduationCap, MapPin } from "lucide-react";
 
 export default function CareerLaunchPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const branchParam = (searchParams.get("branch") || "").toLowerCase();
+
+  const isNoida =
+    location.pathname.toLowerCase().includes("noida") ||
+    branchParam.includes("noida") ||
+    location.search.toLowerCase().includes("noida") ||
+    (typeof document !== "undefined" && (document.referrer || "").toLowerCase().includes("noida"));
+
   return (
     <PageTransition>
       <SEOHead
-        title="Career Launch – Find Your Best Tech Course | NexxTechs"
-        description="Take our interactive 2-minute Career Launch quiz to discover your ideal IT career track, personalized curriculum, and 100% placement roadmap at NexxTechs."
-        canonical="/career-launch"
+        title={isNoida ? "Career Launch – Find Your Best Tech Course in Noida | NexxTechs" : "Career Launch – Find Your Best Tech Course | NexxTechs"}
+        description={isNoida ? "Take our interactive 2-minute Career Launch quiz to discover your ideal IT career track, personalized curriculum, and 100% placement roadmap at NexxTechs Noida Sector 2." : "Take our interactive 2-minute Career Launch quiz to discover your ideal IT career track, personalized curriculum, and 100% placement roadmap at NexxTechs."}
+        canonical={isNoida ? "/career-launch-noida" : "/career-launch"}
       />
-      <Breadcrumbs items={[{ name: "Career Launch", path: "/career-launch" }]} />
+      <Breadcrumbs items={[{ name: "Career Launch", path: isNoida ? "/career-launch?branch=noida" : "/career-launch" }]} />
+
+      {/* Dynamic Branch Switcher Tab */}
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
+          <MapPin size={14} className="text-[#84CC16]" />
+          <span>Active Center Details:</span>
+          <span className="font-bold text-gray-900 dark:text-white">
+            {isNoida ? "Noida Sector 2 (B-136 Upper, Sector 2)" : "Delhi Center (B-54 Vikaspuri)"}
+          </span>
+        </div>
+
+        <div className="inline-flex items-center p-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-inner">
+          <button
+            type="button"
+            onClick={() => navigate("/career-launch")}
+            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
+              !isNoida
+                ? "bg-[#84CC16] text-black shadow-md shadow-[#84CC16]/20"
+                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            }`}
+          >
+            Delhi Vikaspuri
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/career-launch?branch=noida")}
+            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
+              isNoida
+                ? "bg-[#84CC16] text-black shadow-md shadow-[#84CC16]/20"
+                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            }`}
+          >
+            Noida Sector 2
+          </button>
+        </div>
+      </div>
 
       <div className="min-h-screen">
         {/* Main Career Launch Assessment & Course Explorer */}
-        <CareerLaunchSection isEmbedded={false} />
+        <CareerLaunchSection isEmbedded={false} isNoida={isNoida} />
 
         {/* Why NexxTechs Training */}
         <WhyChooseUs />
 
         {/* Direct Counselor Consultation */}
-        <CounselorContact />
+        <CounselorContact isNoida={isNoida} />
 
         {/* Internal Links Exploration Section */}
         <section className="py-16 bg-transparent">
