@@ -6,10 +6,7 @@ const QUICK_LINKS = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us" },
   { label: "Courses", href: "/courses/" },
-  { label: "Services", href: "/services" },
-  { label: "Career Launch", href: "/career-launch" },
   { label: "Placements", href: "/placement/" },
-  { label: "Blog", href: "/blog/" },
   { label: "Contact", href: "/contact/" },
 ];
 
@@ -17,7 +14,7 @@ const RESOURCES = [
   { label: "Our Campuses", href: "/#our-campus" },
   { label: "Tech Blog", href: "/blog/" },
   { label: "Career Roadmaps", href: "/roadmap/" },
-  { label: "Career Launch Quiz", href: "/career-launch" },
+  { label: "Career Launch", href: "/career-launch" },
   { label: "Career Guidance", href: "/career-guidance/" },
   { label: "Privacy Policy", href: "/privacy-policy/" },
 ];
@@ -266,7 +263,7 @@ export default function Footer() {
                     <Link
                       to={link.label === "Contact" ? (isNoida ? "/contact-noida" : "/contact/") : link.href}
                       onClick={scrollToTop}
-                      className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors"
+                      className="text-gray-400 text-sm hover:text-[#84CC16] transition-colors whitespace-nowrap block"
                     >
                       {link.label}
                     </Link>

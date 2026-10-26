@@ -30,7 +30,7 @@ export default function CareerLaunchPage() {
 
         {/* Internal Links Exploration Section */}
         <section className="py-16 bg-transparent">
-          <div className="max-w-6xl mx-auto px-6">
+          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
               Continue Exploring <span className="text-[#84CC16]">NexxTechs</span>
             </h2>

@@ -31,7 +31,7 @@ export default function CourseExplorer({ onPick }) {
   const activeDomain = getDomain(activeDomainId) || DOMAINS[0];
 
   return (
-    <section id="career-explorer" className="w-full max-w-5xl mx-auto mt-16 scroll-mt-28" data-testid="course-explorer">
+    <section id="career-explorer" className="w-full max-w-[1360px] mx-auto mt-16 scroll-mt-28" data-testid="course-explorer">
       {/* Section Header */}
       <div className="text-center mb-8">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#84CC16]/10 text-[#65A30D] dark:text-[#84CC16] text-xs font-bold uppercase tracking-wider mb-2">
@@ -48,7 +48,7 @@ export default function CourseExplorer({ onPick }) {
       {/* Explorer Container */}
       <div className="bg-white dark:bg-[#121212] border border-gray-200 dark:border-white/10 rounded-3xl overflow-hidden shadow-xl dark:shadow-2xl grid grid-cols-1 md:grid-cols-12 min-h-[460px]">
         {/* Domain Navigation - Left Sidebar (Desktop) / Horizontal Tabs (Mobile) */}
-        <div className="md:col-span-4 bg-gray-50/70 dark:bg-[#161616] border-b md:border-b-0 md:border-r border-gray-200 dark:border-white/10 p-4 md:p-6 flex flex-col justify-between">
+        <div className="md:col-span-4 lg:col-span-3 bg-gray-50/70 dark:bg-[#161616] border-b md:border-b-0 md:border-r border-gray-200 dark:border-white/10 p-4 md:p-6 flex flex-col justify-between">
           <div>
             <div className="hidden md:block text-[11px] font-bold text-gray-400 uppercase tracking-widest px-3 mb-3">
               SELECT TECH DOMAIN
@@ -101,7 +101,7 @@ export default function CourseExplorer({ onPick }) {
         </div>
 
         {/* Courses Panel - Right Side */}
-        <div className="md:col-span-8 p-6 md:p-8 flex flex-col justify-between">
+        <div className="md:col-span-8 lg:col-span-9 p-6 md:p-8 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between border-b border-gray-100 dark:border-white/5 pb-4 mb-6">
               <div>
@@ -118,7 +118,7 @@ export default function CourseExplorer({ onPick }) {
             </div>
 
             {/* Courses Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {activeDomain.courses.map((c) => (
                 <button
                   key={c.name}

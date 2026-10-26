@@ -184,9 +184,9 @@ export default function CareerQuiz({ preset, onQuizRestart }) {
   const firstName = s.lead.name ? s.lead.name.trim().split(" ")[0] : "Future Tech Leader";
 
   return (
-    <div ref={quizRef} className="w-full max-w-4xl mx-auto scroll-mt-28" data-testid="career-quiz">
+    <div ref={quizRef} className="w-full max-w-[1360px] mx-auto scroll-mt-28" data-testid="career-quiz">
       {/* Quiz Card Shell */}
-      <div className="bg-white dark:bg-[#121212] border border-gray-200 dark:border-white/10 rounded-3xl p-6 md:p-10 shadow-xl dark:shadow-2xl relative overflow-hidden transition-all duration-300">
+      <div className="bg-white dark:bg-[#121212] border border-gray-200 dark:border-white/10 rounded-3xl p-6 md:p-10 lg:p-12 shadow-xl dark:shadow-2xl relative overflow-hidden transition-all duration-300">
         {/* Glow Accent */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-[#84CC16]/10 rounded-full blur-[100px] pointer-events-none" />
 
@@ -288,7 +288,7 @@ export default function CareerQuiz({ preset, onQuizRestart }) {
             <div className="text-xs font-bold text-[#84CC16] uppercase tracking-wider mb-2">
               Showing courses in {currentDomain.name}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {currentDomain.courses.map((c) => {
                 const selected = s.course === c.name;
                 return (
@@ -339,7 +339,7 @@ export default function CareerQuiz({ preset, onQuizRestart }) {
 
         {/* STEP 3: STATUS */}
         {key === "status" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {STATUSES.map((st) => {
               const selected = s.status === st.id;
               return (
@@ -381,7 +381,7 @@ export default function CareerQuiz({ preset, onQuizRestart }) {
 
         {/* STEP 4: GOAL */}
         {key === "goal" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {GOALS.map((g) => {
               const selected = s.goal === g.id;
               return (
@@ -498,7 +498,7 @@ export default function CareerQuiz({ preset, onQuizRestart }) {
 
         {/* STEP 6: RESULT */}
         {key === "result" && currentDomain && activeCourseObj && (
-          <div className="max-w-xl mx-auto text-center space-y-6">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
             {/* Primary Recommended Match Card */}
             <div className="relative p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#84CC16]/15 to-transparent border-2 border-[#84CC16] shadow-xl text-left overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#84CC16]/20 rounded-full blur-2xl pointer-events-none" />

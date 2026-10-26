@@ -8,6 +8,7 @@ import brochureRoutes from "./routes/brochureRoutes.js";
 import roadmapRoutes from "./routes/roadmapRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import publicContentRoutes from "./routes/publicContentRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 dotenv.config();
@@ -95,6 +96,9 @@ app.use("/api/admin", adminRoutes);
 
 // Public content routes (read-only, no auth)
 app.use("/api/content", publicContentRoutes);
+
+// Nexxi AI Chatbot endpoint
+app.use("/api/chat", chatRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {

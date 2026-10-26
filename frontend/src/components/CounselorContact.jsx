@@ -82,7 +82,7 @@ export default function CounselorContact() {
 
   return (
     <section className="py-16 md:py-24 bg-transparent">
-      <div className="max-w-5xl mx-auto px-6 md:px-12">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-[#F4FCE3] dark:bg-[#1a1d27] border border-[#84CC16]/20 dark:border-white/5 rounded-3xl p-8 md:p-12 shadow-xl shadow-[#84CC16]/5 relative overflow-hidden">
           {/* Decorative Elements */}
           <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">

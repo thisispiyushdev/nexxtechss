@@ -49,9 +49,9 @@ export default function CareerLaunchSection({ isEmbedded = false }) {
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#84CC16]/5 dark:bg-[#84CC16]/10 blur-[130px] rounded-full" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Top Header Banner */}
-        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
+        <div className="text-center max-w-4xl mx-auto mb-10 md:mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#84CC16]/10 border border-[#84CC16]/30 text-[#65A30D] dark:text-[#84CC16] text-xs font-black uppercase tracking-widest mb-4">
             <Sparkles size={14} /> Career Launch Assessment
           </div>
@@ -109,7 +109,7 @@ export default function CareerLaunchSection({ isEmbedded = false }) {
         <CourseExplorer onPick={handlePick} />
 
         {/* Bottom Quick Contact Strip */}
-        <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-gray-50 dark:bg-[#151515] border border-gray-200 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+        <div className="mt-14 max-w-[1360px] mx-auto p-6 sm:p-8 rounded-3xl bg-gray-50 dark:bg-[#151515] border border-gray-200 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
           <div className="flex items-center gap-4 text-center md:text-left">
             <div className="w-12 h-12 rounded-2xl bg-[#84CC16]/10 flex items-center justify-center shrink-0 text-[#84CC16]">
               <Sparkles size={24} />
