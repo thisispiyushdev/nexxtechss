@@ -82,38 +82,58 @@ export default function PopupEnquiry() {
     validateCaptcha,
   } = useMathCaptcha();
 
+  // Keep default branch in sync with current page when popup is closed and form hasn't been submitted
   useEffect(() => {
-    if (submitted) return;
+    if (!open && !submitted) {
+      const isCurrentNoida = location.pathname.includes('noida');
+      setForm(prev => ({
+        ...prev,
+        branch: isCurrentNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi"
+      }));
+    }
+  }, [location.pathname, open, submitted]);
 
+  useEffect(() => {
     // Show popup ONCE after 15 seconds when website is opened in this session
     let timer = null;
     try {
       const alreadyShown = sessionStorage.getItem("popup_enquiry_auto_shown");
-      if (!alreadyShown && !window.location.pathname.includes('/services')) {
+      if (!alreadyShown && !window.location.pathname.includes('/services') && !submitted) {
         timer = setTimeout(() => {
           sessionStorage.setItem("popup_enquiry_auto_shown", "true");
           setOpen(true);
         }, 15000);
       }
     } catch (e) {
-      timer = setTimeout(() => {
-        setOpen(true);
-      }, 15000);
+      if (!submitted) {
+        timer = setTimeout(() => {
+          setOpen(true);
+        }, 15000);
+      }
     }
 
     const handleOpenPopup = (e) => {
       try { sessionStorage.setItem("popup_enquiry_auto_shown", "true"); } catch (err) {}
+      const isCurrentNoida = window.location.pathname.includes('noida');
+      setSubmitted(false);
+      setError("");
       if (e && e.detail) {
         setBannerTitle(e.detail.bannerTitle || "");
         setIsWhatsApp(!!e.detail.isWhatsApp);
         setEnquiryType(e.detail.type || 'course');
-        if (e.detail.serviceName) {
-          setForm(prev => ({ ...prev, course_interested: e.detail.serviceName }));
-        }
+        setForm(prev => ({
+          ...prev,
+          branch: prev.branch || (isCurrentNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi"),
+          ...(e.detail.serviceName ? { course_interested: e.detail.serviceName } : {})
+        }));
       } else {
         setBannerTitle(""); // Reset if opened normally
         setIsWhatsApp(false);
         setEnquiryType('course');
+        setForm(prev => ({
+          ...prev,
+          branch: prev.branch || (isCurrentNoida ? "Nexxtechs Noida" : "Nexxtechs Delhi")
+        }));
       }
       setOpen(true);
     };
@@ -124,6 +144,25 @@ export default function PopupEnquiry() {
       window.removeEventListener("openPopupEnquiry", handleOpenPopup);
     };
   }, [submitted]);
+
+  // Determine target WhatsApp phone number strictly based on the location selected in the form:
+  // 1. If Noida is selected in the form -> Noida WhatsApp number (917987059430)
+  // 2. If Delhi is selected in the form -> Delhi WhatsApp number (919217179762)
+  // This logic works consistently across all pages regardless of the URL the user is visiting.
+  const getWhatsAppTargetPhone = () => {
+    if (enquiryType === 'service') {
+      return "917987059430"; // Technical architect team
+    }
+    const selectedBranch = (form.branch || "").toLowerCase();
+    if (selectedBranch.includes("noida")) {
+      return "917987059430";
+    }
+    if (selectedBranch.includes("delhi")) {
+      return "919217179762";
+    }
+    // Fallback if branch is not specified
+    return location.pathname.includes('noida') ? "917987059430" : "919217179762";
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -150,6 +189,8 @@ export default function PopupEnquiry() {
       return;
     }
 
+    const waPhone = getWhatsAppTargetPhone();
+
     setError("");
     setLoading(true);
     try {
@@ -173,7 +214,6 @@ export default function PopupEnquiry() {
           const msg = enquiryType === 'service' 
             ? `New Service Lead:%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}%0AService: ${encodeURIComponent(form.course_interested)}${offerText}`
             : `New Enquiry Lead (Popup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
-          const waPhone = enquiryType === 'service' ? "917987059430" : (isNoida ? "917987059430" : "919217179762");
           window.open(`https://wa.me/${waPhone}?text=${msg}`, "_blank");
         }
       } else {
@@ -186,7 +226,6 @@ export default function PopupEnquiry() {
         const msg = enquiryType === 'service' 
             ? `New Service Lead (Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}%0AService: ${encodeURIComponent(form.course_interested)}${offerText}`
             : `New Enquiry Lead (Popup Backup):%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(phoneVal.fullPhone)}%0ACourse: ${encodeURIComponent(form.course_interested)}%0ABranch: ${encodeURIComponent(form.branch)}${offerText}`;
-        const waPhone = enquiryType === 'service' ? "917987059430" : (isNoida ? "917987059430" : "919217179762");
         window.open(`https://wa.me/${waPhone}?text=${msg}`, "_blank");
         setError("Note: Enquiry submitted via WhatsApp only.");
       } else {
@@ -206,6 +245,8 @@ export default function PopupEnquiry() {
     <Dialog open={open} onOpenChange={(isOpen) => {
       setOpen(isOpen);
       if (!isOpen) {
+        setSubmitted(false);
+        setError("");
         try { sessionStorage.setItem("popup_enquiry_auto_shown", "true"); } catch (e) {}
       }
     }}>
