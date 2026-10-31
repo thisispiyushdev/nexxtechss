@@ -530,10 +530,10 @@
       document.body.appendChild(root);
     }
   }
-  if (document.readyState === "loading") {
-    window.addEventListener("DOMContentLoaded", mountChatRoot);
-  } else {
+  if (document.body) {
     mountChatRoot();
+  } else {
+    document.addEventListener("DOMContentLoaded", mountChatRoot);
   }
 
   // Dynamic Branch UI updater

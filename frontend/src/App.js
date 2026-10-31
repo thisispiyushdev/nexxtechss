@@ -301,6 +301,21 @@ function App() {
   useEffect(() => {
     // Clear chunk reload flag on successful mount
     sessionStorage.removeItem("chunk_reload_failed");
+
+    // Ensure Nexxi chatbot widget is loaded and mounted across all routes
+    if (typeof window !== "undefined" && !window.__nexxiChatLoaded) {
+      const existingScript = document.querySelector('script[src*="nexx-chat.js"]');
+      if (!existingScript) {
+        const s = document.createElement("script");
+        s.src = "/nexx-chat.js?v=2.1.0";
+        s.dataset.api = "/api/chat";
+        s.dataset.brand = "NexxTechs";
+        s.dataset.botName = "Nexxi";
+        s.dataset.color = "#84CC16";
+        s.async = true;
+        document.body.appendChild(s);
+      }
+    }
   }, []);
 
   return (
