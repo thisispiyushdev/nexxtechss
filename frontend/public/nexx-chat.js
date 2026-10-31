@@ -176,9 +176,6 @@
     }
   }
 
-  // Prompt device location immediately
-  detectDeviceLocation();
-
   var CHIPS = [
     "📚 Sabhi Courses List",
     "📊 Data Analytics",
@@ -527,10 +524,21 @@
   panel.appendChild(foot);
   root.appendChild(panel);
   root.appendChild(fab);
-  document.body.appendChild(root);
+
+  function mountChatRoot() {
+    if (document.body && !document.body.contains(root)) {
+      document.body.appendChild(root);
+    }
+  }
+  if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", mountChatRoot);
+  } else {
+    mountChatRoot();
+  }
 
   // Dynamic Branch UI updater
   function updateBranchUI() {
+    if (!sub || !bannerLabel || !bannerLink || !waBtn || !callBtn || !footWa || !footCall) return;
     var b = getBranch();
     var isNoida = (activeBranchKey === "noida");
 
@@ -1249,4 +1257,5 @@
     });
   }
   showChips(); // Always render suggestion chips when loaded!
+  detectDeviceLocation();
 })();
