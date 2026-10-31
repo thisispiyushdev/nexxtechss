@@ -41,13 +41,22 @@ function cleanMessages(raw) {
 
 // Robust, case-insensitive, fuzzy intent and course matcher
 export function generateKnowledgeReply(userMessage, isNoida = false) {
-  const branch = isNoida ? BRANCHES.noida : BRANCHES.delhi;
-  const otherBranch = isNoida ? BRANCHES.delhi : BRANCHES.noida;
+  let branch = isNoida ? BRANCHES.noida : BRANCHES.delhi;
+  let otherBranch = isNoida ? BRANCHES.delhi : BRANCHES.noida;
   const rawQ = (userMessage || "").trim();
   const q = rawQ.toLowerCase();
 
   // Normalize: remove extra spaces and common filler punctuation
   const norm = q.replace(/[^\w\s\+\#\/]/g, " ").replace(/\s+/g, " ").trim();
+
+  // If user explicitly asks about Delhi or Noida in the message, route to that specific branch
+  if (/\b(delhi|vikaspuri|janakpuri|west\s*delhi)\b/i.test(norm)) {
+    branch = BRANCHES.delhi;
+    otherBranch = BRANCHES.noida;
+  } else if (/\b(noida|sec\s*2|sector\s*2)\b/i.test(norm)) {
+    branch = BRANCHES.noida;
+    otherBranch = BRANCHES.delhi;
+  }
 
   // 1. GREETINGS
   if (
@@ -411,23 +420,41 @@ router.post("/", async (req, res) => {
     }
 
     const latestUserText = messages[messages.length - 1].content;
-    const isNoida =
-      req.body?.isNoida === true ||
-      String(req.body?.branch || "").toLowerCase().includes("noida") ||
-      String(req.headers.referer || "").toLowerCase().includes("noida");
+    const bodyBranch = String(req.body?.branch || "").toLowerCase();
+    let isNoida = false;
+
+    if (bodyBranch === "noida" || req.body?.isNoida === true) {
+      isNoida = true;
+    } else if (bodyBranch === "delhi" || req.body?.isNoida === false) {
+      isNoida = false;
+    } else {
+      const referer = String(req.headers.referer || "").toLowerCase();
+      isNoida = referer.includes("noida");
+    }
 
     const reply = generateKnowledgeReply(latestUserText, isNoida);
     return res.json({ reply });
   } catch (err) {
     console.error("Chat router error:", err);
-    const isNoida =
-      req.body?.isNoida === true ||
-      String(req.headers.referer || "").toLowerCase().includes("noida");
+    const bodyBranch = String(req.body?.branch || "").toLowerCase();
+    const isNoida = bodyBranch === "noida" || req.body?.isNoida === true;
     const branch = isNoida ? BRANCHES.noida : BRANCHES.delhi;
     return res.json({
       reply: `NexxTechs ke courses aur free demo class ke liye hamare counselor se direct connect karein:\n📞 Call: ${branch.phone}\n💬 WhatsApp: [💬 Chat on WhatsApp](${branch.whatsappUrl})`,
     });
   }
+});
+
+// GET /api/chat/detect-location
+router.get("/detect-location", (req, res) => {
+  const city = String(req.headers["cf-ipcity"] || req.headers["x-vercel-ip-city"] || "").toLowerCase();
+  const region = String(req.headers["cf-region"] || req.headers["x-vercel-ip-country-region"] || "").toLowerCase();
+  
+  let branch = "delhi";
+  if (city.includes("noida") || city.includes("ghaziabad") || region.includes("uttar pradesh")) {
+    branch = "noida";
+  }
+  return res.json({ branch, city, region });
 });
 
 // GET /api/chat/health

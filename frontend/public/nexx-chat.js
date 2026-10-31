@@ -43,23 +43,141 @@
     },
   };
 
+  var activeBranchKey = "delhi";
+  var userManualSelected = false;
+
   function isNoidaPage() {
     try {
       var p = (window.location.pathname || "").toLowerCase();
-      var h = (window.location.href || "").toLowerCase();
-      return p.indexOf("noida") !== -1 || h.indexOf("noida") !== -1;
+      var s = (window.location.search || "").toLowerCase();
+      return p.indexOf("noida") !== -1 || s.indexOf("noida") !== -1;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function isDelhiPage() {
+    try {
+      var p = (window.location.pathname || "").toLowerCase();
+      var s = (window.location.search || "").toLowerCase();
+      return p.indexOf("delhi") !== -1 || s.indexOf("delhi") !== -1;
     } catch (e) {
       return false;
     }
   }
 
   function getBranch() {
-    return isNoidaPage() ? BRANCHES.noida : BRANCHES.delhi;
+    return BRANCHES[activeBranchKey] || BRANCHES.delhi;
   }
 
   function getOtherBranch() {
-    return isNoidaPage() ? BRANCHES.delhi : BRANCHES.noida;
+    return activeBranchKey === "noida" ? BRANCHES.delhi : BRANCHES.noida;
   }
+
+  function getDistanceKm(lat1, lon1, lat2, lon2) {
+    var R = 6371;
+    var dLat = (lat2 - lat1) * Math.PI / 180;
+    var dLon = (lon2 - lon1) * Math.PI / 180;
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  function setBranch(key, manual) {
+    if (manual) userManualSelected = true;
+    activeBranchKey = (key === "noida") ? "noida" : "delhi";
+    try {
+      sessionStorage.setItem("nexxi_selected_branch", activeBranchKey);
+    } catch(e) {}
+    updateBranchUI();
+  }
+
+  function detectDeviceLocation() {
+    if (userManualSelected) return;
+    var p = (window.location.pathname || "").toLowerCase();
+    if (p.indexOf("noida") !== -1) {
+      setBranch("noida", false);
+      return;
+    }
+    if (p.indexOf("delhi") !== -1) {
+      setBranch("delhi", false);
+      return;
+    }
+
+    if (typeof navigator !== "undefined" && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          if (userManualSelected) return;
+          var lat = pos.coords.latitude;
+          var lon = pos.coords.longitude;
+          // Vikaspuri, Delhi: 28.6366, 77.0707
+          // Sector 2, Noida: 28.5880, 77.3150
+          var dDelhi = getDistanceKm(lat, lon, 28.6366, 77.0707);
+          var dNoida = getDistanceKm(lat, lon, 28.5880, 77.3150);
+          var target = (dNoida < dDelhi) ? "noida" : "delhi";
+          setBranch(target, false);
+        },
+        function () {
+          detectIpLocation();
+        },
+        { timeout: 8000, maximumAge: 300000, enableHighAccuracy: false }
+      );
+    } else {
+      detectIpLocation();
+    }
+  }
+
+  function detectIpLocation() {
+    if (userManualSelected) return;
+    var p = (window.location.pathname || "").toLowerCase();
+    if (p.indexOf("noida") !== -1 || p.indexOf("delhi") !== -1) return;
+
+    fetch("/api/chat/detect-location")
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (userManualSelected) return;
+        if (res && (res.branch === "noida" || res.branch === "delhi")) {
+          setBranch(res.branch, false);
+        }
+      })
+      .catch(function() {
+        fetch("https://ipapi.co/json/")
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (userManualSelected) return;
+            var city = (data.city || "").toLowerCase();
+            var region = (data.region || "").toLowerCase();
+            if (city.indexOf("noida") !== -1 || city.indexOf("ghaziabad") !== -1 || region.indexOf("uttar pradesh") !== -1) {
+              setBranch("noida", false);
+            } else if (city.indexOf("delhi") !== -1 || region.indexOf("delhi") !== -1) {
+              setBranch("delhi", false);
+            }
+          })
+          .catch(function() {});
+      });
+  }
+
+  // Initial branch resolution based on route
+  if (isNoidaPage()) {
+    activeBranchKey = "noida";
+  } else if (isDelhiPage()) {
+    activeBranchKey = "delhi";
+  } else {
+    try {
+      var savedBranch = sessionStorage.getItem("nexxi_selected_branch");
+      if (savedBranch === "noida" || savedBranch === "delhi") {
+        activeBranchKey = savedBranch;
+      } else {
+        activeBranchKey = "delhi";
+      }
+    } catch(e) {
+      activeBranchKey = "delhi";
+    }
+  }
+
+  // Prompt device location immediately
+  detectDeviceLocation();
 
   var CHIPS = [
     "📚 Sabhi Courses List",
@@ -78,17 +196,18 @@
     "📞 Talk to Counselor"
   ];
 
-  var history = [];
+  var chatHistory = [];
+  var firstGreetingEl = null;
   var busy = false;
 
   try {
     var saved = JSON.parse(sessionStorage.getItem(STORE_KEY) || "[]");
-    if (Array.isArray(saved)) history = saved.slice(-20);
+    if (Array.isArray(saved)) chatHistory = saved.slice(-20);
   } catch (e) {}
 
   function save() {
     try {
-      sessionStorage.setItem(STORE_KEY, JSON.stringify(history.slice(-20)));
+      sessionStorage.setItem(STORE_KEY, JSON.stringify(chatHistory.slice(-20)));
     } catch (e) {}
   }
 
@@ -129,6 +248,13 @@
     ".nxc-hbtn{background:transparent;border:0;color:#94a3b8;width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;-webkit-tap-highlight-color:transparent}" +
     ".nxc-hbtn:hover{background:rgba(255,255,255,.12);color:#fff}" +
     ".nxc-hbtn:active{transform:scale(0.94)}" +
+
+    /* Branch Switcher Bar */
+    ".nxc-branch-bar{display:flex;align-items:center;gap:6px;padding:8px 14px;background:#0d1117;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;overflow-x:auto;-webkit-overflow-scrolling:touch}" +
+    ".nxc-branch-lbl{font-size:11px;color:#94a3b8;font-weight:700;white-space:nowrap;margin-right:2px;letter-spacing:0.02em}" +
+    ".nxc-bbtn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#cbd5e1;padding:4px 10px;border-radius:999px;font-size:11.5px;font-weight:600;cursor:pointer;transition:all .18s ease;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;-webkit-tap-highlight-color:transparent}" +
+    ".nxc-bbtn:hover{background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.3)}" +
+    ".nxc-bbtn.active{background:#84CC16;border-color:#84CC16;color:#0a1a02;font-weight:700;box-shadow:0 0 10px rgba(132,204,22,.45)}" +
 
     /* Body */
     ".nxc-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:14px;background:#f8fafc;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}" +
@@ -189,6 +315,8 @@
     ".nxc.open .nxc-fab{display:none!important}" +
     ".nxc-panel{position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:100vw!important;max-width:100vw!important;height:100vh!important;height:100dvh!important;max-height:100dvh!important;border-radius:0!important;border:none!important;box-shadow:none!important;animation:nxcSlideUp .26s cubic-bezier(.16,1,.3,1)}" +
     ".nxc-head{padding:max(12px,env(safe-area-inset-top,12px)) 12px 12px;gap:8px}" +
+    ".nxc-branch-bar{padding:6px 10px;gap:5px}" +
+    ".nxc-bbtn{padding:5px 9px;font-size:11px}" +
     ".nxc-avatar{width:38px;height:38px}" +
     ".nxc-head-info b{font-size:14px}" +
     ".nxc-head-info small{font-size:11px}" +
@@ -356,7 +484,44 @@
   foot.appendChild(footDot2);
   foot.appendChild(footCall);
 
+  // Branch switcher bar (Always visible below header)
+  var branchBar = el("div", "nxc-branch-bar");
+  var branchLabel = el("span", "nxc-branch-lbl", "Center:");
+  var branchDelhiBtn = el("button", "nxc-bbtn", "📍 Delhi (Vikaspuri)");
+  branchDelhiBtn.type = "button";
+  branchDelhiBtn.setAttribute("aria-label", "Switch to Delhi Center");
+  var branchNoidaBtn = el("button", "nxc-bbtn", "📍 Noida (Sec 2)");
+  branchNoidaBtn.type = "button";
+  branchNoidaBtn.setAttribute("aria-label", "Switch to Noida Center");
+
+  branchBar.appendChild(branchLabel);
+  branchBar.appendChild(branchDelhiBtn);
+  branchBar.appendChild(branchNoidaBtn);
+
+  branchDelhiBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (activeBranchKey === "delhi") return;
+    setBranch("delhi", true);
+    var notice = "📍 Switched to **NexxTechs Delhi (Vikaspuri) Center**.\n🏢 Address: B-54 Krishna Park, Vikaspuri, New Delhi - 110018 (Near Janakpuri West)\n📞 Call: +91 9217179762 | 💬 WhatsApp: +91 9217179762\n\nAap Delhi center ke courses, batches aur free demo class ke baare me pooch sakte hain!";
+    var r = addMsg("bot", notice);
+    chatHistory.push({ role: "assistant", content: notice });
+    save();
+    scrollToElement(r);
+  });
+
+  branchNoidaBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (activeBranchKey === "noida") return;
+    setBranch("noida", true);
+    var notice = "📍 Switched to **NexxTechs Noida (Sector 2) Center**.\n🏢 Address: B-136 Upper, Ground floor, B Block, Sector 2, Noida, UP - 201301\n📞 Call: +91 7987059430 | 💬 WhatsApp: +91 7987059430\n\nAap Noida center ke courses, batches aur free demo class ke baare me pooch sakte hain!";
+    var r = addMsg("bot", notice);
+    chatHistory.push({ role: "assistant", content: notice });
+    save();
+    scrollToElement(r);
+  });
+
   panel.appendChild(head);
+  panel.appendChild(branchBar);
   panel.appendChild(body);
   panel.appendChild(form);
   panel.appendChild(foot);
@@ -367,6 +532,8 @@
   // Dynamic Branch UI updater
   function updateBranchUI() {
     var b = getBranch();
+    var isNoida = (activeBranchKey === "noida");
+
     sub.textContent = "AI Counselor • " + b.city + " Center • Online 24/7";
     bannerLabel.textContent = b.city + " Counselor Call:";
     bannerLink.href = "tel:+" + b.phoneRaw;
@@ -376,6 +543,26 @@
     footWa.href = b.whatsappUrl;
     footCall.href = "tel:+" + b.phoneRaw;
     footCall.textContent = "Call: " + b.phone;
+
+    if (branchDelhiBtn && branchNoidaBtn) {
+      if (isNoida) {
+        branchNoidaBtn.classList.add("active");
+        branchDelhiBtn.classList.remove("active");
+      } else {
+        branchDelhiBtn.classList.add("active");
+        branchNoidaBtn.classList.remove("active");
+      }
+    }
+
+    if (chatHistory.length === 0 && firstGreetingEl) {
+      var bubble = firstGreetingEl.querySelector(".nxc-m.bot");
+      if (bubble) {
+        bubble.innerHTML = "";
+        bubble.appendChild(formatMessageText(
+          "Namaste! 👋 Main " + BOT_NAME + " hu, " + BRAND + " (" + b.city + " Center) ki AI counselor.\nNexxTechs ke sabhi courses, duration, batch timings, placement assistance ya Free Demo Class ke baare me kuch bhi puchiye!"
+        ));
+      }
+    }
   }
 
   updateBranchUI();
@@ -545,6 +732,15 @@
     var rawQ = (text || "").trim();
     var q = rawQ.toLowerCase();
     var norm = q.replace(/[^\w\s\+\#\/]/g, " ").replace(/\s+/g, " ").trim();
+
+    // If user explicitly asks about Delhi or Noida in the message, route to that specific branch
+    if (/\b(delhi|vikaspuri|janakpuri|west\s*delhi)\b/i.test(norm)) {
+      b = BRANCHES.delhi;
+      other = BRANCHES.noida;
+    } else if (/\b(noida|sec\s*2|sector\s*2)\b/i.test(norm)) {
+      b = BRANCHES.noida;
+      other = BRANCHES.delhi;
+    }
 
     // 1. GREETINGS
     if (
@@ -902,7 +1098,7 @@
 
     updateBranchUI();
     addMsg("user", text);
-    history.push({ role: "user", content: text });
+    chatHistory.push({ role: "user", content: text });
     save();
 
     input.value = "";
@@ -910,7 +1106,13 @@
     sendBtn.disabled = true;
     typing(true);
 
-    var isNoida = isNoidaPage();
+    var isNoida = (activeBranchKey === "noida");
+    if (/\b(delhi|vikaspuri|janakpuri|west\s*delhi)\b/i.test(text)) {
+      isNoida = false;
+    } else if (/\b(noida|sec\s*2|sector\s*2)\b/i.test(text)) {
+      isNoida = true;
+    }
+
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timer = setTimeout(function () {
       if (ctrl) ctrl.abort();
@@ -919,7 +1121,11 @@
     fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: history.slice(-10), isNoida: isNoida }),
+      body: JSON.stringify({
+        messages: chatHistory.slice(-10),
+        isNoida: isNoida,
+        branch: isNoida ? "noida" : "delhi",
+      }),
       signal: ctrl ? ctrl.signal : undefined,
     })
       .then(function (r) {
@@ -931,7 +1137,7 @@
         typing(false);
         var reply = (res.ok && res.j && res.j.reply) ? res.j.reply : getKnowledgeReply(text);
         var botRow = addMsg("bot", reply);
-        history.push({ role: "assistant", content: reply });
+        chatHistory.push({ role: "assistant", content: reply });
         save();
         showChips(true); // Re-render suggestion chips without jumping to bottom
         scrollToElement(botRow); // Stay right at the beginning of the course response!
@@ -940,7 +1146,7 @@
         typing(false);
         var reply = getKnowledgeReply(text);
         var botRow = addMsg("bot", reply);
-        history.push({ role: "assistant", content: reply });
+        chatHistory.push({ role: "assistant", content: reply });
         save();
         showChips(true);
         scrollToElement(botRow);
@@ -976,6 +1182,7 @@
         document.body.classList.add("nxc-locked");
         document.documentElement.classList.add("nxc-locked");
       }
+      detectDeviceLocation();
       updateBranchUI();
       showChips(); // Prominently show suggestion chips whenever opened!
       if (!isMob) {
@@ -1011,12 +1218,20 @@
   });
 
   // Track SPA navigation (React Router) to dynamically switch Delhi/Noida contact
-  window.addEventListener("popstate", updateBranchUI);
-  var origPushState = history.pushState;
+  function syncBranchFromPage() {
+    if (isNoidaPage()) {
+      setBranch("noida", false);
+    } else if (isDelhiPage() || window.location.pathname === "/") {
+      setBranch("delhi", false);
+    }
+  }
+
+  window.addEventListener("popstate", syncBranchFromPage);
+  var origPushState = window.history.pushState;
   if (typeof origPushState === "function") {
-    history.pushState = function () {
+    window.history.pushState = function () {
       var ret = origPushState.apply(this, arguments);
-      setTimeout(updateBranchUI, 100);
+      setTimeout(syncBranchFromPage, 80);
       return ret;
     };
   }
@@ -1026,9 +1241,10 @@
   var greetingMsg =
     "Namaste! 👋 Main " + BOT_NAME + " hu, " + BRAND + " (" + initialBranch.city + " Center) ki AI counselor.\nNexxTechs ke sabhi courses, duration, batch timings, placement assistance ya Free Demo Class ke baare me kuch bhi puchiye!";
 
-  addMsg("bot", greetingMsg);
-  if (history.length) {
-    history.forEach(function (m) {
+  if (!chatHistory.length) {
+    firstGreetingEl = addMsg("bot", greetingMsg);
+  } else {
+    chatHistory.forEach(function (m) {
       addMsg(m.role, m.content);
     });
   }
